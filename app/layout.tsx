@@ -37,11 +37,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${fraunces.variable} ${inter.variable} ${caveat.variable}`} style={{ overflowX: "hidden" }}>
-      <body className="font-sans" style={{ overflowX: "hidden" }}>
+    <html lang="fr" className={`${fraunces.variable} ${inter.variable} ${caveat.variable}`}>
+      <body className="font-sans">
         <AnnouncementBar />
         <Nav />
-        <main className="w-full overflow-x-hidden">{children}</main>
+        <main className="relative w-full overflow-x-clip">{children}</main>
         <Footer />
       </body>
     </html>

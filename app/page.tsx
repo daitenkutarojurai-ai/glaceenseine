@@ -1,7 +1,7 @@
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { MenuBanner } from "@/components/MenuBanner";
 import { Gallery } from "@/components/Gallery";
-import { PrivatisationTeaser } from "@/components/PrivatisationTeaser";
+import { Testimonials } from "@/components/Testimonials";
 import { Newsletter } from "@/components/Newsletter";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
       <HeroCarousel />
       <MenuBanner />
       <Gallery />
-      <PrivatisationTeaser />
+      <Testimonials />
       <Newsletter />
     </>
   );

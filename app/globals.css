@@ -4,8 +4,15 @@
 
 /* ─── Base ─────────────────────────────────────────────── */
 :root { color-scheme: light; }
-html  { scroll-behavior: smooth; overflow-x: hidden; max-width: 100vw; }
+html, body {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100vw;
+  width: 100%;
+  position: relative;
+}
 *, *::before, *::after { box-sizing: border-box; }
+/* Don't constrain next/image fill mode; only block-level standalone media */
 
 /* ─── Background — inspired by the affiche (poster)
    Soft vertical stripes like a fairground tent: warm yellow on cream.

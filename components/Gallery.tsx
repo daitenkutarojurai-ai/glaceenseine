@@ -41,24 +41,22 @@ function MiniPoll() {
     setVote(c); setTallies(next); savePoll(c, next);
   }
 
-  const total  = Object.values(tallies).reduce((a, b) => a + b, 0);
-  const pct    = (k: Choice) => Math.round((tallies[k] / total) * 100);
+  const total = Object.values(tallies).reduce((a, b) => a + b, 0);
+  const pct   = (k: Choice) => Math.round((tallies[k] / total) * 100);
 
   return (
-    <div className="flex h-full flex-col justify-between rounded-3xl bg-ink p-6 text-cream shadow-ring">
-      {/* Header */}
+    <div className="flex h-full flex-col justify-between rounded-3xl bg-ink p-5 text-cream shadow-ring sm:p-6">
       <div>
         <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-sun-300">
           <BarChart2 className="h-3.5 w-3.5" />Sondage du quai
         </p>
-        <p className="mt-2 font-display text-[17px] font-medium leading-snug text-cream">
+        <p className="mt-2 font-display text-[16px] font-medium leading-snug text-cream sm:text-[17px]">
           Si vous deviez n&apos;en choisir qu&apos;un…
         </p>
         <p className="mt-1 text-[12px] text-cream/45">On ne juge pas. Enfin, presque.</p>
       </div>
 
-      {/* Options */}
-      <div className="mt-5 space-y-2.5">
+      <div className="mt-4 space-y-2 sm:mt-5 sm:space-y-2.5">
         {OPTIONS.map((opt) => {
           const pv      = pct(opt.key);
           const isVoted = vote === opt.key;
@@ -67,7 +65,7 @@ function MiniPoll() {
               key={opt.key}
               onClick={() => pick(opt.key)}
               disabled={!!vote}
-              className={`relative w-full overflow-hidden rounded-xl border px-4 py-2.5 text-left transition ${
+              className={`relative w-full overflow-hidden rounded-xl border px-3 py-2 text-left transition sm:px-4 sm:py-2.5 ${
                 isVoted
                   ? "border-sun-300/60 ring-1 ring-sun-300/30"
                   : vote
@@ -87,7 +85,7 @@ function MiniPoll() {
                 )}
               </AnimatePresence>
               <div className="relative flex items-center justify-between gap-2">
-                <span className="flex items-center gap-2 text-[14px] font-medium text-cream">
+                <span className="flex items-center gap-2 text-[13.5px] font-medium text-cream sm:text-[14px]">
                   <span>{opt.emoji}</span>
                   {opt.label}
                   {isVoted && (
@@ -98,7 +96,7 @@ function MiniPoll() {
                 </span>
                 {vote && ready && (
                   <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                    className="text-[13px] font-bold text-cream/70">{pv} %
+                    className="text-[12.5px] font-bold text-cream/70 sm:text-[13px]">{pv} %
                   </motion.span>
                 )}
               </div>
@@ -107,13 +105,12 @@ function MiniPoll() {
         })}
       </div>
 
-      {/* Footer */}
-      <p className="mt-4 text-[11px] text-cream/30">{total} votes · résultats en temps réel</p>
+      <p className="mt-3 text-[11px] text-cream/30 sm:mt-4">{total} votes · résultats en temps réel</p>
     </div>
   );
 }
 
-/* ── Gallery ─────────────────────────────────────────── */
+/* ── Photos ──────────────────────────────────────────── */
 const PHOTOS = [
   {
     src: "/inprod.jpg",
@@ -124,7 +121,6 @@ const PHOTOS = [
     src: "/camion-patronne.jpg",
     alt: "La caravane et ses fondatrices",
     caption: "La caravane, sous les tilleuls",
-    tall: true,
   },
   {
     src: "/camion.jpg",
@@ -141,7 +137,6 @@ export function Gallery() {
       aria-labelledby="gallery-title"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        {/* Header */}
         <Reveal>
           <p className="eyebrow">Sur les quais</p>
         </Reveal>
@@ -163,70 +158,47 @@ export function Gallery() {
           </p>
         </Reveal>
 
-        {/* Bento grid: 3 photos + poll card */}
-        <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {/* 3 photos + poll */}
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-7 sm:grid-cols-2 lg:grid-cols-3">
+          {PHOTOS.map((p, i) => (
+            <motion.div
+              key={p.src}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.55, delay: i * 0.06 }}
+              className={`group relative overflow-hidden rounded-2xl bg-cream-deep shadow-soft ${
+                i === 1
+                  ? "aspect-[4/5] sm:aspect-square lg:row-span-2 lg:aspect-auto"
+                  : "aspect-[4/5] sm:aspect-square"
+              }`}
+            >
+              <Image
+                src={p.src}
+                alt={p.alt}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover transition duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
+              <p className="absolute bottom-3 left-4 right-4 text-[12px] font-medium text-cream/90 drop-shadow-sm">
+                {p.caption}
+              </p>
+            </motion.div>
+          ))}
 
-          {/* Photo 1 — inprod */}
+          {/* Poll — embedded, takes the bottom-right slot on lg, full-width on sm */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6 }}
-            className="group relative h-56 overflow-hidden rounded-2xl bg-cream-deep shadow-soft sm:h-64"
+            transition={{ duration: 0.55, delay: 0.18 }}
+            className="sm:col-span-2 lg:col-span-1"
           >
-            <Image src={PHOTOS[0].src} alt={PHOTOS[0].alt} fill sizes="(max-width: 640px) 100vw, 50vw"
-              className="object-cover transition duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent" />
-            <p className="absolute bottom-3 left-4 text-[12px] font-medium text-cream/90 drop-shadow-sm">
-              {PHOTOS[0].caption}
-            </p>
-          </motion.div>
-
-          {/* Photo 2 — camion-patronne (tall on desktop) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6, delay: 0.07 }}
-            className="group relative h-56 overflow-hidden rounded-2xl bg-cream-deep shadow-soft sm:h-64 lg:row-span-2 lg:h-auto"
-          >
-            <Image src={PHOTOS[1].src} alt={PHOTOS[1].alt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover object-[center_30%] transition duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
-            <p className="absolute bottom-3 left-4 text-[12px] font-medium text-cream/90 drop-shadow-sm">
-              {PHOTOS[1].caption}
-            </p>
-          </motion.div>
-
-          {/* Photo 3 — camion */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6, delay: 0.12 }}
-            className="group relative h-56 overflow-hidden rounded-2xl bg-cream-deep shadow-soft sm:h-64"
-          >
-            <Image src={PHOTOS[2].src} alt={PHOTOS[2].alt} fill sizes="(max-width: 640px) 100vw, 50vw"
-              className="object-cover object-top transition duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent" />
-            <p className="absolute bottom-3 left-4 text-[12px] font-medium text-cream/90 drop-shadow-sm">
-              {PHOTOS[2].caption}
-            </p>
-          </motion.div>
-
-          {/* Poll card (bottom-right slot) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.6, delay: 0.18 }}
-            className="sm:col-span-2 lg:col-span-1 lg:h-auto"
-          >
-            <div className="h-full min-h-[220px]">
+            <div className="h-full min-h-[260px]">
               <MiniPoll />
             </div>
           </motion.div>
-
         </div>
       </div>
     </section>

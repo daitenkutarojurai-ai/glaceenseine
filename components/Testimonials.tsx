@@ -41,7 +41,7 @@ export function Testimonials() {
   return (
     <section
       id="avis"
-      className="relative scroll-mt-24 overflow-hidden py-20 sm:py-32"
+      className="relative scroll-mt-24 overflow-hidden py-12 sm:py-24"
       aria-labelledby="avis-title"
     >
       {/* Background blobs */}
@@ -59,7 +59,7 @@ export function Testimonials() {
           <Reveal delay={0.05}>
             <h2
               id="avis-title"
-              className="h-display mt-2 text-3xl sm:text-5xl"
+              className="h-display mt-2 text-2xl sm:text-5xl"
             >
               Ce que disent{" "}
               <span className="font-script text-cherry">les promeneurs</span>.
