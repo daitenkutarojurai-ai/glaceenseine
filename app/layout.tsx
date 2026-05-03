@@ -17,7 +17,7 @@ const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat", display: 
 export const metadata: Metadata = {
   title: "Glaces en Seine — Glaces, crêpes & gaufres sur les quais",
   description:
-    "Glacier artisanal sur les quais de Seine à La Frette-sur-Seine. Glaces, crêpes & gaufres faites maison. Ouvert weekends & jours fériés, 14h–19h, de mai à septembre.",
+    "Glacier artisanal sur les quais de Seine à La Frette-sur-Seine. Glaces, crêpes & gaufres artisanales. Ouvert weekends & jours fériés, 14h–19h, de mai à septembre.",
   metadataBase: new URL("https://glaceenseine.fr"),
   openGraph: {
     title: "Glaces en Seine",
@@ -39,7 +39,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "FoodEstablishment",
   name: "Glaces en Seine",
-  description: "Glacier artisanal sur les quais de Seine — glaces, crêpes & gaufres faites maison.",
+  description: "Glacier artisanal sur les quais de Seine — glaces, crêpes & gaufres artisanales.",
   url: "https://glaceenseine.fr",
   servesCuisine: ["Desserts", "Glaces artisanales", "Crêpes", "Gaufres"],
   priceRange: "€",

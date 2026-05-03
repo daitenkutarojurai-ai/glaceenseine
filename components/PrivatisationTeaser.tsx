@@ -42,7 +42,7 @@ export function PrivatisationTeaser() {
                 <p className="mt-4 text-[15px] leading-relaxed text-cream/65">
                   Mariage au bord de l&apos;eau, séminaire d&apos;entreprise,
                   anniversaire mémorable — on amène la caravane, le billig chaud
-                  et les glaces maison. Vous apportez les invités.
+                  et les glaces artisanales. Vous apportez les invités.
                 </p>
               </Reveal>
               <Reveal delay={0.15}>

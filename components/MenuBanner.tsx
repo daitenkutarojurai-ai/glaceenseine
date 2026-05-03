@@ -8,8 +8,8 @@ import { ArrowRight, IceCream, Cookie, CakeSlice } from "lucide-react";
 
 const PILLS = [
   { icon: IceCream, label: "Glaces artisanales", color: "bg-rose-100 text-cherry" },
-  { icon: Cookie,   label: "Crêpes billig",       color: "bg-sun-100 text-ink" },
-  { icon: CakeSlice,label: "Gaufres minute",       color: "bg-teal-100 text-teal-700" },
+  { icon: Cookie,   label: "Crêpes",               color: "bg-sun-100 text-ink" },
+  { icon: CakeSlice,label: "Gaufres",               color: "bg-teal-100 text-teal-700" },
 ];
 
 const MENU_SRC = "/menu2.jpg";

@@ -34,7 +34,7 @@ export default function MenuPage() {
           <Reveal delay={0.06}>
             <h1 className="h-display mt-2 text-4xl text-cream sm:text-5xl">
               Trois douceurs,{" "}
-              <span className="font-script text-sun-300">faites maison</span>
+              <span className="font-script text-sun-300">artisanales</span>
             </h1>
           </Reveal>
           <Reveal delay={0.1}>

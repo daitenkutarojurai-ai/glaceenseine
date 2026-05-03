@@ -71,6 +71,7 @@ export function Footer() {
             <Heart className="h-3 w-3 text-cherry" /> sur les quais
           </div>
           <div className="flex gap-4">
+            <Link href="/mentions-legales" className="hover:text-cream">Mentions légales</Link>
             <Link href="/privatisation" className="hover:text-cream">Privatisation</Link>
             <Link href="/notre-histoire" className="hover:text-cream">Notre histoire</Link>
             <Link href="/contact" className="hover:text-cream">Contact & Avis</Link>

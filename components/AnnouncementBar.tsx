@@ -10,7 +10,7 @@ const messages = [
   { icon: Sun,      text: "Ouvert de mai à septembre · saison estivale",     href: "/#emplacement" },
   { icon: Clock,    text: "Weekends & jours fériés · 14h – 19h",              href: "/#emplacement" },
   { icon: MapPin,   text: "Face à la mairie de La Frette-sur-Seine",          href: MAPS_URL, external: true },
-  { icon: Sparkles, text: "Glaces artisanales · crêpes & gaufres maison",     href: "/menu" },
+  { icon: Sparkles, text: "Glaces artisanales · crêpes & gaufres artisanales", href: "/menu" },
 ];
 
 export function AnnouncementBar() {

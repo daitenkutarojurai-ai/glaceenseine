@@ -24,7 +24,7 @@ export async function sendMail(opts: {
   replyTo?: string;
 }) {
   const from = process.env.SMTP_FROM ?? "Glaces en Seine <noreply@glacesenseine.fr>";
-  const to   = process.env.SMTP_TO   ?? "daitenkutarojurai@gmail.com";
+  const to   = process.env.SMTP_TO   ?? "glacesenseine@gmail.com";
 
   const transport = getTransport();
   if (!transport) {

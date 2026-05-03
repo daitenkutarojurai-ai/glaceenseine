@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "./Reveal";
-import { IceCream, Cookie, CakeSlice, Star, ChevronDown, Flame, Leaf, Info } from "lucide-react";
+import { IceCream, Cookie, CakeSlice, Coffee, Star, ChevronDown, Flame, Leaf, Info } from "lucide-react";
 
 /* ── Allergen definitions ─────────────────────────────── */
 type AllergenKey = "gluten" | "lait" | "oeufs" | "noisettes" | "pistache" | "soja";
@@ -22,6 +22,7 @@ type Item = {
   desc: string;
   price: string;
   star?: boolean;
+  vegan?: boolean;
   ingredients: string;
   allergens: AllergenKey[];
   kcal: number;
@@ -54,7 +55,7 @@ const categories: Cat[] = [
       {
         name: "Vanille de Madagascar",
         desc: "Crème entière, gousse infusée 24 h",
-        price: "3 €",
+        price: "2,50 €",
         star: true,
         ingredients: "Crème entière (35 %), lait entier, jaunes d'œufs, sucre, gousse de vanille de Madagascar",
         allergens: ["lait", "oeufs"],
@@ -64,7 +65,8 @@ const categories: Cat[] = [
       {
         name: "Fraise du Vexin",
         desc: "Fruits frais, sirop léger",
-        price: "3,50 €",
+        price: "3 €",
+        vegan: true,
         ingredients: "Fraises du Vexin (75 %), sucre, jus de citron",
         allergens: [],
         kcal: 88,
@@ -73,7 +75,7 @@ const categories: Cat[] = [
       {
         name: "Pistache",
         desc: "Pâte de pistache de Bronte",
-        price: "3,50 €",
+        price: "3 €",
         ingredients: "Crème entière, lait entier, jaunes d'œufs, sucre, pâte de pistache de Bronte (IGP, Sicile)",
         allergens: ["lait", "oeufs", "pistache"],
         kcal: 220,
@@ -82,7 +84,7 @@ const categories: Cat[] = [
       {
         name: "Caramel beurre salé",
         desc: "Beurre de baratte, fleur de sel",
-        price: "3,50 €",
+        price: "3 €",
         star: true,
         ingredients: "Crème entière, lait entier, sucre, beurre de baratte (AOP Charentes-Poitou), fleur de sel de Guérande, jaunes d'œufs",
         allergens: ["lait", "oeufs"],
@@ -101,7 +103,8 @@ const categories: Cat[] = [
       {
         name: "Sorbet citron",
         desc: "Pressé minute, zeste râpé",
-        price: "3 €",
+        price: "2,50 €",
+        vegan: true,
         ingredients: "Jus de citron pressé (40 %), zeste de citron, eau, sucre",
         allergens: [],
         kcal: 78,
@@ -122,7 +125,7 @@ const categories: Cat[] = [
       {
         name: "Beurre · sucre · citron",
         desc: "Le grand classique breton",
-        price: "3 €",
+        price: "2,50 €",
         star: true,
         ingredients: "Farine de blé T45, œufs, lait entier, beurre demi-sel AOP, sucre cristal, jus de citron",
         allergens: ["gluten", "oeufs", "lait"],
@@ -149,7 +152,7 @@ const categories: Cat[] = [
         tip: "Notre caramel est cuit à 170 °C (stade caramel ambré) — c'est la réaction de Maillard et la caramélisation qui développent les 300+ composés aromatiques du caramel.",
       },
       {
-        name: "Confiture maison",
+        name: "Confiture artisanale",
         desc: "Fraise, abricot ou châtaigne",
         price: "3 €",
         ingredients: "Farine de blé, œufs, lait, beurre, confiture artisanale (fruit, sucre) — sans pectine ajoutée pour fraise et abricot",
@@ -169,7 +172,7 @@ const categories: Cat[] = [
       {
         name: "Sucre",
         desc: "Cassonade ou cristal",
-        price: "2,50 €",
+        price: "2 €",
         ingredients: "Farine de blé T45, œufs, lait entier, beurre, cassonade ou sucre cristal",
         allergens: ["gluten", "oeufs", "lait"],
         kcal: 215,
@@ -192,7 +195,7 @@ const categories: Cat[] = [
         desc: "Boule de glace, sauce chaude, chantilly",
         price: "6 €",
         star: true,
-        ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure chimique, boule de glace vanille (crème, lait, œufs, vanille), sauce chocolat (chocolat Valrhona, crème), chantilly maison",
+        ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure chimique, boule de glace vanille (crème, lait, œufs, vanille), sauce chocolat (chocolat Valrhona, crème), chantilly artisanale",
         allergens: ["gluten", "oeufs", "lait", "soja"],
         kcal: 610,
         tip: "Servir immédiatement : la sauce chocolat est versée à 65 °C, ce qui crée une zone fondue à la surface de la glace — le contraste chaud/froid est un plaisir gustatif reconnu par la psychophysique alimentaire.",
@@ -202,7 +205,7 @@ const categories: Cat[] = [
         desc: "Fraises fraîches, crème montée minute",
         price: "5 €",
         star: true,
-        ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure chimique, fraises fraîches, chantilly : crème 35 %, sucre glace, vanille",
+        ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure chimique, fraises fraîches, chantilly artisanale : crème 35 %, sucre glace, vanille",
         allergens: ["gluten", "oeufs", "lait"],
         kcal: 420,
         tip: "Les fraises sont coupées à la dernière minute — elles s'oxydent et libèrent leur jus en 5 min. La crème est montée à froid (+ 4 °C) pour une tenue de 30 min minimum.",
@@ -226,10 +229,10 @@ const categories: Cat[] = [
         tip: "Conseil : demandez-le «demi-refroidi» — on sort la gaufre 2 min avant de l'étaler, le Nutella reste coulant sans absorber dans la pâte. Texture optimale garantie.",
       },
       {
-        name: "Chantilly maison",
+        name: "Chantilly artisanale",
         desc: "Crème montée minute",
-        price: "4 €",
-        ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure chimique, chantilly maison : crème entière 35 %, sucre glace, extrait de vanille",
+        price: "3,50 €",
+        ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure chimique, chantilly artisanale : crème entière 35 %, sucre glace, extrait de vanille",
         allergens: ["gluten", "oeufs", "lait"],
         kcal: 360,
         tip: "Montée à la main à la dernière minute — jamais en bombe (N₂O). La crème entière 35 % forme des cristaux de matière grasse stables qui tiennent sans s'effondrer.",
@@ -237,11 +240,84 @@ const categories: Cat[] = [
       {
         name: "Sucre glace",
         desc: "Toute simple",
-        price: "3 €",
+        price: "2,50 €",
         ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure chimique, sucre glace (sucre, amidon de maïs)",
         allergens: ["gluten", "oeufs", "lait"],
         kcal: 280,
         tip: "L'amidon de maïs dans le sucre glace (3 %) absorbe l'humidité de la gaufre et crée une fine couche craquante. Simple et parfait pour apprécier la pâte nature.",
+      },
+    ],
+  },
+  {
+    key: "boissons",
+    label: "Boissons",
+    emoji: "🥤",
+    tagline: "Fraîcheur & réconfort — servis sur le quai",
+    icon: Coffee,
+    bg: "bg-sky-100",
+    accent: "bg-sky-200/40",
+    text: "text-sky-700",
+    items: [
+      {
+        name: "Eau minérale 50 cl",
+        desc: "Naturelle, taux de nitrates < 10 mg/L",
+        price: "1,50 €",
+        vegan: true,
+        ingredients: "Eau minérale naturelle",
+        allergens: [],
+        kcal: 0,
+        tip: "Source locale, taux de nitrates < 10 mg/L",
+      },
+      {
+        name: "Eau gazeuse 50 cl",
+        desc: "Pétillante, désaltérante",
+        price: "1,50 €",
+        vegan: true,
+        ingredients: "Eau minérale gazeuse",
+        allergens: [],
+        kcal: 0,
+        tip: "Les bulles ralentissent l'absorption du sucre — idéal après une gaufre",
+      },
+      {
+        name: "Jus de pomme",
+        desc: "Pur jus, 100 %",
+        price: "2 €",
+        vegan: true,
+        ingredients: "Jus de pomme pur jus (100 %)",
+        allergens: [],
+        kcal: 100,
+        tip: "Riche en polyphénols, bon pour la digestion après un repas sucré",
+      },
+      {
+        name: "Limonade artisanale",
+        desc: "Citron pressé minute, menthe fraîche",
+        price: "2,50 €",
+        star: true,
+        vegan: true,
+        ingredients: "Eau gazeuse, jus de citron pressé, sirop de sucre de canne, menthe",
+        allergens: [],
+        kcal: 80,
+        tip: "Préparée à la demande — le citron est pressé minute pour maximum de vitamines C",
+      },
+      {
+        name: "Café espresso",
+        desc: "Arabica torréfié, serré ou allongé",
+        price: "2 €",
+        vegan: true,
+        ingredients: "Café arabica torréfié",
+        allergens: [],
+        kcal: 5,
+        tip: "Torréfaction moyenne — idéal après les glaces, l'amertume équilibre le sucré",
+      },
+      {
+        name: "Chocolat chaud artisanal",
+        desc: "Valrhona 55 %, lait entier",
+        price: "3 €",
+        star: true,
+        ingredients: "Lait entier, chocolat Valrhona 55 %, sucre, vanille",
+        allergens: ["lait"],
+        kcal: 130,
+        tip: "Préparé avec le même chocolat Valrhona que nos glaces — cohérence de terroir",
       },
     ],
   },
@@ -254,6 +330,19 @@ function AllergenChip({ id }: { id: AllergenKey }) {
     <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold ring-1 ${m.color}`}>
       <span className={`h-1.5 w-1.5 rounded-full ${m.dot}`} />
       {m.label}
+    </span>
+  );
+}
+
+/* ── Vegan badge ────────────────────────────────────────── */
+function VeganBadge({ small = false }: { small?: boolean }) {
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full bg-green-50 font-semibold text-green-700 ring-1 ring-green-200 ${
+        small ? "px-2 py-0.5 text-[11px]" : "px-2.5 py-0.5 text-[12px]"
+      }`}
+    >
+      🌱 Vegan
     </span>
   );
 }
@@ -275,6 +364,7 @@ function ItemDetail({ item, accent }: { item: Item; accent: string }) {
             <Flame className="h-3 w-3 text-cherry" />
             ≈ {item.kcal} kcal / portion
           </span>
+          {item.vegan && <VeganBadge small />}
         </div>
 
         {/* Ingredients */}
@@ -301,6 +391,23 @@ function ItemDetail({ item, accent }: { item: Item; accent: string }) {
             <span className="text-[12px] font-medium text-teal-700">Sans allergène majeur</span>
           </div>
         )}
+
+        {/* Health labels */}
+        <div className="mb-3 flex flex-col gap-1">
+          {item.kcal > 500 && (
+            <p className="text-[12px] font-medium text-orange-600">
+              ⚠️ À déguster avec modération
+            </p>
+          )}
+          {item.vegan && (
+            <p className="text-[12px] font-medium text-green-700">
+              🌱 Convient aux régimes végétaliens
+            </p>
+          )}
+          <p className="text-[11.5px] text-ink/45">
+            Toutes les valeurs nutritionnelles sont approximatives
+          </p>
+        </div>
 
         {/* Tip */}
         <div className="flex gap-2 rounded-xl bg-cream/70 p-3">
@@ -344,7 +451,7 @@ function MenuItem({ item, cat, isLast }: { item: Item; cat: Cat; isLast: boolean
               </span>
             </div>
           </div>
-          <div className="mt-3 flex items-center gap-2">
+          <div className="mt-3 flex flex-wrap items-center gap-2">
             <span className={`text-[12px] font-medium ${cat.text}`}>
               {cat.emoji} Artisanal
             </span>
@@ -356,6 +463,7 @@ function MenuItem({ item, cat, isLast }: { item: Item; cat: Cat; isLast: boolean
                 <Leaf className="h-3 w-3" />Sans allergène
               </span>
             )}
+            {item.vegan && <VeganBadge small />}
             <motion.span
               animate={{ rotate: open ? 180 : 0 }}
               transition={{ duration: 0.25 }}
@@ -384,11 +492,12 @@ function MenuItem({ item, cat, isLast }: { item: Item; cat: Cat; isLast: boolean
         aria-expanded={open}
       >
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="font-display text-[16px] text-ink">{item.name}</span>
             {item.allergens.length === 0 && (
               <Leaf className="h-3.5 w-3.5 shrink-0 text-teal-500" />
             )}
+            {item.vegan && <VeganBadge small />}
           </div>
           <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
             <span className="text-[13px] leading-snug text-ink/55">{item.desc}</span>
@@ -438,7 +547,7 @@ export function Menu() {
         </Reveal>
         <Reveal delay={0.05}>
           <h2 id="menu-title" className="h-display mt-2 text-center text-3xl sm:text-left sm:text-5xl">
-            Trois envies,{" "}
+            Quatre envies,{" "}
             <span className="font-script text-teal-700">une caravane</span>.
           </h2>
         </Reveal>
@@ -456,6 +565,9 @@ export function Menu() {
             ))}
             <span className="inline-flex items-center gap-1 rounded-full bg-teal-50 px-2.5 py-0.5 text-[11px] font-semibold text-teal-700 ring-1 ring-teal-200">
               <Leaf className="h-2.5 w-2.5" />Sans allergène
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-0.5 text-[11px] font-semibold text-green-700 ring-1 ring-green-200">
+              🌱 Vegan
             </span>
           </div>
         </Reveal>
@@ -520,11 +632,13 @@ export function Menu() {
             )}
 
             {/* Regular */}
-            <div className="mt-4 overflow-hidden rounded-3xl bg-cream shadow-soft">
-              {rest.map((item, i) => (
-                <MenuItem key={item.name} item={item} cat={cat} isLast={i === rest.length - 1} />
-              ))}
-            </div>
+            {rest.length > 0 && (
+              <div className="mt-4 overflow-hidden rounded-3xl bg-cream shadow-soft">
+                {rest.map((item, i) => (
+                  <MenuItem key={item.name} item={item} cat={cat} isLast={i === rest.length - 1} />
+                ))}
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
 
@@ -532,7 +646,8 @@ export function Menu() {
         <Reveal delay={0.1}>
           <p className="mt-8 text-center text-[13px] text-ink/45">
             Carte indicative · parfums selon arrivages · prix susceptibles de varier ·
-            contamination croisée possible en cuisine — signalez vos allergies sévères.
+            contamination croisée possible en cuisine — signalez vos allergies sévères ·
+            Nos produits sont artisanaux, préparés sur place.
           </p>
         </Reveal>
       </div>

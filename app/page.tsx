@@ -1,5 +1,6 @@
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { MenuBanner } from "@/components/MenuBanner";
+import { WeeklyPoll } from "@/components/WeeklyPoll";
 import { Gallery } from "@/components/Gallery";
 import { Testimonials } from "@/components/Testimonials";
 import { PrivatisationTeaser } from "@/components/PrivatisationTeaser";
@@ -11,6 +12,7 @@ export default function Home() {
     <>
       <HeroCarousel />
       <MenuBanner />
+      <WeeklyPoll />
       <Gallery />
       <Testimonials />
       <PrivatisationTeaser />
