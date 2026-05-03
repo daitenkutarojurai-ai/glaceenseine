@@ -11,10 +11,17 @@ const MAPS_DIR_URL =
 
 const AUTO_DELAY = 7000;
 
-/* Mobile-only static hero — single image, no carousel chrome. */
-const MOBILE_HERO_SRC = "/Gemini_Generated_Image_x2ealnx2ealnx2ea.png";
-const MOBILE_HERO_ALT =
-  "Glaces en Seine — caravane gourmande sur les quais, version mobile";
+/* Mobile-only static carousel — two images, no autoplay (swipe + dots). */
+const MOBILE_SLIDES: { src: string; alt: string }[] = [
+  {
+    src: "/Gemini_Generated_Image_x2ealnx2ealnx2ea.png",
+    alt: "Glaces en Seine — caravane gourmande sur les quais, version mobile",
+  },
+  {
+    src: "/staticcarrousell.png",
+    alt: "Glaces en Seine — l'ambiance des quais, version mobile",
+  },
+];
 
 interface Slide {
   src: string;
@@ -128,8 +135,9 @@ export function HeroCarousel() {
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
 
   const go = useCallback((idx: number) => setCurrent(idx), []);
-  const next = useCallback(() => go((current + 1) % slides.length), [current, go]);
-  const prev = useCallback(() => go((current - 1 + slides.length) % slides.length), [current, go]);
+  const len = isMobile ? MOBILE_SLIDES.length : slides.length;
+  const next = useCallback(() => go((current + 1) % len), [current, go, len]);
+  const prev = useCallback(() => go((current - 1 + len) % len), [current, go, len]);
 
   useEffect(() => {
     if (paused || isMobile) return;
@@ -137,29 +145,32 @@ export function HeroCarousel() {
     return () => clearInterval(id);
   }, [next, paused, isMobile]);
 
-  /* Swipe support — disabled on mobile (static image). */
+  /* Swipe support — works on both mobile and desktop touch devices. */
   const [touchX, setTouchX] = useState<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => {
-    if (isMobile) return;
-    setTouchX(e.touches[0].clientX);
-  };
+  const onTouchStart = (e: React.TouchEvent) => setTouchX(e.touches[0].clientX);
   const onTouchEnd   = (e: React.TouchEvent) => {
-    if (isMobile || touchX === null) return;
+    if (touchX === null) return;
     const dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 44) dx < 0 ? next() : prev();
+    if (Math.abs(dx) > 44) {
+      const delta = dx < 0 ? 1 : -1;
+      go((current + delta + len) % len);
+    }
     setTouchX(null);
   };
 
   const slide = slides[current];
-  const heroSrc = isMobile ? MOBILE_HERO_SRC : slide.src;
-  const heroAlt = isMobile ? MOBILE_HERO_ALT : slide.alt;
-  const heroKey = isMobile ? "mobile-static" : slide.src;
+  const mobileSlide = MOBILE_SLIDES[current % MOBILE_SLIDES.length];
+  const heroSrc = isMobile ? mobileSlide.src : slide.src;
+  const heroAlt = isMobile ? mobileSlide.alt : slide.alt;
+  const heroKey = isMobile ? `m-${mobileSlide.src}` : slide.src;
   const showText = !isMobile && !slide.hideText;
+  const dotCount = isMobile ? MOBILE_SLIDES.length : slides.length;
+  const dotIndex = isMobile ? current % MOBILE_SLIDES.length : current;
 
   return (
     <section
       ref={sectionRef}
-      className="relative h-[62dvh] min-h-[440px] w-full overflow-hidden bg-cream sm:h-[78dvh] sm:min-h-[520px]"
+      className="relative h-[62dvh] min-h-[440px] w-full overflow-hidden bg-cream sm:h-[100dvh] sm:min-h-[640px]"
       aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -238,23 +249,23 @@ export function HeroCarousel() {
       ──────────────────────────────────────────────────────── */}
       <div className="relative z-10 flex h-full flex-col justify-between px-6 pb-[max(1.75rem,env(safe-area-inset-bottom))] pt-6 sm:px-10 sm:pb-10 sm:pt-8 lg:px-16">
 
-        {/* ── Top bar: dots + counter (desktop only) ── */}
-        <div className="hidden items-start justify-between sm:flex">
+        {/* ── Top bar: dots (always) + counter (desktop only) ── */}
+        <div className="flex items-start justify-between">
 
           {/* Slide indicators */}
           <div className="flex items-center gap-2 pt-1" role="tablist">
-            {slides.map((_, i) => (
+            {Array.from({ length: dotCount }).map((_, i) => (
               <button
                 key={i}
                 role="tab"
-                aria-selected={i === current}
+                aria-selected={i === dotIndex}
                 aria-label={`Slide ${i + 1}`}
                 onClick={() => go(i)}
                 className="cursor-pointer p-1.5"
               >
                 <motion.span
                   animate={
-                    i === current
+                    i === dotIndex
                       ? { width: 28, backgroundColor: "rgba(34,28,18,0.80)" }
                       : { width: 7,  backgroundColor: "rgba(34,28,18,0.28)" }
                   }
@@ -266,9 +277,9 @@ export function HeroCarousel() {
             ))}
           </div>
 
-          {/* Counter */}
-          <span className="glass rounded-full px-3 py-1 text-[11px] font-semibold tabular-nums text-ink/70">
-            {String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+          {/* Counter (desktop only) */}
+          <span className="glass hidden rounded-full px-3 py-1 text-[11px] font-semibold tabular-nums text-ink/70 sm:inline">
+            {String(dotIndex + 1).padStart(2, "0")} / {String(dotCount).padStart(2, "0")}
           </span>
         </div>
 

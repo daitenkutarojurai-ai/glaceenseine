@@ -35,7 +35,8 @@ export function MenuBanner() {
     return () => window.removeEventListener("keydown", onKey);
   }, [zoomed]);
 
-  const zoomSrc = isMobile ? MENU_SRC_MOBILE : MENU_SRC;
+  const previewSrc = isMobile ? MENU_SRC_MOBILE : MENU_SRC;
+  const zoomSrc    = isMobile ? MENU_SRC_MOBILE : MENU_SRC;
 
   return (
     <section
@@ -59,9 +60,9 @@ export function MenuBanner() {
           aria-label="Agrandir la carte Glaces en Seine"
         >
           <div className="relative overflow-hidden rounded-3xl bg-cream shadow-soft transition group-hover:shadow-ring">
-            <div className="relative aspect-[16/9] w-full">
+            <div className={`relative w-full ${isMobile ? "aspect-[3/4]" : "aspect-[16/9]"}`}>
               <Image
-                src={MENU_SRC}
+                src={previewSrc}
                 alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales sur les quais de Seine"
                 fill
                 sizes="(max-width: 1024px) 100vw, 896px"
