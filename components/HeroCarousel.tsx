@@ -16,6 +16,8 @@ interface Slide {
   alt: string;
   /** Slides whose image already contains the brand text (e.g. bannerforsection) skip the overlay text. */
   hideText?: boolean;
+  /** Wide banner images that get cropped by object-cover — render them as object-contain on cream. */
+  contain?: boolean;
   headline?: string;
   script?: string;
   sub?: string;
@@ -33,6 +35,7 @@ const slides: Slide[] = [
     src: "/bannerforsection.png",
     alt: "Glaces en Seine — la marque, la caravane et les quais",
     hideText: true,
+    contain: true,
   },
   {
     src: "/carousel3-2026.png",
@@ -137,7 +140,7 @@ export function HeroCarousel() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-ink"
+      className="relative w-full overflow-hidden bg-cream"
       style={{ height: "85dvh", minHeight: "520px" }}
       aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
@@ -170,7 +173,11 @@ export function HeroCarousel() {
               priority
               sizes="100vw"
               quality={92}
-              className="object-cover object-center"
+              className={
+                slide.contain
+                  ? "object-contain object-center"
+                  : "object-cover object-center"
+              }
             />
           </motion.div>
         </AnimatePresence>
