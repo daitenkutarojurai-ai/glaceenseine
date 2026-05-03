@@ -37,9 +37,7 @@ const slides: Slide[] = [
   {
     src: "/carousel3-2026.png",
     alt: "Glaces en Seine — venez nous retrouver entre La Frette et Cormeilles",
-    headline: "Venez nous",
-    script: "retrouver",
-    sub: "Entre La Frette-sur-Seine et Cormeilles-en-Parisis — chaque week-end.",
+    hideText: true,
   },
 ];
 
