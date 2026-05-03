@@ -24,9 +24,9 @@ export const metadata: Metadata = {
     description: "La gourmandise débarque sur les quais de Seine.",
     locale: "fr_FR",
     type: "website",
-    images: [{ url: "/imagecarrousel.png", width: 1200, height: 630, alt: "Glaces en Seine" }],
+    images: [{ url: "/logo.jpg", width: 496, height: 377, alt: "Logo Glaces en Seine" }],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: { card: "summary", images: ["/logo.jpg"] },
 };
 
 export const viewport: Viewport = {
