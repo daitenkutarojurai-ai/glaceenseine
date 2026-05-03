@@ -1,9 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowRight, IceCream, Cookie, CakeSlice, X, ZoomIn } from "lucide-react";
+import { IceCream, Cookie, CakeSlice, X, ZoomIn } from "lucide-react";
 import { WeeklyPollCard } from "./WeeklyPoll";
 
 const PILLS = [
@@ -33,21 +32,12 @@ export function MenuBanner() {
       aria-label="Notre carte"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <div className="mb-4 flex items-center justify-between gap-4 sm:mb-5">
-          <div>
-            <p className="eyebrow">La carte</p>
-            <h2 className="h-display mt-1 text-2xl sm:text-3xl">
-              Trois douceurs,{" "}
-              <span className="font-script text-cherry">une caravane</span>.
-            </h2>
-          </div>
-          <Link
-            href="/menu"
-            className="group hidden shrink-0 items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-cream shadow-soft transition hover:shadow-glow-cherry sm:inline-flex"
-          >
-            Voir tout
-            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-          </Link>
+        <div className="mb-4 sm:mb-5">
+          <p className="eyebrow">La carte</p>
+          <h2 className="h-display mt-1 text-2xl sm:text-3xl">
+            Trois douceurs,{" "}
+            <span className="font-script text-cherry">une caravane</span>.
+          </h2>
         </div>
 
         <button
@@ -74,7 +64,7 @@ export function MenuBanner() {
           </div>
         </button>
 
-        {/* Mobile pills + CTA */}
+        {/* Mobile pills */}
         <div className="mt-3 flex flex-wrap gap-2 sm:hidden">
           {PILLS.map((p) => (
             <span
@@ -85,15 +75,6 @@ export function MenuBanner() {
               {p.label}
             </span>
           ))}
-        </div>
-        <div className="mt-3 sm:hidden">
-          <Link
-            href="/menu"
-            className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-ink py-3.5 text-sm font-semibold text-cream shadow-soft"
-          >
-            Voir la carte complète
-            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-          </Link>
         </div>
 
         {/* Poll — contextuellement lié au menu */}

@@ -137,7 +137,7 @@ export function HeroCarousel() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[62dvh] min-h-[440px] w-full overflow-hidden bg-ink sm:h-[78dvh] sm:min-h-[520px]"
+      className="relative h-[62dvh] min-h-[440px] w-full overflow-hidden bg-cream sm:h-[78dvh] sm:min-h-[520px]"
       aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -169,7 +169,7 @@ export function HeroCarousel() {
               priority
               sizes="100vw"
               quality={92}
-              className="object-cover object-center"
+              className="object-contain object-center"
             />
           </motion.div>
         </AnimatePresence>
