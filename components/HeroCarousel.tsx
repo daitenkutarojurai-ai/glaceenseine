@@ -11,6 +11,11 @@ const MAPS_DIR_URL =
 
 const AUTO_DELAY = 7000;
 
+/* Mobile-only static hero — single image, no carousel chrome. */
+const MOBILE_HERO_SRC = "/Gemini_Generated_Image_x2ealnx2ealnx2ea.png";
+const MOBILE_HERO_ALT =
+  "Glaces en Seine — caravane gourmande sur les quais, version mobile";
+
 interface Slide {
   src: string;
   alt: string;
@@ -103,7 +108,17 @@ function AmbientOrbs() {
 export function HeroCarousel() {
   const [current, setCurrent] = useState(0);
   const [paused,  setPaused]  = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  /* Detect mobile viewport — used to disable carousel chrome and lock to a static image. */
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   /* Scroll-driven parallax — image moves at 60% of scroll speed */
   const { scrollYProgress } = useScroll({
@@ -117,22 +132,29 @@ export function HeroCarousel() {
   const prev = useCallback(() => go((current - 1 + slides.length) % slides.length), [current, go]);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || isMobile) return;
     const id = setInterval(next, AUTO_DELAY);
     return () => clearInterval(id);
-  }, [next, paused]);
+  }, [next, paused, isMobile]);
 
-  /* Swipe support */
+  /* Swipe support — disabled on mobile (static image). */
   const [touchX, setTouchX] = useState<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => setTouchX(e.touches[0].clientX);
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (isMobile) return;
+    setTouchX(e.touches[0].clientX);
+  };
   const onTouchEnd   = (e: React.TouchEvent) => {
-    if (touchX === null) return;
+    if (isMobile || touchX === null) return;
     const dx = e.changedTouches[0].clientX - touchX;
     if (Math.abs(dx) > 44) dx < 0 ? next() : prev();
     setTouchX(null);
   };
 
   const slide = slides[current];
+  const heroSrc = isMobile ? MOBILE_HERO_SRC : slide.src;
+  const heroAlt = isMobile ? MOBILE_HERO_ALT : slide.alt;
+  const heroKey = isMobile ? "mobile-static" : slide.src;
+  const showText = !isMobile && !slide.hideText;
 
   return (
     <section
@@ -155,7 +177,7 @@ export function HeroCarousel() {
       >
         <AnimatePresence mode="sync">
           <motion.div
-            key={slide.src}
+            key={heroKey}
             className="absolute inset-0"
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -163,13 +185,13 @@ export function HeroCarousel() {
             transition={{ duration: 1.2, ease: "easeInOut" }}
           >
             <Image
-              src={slide.src}
-              alt={slide.alt}
+              src={heroSrc}
+              alt={heroAlt}
               fill
               priority
               sizes="100vw"
               quality={92}
-              className="object-contain object-center"
+              className="object-contain object-center sm:object-cover"
             />
           </motion.div>
         </AnimatePresence>
@@ -216,8 +238,8 @@ export function HeroCarousel() {
       ──────────────────────────────────────────────────────── */}
       <div className="relative z-10 flex h-full flex-col justify-between px-6 pb-[max(1.75rem,env(safe-area-inset-bottom))] pt-6 sm:px-10 sm:pb-10 sm:pt-8 lg:px-16">
 
-        {/* ── Top bar: dots + counter ── */}
-        <div className="flex items-start justify-between">
+        {/* ── Top bar: dots + counter (desktop only) ── */}
+        <div className="hidden items-start justify-between sm:flex">
 
           {/* Slide indicators */}
           <div className="flex items-center gap-2 pt-1" role="tablist">
@@ -250,69 +272,59 @@ export function HeroCarousel() {
           </span>
         </div>
 
-        {/* ── Middle: headline + CTAs (text slides) / empty (hideText slides) ── */}
+        {/* ── Middle: headline (text slides only) ── */}
         <div className="flex flex-1 flex-col justify-center">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={current}
-              initial={{ opacity: 0, y: 30, filter: "blur(5px)" }}
-              animate={{ opacity: 1, y: 0,  filter: "blur(0px)" }}
-              exit={{   opacity: 0, y: -18, filter: "blur(3px)" }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-xl lg:max-w-2xl"
-            >
-              {!slide.hideText && (
-                <>
-                  {/* Eyebrow */}
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.08, duration: 0.5 }}
-                    className="mb-3 text-[10px] font-bold uppercase tracking-[0.26em] text-ink/55 drop-shadow-sm"
-                  >
-                    La Frette-sur-Seine · Quai de Seine
-                  </motion.p>
+            {showText && (
+              <motion.div
+                key={current}
+                initial={{ opacity: 0, y: 30, filter: "blur(5px)" }}
+                animate={{ opacity: 1, y: 0,  filter: "blur(0px)" }}
+                exit={{   opacity: 0, y: -18, filter: "blur(3px)" }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="max-w-xl lg:max-w-2xl"
+              >
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.08, duration: 0.5 }}
+                  className="mb-3 text-[10px] font-bold uppercase tracking-[0.26em] text-ink/55 drop-shadow-sm"
+                >
+                  La Frette-sur-Seine · Quai de Seine
+                </motion.p>
 
-                  {/* Headline */}
-                  <h1 className="h-display text-[36px] leading-[1.04] text-ink drop-shadow-sm xs:text-[44px] sm:text-6xl lg:text-[4.25rem]">
-                    {slide.headline}{" "}
-                    <span className="font-script text-cherry drop-shadow-sm">
-                      {slide.script}
-                    </span>
-                  </h1>
+                <h1 className="h-display text-[36px] leading-[1.04] text-ink drop-shadow-sm xs:text-[44px] sm:text-6xl lg:text-[4.25rem]">
+                  {slide.headline}{" "}
+                  <span className="font-script text-cherry drop-shadow-sm">
+                    {slide.script}
+                  </span>
+                </h1>
 
-                  {/* Subtitle */}
-                  <motion.p
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.18, duration: 0.5 }}
-                    className="mt-3 max-w-sm text-[14px] leading-relaxed text-ink/65 drop-shadow-sm sm:text-[15.5px]"
-                  >
-                    {slide.sub}
-                  </motion.p>
-
-                  {/* CTAs (text slides — anchored to headline) */}
-                  <CarouselCtas className="mt-6 sm:mt-8" />
-                </>
-              )}
-            </motion.div>
+                <motion.p
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.18, duration: 0.5 }}
+                  className="mt-3 max-w-sm text-[14px] leading-relaxed text-ink/65 drop-shadow-sm sm:text-[15.5px]"
+                >
+                  {slide.sub}
+                </motion.p>
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
 
-        {/* CTAs (hideText slides — anchored just above the schedule chip) */}
-        {slide.hideText && (
-          <motion.div
-            key={`${current}-cta`}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-3"
-          >
-            <CarouselCtas />
-          </motion.div>
-        )}
+        {/* CTAs — anchored above the schedule chip on every slide (incl. first) */}
+        <motion.div
+          key={`${isMobile ? "m" : current}-cta`}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-3"
+        >
+          <CarouselCtas />
+        </motion.div>
 
-        {/* ── Bottom row: schedule chip + arrows ── */}
+        {/* ── Bottom row: schedule chip + arrows (arrows desktop only) ── */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
 
           {/* Schedule */}
@@ -341,8 +353,8 @@ export function HeroCarousel() {
             </div>
           </motion.div>
 
-          {/* Nav arrows */}
-          <div className="flex items-center gap-2.5">
+          {/* Nav arrows — desktop only */}
+          <div className="hidden items-center gap-2.5 sm:flex">
             <button
               onClick={prev}
               aria-label="Précédent"
@@ -364,7 +376,7 @@ export function HeroCarousel() {
       {/* ────────────────────────────────────────────────────────
           Layer 6 · Progress bar
       ──────────────────────────────────────────────────────── */}
-      {!paused && (
+      {!paused && !isMobile && (
         <motion.div
           key={`${current}-pb`}
           initial={{ scaleX: 0 }}

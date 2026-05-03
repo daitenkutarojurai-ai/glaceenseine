@@ -12,9 +12,19 @@ const PILLS = [
 ];
 
 const MENU_SRC = "/menu2.jpg";
+const MENU_SRC_MOBILE = "/Gemini_Generated_Image_c3mghyc3mghyc3mg.png";
 
 export function MenuBanner() {
   const [zoomed, setZoomed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     if (!zoomed) return;
@@ -24,6 +34,8 @@ export function MenuBanner() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [zoomed]);
+
+  const zoomSrc = isMobile ? MENU_SRC_MOBILE : MENU_SRC;
 
   return (
     <section
@@ -105,7 +117,7 @@ export function MenuBanner() {
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={MENU_SRC}
+              src={zoomSrc}
               alt="Carte Glaces en Seine — vue agrandie"
               fill
               sizes="100vw"
