@@ -16,7 +16,7 @@ export function Location() {
   return (
     <section
       id="emplacement"
-      className="relative scroll-mt-24 py-28 sm:py-36"
+      className="relative scroll-mt-24 py-20 sm:py-28"
       aria-labelledby="loc-title"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ink/10 to-transparent" />

@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, IceCream, Cookie, CakeSlice } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight, IceCream, Cookie, CakeSlice, X, ZoomIn } from "lucide-react";
 import { WeeklyPollCard } from "./WeeklyPoll";
 
 const PILLS = [
@@ -12,10 +15,21 @@ const PILLS = [
 const MENU_SRC = "/menu2.jpg";
 
 export function MenuBanner() {
+  const [zoomed, setZoomed] = useState(false);
+
+  useEffect(() => {
+    if (!zoomed) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZoomed(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zoomed]);
+
   return (
     <section
       id="menu"
-      className="scroll-mt-20 py-10 sm:py-16"
+      className="scroll-mt-20 py-8 sm:py-12"
       aria-label="Notre carte"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
@@ -36,8 +50,13 @@ export function MenuBanner() {
           </Link>
         </div>
 
-        <Link href="/menu" className="group block" aria-label="Voir la carte Glaces en Seine">
-          <div className="relative overflow-hidden rounded-3xl bg-cream shadow-soft">
+        <button
+          type="button"
+          onClick={() => setZoomed(true)}
+          className="group block w-full cursor-zoom-in text-left"
+          aria-label="Agrandir la carte Glaces en Seine"
+        >
+          <div className="relative overflow-hidden rounded-3xl bg-cream shadow-soft transition group-hover:shadow-ring">
             <div className="relative aspect-[16/9] w-full">
               <Image
                 src={MENU_SRC}
@@ -45,11 +64,15 @@ export function MenuBanner() {
                 fill
                 sizes="(max-width: 1024px) 100vw, 896px"
                 quality={92}
-                className="object-contain"
+                className="object-contain transition duration-500 group-hover:scale-[1.02]"
               />
             </div>
+            <span className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-ink/80 px-3 py-1.5 text-[11.5px] font-semibold text-cream shadow-soft backdrop-blur">
+              <ZoomIn className="h-3.5 w-3.5" />
+              Agrandir
+            </span>
           </div>
-        </Link>
+        </button>
 
         {/* Mobile pills + CTA */}
         <div className="mt-3 flex flex-wrap gap-2 sm:hidden">
@@ -78,6 +101,40 @@ export function MenuBanner() {
           <WeeklyPollCard />
         </div>
       </div>
+
+      {zoomed && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/90 p-3 backdrop-blur-sm sm:p-6"
+          onClick={() => setZoomed(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Carte Glaces en Seine — vue agrandie"
+        >
+          <button
+            type="button"
+            onClick={() => setZoomed(false)}
+            className="absolute right-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-cream/95 px-4 py-2 text-[12.5px] font-semibold text-ink shadow-soft transition hover:bg-cream sm:right-5 sm:top-5"
+            aria-label="Fermer la vue agrandie"
+          >
+            <X className="h-4 w-4" />
+            Fermer
+          </button>
+          <div
+            className="relative h-full w-full max-w-6xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={MENU_SRC}
+              alt="Carte Glaces en Seine — vue agrandie"
+              fill
+              sizes="100vw"
+              quality={95}
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
