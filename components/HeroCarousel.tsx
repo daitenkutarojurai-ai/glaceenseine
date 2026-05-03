@@ -11,8 +11,8 @@ const MAPS_DIR_URL =
 
 const slides = [
   {
-    src: "/imagecarrousel.png",
-    fallback: "/bannerup.png",
+    src: "/firstcarrouse.png",
+    fallback: "/carrouselfinal.png",
     alt: "Glaces en Seine — la caravane sur les quais",
     headline: "La gourmandise",
     script: "débarque",
@@ -20,7 +20,7 @@ const slides = [
     accent: "from-teal-700/60",
   },
   {
-    src: "/glaceensein1.png",
+    src: "/menu2.jpg",
     fallback: "/affiche.jpg",
     alt: "Glaces en Seine — glaces artisanales",
     headline: "Artisanal,",
@@ -29,8 +29,8 @@ const slides = [
     accent: "from-cherry/50",
   },
   {
-    src: "/menunew.png",
-    fallback: "/menu2.jpg",
+    src: "/carroulast.png",
+    fallback: "/glaceensein1.png",
     alt: "Le menu Glaces en Seine",
     headline: "Trois douceurs,",
     script: "un menu",
