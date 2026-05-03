@@ -48,10 +48,7 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field name="name" label="Votre prénom" required autoComplete="name" />
-        <Field name="email" type="email" label="Votre email" required autoComplete="email" />
-      </div>
+      <Field name="name" label="Votre prénom" required autoComplete="name" />
 
       {/* Subject select */}
       <div>

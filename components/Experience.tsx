@@ -30,7 +30,7 @@ const tiles = [
   {
     src: "/inprod.jpg",
     alt: "Préparation des crêpes à la plaque",
-    caption: "La plaque en plein service",
+    caption: "Crêpes préparées sur la plaque",
     desktop: "md:col-span-1",
     mobileH: "h-56 sm:h-64",
     position: "object-center",

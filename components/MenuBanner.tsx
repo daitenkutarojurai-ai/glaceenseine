@@ -9,7 +9,7 @@ const PILLS = [
   { icon: CakeSlice,label: "Gaufres",               color: "bg-teal-100 text-teal-700" },
 ];
 
-const MENU_SRC = "/section-a-2026.png";
+const MENU_SRC = "/menu2.jpg";
 
 export function MenuBanner() {
   return (

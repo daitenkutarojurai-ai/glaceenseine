@@ -2,14 +2,48 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Heart, Briefcase, PartyPopper, Users } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 const CARDS = [
-  { icon: Heart,        color: "bg-rose-100 text-cherry",    label: "Mariage & PACS" },
-  { icon: Briefcase,    color: "bg-teal-100 text-teal-700",  label: "Entreprise" },
-  { icon: PartyPopper,  color: "bg-sun-100 text-ink",        label: "Anniversaire" },
-  { icon: Users,        color: "bg-peach-100 text-cherry",   label: "Fête & brocante" },
+  {
+    label: "Mariage & PACS",
+    desc: "Une halte gourmande qui ravit petits et grands.",
+    emoji: "💍",
+    accent: "from-cherry/30 via-rose-200/40 to-cream",
+    ring: "ring-cherry/20",
+    badge: "bg-cherry text-cream",
+  },
+  {
+    label: "Entreprise",
+    desc: "Séminaires, journées d'équipe, pots de départ.",
+    emoji: "🏢",
+    accent: "from-teal-300/30 via-teal-100/40 to-cream",
+    ring: "ring-teal-500/20",
+    badge: "bg-teal-500 text-cream",
+  },
+  {
+    label: "Anniversaire",
+    desc: "Une animation qui change des bougies.",
+    emoji: "🎉",
+    accent: "from-sun-300/40 via-sun-100/40 to-cream",
+    ring: "ring-amber-400/25",
+    badge: "bg-amber-400 text-ink",
+  },
+  {
+    label: "Fête de quartier",
+    desc: "Brocantes, vide-greniers, kermesses.",
+    emoji: "🎪",
+    accent: "from-peach-100/60 via-rose-100/30 to-cream",
+    ring: "ring-rose-300/30",
+    badge: "bg-rose-300 text-ink",
+  },
+];
+
+const HIGHLIGHTS = [
+  { label: "Île-de-France", sub: "rayon ~40 km" },
+  { label: "Devis gratuit", sub: "réponse sous 48 h" },
+  { label: "Sur-mesure", sub: "parfums & déco" },
 ];
 
 export function PrivatisationTeaser() {
@@ -19,19 +53,26 @@ export function PrivatisationTeaser() {
       className="scroll-mt-24 py-16 sm:py-24"
       aria-labelledby="priv-teaser-title"
     >
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <div className="overflow-hidden rounded-3xl bg-ink text-cream shadow-ring">
-          <div className="grid gap-0 lg:grid-cols-2">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-ink via-ink to-ink/95 text-cream shadow-ring">
+          {/* Decorative ambient glows */}
+          <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-cherry/30 blur-3xl" />
+          <div className="pointer-events-none absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-teal-500/20 blur-3xl" />
+          <div className="pointer-events-none absolute right-1/3 top-1/2 h-48 w-48 -translate-y-1/2 rounded-full bg-sun-300/15 blur-3xl" />
 
-            {/* Left — copy */}
-            <div className="px-8 py-10 sm:px-12 sm:py-14">
+          <div className="relative grid gap-0 lg:grid-cols-[1.1fr_1fr]">
+            {/* ── Left — copy ── */}
+            <div className="px-7 py-12 sm:px-12 sm:py-16 lg:py-20">
               <Reveal>
-                <p className="eyebrow text-teal-400">Privatisation</p>
+                <span className="inline-flex items-center gap-2 rounded-full bg-cream/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-300 ring-1 ring-inset ring-cream/15 backdrop-blur">
+                  <Sparkles className="h-3 w-3" />
+                  Privatisation
+                </span>
               </Reveal>
               <Reveal delay={0.06}>
                 <h2
                   id="priv-teaser-title"
-                  className="h-display mt-2 text-3xl text-cream sm:text-4xl"
+                  className="h-display mt-4 text-3xl leading-[1.05] text-cream sm:text-4xl lg:text-[2.75rem]"
                 >
                   La caravane,{" "}
                   <span className="font-script text-sun-300">rien que</span>{" "}
@@ -39,56 +80,81 @@ export function PrivatisationTeaser() {
                 </h2>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="mt-4 text-[15px] leading-relaxed text-cream/65">
+                <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-cream/70">
                   Mariage au bord de l&apos;eau, séminaire d&apos;entreprise,
-                  anniversaire mémorable — on amène la caravane, la plaque chaude
-                  et les glaces artisanales. Vous apportez les invités.
+                  anniversaire mémorable — on amène la caravane, la plaque
+                  chaude et les glaces artisanales. Vous apportez les invités.
                 </p>
               </Reveal>
-              <Reveal delay={0.15}>
-                <ul className="mt-5 space-y-2 text-[14px] text-cream/60">
-                  <li className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-teal-400" />
-                    Déplacement en Île-de-France (rayon ~40 km)
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-teal-400" />
-                    Devis gratuit · réponse sous 48 h
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-teal-400" />
-                    Personnalisation parfums & décoration
-                  </li>
+
+              {/* Highlights row */}
+              <Reveal delay={0.14}>
+                <ul className="mt-7 grid grid-cols-3 gap-3">
+                  {HIGHLIGHTS.map((h) => (
+                    <li
+                      key={h.label}
+                      className="rounded-2xl bg-cream/6 px-3 py-3 ring-1 ring-inset ring-cream/10 backdrop-blur"
+                    >
+                      <div className="text-[12.5px] font-semibold text-cream/95">
+                        {h.label}
+                      </div>
+                      <div className="mt-0.5 text-[11px] text-cream/55">
+                        {h.sub}
+                      </div>
+                    </li>
+                  ))}
                 </ul>
               </Reveal>
+
               <Reveal delay={0.2}>
-                <Link
-                  href="/privatisation"
-                  className="btn-liquid group mt-8 inline-flex items-center gap-2 rounded-full bg-cherry px-7 py-3.5 text-sm font-semibold text-cream shadow-glow-cherry transition"
-                >
-                  Demander un devis
-                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                </Link>
+                <div className="mt-9 flex flex-wrap items-center gap-3">
+                  <Link
+                    href="/privatisation"
+                    className="btn-liquid group inline-flex items-center gap-2 rounded-full bg-cherry px-7 py-3.5 text-sm font-semibold text-cream shadow-glow-cherry transition hover:-translate-y-0.5"
+                  >
+                    Demander un devis
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </Link>
+                  <Link
+                    href="/privatisation#formules"
+                    className="text-[13.5px] font-semibold text-cream/70 transition hover:text-cream"
+                  >
+                    Voir les formules →
+                  </Link>
+                </div>
               </Reveal>
             </div>
 
-            {/* Right — event type grid */}
-            <div className="flex items-center bg-cream/5 px-8 py-10 sm:px-12 sm:py-14">
-              <div className="grid w-full grid-cols-2 gap-4">
+            {/* ── Right — event grid ── */}
+            <div className="relative px-7 pb-12 sm:px-12 sm:pb-16 lg:py-16 lg:pl-0 lg:pr-12">
+              <div className="grid grid-cols-2 gap-3.5 sm:gap-4">
                 {CARDS.map((c, i) => (
                   <motion.div
                     key={c.label}
-                    initial={{ opacity: 0, y: 16 }}
+                    initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08, duration: 0.5 }}
-                    whileHover={{ y: -4 }}
-                    className="flex flex-col items-start gap-3 rounded-2xl bg-cream/8 p-5 transition"
+                    viewport={{ once: true, margin: "-40px" }}
+                    transition={{ delay: i * 0.07, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                    whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                    className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${c.accent} p-5 shadow-soft ring-1 ring-inset ${c.ring} transition`}
                   >
-                    <span className={`grid h-11 w-11 place-items-center rounded-xl ${c.color}`}>
-                      <c.icon className="h-5 w-5" />
+                    {/* Top-right floating emoji medallion */}
+                    <span
+                      className={`absolute -right-3 -top-3 grid h-14 w-14 place-items-center rounded-full text-2xl shadow-soft ring-2 ring-cream/60 transition group-hover:rotate-6 ${c.badge}`}
+                      aria-hidden
+                    >
+                      {c.emoji}
                     </span>
-                    <span className="text-[14px] font-semibold text-cream/90">{c.label}</span>
+
+                    {/* Content */}
+                    <div className="relative pt-9">
+                      <div className="font-display text-[15px] font-semibold text-ink">
+                        {c.label}
+                      </div>
+                      <p className="mt-1 text-[12.5px] leading-relaxed text-ink/65">
+                        {c.desc}
+                      </p>
+                    </div>
                   </motion.div>
                 ))}
               </div>

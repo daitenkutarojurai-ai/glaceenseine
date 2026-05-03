@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram, MapPin, Mail, Heart } from "lucide-react";
+import { Instagram, MapPin, Heart } from "lucide-react";
 
 export function Footer() {
   return (
@@ -21,13 +21,6 @@ export function Footer() {
               className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 transition hover:bg-cream/20"
             >
               <Instagram className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/contact"
-              className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 transition hover:bg-cream/20"
-              aria-label="Contact"
-            >
-              <Mail className="h-4 w-4" />
             </Link>
             <Link
               href="https://www.google.com/maps/search/?api=1&query=mairie+La+Frette-sur-Seine"

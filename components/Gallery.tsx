@@ -9,7 +9,7 @@ const PHOTOS = [
   {
     src: "/inprod.jpg",
     alt: "Préparation des crêpes à la plaque",
-    caption: "La plaque en plein service",
+    caption: "Crêpes préparées sur la plaque",
   },
   {
     src: "/camion-patronne.jpg",

@@ -14,9 +14,11 @@ const AUTO_DELAY = 7000;
 interface Slide {
   src: string;
   alt: string;
-  headline: string;
-  script: string;
-  sub: string;
+  /** Slides whose image already contains the brand text (e.g. bannerforsection) skip the overlay text. */
+  hideText?: boolean;
+  headline?: string;
+  script?: string;
+  sub?: string;
 }
 
 const slides: Slide[] = [
@@ -30,9 +32,7 @@ const slides: Slide[] = [
   {
     src: "/bannerforsection.png",
     alt: "Glaces en Seine — la marque, la caravane et les quais",
-    headline: "Sur les quais",
-    script: "de Seine",
-    sub: "Une halte douce au bord de l'eau, chaque week-end.",
+    hideText: true,
   },
   {
     src: "/carousel3-2026.png",
@@ -149,24 +149,24 @@ export function HeroCarousel() {
           — top subtle vignette for sky definition
       ──────────────────────────────────────────────────────── */}
 
-      {/* Left warm reading zone */}
+      {/* Left warm reading zone — subtle so the picture stays vivid */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(to right, rgba(255,251,241,0.52) 0%, rgba(255,251,241,0.22) 35%, rgba(255,251,241,0.05) 60%, transparent 100%)",
+            "linear-gradient(to right, rgba(255,251,241,0.30) 0%, rgba(255,251,241,0.08) 35%, transparent 60%)",
         }}
       />
-      {/* Bottom page-transition fade */}
+      {/* Bottom edge fade — minimal so the banner doesn't bleed into the next section */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[18%]"
         style={{
           background:
-            "linear-gradient(to top, rgba(255,251,241,0.72) 0%, rgba(255,251,241,0.28) 45%, transparent 100%)",
+            "linear-gradient(to top, rgba(255,251,241,0.55) 0%, transparent 100%)",
         }}
       />
       {/* Top sky vignette */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/12 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/10 to-transparent" />
 
       {/* ────────────────────────────────────────────────────────
           Layer 3 · Film grain (uses .grain utility from globals)
@@ -228,33 +228,37 @@ export function HeroCarousel() {
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-xl lg:max-w-2xl"
             >
-              {/* Eyebrow */}
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.08, duration: 0.5 }}
-                className="mb-3 text-[10px] font-bold uppercase tracking-[0.26em] text-ink/55 drop-shadow-sm"
-              >
-                La Frette-sur-Seine · Quai de Seine
-              </motion.p>
+              {!slide.hideText && (
+                <>
+                  {/* Eyebrow */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.08, duration: 0.5 }}
+                    className="mb-3 text-[10px] font-bold uppercase tracking-[0.26em] text-ink/55 drop-shadow-sm"
+                  >
+                    La Frette-sur-Seine · Quai de Seine
+                  </motion.p>
 
-              {/* Headline */}
-              <h1 className="h-display text-[36px] leading-[1.04] text-ink drop-shadow-sm xs:text-[44px] sm:text-6xl lg:text-[4.25rem]">
-                {slide.headline}{" "}
-                <span className="font-script text-cherry drop-shadow-sm">
-                  {slide.script}
-                </span>
-              </h1>
+                  {/* Headline */}
+                  <h1 className="h-display text-[36px] leading-[1.04] text-ink drop-shadow-sm xs:text-[44px] sm:text-6xl lg:text-[4.25rem]">
+                    {slide.headline}{" "}
+                    <span className="font-script text-cherry drop-shadow-sm">
+                      {slide.script}
+                    </span>
+                  </h1>
 
-              {/* Subtitle */}
-              <motion.p
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.18, duration: 0.5 }}
-                className="mt-3 max-w-sm text-[14px] leading-relaxed text-ink/65 drop-shadow-sm sm:text-[15.5px]"
-              >
-                {slide.sub}
-              </motion.p>
+                  {/* Subtitle */}
+                  <motion.p
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.18, duration: 0.5 }}
+                    className="mt-3 max-w-sm text-[14px] leading-relaxed text-ink/65 drop-shadow-sm sm:text-[15.5px]"
+                  >
+                    {slide.sub}
+                  </motion.p>
+                </>
+              )}
 
               {/* CTAs */}
               <motion.div

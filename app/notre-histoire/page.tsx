@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function HistoirePage() {
   return (
     <>
-      <SectionBanner src="/section-a-2026.png" alt="L'histoire de Glaces en Seine — caravane artisanale sur les quais">
+      <SectionBanner src="/bannnersmall.png" alt="L'histoire de Glaces en Seine — caravane artisanale sur les quais">
         <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-400">
           Notre histoire
         </p>

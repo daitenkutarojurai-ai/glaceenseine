@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function MenuPage() {
   return (
     <div className="overflow-x-hidden">
-      <SectionBanner src="/section-a-2026.png" alt="Glaces en Seine — la carte glaces, crêpes et gaufres">
+      <SectionBanner src="/bannnersmall.png" alt="Glaces en Seine — la carte glaces, crêpes et gaufres">
         <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-400">
           Menu
         </p>

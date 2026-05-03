@@ -21,7 +21,7 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 export default function MentionsLegalesPage() {
   return (
     <div className="relative overflow-hidden">
-      <SectionBanner src="/section-b-2026.png" alt="Mentions légales — Glaces en Seine">
+      <SectionBanner src="/bannnersmall.png" alt="Mentions légales — Glaces en Seine">
         <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-cream/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-cream/90 backdrop-blur">
           <Shield className="h-3 w-3 text-teal-400" />
           Mentions légales
