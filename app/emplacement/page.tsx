@@ -64,7 +64,7 @@ export default function EmplacementPage() {
   return (
     <div className="relative overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_LD) }} />
-      <SectionBanner>
+      <SectionBanner src="/section-b-2026.png" alt="Emplacement Glaces en Seine — Quai de Seine, La Frette-sur-Seine">
         <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-cream/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-cream/90 backdrop-blur">
           <MapPin className="h-3 w-3 text-teal-400" />
           Où nous trouver

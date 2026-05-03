@@ -28,8 +28,8 @@ const slides: Slide[] = [
     sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine.",
   },
   {
-    src: "/carousel2-2026.png",
-    alt: "Glaces en Seine — ambiance dominicale au bord de la Seine",
+    src: "/bannerforsection.png",
+    alt: "Glaces en Seine — la marque, la caravane et les quais",
     headline: "Sur les quais",
     script: "de Seine",
     sub: "Une halte douce au bord de l'eau, chaque week-end.",
@@ -104,7 +104,7 @@ export function HeroCarousel() {
     <section
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-ink"
-      style={{ height: "min(85dvh, 66.7vw)", minHeight: "480px" }}
+      style={{ height: "min(78dvh, 50vw)", minHeight: "460px" }}
       aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -137,8 +137,9 @@ export function HeroCarousel() {
               aria-hidden
               fill
               sizes="100vw"
-              className="object-cover scale-110 opacity-55"
-              style={{ filter: "blur(28px)" }}
+              quality={60}
+              className="object-cover scale-110 opacity-50"
+              style={{ filter: "blur(22px)" }}
             />
             {/* Sharp contained image — full picture, never cropped */}
             <Image
@@ -147,6 +148,7 @@ export function HeroCarousel() {
               fill
               priority
               sizes="100vw"
+              quality={92}
               className="object-contain"
             />
           </motion.div>
