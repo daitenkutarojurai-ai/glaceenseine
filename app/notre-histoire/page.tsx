@@ -6,6 +6,7 @@ const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 import { Reveal } from "@/components/Reveal";
 import { ArrowRight, Heart, Quote } from "lucide-react";
+import { SectionBanner } from "@/components/SectionBanner";
 
 export const metadata: Metadata = {
   title: "Notre histoire — la caravane Glaces en Seine",
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 export default function HistoirePage() {
   return (
     <>
+      <SectionBanner />
       {/* Header */}
       <section className="relative overflow-hidden pb-20 pt-16 sm:pt-24">
         <div className="pointer-events-none absolute -left-32 top-10 h-[420px] w-[420px] rounded-blob bg-gradient-sun opacity-50 blur-3xl" />

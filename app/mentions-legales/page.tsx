@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Shield } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
+import { SectionBanner } from "@/components/SectionBanner";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
@@ -20,6 +21,7 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 export default function MentionsLegalesPage() {
   return (
     <div className="relative overflow-hidden">
+      <SectionBanner />
       <div className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-blob bg-teal-100 opacity-40 blur-3xl" />
 
       <section className="relative py-20 sm:py-28">

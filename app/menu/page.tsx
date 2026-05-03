@@ -4,6 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, MapPin, Clock } from "lucide-react";
+import { SectionBanner } from "@/components/SectionBanner";
 
 const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 export default function MenuPage() {
   return (
     <div className="overflow-x-hidden">
+      <SectionBanner />
       {/* Hero banner */}
       <section className="relative overflow-hidden" aria-labelledby="menu-hero-title">
         <div className="absolute inset-0">

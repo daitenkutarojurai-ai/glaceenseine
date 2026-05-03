@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { PrivatisationForm } from "@/components/PrivatisationForm";
+import { SectionBanner } from "@/components/SectionBanner";
 
 export const metadata: Metadata = {
   title: "Privatisation caravane glaces, crêpes & gaufres — mariage, séminaire, événement",
@@ -114,6 +115,7 @@ export default function PrivatisationPage() {
   return (
     <div className="relative overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PRIV_FAQ_LD) }} />
+      <SectionBanner />
       {/* ── Hero with background image ── */}
       <section className="relative overflow-hidden" aria-labelledby="priv-title">
         {/* Background image */}

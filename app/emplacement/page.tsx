@@ -4,6 +4,7 @@ import { MapPin, Navigation, Train, Bike, Clock, Calendar, ArrowRight, Instagram
 import { Reveal } from "@/components/Reveal";
 import { CopyAddressButton } from "@/components/CopyAddressButton";
 import { Newsletter } from "@/components/Newsletter";
+import { SectionBanner } from "@/components/SectionBanner";
 
 export const metadata: Metadata = {
   title: "Nous trouver — Quai de Seine, La Frette-sur-Seine (95530)",
@@ -63,6 +64,7 @@ export default function EmplacementPage() {
   return (
     <div className="relative overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_LD) }} />
+      <SectionBanner />
       <div className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-blob bg-teal-100 opacity-40 blur-3xl" />
       <div className="pointer-events-none absolute -right-16 top-48 h-64 w-64 rounded-blob bg-sun-100 opacity-50 blur-3xl" />
 

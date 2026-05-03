@@ -7,6 +7,7 @@ const MAPS_URL =
 import { Reveal } from "@/components/Reveal";
 import { ContactForm } from "@/components/ContactForm";
 import { Feedback } from "@/components/Feedback";
+import { SectionBanner } from "@/components/SectionBanner";
 
 export const metadata: Metadata = {
   title: "Contact & Avis — écrivez à Glaces en Seine",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="relative overflow-hidden">
+      <SectionBanner />
       {/* Decorative blobs */}
       <div className="pointer-events-none absolute -left-24 top-20 h-80 w-80 rounded-blob bg-gradient-sun opacity-50 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-blob bg-teal-100 opacity-60 blur-3xl" />
