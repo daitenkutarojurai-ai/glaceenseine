@@ -14,40 +14,32 @@ const AUTO_DELAY = 7000;
 interface Slide {
   src: string;
   alt: string;
-  focal: string;
   headline: string;
   script: string;
   sub: string;
-  kb: { from: Record<string, number>; to: Record<string, number> } | null;
 }
 
 const slides: Slide[] = [
   {
-    src: "/carrouselnumber2026.png",
+    src: "/carousel1-2026.png",
     alt: "Glaces en Seine — la caravane artisanale sur les quais de Seine à La Frette",
-    focal: "50% 50%",
     headline: "La gourmandise",
     script: "débarque",
     sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine.",
-    kb: null,
   },
   {
-    src: "/carrouselfinal20206.png",
+    src: "/carousel2-2026.png",
     alt: "Glaces en Seine — ambiance dominicale au bord de la Seine",
-    focal: "50% 40%",
     headline: "Sur les quais",
     script: "de Seine",
     sub: "Une halte douce au bord de l'eau, chaque week-end.",
-    kb: { from: { scale: 1.06, x: 14 }, to: { scale: 1, x: 0 } },
   },
   {
-    src: "/carroulast2026.png",
+    src: "/carousel3-2026.png",
     alt: "Glaces en Seine — venez nous retrouver entre La Frette et Cormeilles",
-    focal: "50% 50%",
     headline: "Venez nous",
     script: "retrouver",
     sub: "Entre La Frette-sur-Seine et Cormeilles-en-Parisis — chaque week-end.",
-    kb: { from: { scale: 1.04, x: -10 }, to: { scale: 1, x: 0 } },
   },
 ];
 
@@ -112,7 +104,7 @@ export function HeroCarousel() {
     <section
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-ink"
-      style={{ height: "85dvh", minHeight: "500px" }}
+      style={{ height: "min(85dvh, 66.7vw)", minHeight: "480px" }}
       aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -121,10 +113,12 @@ export function HeroCarousel() {
     >
 
       {/* ────────────────────────────────────────────────────────
-          Layer 1 · Full-bleed image + parallax + Ken Burns
+          Layer 1 · Full picture — blurred fill + contained image
+          The blurred copy fills letterbox space, the sharp image
+          is always shown in full (object-contain, no cropping).
       ──────────────────────────────────────────────────────── */}
       <motion.div
-        className="absolute inset-x-0 top-[-8%] bottom-[-8%]"
+        className="absolute inset-0"
         style={{ y: parallaxY, willChange: "transform" }}
       >
         <AnimatePresence mode="sync">
@@ -134,36 +128,27 @@ export function HeroCarousel() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.4, ease: "easeInOut" }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
           >
-            {slide.kb ? (
-              <motion.div
-                className="absolute inset-0"
-                initial={slide.kb.from}
-                animate={slide.kb.to}
-                transition={{ duration: AUTO_DELAY / 1000 + 2, ease: "easeInOut" }}
-              >
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  priority
-                  sizes="100vw"
-                  className="object-cover"
-                  style={{ objectPosition: slide.focal }}
-                />
-              </motion.div>
-            ) : (
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover"
-                style={{ objectPosition: slide.focal }}
-              />
-            )}
+            {/* Blurred ambient background — fills letterbox bands */}
+            <Image
+              src={slide.src}
+              alt=""
+              aria-hidden
+              fill
+              sizes="100vw"
+              className="object-cover scale-110 opacity-55"
+              style={{ filter: "blur(28px)" }}
+            />
+            {/* Sharp contained image — full picture, never cropped */}
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              fill
+              priority
+              sizes="100vw"
+              className="object-contain"
+            />
           </motion.div>
         </AnimatePresence>
       </motion.div>
