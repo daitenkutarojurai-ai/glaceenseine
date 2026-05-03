@@ -12,8 +12,8 @@ const PILLS = [
   { icon: CakeSlice,label: "Gaufres minute",       color: "bg-teal-100 text-teal-700" },
 ];
 
-const MENU_SRC = "/menunew.png";
-const MENU_FALLBACK = "/affiche.jpg";
+const MENU_SRC = "/menu2.jpg";
+const MENU_FALLBACK = "/menunew.png";
 
 export function MenuBanner() {
   const [src, setSrc] = useState(MENU_SRC);

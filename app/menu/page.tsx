@@ -19,7 +19,7 @@ export default function MenuPage() {
       {/* Hero banner */}
       <div className="relative overflow-hidden bg-ink pb-16 pt-14 text-center text-cream">
         <Image
-          src="/menunew.png"
+          src="/menu2.jpg"
           alt="La carte Glaces en Seine"
           fill
           priority

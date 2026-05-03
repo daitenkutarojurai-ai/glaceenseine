@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description: "La gourmandise débarque sur les quais de Seine.",
     locale: "fr_FR",
     type: "website",
-    images: ["/bannerup.png"],
+    images: [{ url: "/imagecarrousel.png", width: 1200, height: 630, alt: "Glaces en Seine" }],
   },
   twitter: { card: "summary_large_image" },
 };
@@ -35,9 +35,34 @@ export const viewport: Viewport = {
   themeColor: "#FFFBF1",
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FoodEstablishment",
+  name: "Glaces en Seine",
+  description: "Glacier artisanal sur les quais de Seine — glaces, crêpes & gaufres faites maison.",
+  url: "https://glaceenseine.fr",
+  servesCuisine: ["Desserts", "Glaces artisanales", "Crêpes", "Gaufres"],
+  priceRange: "€",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Quai de Seine, face à la mairie",
+    addressLocality: "La Frette-sur-Seine",
+    postalCode: "95530",
+    addressCountry: "FR",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: 48.9843, longitude: 2.1836 },
+  openingHoursSpecification: [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday", "Sunday", "PublicHolidays"], opens: "14:00", closes: "19:00" },
+  ],
+  sameAs: ["https://instagram.com/glacesenseine"],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${fraunces.variable} ${inter.variable} ${caveat.variable}`}>
+      <head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      </head>
       <body className="font-sans">
         <AnnouncementBar />
         <Nav />

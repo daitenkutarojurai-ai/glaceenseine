@@ -14,10 +14,10 @@ export function Footer() {
           </p>
           <div className="mt-5 flex items-center gap-2">
             <Link
-              href="https://instagram.com"
+              href="https://instagram.com/glacesenseine"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram"
+              aria-label="Instagram @glacesenseine"
               className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 transition hover:bg-cream/20"
             >
               <Instagram className="h-4 w-4" />

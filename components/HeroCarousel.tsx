@@ -23,6 +23,14 @@ const slides = [
     script: "local",
     sub: "Préparé chaque matin avec des produits frais du marché.",
   },
+  {
+    src: "/menu2.jpg",
+    fallback: "/inprod.jpg",
+    alt: "La carte Glaces en Seine",
+    headline: "Trois douceurs,",
+    script: "une carte",
+    sub: "Glaces, crêpes & gaufres — tout est préparé devant vous.",
+  },
 ];
 
 const AUTO_DELAY = 5500;
@@ -70,7 +78,7 @@ export function HeroCarousel() {
 
   return (
     <section
-      className="relative h-[78dvh] min-h-[480px] w-full overflow-hidden sm:h-[88dvh]"
+      className="relative h-[80dvh] min-h-[460px] w-full overflow-hidden sm:h-[88dvh]"
       aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -93,7 +101,7 @@ export function HeroCarousel() {
       </AnimatePresence>
 
       {/* Content */}
-      <div className="relative z-10 flex h-full flex-col justify-between p-4 pb-6 sm:p-10">
+      <div className="relative z-10 flex h-full flex-col justify-between p-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))] sm:p-10 sm:pb-10">
 
         <div className="flex justify-end">
           <span className="rounded-full bg-cream/15 px-3 py-1 text-[11px] font-semibold text-cream/80 backdrop-blur">
@@ -119,20 +127,27 @@ export function HeroCarousel() {
                 {slide.sub}
               </p>
 
-              <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-7 sm:gap-3">
+              <div className="mt-5 flex flex-wrap gap-2 sm:mt-7 sm:gap-3">
                 <Link
                   href="/privatisation"
-                  className="btn-liquid group inline-flex items-center gap-2 rounded-full bg-cherry px-5 py-2.5 text-[13px] font-semibold text-cream shadow-glow-cherry transition sm:px-6 sm:py-3 sm:text-sm"
+                  className="btn-liquid inline-flex items-center gap-2 rounded-full bg-cherry px-4 py-2.5 text-[13px] font-semibold text-cream shadow-glow-cherry transition sm:px-6 sm:py-3 sm:text-sm"
                 >
-                  <Sparkles className="h-4 w-4" />
-                  Privatiser la caravane
+                  <Sparkles className="h-3.5 w-3.5 shrink-0" />
+                  <span className="hidden xs:inline">Privatiser la caravane</span>
+                  <span className="xs:hidden">Privatisation</span>
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-cream/15 px-5 py-2.5 text-[13px] font-semibold text-cream backdrop-blur transition hover:bg-cream/25 sm:px-6 sm:py-3 sm:text-sm"
+                  className="inline-flex items-center gap-2 rounded-full bg-cream/15 px-4 py-2.5 text-[13px] font-semibold text-cream backdrop-blur transition hover:bg-cream/25 sm:px-6 sm:py-3 sm:text-sm"
                 >
-                  <Mail className="h-4 w-4" />
-                  Nous contacter
+                  <Mail className="h-3.5 w-3.5 shrink-0" />
+                  Contact
+                </Link>
+                <Link
+                  href="/menu"
+                  className="inline-flex items-center gap-2 rounded-full bg-cream/15 px-4 py-2.5 text-[13px] font-semibold text-cream backdrop-blur transition hover:bg-cream/25 sm:px-6 sm:py-3 sm:text-sm"
+                >
+                  La carte
                 </Link>
               </div>
             </motion.div>
