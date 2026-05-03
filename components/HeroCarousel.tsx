@@ -150,9 +150,9 @@ export function HeroCarousel() {
   };
 
   const slide = slides[current];
-  const heroSrc = isMobile ? "/staticcarrousell.png" : slide.src;
+  const heroSrc = isMobile ? "/highdefglasse.png" : slide.src;
   const heroAlt = isMobile
-    ? "Glaces en Seine — caravane gourmande sur les quais"
+    ? "Glaces en Seine — glaces artisanales sur les quais de Seine"
     : slide.alt;
   const heroKey = isMobile ? "static-mobile" : slide.src;
   const showText = !isMobile && !slide.hideText;
