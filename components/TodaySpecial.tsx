@@ -34,7 +34,7 @@ function pickVibe(temp: number, code: number): Vibe {
       icon: CloudRain,
       badge: "Aujourd'hui",
       title: "Pluie sur le quai — l'idée crêpe est bonne.",
-      text: "Sucre, beurre, citron, ou l'option Nutella tiède. La caravane abrite, le billig réchauffe.",
+      text: "Sucre, beurre, citron, ou l'option Nutella tiède. La caravane abrite, la plaque à crêpes réchauffe.",
       accent: "bg-rose-100",
       cta: "Voir les crêpes",
     };

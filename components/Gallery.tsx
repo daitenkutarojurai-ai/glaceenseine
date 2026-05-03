@@ -8,8 +8,8 @@ import { Reveal } from "./Reveal";
 const PHOTOS = [
   {
     src: "/inprod.jpg",
-    alt: "Préparation des crêpes au billig",
-    caption: "Le billig en plein service",
+    alt: "Préparation des crêpes à la plaque",
+    caption: "La plaque en plein service",
   },
   {
     src: "/camion-patronne.jpg",

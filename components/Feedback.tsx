@@ -153,7 +153,7 @@ export function Feedback() {
           <Reveal delay={0.1}>
             <p className="mt-3 text-center text-[15px] leading-relaxed text-ink/60">
               Chaque retour nous aide à parfaire la recette — et à justifier
-              l&apos;achat d&apos;un deuxième billig.
+              l&apos;achat d&apos;une deuxième plaque à crêpes.
             </p>
           </Reveal>
 

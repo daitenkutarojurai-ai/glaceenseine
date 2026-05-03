@@ -28,7 +28,7 @@ const EVENTS = [
     color: "bg-rose-100 text-cherry",
     title: "Mariage & PACS",
     desc: "Offrez à vos invités un espace gourmand et inattendu — la caravane devient votre « stand glaces » le temps d'un jour magique.",
-    details: ["Personnalisation aux couleurs de l'événement", "Parfums sur-mesure", "Animation live billig"],
+    details: ["Personnalisation aux couleurs de l'événement", "Parfums sur-mesure", "Animation crêpes en direct"],
   },
   {
     icon: Briefcase,
@@ -102,7 +102,7 @@ export default function PrivatisationPage() {
             <Reveal delay={0.12}>
               <p className="mt-6 text-[17px] leading-relaxed text-cream/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)] sm:text-[18px]">
                 Mariage au bord de l&apos;eau, séminaire d&apos;entreprise, anniversaire mémorable ou
-                fête de village — on amène la caravane vert tendre, le billig chaud et
+                fête de village — on amène la caravane vert tendre, la plaque chaude et
                 les glaces artisanales. Vous apportez les invités.
               </p>
             </Reveal>

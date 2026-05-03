@@ -116,7 +116,7 @@ const categories: Cat[] = [
     key: "crepes",
     label: "Crêpes",
     emoji: "🥞",
-    tagline: "Pâte du matin — dorée au billig",
+    tagline: "Pâte du matin — dorée à la plaque",
     icon: Cookie,
     bg: "bg-sun-100",
     accent: "bg-sun-300/30",

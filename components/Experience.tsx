@@ -29,8 +29,8 @@ const tiles = [
   },
   {
     src: "/inprod.jpg",
-    alt: "Préparation des crêpes au billig",
-    caption: "Le billig en plein service",
+    alt: "Préparation des crêpes à la plaque",
+    caption: "La plaque en plein service",
     desktop: "md:col-span-1",
     mobileH: "h-56 sm:h-64",
     position: "object-center",
