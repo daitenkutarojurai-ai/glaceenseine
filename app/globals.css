@@ -92,6 +92,10 @@ body {
   line-height: 1.05;
 }
 
+/* ─── Hide scrollbar (menu tabs horizontal scroll) ─── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
 /* ─── Reduce motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

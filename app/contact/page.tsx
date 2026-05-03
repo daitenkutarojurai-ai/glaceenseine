@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Instagram, MapPin, Mail, Clock } from "lucide-react";
+
+const MAPS_URL =
+  "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 import { Reveal } from "@/components/Reveal";
 import { ContactForm } from "@/components/ContactForm";
 
@@ -78,7 +81,9 @@ export default function ContactPage() {
               </Reveal>
               <Reveal delay={0.21}>
                 <Link
-                  href="/#emplacement"
+                  href={MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
                 >
                   <span className="grid h-11 w-11 place-items-center rounded-xl bg-teal-100 text-teal-700">

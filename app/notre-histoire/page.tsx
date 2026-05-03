@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+
+const MAPS_URL =
+  "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 import { Reveal } from "@/components/Reveal";
 import { ArrowRight, Heart, Quote } from "lucide-react";
 
@@ -143,7 +146,9 @@ export default function HistoirePage() {
           </Reveal>
           <Reveal delay={0.15}>
             <Link
-              href="/#emplacement"
+              href={MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-liquid group mt-7 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-cream shadow-soft hover:shadow-glow"
             >
               Voir l'emplacement
