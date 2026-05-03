@@ -17,9 +17,57 @@ import { Reveal } from "@/components/Reveal";
 import { PrivatisationForm } from "@/components/PrivatisationForm";
 
 export const metadata: Metadata = {
-  title: "Privatisation caravane glaces — Glaces en Seine · La Frette-sur-Seine",
+  title: "Privatisation caravane glaces, crêpes & gaufres — mariage, séminaire, événement",
   description:
-    "Privatisez la caravane Glaces en Seine pour votre mariage, anniversaire, séminaire ou fête de quartier. Glaces artisanales, crêpes et gaufres à domicile en Île-de-France. Devis gratuit sous 48 h.",
+    "Privatisez la caravane Glaces en Seine pour mariage, anniversaire, séminaire ou fête de quartier en Île-de-France. Glaces artisanales, crêpes et gaufres préparées sur place. Devis gratuit sous 48 h.",
+  alternates: { canonical: "/privatisation" },
+};
+
+const PRIV_FAQ_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Pour quels événements peut-on privatiser la caravane ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Mariage et PACS, séminaires et événements d'entreprise, anniversaires, fêtes de quartier, baptêmes, festivals locaux et tournages. La caravane se déplace en Île-de-France.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Quelle est la zone de déplacement de la caravane ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Glaces en Seine intervient en Île-de-France, principalement dans le Val-d'Oise (95), les Yvelines (78), les Hauts-de-Seine (92) et Paris. Au-delà, des frais de déplacement s'appliquent.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Combien de temps avant l'événement faut-il réserver ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Idéalement 6 à 8 semaines à l'avance pour les samedis de mai à septembre, qui partent vite. Les autres dates restent disponibles plus tardivement.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "La caravane fonctionne-t-elle en intérieur ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "La caravane se gare à l'extérieur (cour, jardin, parking, place piétonne). Pour des événements en intérieur, nous proposons une formule sans caravane avec stand mobile glaces et crêpes.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Comment obtenir un devis ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Remplissez le formulaire de demande sur la page Privatisation : on revient vers vous sous 48 heures avec une proposition personnalisée et le tarif détaillé.",
+      },
+    },
+  ],
 };
 
 const EVENTS = [
@@ -65,6 +113,7 @@ const PERKS = [
 export default function PrivatisationPage() {
   return (
     <div className="relative overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PRIV_FAQ_LD) }} />
       {/* ── Hero with background image ── */}
       <section className="relative overflow-hidden" aria-labelledby="priv-title">
         {/* Background image */}

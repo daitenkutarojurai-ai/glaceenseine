@@ -72,7 +72,7 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error("[contact] sendMail failed:", err);
     return NextResponse.json(
-      { ok: false, message: "L'envoi a échoué. Écrivez-nous directement à bonjour@glacesenseine.fr." },
+      { ok: false, message: "L'envoi a échoué. Réessayez dans un instant ou écrivez-nous sur Instagram @glacesenseine." },
       { status: 500 },
     );
   }

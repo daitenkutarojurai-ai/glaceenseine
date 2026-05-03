@@ -13,7 +13,6 @@ const AUTO_DELAY = 7000;
 
 interface Slide {
   src: string;
-  fallback: string;
   alt: string;
   focal: string;
   headline: string;
@@ -24,9 +23,8 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    src: "/firstcarrouse.png",
-    fallback: "/carrouselfinal.png",
-    alt: "Glaces en Seine — la caravane sur les quais",
+    src: "/carrouselnumber2026.png",
+    alt: "Glaces en Seine — la caravane artisanale sur les quais de Seine à La Frette",
     focal: "50% 50%",
     headline: "La gourmandise",
     script: "débarque",
@@ -34,34 +32,22 @@ const slides: Slide[] = [
     kb: null,
   },
   {
-    src: "/carrouselfinal.png",
-    fallback: "/firstcarrouse.png",
-    alt: "Glaces en Seine — ambiance quai de Seine",
+    src: "/carrouselfinal20206.png",
+    alt: "Glaces en Seine — ambiance dominicale au bord de la Seine",
     focal: "50% 40%",
     headline: "Sur les quais",
     script: "de Seine",
     sub: "Une halte douce au bord de l'eau, chaque week-end.",
-    kb: null,
-  },
-  {
-    src: "/carroulast.png",
-    fallback: "/glaceensein1.png",
-    alt: "Le menu Glaces en Seine",
-    focal: "50% 50%",
-    headline: "Trois douceurs,",
-    script: "un menu",
-    sub: "Glaces, crêpes & gaufres — tout est préparé devant vous.",
     kb: { from: { scale: 1.06, x: 14 }, to: { scale: 1, x: 0 } },
   },
   {
-    src: "/menu2.jpg",
-    fallback: "/affiche.jpg",
-    alt: "Glaces en Seine — glaces artisanales",
-    focal: "50% 55%",
-    headline: "Artisanal,",
-    script: "local",
-    sub: "Préparé chaque matin avec des produits frais du marché.",
-    kb: { from: { scale: 1, x: 0 }, to: { scale: 1.06, x: -14 } },
+    src: "/carroulast2026.png",
+    alt: "Glaces en Seine — venez nous retrouver entre La Frette et Cormeilles",
+    focal: "50% 50%",
+    headline: "Venez nous",
+    script: "retrouver",
+    sub: "Entre La Frette-sur-Seine et Cormeilles-en-Parisis — chaque week-end.",
+    kb: { from: { scale: 1.04, x: -10 }, to: { scale: 1, x: 0 } },
   },
 ];
 

@@ -1,9 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { ArrowRight, IceCream, Cookie, CakeSlice } from "lucide-react";
 import { WeeklyPollCard } from "./WeeklyPoll";
 
@@ -13,13 +9,9 @@ const PILLS = [
   { icon: CakeSlice,label: "Gaufres",               color: "bg-teal-100 text-teal-700" },
 ];
 
-const MENU_SRC = "/menu2.jpg";
-const MENU_FALLBACK = "/menunew.png";
+const MENU_SRC = "/FINALANNER2023.png";
 
 export function MenuBanner() {
-  const [src, setSrc] = useState(MENU_SRC);
-  useEffect(() => { setSrc(MENU_SRC); }, []);
-
   return (
     <section
       id="menu"
@@ -44,43 +36,19 @@ export function MenuBanner() {
           </Link>
         </div>
 
-        <Link href="/menu" className="group block" aria-label="Voir la carte complète">
-          <motion.div
-            whileHover={{ scale: 1.012 }}
-            transition={{ duration: 0.4 }}
-            className="relative overflow-hidden rounded-3xl shadow-ring"
-          >
-            <div className="relative aspect-[4/5] w-full sm:aspect-[16/9] sm:h-auto">
+        <Link href="/menu" className="group block" aria-label="Voir la carte Glaces en Seine">
+          <div className="relative overflow-hidden rounded-3xl shadow-soft">
+            <div className="relative aspect-[3/2] w-full sm:aspect-[21/6]">
               <Image
-                src={src}
-                alt="La carte Glaces en Seine — cliquez pour voir tous les parfums"
+                src={MENU_SRC}
+                alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales sur les quais de Seine"
                 fill
                 sizes="(max-width: 1024px) 100vw, 896px"
-                className="object-cover transition duration-500 group-hover:scale-105"
-                onError={() => { if (src !== MENU_FALLBACK) setSrc(MENU_FALLBACK); }}
+                className="object-cover"
+                style={{ objectPosition: "50% 50%" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/10 to-transparent" />
-
-              <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5">
-                <span className="inline-flex items-center gap-2 rounded-full bg-cream/90 px-4 py-2 text-[12px] font-semibold text-ink shadow-soft backdrop-blur transition group-hover:bg-cream sm:px-5 sm:py-2.5 sm:text-[13px]">
-                  Voir la carte complète
-                  <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
-                </span>
-              </div>
-
-              <div className="absolute bottom-4 left-4 hidden flex-wrap gap-2 sm:flex sm:bottom-5 sm:left-5">
-                {PILLS.map((p) => (
-                  <span
-                    key={p.label}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-semibold shadow-soft backdrop-blur ${p.color}`}
-                  >
-                    <p.icon className="h-3.5 w-3.5" />
-                    {p.label}
-                  </span>
-                ))}
-              </div>
             </div>
-          </motion.div>
+          </div>
         </Link>
 
         {/* Mobile pills + CTA */}

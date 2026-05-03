@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Instagram, MapPin, Mail, Clock } from "lucide-react";
+import { Instagram, MapPin, Clock } from "lucide-react";
 
 const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
@@ -9,9 +9,10 @@ import { ContactForm } from "@/components/ContactForm";
 import { Feedback } from "@/components/Feedback";
 
 export const metadata: Metadata = {
-  title: "Contact & Avis — Glaces en Seine",
+  title: "Contact & Avis — écrivez à Glaces en Seine",
   description:
-    "Une question, un mot doux, un avis sur votre visite ? Écrivez-nous ou venez nous voir sur le quai à La Frette-sur-Seine.",
+    "Une question, un mot doux, un avis sur votre visite ? Contactez Glaces en Seine via notre formulaire ou venez nous voir sur le quai à La Frette-sur-Seine (95530).",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
@@ -58,20 +59,6 @@ export default function ContactPage() {
                     <div>
                       <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Instagram</div>
                       <div className="font-semibold text-ink group-hover:text-cherry">@glacesenseine</div>
-                    </div>
-                  </a>
-                </Reveal>
-                <Reveal delay={0.18}>
-                  <a
-                    href="mailto:bonjour@glacesenseine.fr"
-                    className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
-                  >
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-rose-100 text-cherry">
-                      <Mail className="h-4 w-4" />
-                    </span>
-                    <div>
-                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Email</div>
-                      <div className="font-semibold text-ink group-hover:text-cherry">bonjour@glacesenseine.fr</div>
                     </div>
                   </a>
                 </Reveal>

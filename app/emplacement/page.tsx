@@ -1,13 +1,54 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { MapPin, Navigation, Train, Bike, Clock, Calendar, ArrowRight } from "lucide-react";
+import { MapPin, Navigation, Train, Bike, Clock, Calendar, ArrowRight, Instagram, Facebook, Music2, Twitter } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { CopyAddressButton } from "@/components/CopyAddressButton";
+import { Newsletter } from "@/components/Newsletter";
 
 export const metadata: Metadata = {
-  title: "Nous trouver — Glaces en Seine · La Frette-sur-Seine",
+  title: "Nous trouver — Quai de Seine, La Frette-sur-Seine (95530)",
   description:
-    "Glaces en Seine est installée Quai de Seine, juste en face de la mairie de La Frette-sur-Seine (95530). Ouverte sam·dim·fériés de 14h à 19h, de mai à septembre.",
+    "Glaces en Seine est installée Quai de Seine, juste en face de la mairie de La Frette-sur-Seine (95530). Ouverte sam·dim·fériés de 14h à 19h, de mai à septembre. Accès SNCF Ligne J et véloroute des bords de Seine.",
+  alternates: { canonical: "/emplacement" },
+};
+
+const FAQ_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Où est située la caravane Glaces en Seine ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "La caravane Glaces en Seine est installée Quai de Seine, juste en face de la mairie de La Frette-sur-Seine (95530), dans le Val-d'Oise. Elle longe le quai entre La Frette-sur-Seine et Cormeilles-en-Parisis.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Quels sont les horaires d'ouverture ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Glaces en Seine est ouverte les samedis, dimanches et jours fériés, de 14h à 19h, de mai à septembre.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Comment venir à Glaces en Seine en transports ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Par le train : SNCF Ligne J, gare La Frette-Montigny, puis 10 minutes à pied le long du quai. À vélo : accès direct depuis la véloroute des bords de Seine. En voiture : parking sur le quai et autour de la mairie via la D48.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Que propose Glaces en Seine ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Glaces artisanales, crêpes et gaufres préparées devant vous, ainsi que boissons fraîches. Toute la carte est servie en saison sur les quais de Seine.",
+      },
+    },
+  ],
 };
 
 const MAPS_DIR_URL =
@@ -21,6 +62,7 @@ const FULL_ADDRESS = "Quai de Seine, face à la mairie — 95530 La Frette-sur-S
 export default function EmplacementPage() {
   return (
     <div className="relative overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_LD) }} />
       <div className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-blob bg-teal-100 opacity-40 blur-3xl" />
       <div className="pointer-events-none absolute -right-16 top-48 h-64 w-64 rounded-blob bg-sun-100 opacity-50 blur-3xl" />
 
@@ -177,8 +219,52 @@ export default function EmplacementPage() {
             </Reveal>
           </div>
 
+          {/* Suivez-nous */}
+          <Reveal delay={0.18}>
+            <div className="mt-16">
+              <div className="mb-5 flex items-end justify-between gap-4">
+                <div>
+                  <p className="eyebrow">Suivez-nous</p>
+                  <h2 className="h-display mt-1 text-2xl sm:text-3xl">
+                    Restez{" "}
+                    <span className="font-script text-cherry">au courant</span>
+                  </h2>
+                </div>
+              </div>
+
+              <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <li>
+                  <a
+                    href="https://instagram.com/glacesenseine"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram @glacesenseine"
+                    className="group flex h-full flex-col gap-2 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                  >
+                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-sun text-ink">
+                      <Instagram className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <div className="text-[11px] font-semibold uppercase tracking-wider text-ink/45">Instagram</div>
+                      <div className="text-[14px] font-semibold text-ink group-hover:text-cherry">@glacesenseine</div>
+                    </div>
+                  </a>
+                </li>
+
+                <SocialPlaceholder icon={<Facebook className="h-4 w-4" />} label="Facebook" />
+                <SocialPlaceholder icon={<Music2 className="h-4 w-4" />} label="TikTok" />
+                <SocialPlaceholder icon={<Twitter className="h-4 w-4" />} label="X / Twitter" />
+              </ul>
+            </div>
+          </Reveal>
+
+          {/* Newsletter */}
+          <div className="mt-12">
+            <Newsletter />
+          </div>
+
           {/* Back */}
-          <Reveal delay={0.2}>
+          <Reveal delay={0.22}>
             <div className="mt-12 text-center">
               <Link
                 href="/"
@@ -192,5 +278,25 @@ export default function EmplacementPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+function SocialPlaceholder({ icon, label }: { icon: React.ReactNode; label: string }) {
+  return (
+    <li>
+      <div
+        aria-disabled
+        title={`${label} — bientôt`}
+        className="flex h-full cursor-not-allowed flex-col gap-2 rounded-2xl bg-cream/60 p-4 opacity-60 ring-1 ring-ink/5"
+      >
+        <span className="grid h-10 w-10 place-items-center rounded-xl bg-ink/5 text-ink/55">
+          {icon}
+        </span>
+        <div>
+          <div className="text-[11px] font-semibold uppercase tracking-wider text-ink/40">{label}</div>
+          <div className="text-[12.5px] font-medium text-ink/55">Bientôt</div>
+        </div>
+      </div>
+    </li>
   );
 }

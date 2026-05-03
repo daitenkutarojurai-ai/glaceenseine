@@ -8,9 +8,10 @@ import { Reveal } from "@/components/Reveal";
 import { ArrowRight, Heart, Quote } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Notre histoire — Glaces en Seine",
+  title: "Notre histoire — la caravane Glaces en Seine",
   description:
-    "L'histoire de la caravane Glaces en Seine, posée chaque été sur les quais de La Frette-sur-Seine. Deux sœurs, une recette, et l'envie de ralentir le dimanche.",
+    "L'histoire de la caravane Glaces en Seine, posée chaque été sur les quais de La Frette-sur-Seine (95). Deux sœurs, une recette artisanale, et l'envie de ralentir le dimanche au bord de l'eau.",
+  alternates: { canonical: "/notre-histoire" },
 };
 
 export default function HistoirePage() {

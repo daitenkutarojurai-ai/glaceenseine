@@ -8,9 +8,10 @@ import { ArrowRight, MapPin, Clock } from "lucide-react";
 const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 
 export const metadata: Metadata = {
-  title: "Menu — Glaces en Seine",
+  title: "Menu — glaces, crêpes & gaufres artisanales",
   description:
-    "Toutes nos glaces artisanales, crêpes et gaufres. Préparées chaque matin à La Frette-sur-Seine, ouvert sam·dim·fériés de 14h à 19h.",
+    "Découvrez la carte Glaces en Seine : glaces artisanales, crêpes et gaufres préparées chaque matin à La Frette-sur-Seine. Ouvert sam·dim·fériés de 14h à 19h, mai → septembre.",
+  alternates: { canonical: "/menu" },
 };
 
 export default function MenuPage() {

@@ -4,8 +4,10 @@ import { ArrowRight, Shield } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = {
-  title: "Mentions légales — Glaces en Seine",
+  title: "Mentions légales",
   description: "Mentions légales, informations sur l'éditeur, l'hébergeur, la politique de confidentialité et les données personnelles de Glaces en Seine.",
+  alternates: { canonical: "/mentions-legales" },
+  robots: { index: false, follow: true },
 };
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
@@ -51,9 +53,13 @@ export default function MentionsLegalesPage() {
                 <p><strong className="text-ink">Dénomination sociale :</strong> Glaces en Seine</p>
                 <p><strong className="text-ink">Forme juridique :</strong> Entreprise individuelle</p>
                 <p><strong className="text-ink">Adresse :</strong> Quai de Seine, face à la mairie — 95530 La Frette-sur-Seine</p>
-                <p><strong className="text-ink">Email :</strong>{" "}
-                  <a href="mailto:bonjour@glacesenseine.fr" className="text-teal-700 underline underline-offset-2 hover:text-cherry transition-colors">
-                    bonjour@glacesenseine.fr
+                <p><strong className="text-ink">Contact :</strong>{" "}
+                  <Link href="/contact" className="text-teal-700 underline underline-offset-2 hover:text-cherry transition-colors">
+                    formulaire de contact
+                  </Link>
+                  {" "}ou Instagram{" "}
+                  <a href="https://instagram.com/glacesenseine" target="_blank" rel="noopener noreferrer" className="text-teal-700 underline underline-offset-2 hover:text-cherry transition-colors">
+                    @glacesenseine
                   </a>
                 </p>
                 <p><strong className="text-ink">SIRET :</strong> [Numéro à compléter]</p>
@@ -97,10 +103,10 @@ export default function MentionsLegalesPage() {
                 <p>
                   Conformément au règlement UE 2016/679 (RGPD) et à la loi Informatique et Libertés
                   n° 78-17 du 6 janvier 1978 modifiée, vous disposez d'un droit d'accès, de
-                  rectification, d'effacement et d'opposition. Pour exercer ces droits, écrivez à :{" "}
-                  <a href="mailto:bonjour@glacesenseine.fr" className="text-teal-700 underline underline-offset-2 hover:text-cherry transition-colors">
-                    bonjour@glacesenseine.fr
-                  </a>
+                  rectification, d'effacement et d'opposition. Pour exercer ces droits, utilisez{" "}
+                  <Link href="/contact" className="text-teal-700 underline underline-offset-2 hover:text-cherry transition-colors">
+                    notre formulaire de contact
+                  </Link>.
                 </p>
                 <p>
                   Vous pouvez également introduire une réclamation auprès de la CNIL :{" "}
