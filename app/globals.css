@@ -2,20 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light;
-}
+/* ─── Base ─────────────────────────────────────────────── */
+:root { color-scheme: light; }
+html  { scroll-behavior: smooth; }
 
-html {
-  scroll-behavior: smooth;
-}
-
+/* ─── Background — inspired by the affiche (poster)
+   Soft vertical stripes like a fairground tent: warm yellow on cream.
+   Three layered radial blobs add depth. ────────────────── */
 body {
-  @apply bg-cream text-ink antialiased;
+  @apply text-ink antialiased;
+  background-color: #FFFBF1;
   background-image:
-    radial-gradient(1200px 600px at 80% -10%, rgba(244, 201, 93, 0.18), transparent 60%),
-    radial-gradient(900px 500px at -10% 30%, rgba(93, 186, 168, 0.18), transparent 60%),
-    radial-gradient(1000px 700px at 50% 110%, rgba(248, 166, 132, 0.18), transparent 60%);
+    /* stripe pattern */
+    repeating-linear-gradient(
+      90deg,
+      transparent         0px,
+      transparent         90px,
+      rgba(244,218,118,0.14) 90px,
+      rgba(244,218,118,0.14) 155px
+    ),
+    /* teal bloom — top left */
+    radial-gradient(ellipse 70% 50% at -5% 0%,    rgba(93,186,168,0.13)  0%, transparent 65%),
+    /* sun bloom — bottom right */
+    radial-gradient(ellipse 70% 50% at 105% 105%, rgba(244,201,93,0.13)  0%, transparent 65%),
+    /* rose whisper — mid */
+    radial-gradient(ellipse 50% 40% at 50% 50%,   rgba(248,166,132,0.08) 0%, transparent 70%);
   background-attachment: fixed;
 }
 
@@ -24,67 +35,118 @@ body {
   color: #221C12;
 }
 
-/* ─── Glassmorphism utility ─── */
+/* ─── Glassmorphism ────────────────────────────────────── */
 .glass {
-  background: rgba(255, 251, 241, 0.6);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255,251,241,0.68);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.70);
 }
-
+.glass-teal {
+  background: rgba(207,234,227,0.50);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(156,216,204,0.45);
+}
 .glass-dark {
-  background: rgba(34, 28, 18, 0.55);
+  background: rgba(34,28,18,0.55);
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
-/* ─── Liquid CTA ─── */
+/* ─── Liquid CTA ────────────────────────────────────────── */
 .btn-liquid {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.2,0.7,0.2,1),
+              box-shadow 0.4s ease;
 }
 .btn-liquid::before {
   content: "";
   position: absolute;
   inset: -2px;
   z-index: -1;
-  background: radial-gradient(120px 120px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.55), transparent 60%);
+  background: radial-gradient(
+    120px 120px at var(--x,50%) var(--y,50%),
+    rgba(255,255,255,0.55),
+    transparent 60%
+  );
   opacity: 0;
   transition: opacity 0.5s ease;
 }
-.btn-liquid:hover::before {
-  opacity: 1;
+.btn-liquid:hover::before { opacity: 1; }
+.btn-liquid:hover          { transform: translateY(-2px); }
+
+/* ─── Pulsing location dot ──────────────────────────────── */
+.dot-pulse {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-.btn-liquid:hover {
-  transform: translateY(-2px);
+.dot-pulse::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.4;
+  animation: dotpulse 1.8s ease-out infinite;
+}
+@keyframes dotpulse {
+  0%   { transform: scale(0.9); opacity: 0.5; }
+  70%  { transform: scale(2.0); opacity: 0; }
+  100% { transform: scale(2.0); opacity: 0; }
 }
 
-/* ─── Marquee duplicate-track helper ─── */
+/* ─── Shimmer overlay for cards ─────────────────────────── */
+.shimmer-card {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,255,255,0.35) 50%,
+    transparent 60%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ─── No-scrollbar ────────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─── Marquee track ─────────────────────────────────────── */
 .marquee-track {
   display: flex;
   gap: 4rem;
   width: max-content;
 }
 
-/* ─── Subtle grain ─── */
+/* ─── Grain overlay ─────────────────────────────────────── */
 .grain::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  opacity: 0.06;
+  opacity: 0.05;
   mix-blend-mode: multiply;
 }
 
-/* ─── Section title pair ─── */
+/* ─── Typography helpers ────────────────────────────────── */
 .eyebrow {
   @apply uppercase tracking-[0.22em] text-xs font-semibold text-teal-700;
 }
-
 .h-display {
   font-family: var(--font-fraunces), Georgia, serif;
   font-weight: 500;
@@ -92,14 +154,10 @@ body {
   line-height: 1.05;
 }
 
-/* ─── Hide scrollbar (menu tabs horizontal scroll) ─── */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* ─── Reduce motion ─── */
+/* ─── Reduced motion ────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
-    animation-duration: 0.001ms !important;
+    animation-duration:  0.001ms !important;
     transition-duration: 0.001ms !important;
   }
 }
