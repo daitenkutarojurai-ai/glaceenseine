@@ -6,125 +6,122 @@ const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 import { Reveal } from "@/components/Reveal";
 import { ContactForm } from "@/components/ContactForm";
+import { Feedback } from "@/components/Feedback";
 
 export const metadata: Metadata = {
-  title: "Contact — Glaces en Seine",
+  title: "Contact & Avis — Glaces en Seine",
   description:
-    "Une question, une demande de privatisation, un message doux ? Écrivez-nous, ou venez nous voir sur le quai à La Frette-sur-Seine.",
+    "Une question, un mot doux, un avis sur votre visite ? Écrivez-nous ou venez nous voir sur le quai à La Frette-sur-Seine.",
 };
 
 export default function ContactPage() {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-28">
+    <div className="relative overflow-hidden">
+      {/* Decorative blobs */}
       <div className="pointer-events-none absolute -left-24 top-20 h-80 w-80 rounded-blob bg-gradient-sun opacity-50 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-blob bg-teal-100 opacity-60 blur-3xl" />
 
-      <div className="relative mx-auto max-w-6xl px-6">
-        <div className="grid gap-12 lg:grid-cols-2">
-          {/* Left — copy + side cards */}
-          <div>
-            <Reveal>
-              <p className="eyebrow">Contact</p>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h1 className="h-display mt-3 text-4xl sm:text-5xl">
-                Dites-nous{" "}
-                <span className="font-script text-cherry">bonjour</span>.
-              </h1>
-            </Reveal>
+      {/* ── Contact form ── */}
+      <section className="relative py-20 sm:py-28" aria-labelledby="contact-title">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid gap-12 lg:grid-cols-2">
+            {/* Left — copy + info cards */}
+            <div>
+              <Reveal>
+                <p className="eyebrow">Nous contacter</p>
+              </Reveal>
+              <Reveal delay={0.05}>
+                <h1 id="contact-title" className="h-display mt-3 text-4xl sm:text-5xl">
+                  Dites-nous{" "}
+                  <span className="font-script text-cherry">bonjour</span>.
+                </h1>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <p className="mt-5 max-w-md text-[17px] leading-relaxed text-ink/70">
+                  Une question sur la carte, une privatisation pour votre
+                  événement, un mot gentil, une suggestion de parfum ? On lit
+                  tout, on répond presque toujours.
+                </p>
+              </Reveal>
+
+              <div className="mt-8 grid gap-3">
+                <Reveal delay={0.15}>
+                  <a
+                    href="https://instagram.com/glacesenseine"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                  >
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-sun text-ink">
+                      <Instagram className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Instagram</div>
+                      <div className="font-semibold text-ink group-hover:text-cherry">@glacesenseine</div>
+                    </div>
+                  </a>
+                </Reveal>
+                <Reveal delay={0.18}>
+                  <a
+                    href="mailto:bonjour@glacesenseine.fr"
+                    className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                  >
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-rose-100 text-cherry">
+                      <Mail className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Email</div>
+                      <div className="font-semibold text-ink group-hover:text-cherry">bonjour@glacesenseine.fr</div>
+                    </div>
+                  </a>
+                </Reveal>
+                <Reveal delay={0.21}>
+                  <Link
+                    href={MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                  >
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-teal-100 text-teal-700">
+                      <MapPin className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Sur place</div>
+                      <div className="font-semibold text-ink group-hover:text-cherry">Quai de Seine, La Frette-sur-Seine</div>
+                    </div>
+                  </Link>
+                </Reveal>
+                <Reveal delay={0.24}>
+                  <div className="flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft">
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-sun-100 text-ink">
+                      <Clock className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Horaires</div>
+                      <div className="font-semibold text-ink">Sam · Dim · fériés · 14h–19h</div>
+                    </div>
+                  </div>
+                </Reveal>
+              </div>
+            </div>
+
+            {/* Right — form */}
             <Reveal delay={0.1}>
-              <p className="mt-5 max-w-md text-[17px] leading-relaxed text-ink/70">
-                Une question sur la carte, une privatisation pour un événement,
-                un mot gentil, une suggestion de parfum ? On lit tout, on
-                répond presque toujours.
-              </p>
+              <div className="rounded-[2rem] bg-cream p-7 shadow-ring sm:p-9">
+                <ContactForm />
+              </div>
             </Reveal>
-
-            <div className="mt-8 grid gap-3">
-              <Reveal delay={0.15}>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
-                >
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-sun text-ink">
-                    <Instagram className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">
-                      Instagram
-                    </div>
-                    <div className="font-semibold text-ink group-hover:text-cherry">
-                      @glacesenseine
-                    </div>
-                  </div>
-                </a>
-              </Reveal>
-              <Reveal delay={0.18}>
-                <a
-                  href="mailto:bonjour@glaceenseine.fr"
-                  className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
-                >
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-rose-100 text-cherry">
-                    <Mail className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">
-                      Email
-                    </div>
-                    <div className="font-semibold text-ink group-hover:text-cherry">
-                      bonjour@glaceenseine.fr
-                    </div>
-                  </div>
-                </a>
-              </Reveal>
-              <Reveal delay={0.21}>
-                <Link
-                  href={MAPS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
-                >
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-teal-100 text-teal-700">
-                    <MapPin className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">
-                      Sur place
-                    </div>
-                    <div className="font-semibold text-ink group-hover:text-cherry">
-                      Quai de Seine, La Frette-sur-Seine
-                    </div>
-                  </div>
-                </Link>
-              </Reveal>
-              <Reveal delay={0.24}>
-                <div className="flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft">
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-sun-100 text-ink">
-                    <Clock className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">
-                      Horaires
-                    </div>
-                    <div className="font-semibold text-ink">
-                      Sam · Dim · fériés · 14h–19h
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
           </div>
-
-          {/* Right — form */}
-          <Reveal delay={0.1}>
-            <div className="rounded-[2rem] bg-cream p-7 shadow-ring sm:p-9">
-              <ContactForm />
-            </div>
-          </Reveal>
         </div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="h-px bg-gradient-to-r from-transparent via-ink/10 to-transparent" />
       </div>
-    </section>
+
+      {/* ── Feedback ── */}
+      <Feedback />
+    </div>
   );
 }

@@ -46,9 +46,10 @@ export function Footer() {
           <ul className="mt-3 space-y-2 text-sm">
             <li><Link href="/#menu" className="hover:text-sun-300">La carte</Link></li>
             <li><Link href="/#experience" className="hover:text-sun-300">Sur les quais</Link></li>
+            <li><Link href="/privatisation" className="hover:text-sun-300">Privatisation</Link></li>
             <li><a href="https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530" target="_blank" rel="noopener noreferrer" className="hover:text-sun-300">Emplacement</a></li>
             <li><Link href="/notre-histoire" className="hover:text-sun-300">Notre histoire</Link></li>
-            <li><Link href="/contact" className="hover:text-sun-300">Contact</Link></li>
+            <li><Link href="/contact" className="hover:text-sun-300">Contact & Avis</Link></li>
           </ul>
         </div>
 
@@ -70,8 +71,9 @@ export function Footer() {
             <Heart className="h-3 w-3 text-cherry" /> sur les quais
           </div>
           <div className="flex gap-4">
+            <Link href="/privatisation" className="hover:text-cream">Privatisation</Link>
             <Link href="/notre-histoire" className="hover:text-cream">Notre histoire</Link>
-            <Link href="/contact" className="hover:text-cream">Nous écrire</Link>
+            <Link href="/contact" className="hover:text-cream">Contact & Avis</Link>
           </div>
         </div>
       </div>

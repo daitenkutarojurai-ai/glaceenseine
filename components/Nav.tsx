@@ -9,10 +9,11 @@ const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 
 const links = [
-  { href: "/#concept",    label: "Le concept" },
-  { href: "/#menu",       label: "La carte" },
-  { href: "/#experience", label: "Sur les quais" },
-  { href: "/#horaires",   label: "Horaires" },
+  { href: "/#concept",       label: "Le concept" },
+  { href: "/#menu",          label: "La carte" },
+  { href: "/#experience",    label: "Sur les quais" },
+  { href: "/#horaires",      label: "Horaires" },
+  { href: "/privatisation",  label: "Privatisation" },
   { href: "/notre-histoire", label: "Notre histoire" },
 ];
 
@@ -155,21 +156,28 @@ export function Nav() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setOpen(false)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-ink py-3.5 text-sm font-semibold text-cream"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-ink py-3 text-sm font-semibold text-cream"
                 >
                   <span className="relative flex h-2 w-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cherry opacity-80" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-cherry" />
                   </span>
                   <MapPin className="h-4 w-4" />
-                  Voir sur Maps
+                  Maps
+                </Link>
+                <Link
+                  href="/privatisation"
+                  onClick={() => setOpen(false)}
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-cherry py-3 text-sm font-semibold text-cream"
+                >
+                  Privatisation
                 </Link>
                 <Link
                   href="/contact"
                   onClick={() => setOpen(false)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-teal-100 py-3.5 text-sm font-semibold text-teal-700"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-teal-100 py-3 text-sm font-semibold text-teal-700"
                 >
-                  Nous écrire
+                  Contact
                 </Link>
               </div>
             </div>
