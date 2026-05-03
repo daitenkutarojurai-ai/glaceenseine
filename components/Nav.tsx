@@ -6,7 +6,7 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-
 import { Menu as MenuIcon, X, Instagram, Sparkles, MapPin, Bell } from "lucide-react";
 
 const links = [
-  { href: "/menu",         label: "La carte" },
+  { href: "/menu",         label: "Menu" },
   { href: "/privatisation", label: "Privatisation" },
   { href: "/emplacement",  label: "Nous trouver" },
   { href: "/contact",      label: "Contact" },

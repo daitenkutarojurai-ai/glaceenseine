@@ -29,11 +29,11 @@ const slides = [
     accent: "from-cherry/50",
   },
   {
-    src: "/carrousselupdateagain.png",
-    fallback: "/inprod.jpg",
-    alt: "La carte Glaces en Seine",
+    src: "/menunew.png",
+    fallback: "/menu2.jpg",
+    alt: "Le menu Glaces en Seine",
     headline: "Trois douceurs,",
-    script: "une carte",
+    script: "un menu",
     sub: "Glaces, crêpes & gaufres — tout est préparé devant vous.",
     accent: "from-ink/60",
   },
@@ -214,7 +214,7 @@ export function HeroCarousel() {
                   href="/menu"
                   className="inline-flex items-center gap-2 rounded-full bg-cream/15 px-4 py-2.5 text-[13px] font-semibold text-cream backdrop-blur transition hover:bg-cream/28 sm:px-5 sm:py-3 sm:text-sm"
                 >
-                  La carte
+                  Le menu
                 </Link>
               </div>
             </motion.div>

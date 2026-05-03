@@ -17,47 +17,50 @@ export default function MenuPage() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero banner */}
-      <div className="relative overflow-hidden bg-ink pb-10 pt-10 text-center text-cream">
-        <Image
-          src="/glaceensein1.png"
-          alt="Menu Glaces en Seine"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/55 to-ink/85" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/30 via-transparent to-transparent" />
-        <div className="relative mx-auto max-w-2xl px-4">
-          <Reveal>
-            <p className="eyebrow text-teal-400">Menu</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h1 className="h-display mt-2 text-4xl text-cream drop-shadow-[0_2px_16px_rgba(0,0,0,0.5)] sm:text-5xl">
-              Trois douceurs,{" "}
-              <span className="font-script text-sun-300">artisanales</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mt-3 text-[15px] leading-relaxed text-cream/80 drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
-              Pâte à crêpe du matin, glaces turbinées sur place, gaufres sorties
-              du fer — tout est préparé devant vous.
-            </p>
-          </Reveal>
-          {/* Info chips */}
-          <Reveal delay={0.15}>
-            <div className="mt-6 flex flex-wrap justify-center gap-3 text-[13px]">
-              <span className="flex items-center gap-1.5 rounded-full bg-cream/10 px-4 py-2 text-cream/80 backdrop-blur">
-                <Clock className="h-3.5 w-3.5 text-teal-400" />Sam · Dim · Fériés · 14h–19h
-              </span>
-              <Link href={MAPS_URL} target="_blank" rel="noopener noreferrer"
-                className="flex items-center gap-1.5 rounded-full bg-cherry/80 px-4 py-2 font-semibold text-cream transition hover:bg-cherry">
-                <MapPin className="h-3.5 w-3.5" />La Frette-sur-Seine
-              </Link>
-            </div>
-          </Reveal>
+      <section className="relative overflow-hidden" aria-labelledby="menu-hero-title">
+        <div className="absolute inset-0">
+          <Image
+            src="/glaceensein1.png"
+            alt="La caravane Glaces en Seine"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/60 to-ink/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/50 via-ink/20 to-transparent" />
         </div>
-      </div>
+        <div className="relative py-10 text-center text-cream sm:py-14">
+          <div className="mx-auto max-w-2xl px-4">
+            <Reveal>
+              <p className="eyebrow text-teal-400">Menu</p>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <h1 id="menu-hero-title" className="h-display mt-2 text-4xl text-cream drop-shadow-[0_2px_16px_rgba(0,0,0,0.5)] sm:text-5xl">
+                Trois douceurs,{" "}
+                <span className="font-script text-sun-300">artisanales</span>
+              </h1>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p className="mt-3 text-[15px] leading-relaxed text-cream/85 drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
+                Pâte à crêpe du matin, glaces turbinées sur place, gaufres sorties
+                du fer — tout est préparé devant vous.
+              </p>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <div className="mt-6 flex flex-wrap justify-center gap-3 text-[13px]">
+                <span className="flex items-center gap-1.5 rounded-full bg-cream/10 px-4 py-2 text-cream/80 backdrop-blur">
+                  <Clock className="h-3.5 w-3.5 text-teal-400" />Sam · Dim · Fériés · 14h–19h
+                </span>
+                <Link href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 rounded-full bg-cherry/80 px-4 py-2 font-semibold text-cream transition hover:bg-cherry">
+                  <MapPin className="h-3.5 w-3.5" />La Frette-sur-Seine
+                </Link>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
       {/* Menu component */}
       <Menu />

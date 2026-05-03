@@ -98,13 +98,14 @@ export function Feedback() {
               </div>
 
               <p className="mt-4 text-[14px] leading-relaxed text-ink/65">
-                Vous avez adoré ? Un avis sur Google est{" "}
-                <strong className="text-ink">la meilleure chose que vous puissiez faire pour nous</strong>{" "}
-                — ça aide les nouveaux clients à nous trouver et ça fait vraiment la différence pour une petite caravane artisanale. 🙏
+                Pour une petite caravane artisanale, un avis Google c&apos;est{" "}
+                <strong className="text-ink">concret</strong> : il aide les familles du quartier à nous trouver,
+                il convainc les nouveaux visiteurs, et il compense les grandes enseignes qui ont des budgets pub que nous n&apos;avons pas.{" "}
+                <strong className="text-ink">30 secondes de votre temps, c&apos;est notre meilleure publicité.</strong> 🙏
               </p>
 
               <div className="mt-3 flex items-center gap-1 text-[12px] text-ink/40">
-                ⭐⭐⭐⭐⭐ &nbsp;30 secondes · ça ne coûte rien
+                ⭐⭐⭐⭐⭐ &nbsp;Gratuit · anonyme · 30 secondes
               </div>
 
               <div className="mt-5 flex flex-col gap-2">

@@ -152,86 +152,66 @@ function usePoll() {
   return { question, weekNumber: getWeekNumber(), vote, tallies, ready, pick, total, pct };
 }
 
-/* ── Compact card — used inside Gallery grid ── */
+/* ── Compact strip — discreet horizontal band below gallery ── */
 export function WeeklyPollCard() {
   const { question, weekNumber, vote, ready, pick, total, pct } = usePoll();
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-ink p-4 shadow-ring sm:rounded-3xl sm:p-5">
-      {/* Header */}
-      <div className="flex items-start gap-2.5">
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-sun-300 text-ink">
-          <BarChart2 className="h-4 w-4" />
-        </span>
-        <div>
-          <p className="text-[9.5px] font-bold uppercase tracking-[0.2em] text-sun-300">
-            Sondage · sem. {weekNumber}
-          </p>
-          <p className="mt-0.5 font-display text-[13px] font-medium leading-snug text-cream sm:text-[14px]">
-            {question.text}
-          </p>
-          <p className="mt-0.5 text-[10px] text-cream/40 hidden sm:block">{question.sub}</p>
+    <div className="overflow-hidden rounded-2xl border border-ink/8 bg-white/60 px-4 py-3 shadow-soft backdrop-blur sm:px-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+        {/* Label + question */}
+        <div className="flex shrink-0 items-center gap-2.5 sm:w-56">
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-ink/8 text-ink/60">
+            <BarChart2 className="h-3.5 w-3.5" />
+          </span>
+          <div>
+            <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-ink/40">
+              Sondage · sem. {weekNumber}
+            </p>
+            <p className="font-display text-[12.5px] font-medium leading-snug text-ink/80">
+              {question.text}
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* Choices */}
-      <div className="mt-3 flex-1 space-y-1.5 overflow-y-auto">
-        {question.choices.map((opt) => {
-          const pv      = pct(opt.key);
-          const isVoted = vote === opt.key;
-          return (
-            <button
-              key={opt.key}
-              onClick={() => pick(opt.key)}
-              disabled={!!vote}
-              className={`relative w-full overflow-hidden rounded-lg border px-2.5 py-2 text-left transition ${
-                isVoted
-                  ? "border-sun-300/60 ring-1 ring-sun-300/30"
-                  : vote
-                  ? "cursor-default border-white/8 opacity-55"
-                  : "cursor-pointer border-white/10 hover:border-white/30"
-              } bg-white/5`}
-            >
-              <AnimatePresence>
-                {vote && ready && (
-                  <motion.span
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: pv / 100 }}
-                    transition={{ duration: 0.75, ease: [0.2, 0.8, 0.2, 1] }}
-                    className={`absolute inset-y-0 left-0 origin-left opacity-20 ${opt.bar}`}
-                    style={{ width: "100%" }}
-                  />
-                )}
-              </AnimatePresence>
-              <div className="relative flex items-center justify-between gap-1">
-                <span className="flex items-center gap-1.5 text-[12px] font-medium text-cream">
-                  <span className="text-[13px]">{opt.emoji}</span>
-                  <span className="truncate">{opt.label}</span>
-                  {isVoted && (
-                    <span className="shrink-0 rounded-full bg-sun-300 px-1.5 py-0.5 text-[9px] font-bold text-ink">✓</span>
+        {/* Choices — horizontal pills */}
+        <div className="flex flex-wrap gap-1.5">
+          {question.choices.map((opt) => {
+            const pv      = pct(opt.key);
+            const isVoted = vote === opt.key;
+            return (
+              <button
+                key={opt.key}
+                onClick={() => pick(opt.key)}
+                disabled={!!vote}
+                className={`relative overflow-hidden rounded-full border px-3 py-1.5 text-[12px] font-medium transition ${
+                  isVoted
+                    ? "border-ink/30 bg-ink/10 text-ink font-semibold"
+                    : vote
+                    ? "cursor-default border-ink/8 text-ink/40"
+                    : "cursor-pointer border-ink/10 bg-white/70 text-ink/70 hover:border-ink/25 hover:text-ink"
+                }`}
+              >
+                <span className="flex items-center gap-1">
+                  <span>{opt.emoji}</span>
+                  <span>{opt.label}</span>
+                  {vote && ready && (
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-[10px] font-bold text-ink/50"
+                    >
+                      {pv}%
+                    </motion.span>
                   )}
                 </span>
-                {vote && ready && (
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="shrink-0 text-[11px] font-bold text-cream/70"
-                  >
-                    {pv}%
-                  </motion.span>
-                )}
-              </div>
-            </button>
-          );
-        })}
-      </div>
+              </button>
+            );
+          })}
+        </div>
 
-      {/* Footer */}
-      <div className="mt-2.5 flex items-center justify-between">
-        <p className="text-[10px] text-cream/30">{total} votes</p>
-        <span className="flex items-center gap-1 text-[10px] text-sun-300/60">
-          <Sparkles className="h-2.5 w-2.5" />Chaque semaine
-        </span>
+        {/* Total */}
+        <p className="shrink-0 text-[10px] text-ink/30 sm:ml-auto">{total} votes</p>
       </div>
     </div>
   );

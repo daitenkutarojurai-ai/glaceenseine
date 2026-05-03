@@ -44,7 +44,7 @@ export function Footer() {
         <div>
           <div className="text-xs uppercase tracking-[0.2em] text-cream/50">Naviguer</div>
           <ul className="mt-3 space-y-2 text-sm">
-            <li><Link href="/menu" className="hover:text-sun-300">La carte</Link></li>
+            <li><Link href="/menu" className="hover:text-sun-300">Le menu</Link></li>
             <li><Link href="/privatisation" className="hover:text-sun-300">Privatisation</Link></li>
             <li><Link href="/emplacement" className="hover:text-sun-300">Nous trouver</Link></li>
             <li><Link href="/#newsletter" className="hover:text-sun-300">Newsletter</Link></li>

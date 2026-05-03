@@ -543,7 +543,7 @@ export function Menu() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         {/* Header */}
         <Reveal>
-          <p className="eyebrow text-center sm:text-left">La carte</p>
+          <p className="eyebrow text-center sm:text-left">Le menu</p>
         </Reveal>
         <Reveal delay={0.05}>
           <h2 id="menu-title" className="h-display mt-2 text-center text-3xl sm:text-left sm:text-5xl">
