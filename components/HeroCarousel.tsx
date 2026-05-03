@@ -104,7 +104,7 @@ export function HeroCarousel() {
     <section
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-ink"
-      style={{ height: "min(78dvh, 50vw)", minHeight: "460px" }}
+      style={{ height: "85dvh", minHeight: "520px" }}
       aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -113,35 +113,22 @@ export function HeroCarousel() {
     >
 
       {/* ────────────────────────────────────────────────────────
-          Layer 1 · Full picture — blurred fill + contained image
-          The blurred copy fills letterbox space, the sharp image
-          is always shown in full (object-contain, no cropping).
+          Layer 1 · Full-bleed cover image with parallax
+          Each slide fills the entire carousel (object-cover).
       ──────────────────────────────────────────────────────── */}
       <motion.div
-        className="absolute inset-0"
+        className="absolute inset-x-0 top-[-6%] bottom-[-6%]"
         style={{ y: parallaxY, willChange: "transform" }}
       >
         <AnimatePresence mode="sync">
           <motion.div
             key={slide.src}
             className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.2, ease: "easeInOut" }}
           >
-            {/* Blurred ambient background — fills letterbox bands */}
-            <Image
-              src={slide.src}
-              alt=""
-              aria-hidden
-              fill
-              sizes="100vw"
-              quality={60}
-              className="object-cover scale-110 opacity-50"
-              style={{ filter: "blur(22px)" }}
-            />
-            {/* Sharp contained image — full picture, never cropped */}
             <Image
               src={slide.src}
               alt={slide.alt}
@@ -149,7 +136,7 @@ export function HeroCarousel() {
               priority
               sizes="100vw"
               quality={92}
-              className="object-contain"
+              className="object-cover object-center"
             />
           </motion.div>
         </AnimatePresence>
