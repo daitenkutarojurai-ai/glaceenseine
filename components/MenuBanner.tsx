@@ -12,20 +12,10 @@ const PILLS = [
 ];
 
 const MENU_SRC = "/menu2.jpg";
-const MENU_SRC_MOBILE = "/Gemini_Generated_Image_c3mghyc3mghyc3mg.png";
 const MENU_ZOOM_SRC = "/claseephoneupdate.png";
 
 export function MenuBanner() {
   const [zoomed, setZoomed] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 639px)");
-    const update = () => setIsMobile(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
 
   useEffect(() => {
     if (!zoomed) return;
@@ -36,7 +26,7 @@ export function MenuBanner() {
     return () => window.removeEventListener("keydown", onKey);
   }, [zoomed]);
 
-  const previewSrc = isMobile ? MENU_SRC_MOBILE : MENU_SRC;
+  const previewSrc = MENU_SRC;
   const zoomSrc    = MENU_ZOOM_SRC;
 
   return (
@@ -61,7 +51,7 @@ export function MenuBanner() {
           aria-label="Agrandir la carte Glaces en Seine"
         >
           <div className="relative overflow-hidden rounded-3xl bg-cream shadow-soft transition group-hover:shadow-ring">
-            <div className={`relative w-full ${isMobile ? "aspect-[3/4]" : "aspect-[16/9]"}`}>
+            <div className="relative w-full aspect-[16/9]">
               <Image
                 src={previewSrc}
                 alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales sur les quais de Seine"

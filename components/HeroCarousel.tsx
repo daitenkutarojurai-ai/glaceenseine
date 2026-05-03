@@ -11,18 +11,6 @@ const MAPS_DIR_URL =
 
 const AUTO_DELAY = 7000;
 
-/* Mobile-only static carousel — two images, no autoplay (swipe + dots). */
-const MOBILE_SLIDES: { src: string; alt: string }[] = [
-  {
-    src: "/Gemini_Generated_Image_x2ealnx2ealnx2ea.png",
-    alt: "Glaces en Seine — caravane gourmande sur les quais, version mobile",
-  },
-  {
-    src: "/staticcarrousell.png",
-    alt: "Glaces en Seine — l'ambiance des quais, version mobile",
-  },
-];
-
 interface Slide {
   src: string;
   alt: string;
@@ -135,7 +123,7 @@ export function HeroCarousel() {
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
 
   const go = useCallback((idx: number) => setCurrent(idx), []);
-  const len = isMobile ? MOBILE_SLIDES.length : slides.length;
+  const len = slides.length;
   const next = useCallback(() => go((current + 1) % len), [current, go, len]);
   const prev = useCallback(() => go((current - 1 + len) % len), [current, go, len]);
 
@@ -159,13 +147,12 @@ export function HeroCarousel() {
   };
 
   const slide = slides[current];
-  const mobileSlide = MOBILE_SLIDES[current % MOBILE_SLIDES.length];
-  const heroSrc = isMobile ? mobileSlide.src : slide.src;
-  const heroAlt = isMobile ? mobileSlide.alt : slide.alt;
-  const heroKey = isMobile ? `m-${mobileSlide.src}` : slide.src;
+  const heroSrc = slide.src;
+  const heroAlt = slide.alt;
+  const heroKey = slide.src;
   const showText = !isMobile && !slide.hideText;
-  const dotCount = isMobile ? MOBILE_SLIDES.length : slides.length;
-  const dotIndex = isMobile ? current % MOBILE_SLIDES.length : current;
+  const dotCount = slides.length;
+  const dotIndex = current;
 
   return (
     <section
@@ -202,7 +189,7 @@ export function HeroCarousel() {
               priority
               sizes="100vw"
               quality={92}
-              className="object-contain object-center sm:object-cover"
+              className="object-cover object-center"
             />
           </motion.div>
         </AnimatePresence>
