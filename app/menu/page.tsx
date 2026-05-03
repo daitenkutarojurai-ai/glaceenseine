@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Menu } from "@/components/Menu";
 import Link from "next/link";
 import { ArrowRight, MapPin, Clock } from "lucide-react";
 import { SectionBanner } from "@/components/SectionBanner";
+import { MenuLightbox } from "@/components/MenuLightbox";
 
 const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 
@@ -50,17 +50,11 @@ export default function MenuPage() {
         aria-label="Carte Glaces en Seine — vue complète"
         className="mx-auto max-w-5xl px-4 py-10 sm:px-6"
       >
-        <div className="relative w-full overflow-hidden rounded-3xl bg-cream shadow-soft">
-          <Image
-            src="/menu2.jpg"
-            alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales"
-            width={1600}
-            height={900}
-            sizes="(max-width: 1024px) 100vw, 896px"
-            quality={92}
-            className="h-auto w-full object-contain"
-          />
-        </div>
+        <MenuLightbox
+          previewSrc="/menu2.jpg"
+          zoomSrc="/claseephoneupdate.png"
+          alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales"
+        />
       </section>
 
       <div className="py-10 text-center">
