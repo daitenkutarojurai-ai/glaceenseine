@@ -1,29 +1,17 @@
-import { Hero } from "@/components/Hero";
-import { TodaySpecial } from "@/components/TodaySpecial";
-import { Concept } from "@/components/Concept";
+import { HeroCarousel } from "@/components/HeroCarousel";
 import { Menu } from "@/components/Menu";
-import { Experience } from "@/components/Experience";
-import { FunStory } from "@/components/FunStory";
-import { Testimonials } from "@/components/Testimonials";
 import { Poll } from "@/components/Poll";
+import { PrivatisationTeaser } from "@/components/PrivatisationTeaser";
 import { Newsletter } from "@/components/Newsletter";
-import { Location } from "@/components/Location";
-import { Schedule } from "@/components/Schedule";
 
 export default function Home() {
   return (
     <>
-      <Hero />
-      <TodaySpecial />
-      <Concept />
+      <HeroCarousel />
       <Menu />
-      <Experience />
-      <FunStory />
-      <Testimonials />
       <Poll />
+      <PrivatisationTeaser />
       <Newsletter />
-      <Location />
-      <Schedule />
     </>
   );
 }

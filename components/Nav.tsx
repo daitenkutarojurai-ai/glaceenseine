@@ -9,12 +9,9 @@ const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 
 const links = [
-  { href: "/#concept",       label: "Le concept" },
   { href: "/#menu",          label: "La carte" },
-  { href: "/#experience",    label: "Sur les quais" },
-  { href: "/#horaires",      label: "Horaires" },
-  { href: "/privatisation",  label: "Privatisation" },
-  { href: "/notre-histoire", label: "Notre histoire" },
+  { href: "/#privatisation", label: "Privatisation" },
+  { href: "/contact",        label: "Contact & Avis" },
 ];
 
 export function Nav() {
