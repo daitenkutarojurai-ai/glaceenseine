@@ -14,7 +14,7 @@ export function SectionBanner({
   return (
     <div
       className="relative isolate w-full overflow-hidden bg-ink"
-      style={{ minHeight: "200px", aspectRatio: "21/7" }}
+      style={{ minHeight: "180px", aspectRatio: "23/5" }}
     >
       <Image
         src={src}
@@ -22,7 +22,7 @@ export function SectionBanner({
         fill
         priority
         sizes="100vw"
-        quality={90}
+        quality={92}
         className="object-cover object-center"
       />
       {/* Left-to-right reading overlay so text stays legible.

@@ -43,6 +43,42 @@ const slides: Slide[] = [
   },
 ];
 
+/* CTAs shared between text/hideText slides */
+function CarouselCtas({ className = "" }: { className?: string }) {
+  return (
+    <div className={`flex flex-wrap gap-2.5 sm:gap-3 ${className}`}>
+      <a
+        href={MAPS_DIR_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-ink px-5 py-2.5 text-[13px] font-semibold text-cream shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink/85 hover:shadow-lg sm:px-6 sm:py-3 sm:text-sm"
+      >
+        <span className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+        <span className="relative flex h-2 w-2 shrink-0">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-400" />
+        </span>
+        <Navigation className="h-3.5 w-3.5 shrink-0" />
+        <span className="hidden xs:inline">Nous trouver</span>
+        <span className="xs:hidden">Itinéraire</span>
+      </a>
+      <Link
+        href="/privatisation"
+        className="btn-liquid inline-flex items-center gap-2 rounded-full bg-cherry/90 px-5 py-2.5 text-[13px] font-semibold text-cream shadow-glow-cherry backdrop-blur-sm transition sm:px-6 sm:py-3 sm:text-sm"
+      >
+        <Sparkles className="h-3.5 w-3.5 shrink-0" />
+        Privatiser
+      </Link>
+      <Link
+        href="/menu"
+        className="inline-flex items-center gap-2 rounded-full bg-sun-300/90 px-5 py-2.5 text-[13px] font-semibold text-ink shadow-soft backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-sun-300 hover:shadow-glow-sun sm:px-6 sm:py-3 sm:text-sm"
+      >
+        Notre menu
+      </Link>
+    </div>
+  );
+}
+
 /* Floating ambient orbs — warm light-leak accents */
 function AmbientOrbs() {
   return (
@@ -217,7 +253,7 @@ export function HeroCarousel() {
           </span>
         </div>
 
-        {/* ── Middle: headline + CTAs ── */}
+        {/* ── Middle: headline + CTAs (text slides) / empty (hideText slides) ── */}
         <div className="flex flex-1 flex-col justify-center">
           <AnimatePresence mode="wait">
             <motion.div
@@ -257,54 +293,27 @@ export function HeroCarousel() {
                   >
                     {slide.sub}
                   </motion.p>
+
+                  {/* CTAs (text slides — anchored to headline) */}
+                  <CarouselCtas className="mt-6 sm:mt-8" />
                 </>
               )}
-
-              {/* CTAs */}
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.28, duration: 0.5 }}
-                className="mt-6 flex flex-wrap gap-2.5 sm:mt-8 sm:gap-3"
-              >
-                {/* Primary — find us */}
-                <a
-                  href={MAPS_DIR_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-ink px-5 py-2.5 text-[13px] font-semibold text-cream shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink/85 hover:shadow-lg sm:px-6 sm:py-3 sm:text-sm"
-                >
-                  {/* shimmer sweep on hover */}
-                  <span className="pointer-events-none absolute inset-0 -translate-x-full skew-x-12 bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                  <span className="relative flex h-2 w-2 shrink-0">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-400" />
-                  </span>
-                  <Navigation className="h-3.5 w-3.5 shrink-0" />
-                  <span className="hidden xs:inline">Nous trouver</span>
-                  <span className="xs:hidden">Itinéraire</span>
-                </a>
-
-                {/* Secondary — privatiser */}
-                <Link
-                  href="/privatisation"
-                  className="btn-liquid inline-flex items-center gap-2 rounded-full bg-cherry/90 px-5 py-2.5 text-[13px] font-semibold text-cream shadow-glow-cherry backdrop-blur-sm transition sm:px-6 sm:py-3 sm:text-sm"
-                >
-                  <Sparkles className="h-3.5 w-3.5 shrink-0" />
-                  Privatiser
-                </Link>
-
-                {/* Tertiary — menu */}
-                <Link
-                  href="/menu"
-                  className="inline-flex items-center gap-2 rounded-full bg-sun-300/90 px-5 py-2.5 text-[13px] font-semibold text-ink shadow-soft backdrop-blur-sm transition hover:-translate-y-0.5 hover:bg-sun-300 hover:shadow-glow-sun sm:px-6 sm:py-3 sm:text-sm"
-                >
-                  Notre menu
-                </Link>
-              </motion.div>
             </motion.div>
           </AnimatePresence>
         </div>
+
+        {/* CTAs (hideText slides — anchored just above the schedule chip) */}
+        {slide.hideText && (
+          <motion.div
+            key={`${current}-cta`}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-3"
+          >
+            <CarouselCtas />
+          </motion.div>
+        )}
 
         {/* ── Bottom row: schedule chip + arrows ── */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">

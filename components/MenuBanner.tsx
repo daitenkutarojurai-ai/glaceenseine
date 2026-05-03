@@ -37,15 +37,15 @@ export function MenuBanner() {
         </div>
 
         <Link href="/menu" className="group block" aria-label="Voir la carte Glaces en Seine">
-          <div className="relative overflow-hidden rounded-3xl shadow-soft">
-            <div className="relative aspect-[3/2] w-full sm:aspect-[21/6]">
+          <div className="relative overflow-hidden rounded-3xl bg-cream shadow-soft">
+            <div className="relative aspect-[16/9] w-full">
               <Image
                 src={MENU_SRC}
                 alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales sur les quais de Seine"
                 fill
                 sizes="(max-width: 1024px) 100vw, 896px"
-                className="object-cover"
-                style={{ objectPosition: "50% 50%" }}
+                quality={92}
+                className="object-contain"
               />
             </div>
           </div>

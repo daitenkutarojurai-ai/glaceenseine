@@ -10,7 +10,8 @@ const CARDS = [
     label: "Mariage & PACS",
     desc: "Une halte gourmande qui ravit petits et grands.",
     emoji: "💍",
-    accent: "from-cherry/30 via-rose-200/40 to-cream",
+    href: "/privatisation#formules",
+    accent: "from-cherry/30 via-rose-100/40 to-cream",
     ring: "ring-cherry/20",
     badge: "bg-cherry text-cream",
   },
@@ -18,6 +19,7 @@ const CARDS = [
     label: "Entreprise",
     desc: "Séminaires, journées d'équipe, pots de départ.",
     emoji: "🏢",
+    href: "/privatisation#formules",
     accent: "from-teal-300/30 via-teal-100/40 to-cream",
     ring: "ring-teal-500/20",
     badge: "bg-teal-500 text-cream",
@@ -26,6 +28,7 @@ const CARDS = [
     label: "Anniversaire",
     desc: "Une animation qui change des bougies.",
     emoji: "🎉",
+    href: "/privatisation#formules",
     accent: "from-sun-300/40 via-sun-100/40 to-cream",
     ring: "ring-amber-400/25",
     badge: "bg-amber-400 text-ink",
@@ -34,6 +37,7 @@ const CARDS = [
     label: "Fête de quartier",
     desc: "Brocantes, vide-greniers, kermesses.",
     emoji: "🎪",
+    href: "/privatisation#formules",
     accent: "from-peach-100/60 via-rose-100/30 to-cream",
     ring: "ring-rose-300/30",
     badge: "bg-rose-300 text-ink",
@@ -126,8 +130,8 @@ export function PrivatisationTeaser() {
             </div>
 
             {/* ── Right — event grid ── */}
-            <div className="relative px-7 pb-12 sm:px-12 sm:pb-16 lg:py-16 lg:pl-0 lg:pr-12">
-              <div className="grid grid-cols-2 gap-3.5 sm:gap-4">
+            <div className="relative flex items-center px-7 pb-12 sm:px-12 sm:pb-16 lg:py-12 lg:pl-2 lg:pr-12">
+              <div className="grid w-full grid-cols-2 gap-4">
                 {CARDS.map((c, i) => (
                   <motion.div
                     key={c.label}
@@ -135,26 +139,30 @@ export function PrivatisationTeaser() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ delay: i * 0.07, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                    whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                    className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${c.accent} p-5 shadow-soft ring-1 ring-inset ${c.ring} transition`}
                   >
-                    {/* Top-right floating emoji medallion */}
-                    <span
-                      className={`absolute -right-3 -top-3 grid h-14 w-14 place-items-center rounded-full text-2xl shadow-soft ring-2 ring-cream/60 transition group-hover:rotate-6 ${c.badge}`}
-                      aria-hidden
+                    <Link
+                      href={c.href}
+                      className={`group relative flex h-full min-h-[148px] flex-col justify-end overflow-hidden rounded-2xl bg-gradient-to-br ${c.accent} p-5 shadow-soft ring-1 ring-inset ${c.ring} transition hover:-translate-y-1 hover:shadow-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cherry`}
+                      aria-label={`Privatisation — ${c.label}`}
                     >
-                      {c.emoji}
-                    </span>
+                      {/* Top-right floating emoji medallion */}
+                      <span
+                        className={`absolute -right-3 -top-3 grid h-14 w-14 place-items-center rounded-full text-2xl shadow-soft ring-2 ring-cream/60 transition group-hover:rotate-6 ${c.badge}`}
+                        aria-hidden
+                      >
+                        {c.emoji}
+                      </span>
 
-                    {/* Content */}
-                    <div className="relative pt-9">
-                      <div className="font-display text-[15px] font-semibold text-ink">
-                        {c.label}
+                      {/* Content pinned to bottom for consistent baseline */}
+                      <div className="relative">
+                        <div className="font-display text-[15px] font-semibold text-ink">
+                          {c.label}
+                        </div>
+                        <p className="mt-1 text-[12.5px] leading-relaxed text-ink/65">
+                          {c.desc}
+                        </p>
                       </div>
-                      <p className="mt-1 text-[12.5px] leading-relaxed text-ink/65">
-                        {c.desc}
-                      </p>
-                    </div>
+                    </Link>
                   </motion.div>
                 ))}
               </div>
