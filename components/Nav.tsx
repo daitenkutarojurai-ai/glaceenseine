@@ -8,7 +8,6 @@ import { Menu as MenuIcon, X, Instagram, Sparkles, MapPin, Bell } from "lucide-r
 const links = [
   { href: "/menu",         label: "La carte" },
   { href: "/privatisation", label: "Privatisation" },
-  { href: "/#avis",        label: "Avis" },
   { href: "/emplacement",  label: "Nous trouver" },
   { href: "/contact",      label: "Contact" },
 ];

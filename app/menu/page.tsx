@@ -8,7 +8,7 @@ import { ArrowRight, MapPin, Clock } from "lucide-react";
 const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 
 export const metadata: Metadata = {
-  title: "La carte — Glaces en Seine",
+  title: "Menu — Glaces en Seine",
   description:
     "Toutes nos glaces artisanales, crêpes et gaufres. Préparées chaque matin à La Frette-sur-Seine, ouvert sam·dim·fériés de 14h à 19h.",
 };
@@ -17,28 +17,29 @@ export default function MenuPage() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero banner */}
-      <div className="relative overflow-hidden bg-ink pb-16 pt-14 text-center text-cream">
+      <div className="relative overflow-hidden bg-ink pb-10 pt-10 text-center text-cream">
         <Image
-          src="/menu2.jpg"
-          alt="La carte Glaces en Seine"
+          src="/glaceensein1.png"
+          alt="Menu Glaces en Seine"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center opacity-30"
+          className="object-cover object-center"
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/40 to-ink/80" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/55 to-ink/85" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/30 via-transparent to-transparent" />
         <div className="relative mx-auto max-w-2xl px-4">
           <Reveal>
-            <p className="eyebrow text-teal-400">La carte</p>
+            <p className="eyebrow text-teal-400">Menu</p>
           </Reveal>
           <Reveal delay={0.06}>
-            <h1 className="h-display mt-2 text-4xl text-cream sm:text-5xl">
+            <h1 className="h-display mt-2 text-4xl text-cream drop-shadow-[0_2px_16px_rgba(0,0,0,0.5)] sm:text-5xl">
               Trois douceurs,{" "}
               <span className="font-script text-sun-300">artisanales</span>
             </h1>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mt-3 text-[15px] leading-relaxed text-cream/65">
+            <p className="mt-3 text-[15px] leading-relaxed text-cream/80 drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
               Pâte à crêpe du matin, glaces turbinées sur place, gaufres sorties
               du fer — tout est préparé devant vous.
             </p>

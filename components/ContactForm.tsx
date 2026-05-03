@@ -4,6 +4,15 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, Check, AlertTriangle } from "lucide-react";
 
+const SUBJECTS = [
+  "Privatisation / événement",
+  "Question sur la carte",
+  "Idée de parfum ou de recette",
+  "Comment nous améliorer",
+  "Signaler un bug sur le site",
+  "Autre",
+];
+
 type State =
   | { kind: "idle" }
   | { kind: "loading" }
@@ -41,15 +50,28 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
       <div className="grid gap-5 sm:grid-cols-2">
         <Field name="name" label="Votre prénom" required autoComplete="name" />
-        <Field
-          name="email"
-          type="email"
-          label="Votre email"
-          required
-          autoComplete="email"
-        />
+        <Field name="email" type="email" label="Votre email" required autoComplete="email" />
       </div>
-      <Field name="subject" label="Sujet" placeholder="Une question, une privatisation…" />
+
+      {/* Subject select */}
+      <div>
+        <label className="block">
+          <span className="mb-1.5 block text-[12.5px] font-semibold uppercase tracking-wider text-ink/55">
+            Sujet
+          </span>
+          <select
+            name="subject"
+            className="w-full cursor-pointer appearance-none rounded-2xl border border-ink/10 bg-white/80 px-4 py-3 text-[15px] text-ink outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-100"
+            defaultValue=""
+          >
+            <option value="" disabled>Choisir un sujet…</option>
+            {SUBJECTS.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+
       <Textarea
         name="message"
         label="Votre message"
@@ -102,7 +124,7 @@ export function ContactForm() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className="flex items-center gap-3 rounded-2xl bg-rose-100 px-4 py-3 text-sm text-cherry-deep"
+            className="flex items-center gap-3 rounded-2xl bg-rose-100 px-4 py-3 text-sm text-cherry"
             role="alert"
           >
             <AlertTriangle className="h-4 w-4" />
