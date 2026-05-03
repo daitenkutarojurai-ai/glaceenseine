@@ -68,7 +68,7 @@ function SlideImage({ src, fallback, alt, pos, index }: { src: string; fallback:
         fill
         priority
         sizes="100vw"
-        className={`object-cover ${pos}`}
+        className={`object-contain ${pos}`}
         onError={() => { if (active !== fallback) setActive(fallback); }}
       />
     </motion.div>
@@ -106,7 +106,8 @@ export function HeroCarousel() {
 
   return (
     <section
-      className="relative h-[80dvh] min-h-[460px] w-full overflow-hidden sm:h-[90dvh]"
+      className="relative w-full overflow-hidden bg-ink"
+      style={{ aspectRatio: "16/9", minHeight: "280px", maxHeight: "92dvh" }}
       aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
