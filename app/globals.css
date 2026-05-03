@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-ink antialiased;
+  background-image:
+    radial-gradient(1200px 600px at 80% -10%, rgba(244, 201, 93, 0.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgba(93, 186, 168, 0.18), transparent 60%),
+    radial-gradient(1000px 700px at 50% 110%, rgba(248, 166, 132, 0.18), transparent 60%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: #F4C95D;
+  color: #221C12;
+}
+
+/* ─── Glassmorphism utility ─── */
+.glass {
+  background: rgba(255, 251, 241, 0.6);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.glass-dark {
+  background: rgba(34, 28, 18, 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Liquid CTA ─── */
+.btn-liquid {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s ease;
+}
+.btn-liquid::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  background: radial-gradient(120px 120px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.55), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.btn-liquid:hover::before {
+  opacity: 1;
+}
+.btn-liquid:hover {
+  transform: translateY(-2px);
+}
+
+/* ─── Marquee duplicate-track helper ─── */
+.marquee-track {
+  display: flex;
+  gap: 4rem;
+  width: max-content;
+}
+
+/* ─── Subtle grain ─── */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+}
+
+/* ─── Section title pair ─── */
+.eyebrow {
+  @apply uppercase tracking-[0.22em] text-xs font-semibold text-teal-700;
+}
+
+.h-display {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+/* ─── Reduce motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
