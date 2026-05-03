@@ -52,7 +52,7 @@ export default function MenuPage() {
       >
         <MenuLightbox
           previewSrc="/menu2.jpg"
-          zoomSrc="/menu2.jpg"
+          zoomSrc="/claseephoneupdate.png"
           alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales"
         />
       </section>
