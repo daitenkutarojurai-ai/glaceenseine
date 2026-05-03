@@ -14,6 +14,7 @@ const slides = [
     src: "/firstcarrouse.png",
     fallback: "/carrouselfinal.png",
     alt: "Glaces en Seine — la caravane sur les quais",
+    pos: "object-center",
     headline: "La gourmandise",
     script: "débarque",
     sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine.",
@@ -23,6 +24,7 @@ const slides = [
     src: "/menu2.jpg",
     fallback: "/affiche.jpg",
     alt: "Glaces en Seine — glaces artisanales",
+    pos: "object-center",
     headline: "Artisanal,",
     script: "local",
     sub: "Préparé chaque matin avec des produits frais du marché.",
@@ -32,6 +34,7 @@ const slides = [
     src: "/carroulast.png",
     fallback: "/glaceensein1.png",
     alt: "Le menu Glaces en Seine",
+    pos: "object-center",
     headline: "Trois douceurs,",
     script: "un menu",
     sub: "Glaces, crêpes & gaufres — tout est préparé devant vous.",
@@ -41,14 +44,14 @@ const slides = [
 
 const AUTO_DELAY = 6000;
 
-/* Ken Burns zoom effect per slide — different scale directions for variety */
+/* Ken Burns zoom effect per slide — subtle scale so the full image stays visible */
 const KB_VARIANTS = [
-  { initial: { scale: 1, x: 0,    y: 0    }, animate: { scale: 1.08, x: -12, y: -8  } },
-  { initial: { scale: 1, x: 0,    y: 0    }, animate: { scale: 1.06, x: 10,  y: -6  } },
-  { initial: { scale: 1.06, x: -8, y: -4  }, animate: { scale: 1,    x: 0,   y: 0   } },
+  { initial: { scale: 1,    x: 0,   y: 0   }, animate: { scale: 1.04, x: -5, y: -3 } },
+  { initial: { scale: 1,    x: 0,   y: 0   }, animate: { scale: 1.03, x: 4,  y: -2 } },
+  { initial: { scale: 1.04, x: -4,  y: -2  }, animate: { scale: 1,    x: 0,  y: 0  } },
 ];
 
-function SlideImage({ src, fallback, alt, index }: { src: string; fallback: string; alt: string; index: number }) {
+function SlideImage({ src, fallback, alt, pos, index }: { src: string; fallback: string; alt: string; pos: string; index: number }) {
   const [active, setActive] = useState(src);
   useEffect(() => { setActive(src); }, [src]);
   const kb = KB_VARIANTS[index % KB_VARIANTS.length];
@@ -65,7 +68,7 @@ function SlideImage({ src, fallback, alt, index }: { src: string; fallback: stri
         fill
         priority
         sizes="100vw"
-        className="object-cover object-center"
+        className={`object-cover ${pos}`}
         onError={() => { if (active !== fallback) setActive(fallback); }}
       />
     </motion.div>
@@ -120,7 +123,7 @@ export function HeroCarousel() {
           transition={{ duration: 1.0, ease: "easeInOut" }}
           className="absolute inset-0 overflow-hidden"
         >
-          <SlideImage src={slide.src} fallback={slide.fallback} alt={slide.alt} index={current} />
+          <SlideImage src={slide.src} fallback={slide.fallback} alt={slide.alt} pos={slide.pos} index={current} />
           {/* Layered gradient: directional accent colour + dark vignette */}
           <div className={`absolute inset-0 bg-gradient-to-b ${slide.accent} via-transparent to-ink/75`} />
           <div className="absolute inset-0 bg-gradient-to-r from-ink/30 via-transparent to-transparent" />
@@ -209,12 +212,12 @@ export function HeroCarousel() {
                   <span className="xs:hidden">Privatiser</span>
                 </Link>
 
-                {/* La carte */}
+                {/* Menu */}
                 <Link
                   href="/menu"
-                  className="inline-flex items-center gap-2 rounded-full bg-cream/15 px-4 py-2.5 text-[13px] font-semibold text-cream backdrop-blur transition hover:bg-cream/28 sm:px-5 sm:py-3 sm:text-sm"
+                  className="inline-flex items-center gap-2 rounded-full bg-sun-300 px-4 py-2.5 text-[13px] font-semibold text-ink shadow-soft transition hover:bg-sun-400 sm:px-5 sm:py-3 sm:text-sm"
                 >
-                  Le menu
+                  Menu
                 </Link>
               </div>
             </motion.div>
