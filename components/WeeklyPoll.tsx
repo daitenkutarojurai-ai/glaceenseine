@@ -157,25 +157,25 @@ export function WeeklyPollCard() {
   const { question, weekNumber, vote, ready, pick, total, pct } = usePoll();
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-ink/8 bg-white/60 px-4 py-3 shadow-soft backdrop-blur sm:px-5">
+    <div className="overflow-hidden rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3.5 shadow-soft sm:px-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
         {/* Label + question */}
-        <div className="flex shrink-0 items-center gap-2.5 sm:w-56">
-          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-ink/8 text-ink/60">
-            <BarChart2 className="h-3.5 w-3.5" />
+        <div className="flex shrink-0 items-center gap-2.5 sm:w-60">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-teal-500 text-cream shadow-sm">
+            <BarChart2 className="h-4 w-4" />
           </span>
           <div>
-            <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-ink/40">
+            <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-teal-600">
               Sondage · sem. {weekNumber}
             </p>
-            <p className="font-display text-[12.5px] font-medium leading-snug text-ink/80">
+            <p className="font-display text-[13px] font-semibold leading-snug text-ink">
               {question.text}
             </p>
           </div>
         </div>
 
         {/* Choices — horizontal pills */}
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {question.choices.map((opt) => {
             const pv      = pct(opt.key);
             const isVoted = vote === opt.key;
@@ -184,22 +184,22 @@ export function WeeklyPollCard() {
                 key={opt.key}
                 onClick={() => pick(opt.key)}
                 disabled={!!vote}
-                className={`relative overflow-hidden rounded-full border px-3 py-1.5 text-[12px] font-medium transition ${
+                className={`relative overflow-hidden rounded-full border px-3.5 py-1.5 text-[12.5px] font-medium transition ${
                   isVoted
-                    ? "border-ink/30 bg-ink/10 text-ink font-semibold"
+                    ? "border-teal-500 bg-teal-500 text-cream font-semibold shadow-sm"
                     : vote
-                    ? "cursor-default border-ink/8 text-ink/40"
-                    : "cursor-pointer border-ink/10 bg-white/70 text-ink/70 hover:border-ink/25 hover:text-ink"
+                    ? "cursor-default border-teal-200/60 bg-white/50 text-ink/35"
+                    : "cursor-pointer border-teal-300 bg-white text-ink hover:border-teal-500 hover:bg-teal-100"
                 }`}
               >
-                <span className="flex items-center gap-1">
+                <span className="flex items-center gap-1.5">
                   <span>{opt.emoji}</span>
                   <span>{opt.label}</span>
                   {vote && ready && (
                     <motion.span
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="text-[10px] font-bold text-ink/50"
+                      className="text-[11px] font-bold opacity-70"
                     >
                       {pv}%
                     </motion.span>
@@ -211,7 +211,7 @@ export function WeeklyPollCard() {
         </div>
 
         {/* Total */}
-        <p className="shrink-0 text-[10px] text-ink/30 sm:ml-auto">{total} votes</p>
+        <p className="shrink-0 text-[11px] font-medium text-teal-600/70 sm:ml-auto">{total} votes</p>
       </div>
     </div>
   );

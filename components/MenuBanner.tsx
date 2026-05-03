@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, IceCream, Cookie, CakeSlice } from "lucide-react";
+import { WeeklyPollCard } from "./WeeklyPoll";
 
 const PILLS = [
   { icon: IceCream, label: "Glaces artisanales", color: "bg-rose-100 text-cherry" },
@@ -102,6 +103,11 @@ export function MenuBanner() {
             Voir la carte complète
             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
           </Link>
+        </div>
+
+        {/* Poll — contextuellement lié au menu */}
+        <div className="mt-4">
+          <WeeklyPollCard />
         </div>
       </div>
     </section>
