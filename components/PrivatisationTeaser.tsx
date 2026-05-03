@@ -54,7 +54,7 @@ export function PrivatisationTeaser() {
   return (
     <section
       id="privatisation"
-      className="scroll-mt-24 py-20 sm:py-32"
+      className="scroll-mt-24 py-16 sm:py-24"
       aria-labelledby="priv-teaser-title"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">

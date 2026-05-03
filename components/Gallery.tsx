@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
 
 /* ── Photos ──────────────────────────────────────────── */
@@ -20,20 +19,10 @@ const PHOTOS = [
 ];
 
 export function Gallery() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const yA = useTransform(scrollYProgress, [0, 1], ["6%", "-6%"]);
-  const yB = useTransform(scrollYProgress, [0, 1], ["-4%", "8%"]);
-  const offsets = [yA, yB];
-
   return (
     <section
-      ref={sectionRef}
       id="galerie"
-      className="scroll-mt-20 py-16 sm:py-24"
+      className="scroll-mt-20 py-10 sm:py-16"
       aria-labelledby="gallery-title"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
@@ -58,7 +47,7 @@ export function Gallery() {
           </p>
         </Reveal>
 
-        {/* 2 photos — 2-column grid with gentle scroll parallax */}
+        {/* 2 photos — 2-column grid */}
         <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-7 sm:grid-cols-2">
           {PHOTOS.map((p, i) => (
             <motion.div
@@ -69,18 +58,13 @@ export function Gallery() {
               transition={{ duration: 0.55, delay: i * 0.08 }}
               className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-cream-deep shadow-soft sm:aspect-video"
             >
-              <motion.div
-                className="absolute inset-x-0 -top-[8%] -bottom-[8%]"
-                style={{ y: offsets[i % offsets.length], willChange: "transform" }}
-              >
-                <Image
-                  src={p.src}
-                  alt={p.alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
-              </motion.div>
+              <Image
+                src={p.src}
+                alt={p.alt}
+                fill
+                sizes="(max-width: 640px) 100vw, 50vw"
+                className="object-cover transition duration-500 group-hover:scale-105"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
               <p className="absolute bottom-3 left-4 right-4 text-[12px] font-medium text-cream/90 drop-shadow-sm">
                 {p.caption}

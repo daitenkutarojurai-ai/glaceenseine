@@ -4,7 +4,6 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Footer } from "@/components/Footer";
-import { ScrollProgress } from "@/components/ScrollProgress";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -49,13 +48,13 @@ export const metadata: Metadata = {
     siteName: "Glaces en Seine",
     locale: "fr_FR",
     type: "website",
-    images: [{ url: "/logominiature.png", width: 1200, height: 630, alt: "Glaces en Seine — glaces, crêpes & gaufres artisanales" }],
+    images: [{ url: "/logo.jpg", width: 496, height: 377, alt: "Logo Glaces en Seine" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Glaces en Seine",
     description: "La gourmandise débarque sur les quais de Seine.",
-    images: ["/logominiature.png"],
+    images: ["/logo.jpg"],
   },
   robots: {
     index: true,
@@ -131,7 +130,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="font-sans">
-        <ScrollProgress />
         <AnnouncementBar />
         <Nav />
         <main className="relative w-full overflow-x-clip">{children}</main>

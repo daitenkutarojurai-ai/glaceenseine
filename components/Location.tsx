@@ -105,19 +105,9 @@ export function Location() {
               <iframe
                 title="Carte — Glaces en Seine"
                 src={EMBED_SRC}
-                className="pointer-events-none absolute inset-0 h-full w-full border-0"
+                className="absolute inset-0 h-full w-full border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                aria-hidden="true"
-                tabIndex={-1}
-              />
-              {/* Click-through overlay → opens Google Maps in a new tab */}
-              <Link
-                href={MAPS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Ouvrir la carte dans Google Maps"
-                className="absolute inset-0 z-[1]"
               />
               {/* Overlay pin badge */}
               <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -137,7 +127,7 @@ export function Location() {
                 href={MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="absolute bottom-4 right-4 z-[2] inline-flex items-center gap-1.5 rounded-full bg-cream/95 px-3.5 py-2 text-[12.5px] font-semibold text-ink shadow-soft backdrop-blur transition hover:bg-cream"
+                className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-cream/95 px-3.5 py-2 text-[12.5px] font-semibold text-ink shadow-soft backdrop-blur transition hover:bg-cream"
               >
                 <Navigation className="h-3.5 w-3.5" /> Itinéraire
               </Link>
