@@ -145,15 +145,21 @@ export default function HistoirePage() {
             </p>
           </Reveal>
           <Reveal delay={0.15}>
-            <Link
-              href={MAPS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-liquid group mt-7 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-cream shadow-soft hover:shadow-glow"
-            >
-              Voir l'emplacement
-              <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-            </Link>
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+              <Link
+                href="/privatisation"
+                className="btn-liquid group inline-flex items-center gap-2 rounded-full bg-cherry px-6 py-3.5 text-sm font-semibold text-cream shadow-soft hover:shadow-glow-cherry"
+              >
+                Privatiser la caravane
+                <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-semibold text-ink shadow-soft transition hover:bg-cream-deep"
+              >
+                Nous contacter
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>

@@ -4,29 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import { Sparkles, Mail, Clock, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 
-const MAPS_URL =
-  "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
-
-// Order requested: glacesenseine3.png → glacesenseine1.png → menunew.png
-// Each slide has a fallback to an existing /public file so the page never breaks.
+// Order: glaceensein1.png → menunew.png → glaceenseine3.png
 const slides = [
   {
-    src: "/glacesenseine3.png",
+    src: "/glaceensein1.png",
     fallback: "/bannerup.png",
-    alt: "Glaces en Seine — la caravane sur les quais",
+    alt: "Glaces en Seine — glaces artisanales",
     headline: "La gourmandise",
     script: "débarque",
     sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine.",
-  },
-  {
-    src: "/glacesenseine1.png",
-    fallback: "/affiche.jpg",
-    alt: "Glaces en Seine — glaces artisanales",
-    headline: "Artisanal,",
-    script: "local",
-    sub: "Préparé chaque matin avec des produits frais du marché.",
   },
   {
     src: "/menunew.png",
@@ -36,6 +24,14 @@ const slides = [
     script: "une carte",
     sub: "Découvrez toutes nos glaces, crêpes et gaufres.",
     cta: { label: "Voir la carte", href: "/menu" },
+  },
+  {
+    src: "/glaceenseine3.png",
+    fallback: "/affiche.jpg",
+    alt: "Glaces en Seine — la caravane sur les quais",
+    headline: "Artisanal,",
+    script: "local",
+    sub: "Préparé chaque matin avec des produits frais du marché.",
   },
 ];
 
@@ -135,32 +131,25 @@ export function HeroCarousel() {
 
               <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-7 sm:gap-3">
                 <Link
-                  href={slide.cta?.href ?? MAPS_URL}
-                  target={slide.cta ? undefined : "_blank"}
-                  rel={slide.cta ? undefined : "noopener noreferrer"}
+                  href={slide.cta?.href ?? "/privatisation"}
                   className="btn-liquid group inline-flex items-center gap-2 rounded-full bg-cherry px-5 py-2.5 text-[13px] font-semibold text-cream shadow-glow-cherry transition sm:px-6 sm:py-3 sm:text-sm"
                 >
                   {slide.cta ? (
                     slide.cta.label
                   ) : (
                     <>
-                      <span className="relative flex h-2.5 w-2.5 shrink-0">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cream/70" />
-                        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-cream" />
-                      </span>
-                      <MapPin className="h-4 w-4" />
-                      L&apos;emplacement
+                      <Sparkles className="h-4 w-4" />
+                      Privatiser la caravane
                     </>
                   )}
                 </Link>
-                {!slide.cta && (
-                  <Link
-                    href="/menu"
-                    className="inline-flex items-center gap-2 rounded-full bg-cream/15 px-5 py-2.5 text-[13px] font-semibold text-cream backdrop-blur transition hover:bg-cream/25 sm:px-6 sm:py-3 sm:text-sm"
-                  >
-                    La carte
-                  </Link>
-                )}
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-cream/15 px-5 py-2.5 text-[13px] font-semibold text-cream backdrop-blur transition hover:bg-cream/25 sm:px-6 sm:py-3 sm:text-sm"
+                >
+                  <Mail className="h-4 w-4" />
+                  Nous contacter
+                </Link>
               </div>
             </motion.div>
           </AnimatePresence>

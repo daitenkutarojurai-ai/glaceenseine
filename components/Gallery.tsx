@@ -122,11 +122,6 @@ const PHOTOS = [
     alt: "La caravane et ses fondatrices",
     caption: "La caravane, sous les tilleuls",
   },
-  {
-    src: "/camion.jpg",
-    alt: "La caravane vue de face",
-    caption: "Côté Seine, fin de journée",
-  },
 ];
 
 export function Gallery() {
@@ -158,8 +153,8 @@ export function Gallery() {
           </p>
         </Reveal>
 
-        {/* 3 photos + poll */}
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-7 sm:grid-cols-2 lg:grid-cols-3">
+        {/* 2 photos + poll — equal-weight 3-column row, single 1-column stack on mobile */}
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-7 sm:grid-cols-3">
           {PHOTOS.map((p, i) => (
             <motion.div
               key={p.src}
@@ -167,17 +162,13 @@ export function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: i * 0.06 }}
-              className={`group relative overflow-hidden rounded-2xl bg-cream-deep shadow-soft ${
-                i === 1
-                  ? "aspect-[4/5] sm:aspect-square lg:row-span-2 lg:aspect-auto"
-                  : "aspect-[4/5] sm:aspect-square"
-              }`}
+              className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-cream-deep shadow-soft sm:aspect-square"
             >
               <Image
                 src={p.src}
                 alt={p.alt}
                 fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                sizes="(max-width: 640px) 100vw, 33vw"
                 className="object-cover transition duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
@@ -187,17 +178,15 @@ export function Gallery() {
             </motion.div>
           ))}
 
-          {/* Poll — embedded, takes the bottom-right slot on lg, full-width on sm */}
+          {/* Poll — same column width, same square footprint as photos on desktop */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.55, delay: 0.18 }}
-            className="sm:col-span-2 lg:col-span-1"
+            className="sm:aspect-square"
           >
-            <div className="h-full min-h-[260px]">
-              <MiniPoll />
-            </div>
+            <MiniPoll />
           </motion.div>
         </div>
       </div>

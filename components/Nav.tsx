@@ -3,10 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { Menu as MenuIcon, X, Instagram, MapPin } from "lucide-react";
-
-const MAPS_URL =
-  "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
+import { Menu as MenuIcon, X, Instagram, Sparkles } from "lucide-react";
 
 const links = [
   { href: "/menu",         label: "La carte" },
@@ -82,19 +79,18 @@ export function Nav() {
           >
             <Instagram className="h-4 w-4" />
           </Link>
-          {/* Location CTA with pulsing dot */}
           <Link
-            href={MAPS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-liquid group inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-[13px] font-semibold text-cream shadow-soft hover:shadow-glow-cherry"
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-full bg-cream/80 px-4 py-2 text-[13px] font-semibold text-ink shadow-soft transition hover:bg-cream"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cherry opacity-80" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-cherry" />
-            </span>
-            <MapPin className="h-3.5 w-3.5" />
-            Voir l'emplacement
+            Contact
+          </Link>
+          <Link
+            href="/privatisation"
+            className="btn-liquid group inline-flex items-center gap-2 rounded-full bg-cherry px-4 py-2 text-[13px] font-semibold text-cream shadow-soft hover:shadow-glow-cherry"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            Privatiser
           </Link>
         </div>
 
@@ -150,25 +146,12 @@ export function Nav() {
               </nav>
               <div className="flex gap-2 border-t border-ink/6 p-3">
                 <Link
-                  href={MAPS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setOpen(false)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-ink py-3 text-sm font-semibold text-cream"
-                >
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cherry opacity-80" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-cherry" />
-                  </span>
-                  <MapPin className="h-4 w-4" />
-                  Maps
-                </Link>
-                <Link
                   href="/privatisation"
                   onClick={() => setOpen(false)}
                   className="flex flex-1 items-center justify-center gap-2 rounded-full bg-cherry py-3 text-sm font-semibold text-cream"
                 >
-                  Privatisation
+                  <Sparkles className="h-4 w-4" />
+                  Privatiser
                 </Link>
                 <Link
                   href="/contact"

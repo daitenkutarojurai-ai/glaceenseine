@@ -2,12 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, IceCream, X } from "lucide-react";
+import { Check, IceCream } from "lucide-react";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function Newsletter() {
-  const [open,   setOpen]   = useState(false);
   const [email,  setEmail]  = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
   const [error,  setError]  = useState("");
@@ -32,102 +31,82 @@ export function Newsletter() {
   }
 
   return (
-    <section className="py-8 sm:py-10" aria-label="Newsletter">
+    <section className="py-10 sm:py-14" aria-label="Newsletter">
       <div className="mx-auto max-w-2xl px-4 sm:px-6">
         <motion.div
-          layout
-          transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
-          className="relative overflow-hidden rounded-full bg-gradient-to-r from-teal-50 to-sun-100 shadow-soft"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+          className="overflow-hidden rounded-3xl bg-gradient-to-br from-teal-50 via-cream to-sun-100 p-5 shadow-ring sm:p-7"
         >
-          <AnimatePresence mode="wait" initial={false}>
-            {!open && status !== "ok" && (
-              <motion.button
-                key="closed"
-                type="button"
-                onClick={() => setOpen(true)}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="group flex w-full items-center justify-center gap-3 px-5 py-3 text-[13.5px] font-medium text-ink/80 sm:text-[14px]"
-              >
-                <motion.span
-                  animate={{ rotate: [-6, 6, -6] }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="text-lg"
-                  aria-hidden
-                >
-                  🍦
-                </motion.span>
-                <span>
-                  La saison démarre bientôt —{" "}
-                  <span className="font-semibold text-teal-700 underline-offset-2 group-hover:underline">
-                    me prévenir par mail
-                  </span>
-                </span>
-              </motion.button>
-            )}
+          <div className="flex flex-col items-center text-center">
+            <motion.span
+              animate={{ rotate: [-6, 6, -6] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+              className="grid h-11 w-11 place-items-center rounded-full bg-teal-500 text-cream shadow-glow"
+              aria-hidden
+            >
+              <IceCream className="h-5 w-5" />
+            </motion.span>
+            <h2 className="h-display mt-3 text-xl sm:text-2xl">
+              On vous prévient quand la caravane{" "}
+              <span className="font-script text-cherry">redémarre</span> ?
+            </h2>
+            <p className="mt-1.5 max-w-md text-[13.5px] leading-relaxed text-ink/60 sm:text-[14px]">
+              Nouveaux parfums, prochains horaires, événements sur le quai —
+              un email court, jamais de spam.
+            </p>
+          </div>
 
-            {open && status !== "ok" && (
+          <AnimatePresence mode="wait" initial={false}>
+            {status !== "ok" ? (
               <motion.form
-                key="open"
+                key="form"
                 onSubmit={submit}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="flex items-center gap-2 px-3 py-2 sm:px-4"
+                className="mx-auto mt-5 flex w-full max-w-md flex-col gap-2 sm:flex-row"
               >
-                <span className="hidden shrink-0 sm:inline-flex h-9 w-9 place-items-center rounded-full bg-teal-500 text-cream sm:grid">
-                  <IceCream className="h-4 w-4" />
-                </span>
                 <label className="sr-only" htmlFor="nl-email">Email</label>
                 <input
                   id="nl-email"
                   type="email"
+                  required
                   value={email}
-                  autoFocus
                   onChange={(e) => { setEmail(e.target.value); setError(""); }}
-                  placeholder="votre@email.fr — promis, un seul email"
+                  placeholder="votre@email.fr"
                   autoComplete="email"
-                  className="min-w-0 flex-1 rounded-full bg-white/90 px-4 py-2.5 text-[13px] text-ink placeholder-ink/35 outline-none ring-1 ring-ink/5 transition focus:ring-2 focus:ring-teal-300 sm:text-[14px]"
+                  className="min-w-0 flex-1 rounded-full bg-white/95 px-5 py-3 text-[14px] text-ink placeholder-ink/35 outline-none ring-1 ring-ink/5 transition focus:ring-2 focus:ring-teal-300"
                 />
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="shrink-0 rounded-full bg-teal-500 px-4 py-2.5 text-[12.5px] font-semibold text-cream shadow-glow transition hover:bg-teal-600 disabled:opacity-60 cursor-pointer sm:text-[13px]"
+                  className="shrink-0 rounded-full bg-teal-500 px-6 py-3 text-[13px] font-semibold text-cream shadow-glow transition hover:bg-teal-600 disabled:opacity-60 cursor-pointer sm:text-[13.5px]"
                 >
                   {status === "loading"
-                    ? <span className="block h-4 w-4 animate-spin rounded-full border-2 border-cream/30 border-t-cream" />
-                    : "Go"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => { setOpen(false); setError(""); }}
-                  aria-label="Fermer"
-                  className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-ink/40 transition hover:text-ink/70 cursor-pointer"
-                >
-                  <X className="h-4 w-4" />
+                    ? <span className="mx-auto block h-4 w-4 animate-spin rounded-full border-2 border-cream/30 border-t-cream" />
+                    : "Suivre la caravane"}
                 </button>
               </motion.form>
-            )}
-
-            {status === "ok" && (
+            ) : (
               <motion.div
                 key="ok"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex w-full items-center justify-center gap-2 px-5 py-3 text-[13.5px] font-semibold text-teal-700"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mx-auto mt-5 flex max-w-md items-center justify-center gap-2 rounded-full bg-teal-100 px-5 py-3 text-[13.5px] font-semibold text-teal-700"
               >
-                <Check className="h-4 w-4" /> Inscrit·e ! Rendez-vous au début de saison.
+                <Check className="h-4 w-4" /> C&apos;est noté ! On vous écrit dès que ça bouge.
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
 
-        {error && (
-          <p className="mt-2 text-center text-[12px] font-medium text-cherry">{error}</p>
-        )}
+          {error && (
+            <p className="mt-2 text-center text-[12px] font-medium text-cherry">{error}</p>
+          )}
+        </motion.div>
       </div>
     </section>
   );
