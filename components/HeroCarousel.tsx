@@ -77,13 +77,23 @@ function SlideImage({ src, fallback, alt, pos, index }: { src: string; fallback:
       animate={kb ? (kb.animate as Record<string, number>) : undefined}
       transition={kb ? { duration: AUTO_DELAY / 1000 + 1.5, ease: "easeInOut" } : undefined}
     >
+      {/* Blurred backdrop fills letterbox/pillarbox dead space */}
+      <Image
+        src={active}
+        alt=""
+        aria-hidden
+        fill
+        sizes="100vw"
+        className="object-cover scale-110 blur-2xl brightness-50"
+      />
+      {/* Sharp foreground — fully visible, never cropped */}
       <Image
         src={active}
         alt={alt}
         fill
         priority
         sizes="100vw"
-        className={`object-contain ${pos}`}
+        className={`object-contain ${pos} relative`}
         onError={() => { if (active !== fallback) setActive(fallback); }}
       />
     </motion.div>
