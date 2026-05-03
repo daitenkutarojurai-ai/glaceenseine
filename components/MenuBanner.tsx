@@ -13,6 +13,7 @@ const PILLS = [
 
 const MENU_SRC = "/menu2.jpg";
 const MENU_SRC_MOBILE = "/Gemini_Generated_Image_c3mghyc3mghyc3mg.png";
+const MENU_ZOOM_SRC = "/claseephoneupdate.png";
 
 export function MenuBanner() {
   const [zoomed, setZoomed] = useState(false);
@@ -36,7 +37,7 @@ export function MenuBanner() {
   }, [zoomed]);
 
   const previewSrc = isMobile ? MENU_SRC_MOBILE : MENU_SRC;
-  const zoomSrc    = isMobile ? MENU_SRC_MOBILE : MENU_SRC;
+  const zoomSrc    = MENU_ZOOM_SRC;
 
   return (
     <section

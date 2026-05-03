@@ -22,7 +22,6 @@ type Item = {
   desc: string;
   price: string;
   star?: boolean;
-  vegan?: boolean;
   ingredients: string;
   allergens: AllergenKey[];
   kcal: number;
@@ -66,7 +65,6 @@ const categories: Cat[] = [
         name: "Fraise du Vexin",
         desc: "Fruits frais, sirop léger",
         price: "3 €",
-        vegan: true,
         ingredients: "Fraises du Vexin (75 %), sucre, jus de citron",
         allergens: [],
         kcal: 88,
@@ -104,7 +102,6 @@ const categories: Cat[] = [
         name: "Sorbet citron",
         desc: "Pressé minute, zeste râpé",
         price: "2,50 €",
-        vegan: true,
         ingredients: "Jus de citron pressé (40 %), zeste de citron, eau, sucre",
         allergens: [],
         kcal: 78,
@@ -329,19 +326,6 @@ function AllergenChip({ id }: { id: AllergenKey }) {
   );
 }
 
-/* ── Vegan badge ────────────────────────────────────────── */
-function VeganBadge({ small = false }: { small?: boolean }) {
-  return (
-    <span
-      className={`inline-flex items-center gap-1 rounded-full bg-green-50 font-semibold text-green-700 ring-1 ring-green-200 ${
-        small ? "px-2 py-0.5 text-[11px]" : "px-2.5 py-0.5 text-[12px]"
-      }`}
-    >
-      🌱 Vegan
-    </span>
-  );
-}
-
 /* ── Expanded detail panel ──────────────────────────────── */
 function ItemDetail({ item, accent }: { item: Item; accent: string }) {
   return (
@@ -359,7 +343,6 @@ function ItemDetail({ item, accent }: { item: Item; accent: string }) {
             <Flame className="h-3 w-3 text-cherry" />
             ≈ {item.kcal} kcal / portion
           </span>
-          {item.vegan && <VeganBadge small />}
         </div>
 
         {/* Ingredients */}
@@ -392,11 +375,6 @@ function ItemDetail({ item, accent }: { item: Item; accent: string }) {
           {item.kcal > 500 && (
             <p className="text-[12px] font-medium text-orange-600">
               ⚠️ À déguster avec modération
-            </p>
-          )}
-          {item.vegan && (
-            <p className="text-[12px] font-medium text-green-700">
-              🌱 Convient aux régimes végétaliens
             </p>
           )}
           <p className="text-[11.5px] text-ink/45">
@@ -458,7 +436,6 @@ function MenuItem({ item, cat, isLast }: { item: Item; cat: Cat; isLast: boolean
                 <Leaf className="h-3 w-3" />Sans allergène
               </span>
             )}
-            {item.vegan && <VeganBadge small />}
             <motion.span
               animate={{ rotate: open ? 180 : 0 }}
               transition={{ duration: 0.25 }}
@@ -492,7 +469,6 @@ function MenuItem({ item, cat, isLast }: { item: Item; cat: Cat; isLast: boolean
             {item.allergens.length === 0 && (
               <Leaf className="h-3.5 w-3.5 shrink-0 text-teal-500" />
             )}
-            {item.vegan && <VeganBadge small />}
           </div>
           <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
             <span className="text-[13px] leading-snug text-ink/55">{item.desc}</span>
@@ -560,9 +536,6 @@ export function Menu() {
             ))}
             <span className="inline-flex items-center gap-1 rounded-full bg-teal-50 px-2.5 py-0.5 text-[11px] font-semibold text-teal-700 ring-1 ring-teal-200">
               <Leaf className="h-2.5 w-2.5" />Sans allergène
-            </span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-0.5 text-[11px] font-semibold text-green-700 ring-1 ring-green-200">
-              🌱 Vegan
             </span>
           </div>
         </Reveal>

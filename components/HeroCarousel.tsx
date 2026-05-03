@@ -140,10 +140,10 @@ export function HeroCarousel() {
   const prev = useCallback(() => go((current - 1 + len) % len), [current, go, len]);
 
   useEffect(() => {
-    if (paused || isMobile) return;
+    if (paused) return;
     const id = setInterval(next, AUTO_DELAY);
     return () => clearInterval(id);
-  }, [next, paused, isMobile]);
+  }, [next, paused]);
 
   /* Swipe support — works on both mobile and desktop touch devices. */
   const [touchX, setTouchX] = useState<number | null>(null);
@@ -387,7 +387,7 @@ export function HeroCarousel() {
       {/* ────────────────────────────────────────────────────────
           Layer 6 · Progress bar
       ──────────────────────────────────────────────────────── */}
-      {!paused && !isMobile && (
+      {!paused && (
         <motion.div
           key={`${current}-pb`}
           initial={{ scaleX: 0 }}
