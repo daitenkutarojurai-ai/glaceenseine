@@ -18,33 +18,20 @@ export const metadata: Metadata = {
 export default function HistoirePage() {
   return (
     <>
-      <SectionBanner />
-      {/* Header */}
-      <section className="relative overflow-hidden pb-20 pt-16 sm:pt-24">
-        <div className="pointer-events-none absolute -left-32 top-10 h-[420px] w-[420px] rounded-blob bg-gradient-sun opacity-50 blur-3xl" />
-        <div className="pointer-events-none absolute -right-32 top-40 h-[420px] w-[420px] rounded-blob bg-teal-100 opacity-60 blur-3xl" />
-
-        <div className="relative mx-auto max-w-5xl px-6">
-          <Reveal>
-            <p className="eyebrow">Notre histoire</p>
-          </Reveal>
-          <Reveal delay={0.05}>
-            <h1 className="h-display mt-3 text-5xl sm:text-6xl">
-              Une caravane,{" "}
-              <span className="font-script text-cherry">deux sœurs</span>,
-              <br />
-              et le quai de Seine pour décor.
-            </h1>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-ink/70">
-              Glaces en Seine, c'est une vieille caravane vert tendre, deux
-              sœurs qui aiment cuisiner, et une promesse simple : tout faire
-              maison, le matin même, à deux pas de l'eau.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <SectionBanner>
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-400">
+          Notre histoire
+        </p>
+        <h1 className="h-display text-3xl text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+          Une caravane,{" "}
+          <span className="font-script text-cherry">deux sœurs</span>,<br />
+          et le quai de Seine pour décor.
+        </h1>
+        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/80 drop-shadow-sm sm:text-[15px]">
+          Une vieille caravane vert tendre, une promesse simple : tout faire
+          maison, le matin même, à deux pas de l&apos;eau.
+        </p>
+      </SectionBanner>
 
       {/* Hero photo */}
       <section className="relative">

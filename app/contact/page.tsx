@@ -19,36 +19,32 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="relative overflow-hidden">
-      <SectionBanner />
+      <SectionBanner>
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-400">
+          Nous contacter
+        </p>
+        <h1 className="h-display text-3xl text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+          Dites-nous{" "}
+          <span className="font-script text-cherry">bonjour</span>.
+        </h1>
+        <p className="mt-3 max-w-md text-[14px] leading-relaxed text-cream/80 drop-shadow-sm sm:text-[15px]">
+          Une question, une privatisation, un mot gentil, une suggestion de
+          parfum ? On lit tout, on répond presque toujours.
+        </p>
+      </SectionBanner>
+
       {/* Decorative blobs */}
       <div className="pointer-events-none absolute -left-24 top-20 h-80 w-80 rounded-blob bg-gradient-sun opacity-50 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-blob bg-teal-100 opacity-60 blur-3xl" />
 
       {/* ── Contact form ── */}
-      <section className="relative py-20 sm:py-28" aria-labelledby="contact-title">
+      <section className="relative py-16 sm:py-24" aria-labelledby="contact-title">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid gap-12 lg:grid-cols-2">
-            {/* Left — copy + info cards */}
+            {/* Left — info cards */}
             <div>
-              <Reveal>
-                <p className="eyebrow">Nous contacter</p>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h1 id="contact-title" className="h-display mt-3 text-4xl sm:text-5xl">
-                  Dites-nous{" "}
-                  <span className="font-script text-cherry">bonjour</span>.
-                </h1>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <p className="mt-5 max-w-md text-[17px] leading-relaxed text-ink/70">
-                  Une question sur la carte, une privatisation pour votre
-                  événement, un mot gentil, une suggestion de parfum ? On lit
-                  tout, on répond presque toujours.
-                </p>
-              </Reveal>
-
-              <div className="mt-8 grid gap-3">
-                <Reveal delay={0.15}>
+              <div className="grid gap-3">
+                <Reveal delay={0.1}>
                   <a
                     href="https://instagram.com/glacesenseine"
                     target="_blank"
@@ -64,7 +60,7 @@ export default function ContactPage() {
                     </div>
                   </a>
                 </Reveal>
-                <Reveal delay={0.21}>
+                <Reveal delay={0.15}>
                   <Link
                     href={MAPS_URL}
                     target="_blank"
@@ -80,7 +76,7 @@ export default function ContactPage() {
                     </div>
                   </Link>
                 </Reveal>
-                <Reveal delay={0.24}>
+                <Reveal delay={0.18}>
                   <div className="flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft">
                     <span className="grid h-11 w-11 place-items-center rounded-xl bg-sun-100 text-ink">
                       <Clock className="h-4 w-4" />

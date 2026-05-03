@@ -21,34 +21,25 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 export default function MentionsLegalesPage() {
   return (
     <div className="relative overflow-hidden">
-      <SectionBanner />
+      <SectionBanner>
+        <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-cream/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-cream/90 backdrop-blur">
+          <Shield className="h-3 w-3 text-teal-400" />
+          Mentions légales
+        </span>
+        <h1 className="h-display text-3xl text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+          Informations{" "}
+          <span className="font-script text-cherry">légales</span>
+        </h1>
+        <p className="mt-3 max-w-lg text-[13px] leading-relaxed text-cream/75 sm:text-[14px]">
+          Conformément à la loi LCEN et au RGPD, les utilisateurs du site glaceenseine.fr sont informés de ce qui suit.
+        </p>
+      </SectionBanner>
       <div className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-blob bg-teal-100 opacity-40 blur-3xl" />
 
-      <section className="relative py-20 sm:py-28">
+      <section className="relative py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-6">
-          {/* Header */}
-          <Reveal>
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-teal-100 px-4 py-1.5 text-[12px] font-semibold uppercase tracking-widest text-teal-700">
-              <Shield className="h-3.5 w-3.5" />
-              Mentions légales
-            </span>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h1 className="h-display mt-3 text-4xl sm:text-5xl">
-              Informations{" "}
-              <span className="font-script text-cherry">légales</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mt-4 text-[16px] text-ink/55">
-              Conformément aux articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la
-              Confiance dans l'Économie Numérique, dite L.C.E.N., ainsi qu'à l'article L. 616-1 du
-              Code de la consommation, les utilisateurs du site glaceenseine.fr sont informés de ce
-              qui suit.
-            </p>
-          </Reveal>
 
-          <Reveal delay={0.15}>
+          <Reveal delay={0.1}>
             <div className="mt-12 space-y-8 rounded-3xl bg-cream p-8 shadow-ring sm:p-10">
 
               <Section title="1. Éditeur du site">

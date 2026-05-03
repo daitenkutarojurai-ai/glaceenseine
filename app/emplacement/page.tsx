@@ -64,36 +64,28 @@ export default function EmplacementPage() {
   return (
     <div className="relative overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_LD) }} />
-      <SectionBanner />
+      <SectionBanner>
+        <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-cream/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-cream/90 backdrop-blur">
+          <MapPin className="h-3 w-3 text-teal-400" />
+          Où nous trouver
+        </span>
+        <h1 className="h-display text-3xl text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+          Face à la{" "}
+          <span className="font-script text-cherry">mairie</span>,<br />
+          au bord de l&apos;eau.
+        </h1>
+        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/80 drop-shadow-sm sm:text-[15px]">
+          Quai de Seine, juste en face de la mairie de La Frette-sur-Seine —
+          repérez la caravane vert tendre.
+        </p>
+      </SectionBanner>
       <div className="pointer-events-none absolute -left-24 top-10 h-80 w-80 rounded-blob bg-teal-100 opacity-40 blur-3xl" />
       <div className="pointer-events-none absolute -right-16 top-48 h-64 w-64 rounded-blob bg-sun-100 opacity-50 blur-3xl" />
 
-      <section className="relative py-20 sm:py-28">
+      <section className="relative py-16 sm:py-24">
         <div className="mx-auto max-w-5xl px-6">
 
-          {/* Header */}
-          <Reveal>
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-teal-100 px-4 py-1.5 text-[12px] font-semibold uppercase tracking-widest text-teal-700">
-              <MapPin className="h-3.5 w-3.5" />
-              Où nous trouver
-            </span>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h1 className="h-display mt-3 text-4xl sm:text-5xl">
-              Face à la{" "}
-              <span className="font-script text-cherry">mairie</span>,<br />
-              au bord de l&apos;eau.
-            </h1>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-ink/60">
-              On est installées <strong className="text-ink">juste en face de la mairie de La Frette-sur-Seine</strong> —
-              sur le quai ombragé qui longe la Seine. Repérez la caravane vert tendre, vous ne pouvez pas nous louper.{" "}
-              <span className="text-ink/40">(et si vous nous loupez, c&apos;est que vous avez faim d&apos;autre chose, on ne juge pas.)</span>
-            </p>
-          </Reveal>
-
-          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+          <div className="mt-0 grid gap-8 lg:grid-cols-2">
 
             {/* Left — address card + CTA */}
             <div className="space-y-5">

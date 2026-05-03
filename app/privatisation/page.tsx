@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import {
   Heart,
   Briefcase,
@@ -115,69 +114,38 @@ export default function PrivatisationPage() {
   return (
     <div className="relative overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PRIV_FAQ_LD) }} />
-      <SectionBanner />
-      {/* ── Hero with background image ── */}
-      <section className="relative overflow-hidden" aria-labelledby="priv-title">
-        {/* Background image */}
-        <div className="absolute inset-0">
-          <Image
-            src="/glaceensein1.png"
-            alt="Glaces en Seine"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/65 to-ink/90" />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink/50 via-ink/20 to-transparent" />
+      <SectionBanner>
+        <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-cream/90 backdrop-blur">
+          <Heart className="h-3 w-3 text-cherry" />
+          Privatisation
+        </span>
+        <h1 className="h-display text-3xl leading-tight text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+          La caravane,{" "}
+          <span className="font-script text-sun-300">rien que</span>
+          <br />
+          pour vous.
+        </h1>
+        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/80 drop-shadow-sm sm:text-[15px]">
+          Mariage, séminaire, anniversaire ou fête de quartier — on amène la
+          caravane, la plaque chaude et les glaces artisanales.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <a
+            href="#demande"
+            className="inline-flex items-center gap-2 rounded-full bg-cherry px-6 py-2.5 text-[13px] font-semibold text-cream shadow-glow-cherry transition hover:bg-cherry/90"
+          >
+            <Heart className="h-3.5 w-3.5" />
+            Demander un devis
+          </a>
+          <a
+            href="#formules"
+            className="inline-flex items-center gap-2 rounded-full bg-cream/20 px-6 py-2.5 text-[13px] font-semibold text-cream backdrop-blur transition hover:bg-cream/30"
+          >
+            Voir les formules
+            <ArrowRight className="h-3.5 w-3.5" />
+          </a>
         </div>
-        <div className="relative py-24 sm:py-36">
-          <div className="mx-auto max-w-4xl px-6 text-center">
-            <Reveal>
-              <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-[12px] font-semibold uppercase tracking-widest text-cream/90 backdrop-blur">
-                <Heart className="h-3.5 w-3.5 text-cherry" />
-                Privatisation
-              </span>
-            </Reveal>
-            <Reveal delay={0.06}>
-              <h1
-                id="priv-title"
-                className="h-display mt-3 text-4xl leading-tight text-cream drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)] sm:text-6xl"
-              >
-                La caravane,{" "}
-                <span className="font-script text-sun-300 drop-shadow-[0_1px_8px_rgba(0,0,0,0.4)]">rien que</span>
-                <br />
-                pour vous.
-              </h1>
-            </Reveal>
-            <Reveal delay={0.12}>
-              <p className="mt-6 text-[17px] leading-relaxed text-cream/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)] sm:text-[18px]">
-                Mariage au bord de l&apos;eau, séminaire d&apos;entreprise, anniversaire mémorable ou
-                fête de village — on amène la caravane vert tendre, la plaque chaude et
-                les glaces artisanales. Vous apportez les invités.
-              </p>
-            </Reveal>
-            <Reveal delay={0.18}>
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <a
-                  href="#demande"
-                  className="btn-liquid group inline-flex items-center gap-2 rounded-full bg-cherry px-7 py-3.5 text-sm font-semibold text-cream shadow-glow-cherry transition"
-                >
-                  <Heart className="h-4 w-4" />
-                  Demander un devis
-                </a>
-                <a
-                  href="#formules"
-                  className="group inline-flex items-center gap-2 rounded-full bg-cream/20 px-7 py-3.5 text-sm font-semibold text-cream shadow-soft backdrop-blur transition hover:bg-cream/30"
-                >
-                  Voir les formules
-                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                </a>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+      </SectionBanner>
 
       {/* Background blobs for lower sections */}
       <div className="pointer-events-none absolute left-0 top-[60vh] h-96 w-96 -translate-x-1/2 rounded-blob bg-rose-100 opacity-40 blur-3xl" />
