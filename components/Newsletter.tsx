@@ -31,7 +31,7 @@ export function Newsletter() {
   }
 
   return (
-    <section className="py-10 sm:py-14" aria-label="Newsletter">
+    <section id="newsletter" className="scroll-mt-20 py-10 sm:py-14" aria-label="Newsletter">
       <div className="mx-auto max-w-2xl px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

@@ -17,9 +17,9 @@ import { Reveal } from "@/components/Reveal";
 import { PrivatisationForm } from "@/components/PrivatisationForm";
 
 export const metadata: Metadata = {
-  title: "Privatisation — Glaces en Seine",
+  title: "Privatisation caravane glaces — Glaces en Seine · La Frette-sur-Seine",
   description:
-    "Mariages, événements d'entreprise, anniversaires, fêtes de quartier… Privatisez la caravane Glaces en Seine pour un moment inoubliable au bord de la Seine.",
+    "Privatisez la caravane Glaces en Seine pour votre mariage, anniversaire, séminaire ou fête de quartier. Glaces artisanales, crêpes et gaufres à domicile en Île-de-France. Devis gratuit sous 48 h.",
 };
 
 const EVENTS = [
@@ -77,8 +77,8 @@ export default function PrivatisationPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/40 to-ink/70" />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink/30 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/65 to-ink/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/50 via-ink/20 to-transparent" />
         </div>
         <div className="relative py-24 sm:py-36">
           <div className="mx-auto max-w-4xl px-6 text-center">
@@ -100,7 +100,7 @@ export default function PrivatisationPage() {
               </h1>
             </Reveal>
             <Reveal delay={0.12}>
-              <p className="mt-6 text-[17px] leading-relaxed text-cream/80 sm:text-[18px]">
+              <p className="mt-6 text-[17px] leading-relaxed text-cream/90 drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)] sm:text-[18px]">
                 Mariage au bord de l&apos;eau, séminaire d&apos;entreprise, anniversaire mémorable ou
                 fête de village — on amène la caravane vert tendre, le billig chaud et
                 les glaces artisanales. Vous apportez les invités.
@@ -157,7 +157,10 @@ export default function PrivatisationPage() {
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {EVENTS.map((ev, i) => (
               <Reveal key={ev.title} delay={i * 0.07}>
-                <div className="group flex h-full flex-col rounded-3xl bg-cream p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-ring">
+                <a
+                  href="#demande"
+                  className="group flex h-full flex-col rounded-3xl bg-cream p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cherry"
+                >
                   <span className={`mb-4 grid h-12 w-12 place-items-center rounded-2xl ${ev.color}`}>
                     <ev.icon className="h-5 w-5" />
                   </span>
@@ -171,7 +174,10 @@ export default function PrivatisationPage() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                  <div className="mt-5 flex items-center gap-1 text-[12px] font-semibold text-cherry/70 transition group-hover:text-cherry">
+                    Demander un devis <ArrowRight className="h-3 w-3 transition group-hover:translate-x-0.5" />
+                  </div>
+                </a>
               </Reveal>
             ))}
           </div>

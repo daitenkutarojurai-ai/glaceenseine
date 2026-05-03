@@ -44,10 +44,10 @@ export function Footer() {
         <div>
           <div className="text-xs uppercase tracking-[0.2em] text-cream/50">Naviguer</div>
           <ul className="mt-3 space-y-2 text-sm">
-            <li><Link href="/#menu" className="hover:text-sun-300">La carte</Link></li>
-            <li><Link href="/#experience" className="hover:text-sun-300">Sur les quais</Link></li>
+            <li><Link href="/menu" className="hover:text-sun-300">La carte</Link></li>
             <li><Link href="/privatisation" className="hover:text-sun-300">Privatisation</Link></li>
-            <li><a href="https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530" target="_blank" rel="noopener noreferrer" className="hover:text-sun-300">Emplacement</a></li>
+            <li><Link href="/emplacement" className="hover:text-sun-300">Nous trouver</Link></li>
+            <li><Link href="/#newsletter" className="hover:text-sun-300">Newsletter</Link></li>
             <li><Link href="/notre-histoire" className="hover:text-sun-300">Notre histoire</Link></li>
             <li><Link href="/contact" className="hover:text-sun-300">Contact & Avis</Link></li>
           </ul>
@@ -56,9 +56,11 @@ export function Footer() {
         <div>
           <div className="text-xs uppercase tracking-[0.2em] text-cream/50">Pratique</div>
           <ul className="mt-3 space-y-2 text-sm leading-relaxed text-cream/80">
-            <li>Quai de Seine</li>
-            <li>95530 La Frette-sur-Seine</li>
-            <li>Sam · Dim · fériés</li>
+            <li className="font-semibold text-sun-300">Quai de Seine</li>
+            <li>Face à la mairie de La Frette</li>
+            <li className="text-cream/55 text-xs italic">Place de la Mairie · 95530 La Frette-sur-Seine</li>
+            <li className="text-cream/45 text-[11px]">Vous pouvez pas nous louper 😉</li>
+            <li className="pt-1">Sam · Dim · fériés</li>
             <li>14h – 19h, mai → septembre</li>
           </ul>
         </div>

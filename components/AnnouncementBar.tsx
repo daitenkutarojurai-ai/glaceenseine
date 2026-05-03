@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 import { Sparkles, Clock, MapPin, Sun } from "lucide-react";
 import Link from "next/link";
 
-const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
-
 const messages = [
-  { icon: Sun,      text: "Ouvert de mai à septembre · saison estivale",     href: "/#emplacement" },
-  { icon: Clock,    text: "Weekends & jours fériés · 14h – 19h",              href: "/#emplacement" },
-  { icon: MapPin,   text: "Face à la mairie de La Frette-sur-Seine",          href: MAPS_URL, external: true },
-  { icon: Sparkles, text: "Glaces artisanales · crêpes & gaufres artisanales", href: "/menu" },
+  { icon: Sun,      text: "Ouvert de mai à septembre · saison estivale",          href: "/emplacement" },
+  { icon: Clock,    text: "Weekends & jours fériés · 14h – 19h",                  href: "/emplacement" },
+  { icon: MapPin,   text: "Face à la mairie · Quai de Seine, La Frette-sur-Seine",href: "/emplacement" },
+  { icon: Sparkles, text: "Glaces artisanales · crêpes & gaufres artisanales",    href: "/menu" },
 ];
 
 export function AnnouncementBar() {
@@ -25,8 +23,6 @@ export function AnnouncementBar() {
     <div className="relative z-50 overflow-hidden bg-gradient-to-r from-teal-700 via-teal-500 to-cherry text-cream">
       <Link
         href={M.href}
-        target={M.external ? "_blank" : undefined}
-        rel={M.external ? "noopener noreferrer" : undefined}
         className="mx-auto flex h-9 max-w-7xl items-center justify-center gap-2 px-4 text-[12.5px] font-medium tracking-wide transition hover:opacity-85"
         aria-label={M.text}
       >

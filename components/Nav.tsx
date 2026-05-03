@@ -3,12 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { Menu as MenuIcon, X, Instagram, Sparkles } from "lucide-react";
+import { Menu as MenuIcon, X, Instagram, Sparkles, MapPin, Bell } from "lucide-react";
 
 const links = [
   { href: "/menu",         label: "La carte" },
   { href: "/privatisation", label: "Privatisation" },
   { href: "/#avis",        label: "Avis" },
+  { href: "/emplacement",  label: "Nous trouver" },
   { href: "/contact",      label: "Contact" },
 ];
 
@@ -80,6 +81,20 @@ export function Nav() {
             <Instagram className="h-4 w-4" />
           </Link>
           <Link
+            href="/emplacement"
+            aria-label="Nous trouver"
+            className="grid h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-teal-600"
+          >
+            <MapPin className="h-4 w-4" />
+          </Link>
+          <Link
+            href="/#newsletter"
+            aria-label="Newsletter"
+            className="grid h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-teal-600"
+          >
+            <Bell className="h-4 w-4" />
+          </Link>
+          <Link
             href="/contact"
             className="inline-flex items-center gap-2 rounded-full bg-cream/80 px-4 py-2 text-[13px] font-semibold text-ink shadow-soft transition hover:bg-cream"
           >
@@ -144,11 +159,11 @@ export function Nav() {
                   </motion.div>
                 ))}
               </nav>
-              <div className="flex gap-2 border-t border-ink/6 p-3">
+              <div className="grid grid-cols-2 gap-2 border-t border-ink/6 p-3">
                 <Link
                   href="/privatisation"
                   onClick={() => setOpen(false)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-cherry py-3 text-sm font-semibold text-cream"
+                  className="flex items-center justify-center gap-2 rounded-full bg-cherry py-3 text-sm font-semibold text-cream"
                 >
                   <Sparkles className="h-4 w-4" />
                   Privatiser
@@ -156,9 +171,25 @@ export function Nav() {
                 <Link
                   href="/contact"
                   onClick={() => setOpen(false)}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-teal-100 py-3 text-sm font-semibold text-teal-700"
+                  className="flex items-center justify-center gap-2 rounded-full bg-teal-100 py-3 text-sm font-semibold text-teal-700"
                 >
                   Contact
+                </Link>
+                <Link
+                  href="/emplacement"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center gap-2 rounded-full bg-ink/8 py-3 text-sm font-semibold text-ink"
+                >
+                  <MapPin className="h-4 w-4" />
+                  Nous trouver
+                </Link>
+                <Link
+                  href="/#newsletter"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center gap-2 rounded-full bg-ink/8 py-3 text-sm font-semibold text-ink"
+                >
+                  <Bell className="h-4 w-4" />
+                  Newsletter
                 </Link>
               </div>
             </div>
