@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glaces en Seine — Glaces artisanales sur les quais</title>
+  <meta name="description" content="Glaces artisanales, crêpes & gaufres sur les quais de Seine à La Frette-sur-Seine. Ouvert weekends & jours fériés, 14h–19h, de mai à septembre." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & base ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #fffdf5;
+      color: #3a3228;
+      overflow-x: hidden;
+    }
+
+    /* ─── CSS variables ─────────────────────────────── */
+    :root {
+      --mint:    #6dbf8e;
+      --mint-l:  #a8d8bc;
+      --mint-d:  #3a9e64;
+      --teal:    #3a9bb5;
+      --teal-l:  #8dd4e8;
+      --teal-d:  #1e6d84;
+      --cream:   #fffdf5;
+      --sand:    #f5ead0;
+      --coral:   #f08070;
+      --coral-l: #fbc4b8;
+      --yellow:  #f6d860;
+      --brown:   #3a3228;
+      --brown-l: #6b5c4e;
+      --white:   #ffffff;
+      --shadow:  0 4px 24px rgba(58,50,40,0.10);
+      --radius:  18px;
+      --nav-h:   68px;
+    }
+
+    /* ─── Typography ───────────────────────────────── */
+    .script { font-family: 'Dancing Script', cursive; }
+    h1,h2,h3 { line-height: 1.2; }
+    h2.section-title {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+    }
+    .section-sub {
+      color: var(--brown-l);
+      font-size: 1.05rem;
+      font-weight: 400;
+      margin-bottom: 2.8rem;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Scroll-reveal ──────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── NAVBAR ─────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(255,253,245,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(109,191,142,0.20);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.2rem, 4vw, 3.5rem);
+      transition: box-shadow .3s;
+    }
+    #navbar.scrolled { box-shadow: 0 2px 20px rgba(58,50,40,0.10); }
+    .nav-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.7rem;
+      color: var(--mint-d);
+      white-space: nowrap;
+    }
+    .nav-logo span { color: var(--teal-d); }
+    .nav-links { display: flex; gap: clamp(1rem, 2.5vw, 2.2rem); align-items: center; }
+    .nav-links a {
+      font-size: .9rem; font-weight: 600;
+      color: var(--brown-l);
+      transition: color .2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; left: 0; bottom: -3px;
+      width: 0; height: 2px;
+      background: var(--mint);
+      transition: width .25s;
+    }
+    .nav-links a:hover { color: var(--mint-d); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--mint);
+      color: white !important;
+      padding: .45rem 1.1rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      transition: background .2s, transform .15s !important;
+    }
+    .nav-cta:hover { background: var(--mint-d) !important; transform: translateY(-1px); }
+    .nav-cta::after { display: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--brown); border-radius: 2px; transition: .3s; }
+    @media (max-width: 720px) {
+      .hamburger { display: flex; }
+      .nav-links { display: none; position: absolute; top: var(--nav-h); left: 0; right: 0;
+        flex-direction: column; background: var(--cream); padding: 1.2rem 1.5rem 1.6rem;
+        border-bottom: 2px solid var(--mint-l); gap: 1rem;
+        box-shadow: 0 6px 24px rgba(58,50,40,0.08); }
+      .nav-links.open { display: flex; }
+    }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+      background: linear-gradient(
+        175deg,
+        #c8e8f4 0%,
+        #a8d8e8 18%,
+        #7ec9d9 30%,
+        #5ab5c8 40%,
+        #4aabbb 50%,
+        #6dbf8e 64%,
+        #5aad7e 73%,
+        #4a9d70 80%,
+        #3a8d60 88%,
+        #2e7d50 95%,
+        #266844 100%
+      );
+      position: relative;
+      overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding-inline: 1.5rem;
+    }
+
+    /* Sky clouds */
+    .hero-cloud {
+      position: absolute;
+      background: white;
+      border-radius: 50px;
+      opacity: .55;
+      filter: blur(2px);
+    }
+    .hero-cloud::before, .hero-cloud::after {
+      content: ''; position: absolute; background: white; border-radius: 50%;
+    }
+    .c1 { width: 140px; height: 36px; top: 12%; left: 5%; animation: drift 18s linear infinite; }
+    .c1::before { width: 60px; height: 60px; top: -28px; left: 20px; }
+    .c1::after  { width: 40px; height: 40px; top: -18px; left: 60px; }
+    .c2 { width: 100px; height: 28px; top: 18%; right: 10%; animation: drift 24s linear infinite reverse; }
+    .c2::before { width: 46px; height: 46px; top: -22px; left: 14px; }
+    .c2::after  { width: 32px; height: 32px; top: -14px; left: 46px; }
+    .c3 { width: 80px; height: 22px; top: 8%; right: 30%; animation: drift 30s linear infinite; }
+    .c3::before { width: 36px; height: 36px; top: -18px; left: 10px; }
+    .c3::after  { width: 26px; height: 26px; top: -12px; left: 36px; }
+    @keyframes drift { from { transform: translateX(-60px); } to { transform: translateX(60px); } }
+
+    /* River ripples */
+    .ripple-wrap {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 220px;
+      overflow: hidden; pointer-events: none;
+    }
+    .ripple {
+      position: absolute; bottom: 0; left: -20%; width: 140%;
+      height: 60px; background: rgba(255,255,255,0.18);
+      border-radius: 60% 60% 0 0;
+      animation: ripple 6s ease-in-out infinite;
+    }
+    .ripple:nth-child(2) { bottom: 30px; animation-delay: -2s; opacity: .55; }
+    .ripple:nth-child(3) { bottom: 60px; animation-delay: -4s; opacity: .35; }
+    @keyframes ripple { 0%,100% { transform: translateX(-4%) scaleY(1); } 50% { transform: translateX(4%) scaleY(1.12); } }
+
+    /* Ice cream SVG */
+    .ice-cone {
+      position: absolute; right: clamp(2rem, 8vw, 9rem); top: 50%;
+      transform: translateY(-60%);
+      animation: bob 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 8px 24px rgba(58,50,40,0.18));
+      opacity: .92;
+    }
+    @keyframes bob { 0%,100% { transform: translateY(-60%) rotate(-3deg); } 50% { transform: translateY(-68%) rotate(3deg); } }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      border: 1.5px solid rgba(255,255,255,0.5);
+      backdrop-filter: blur(6px);
+      border-radius: 50px;
+      padding: .32rem 1rem;
+      font-size: .82rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(3.2rem, 10vw, 7rem);
+      color: white;
+      text-shadow: 0 3px 24px rgba(0,0,0,0.20);
+      line-height: 1.05;
+      margin-bottom: .55rem;
+    }
+    .hero-tagline {
+      font-size: clamp(.95rem, 2.2vw, 1.3rem);
+      color: rgba(255,255,255,0.92);
+      font-weight: 500;
+      letter-spacing: .04em;
+      margin-bottom: .4rem;
+    }
+    .hero-sub {
+      font-size: clamp(.82rem, 1.8vw, 1rem);
+      color: rgba(255,255,255,0.80);
+      font-weight: 400;
+      margin-bottom: 2.4rem;
+    }
+    .btn-hero {
+      display: inline-flex; align-items: center; gap: .55rem;
+      background: white;
+      color: var(--mint-d);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: .85rem 2.2rem;
+      border-radius: 50px;
+      border: none; cursor: pointer;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.18);
+      transition: transform .2s, box-shadow .2s;
+      text-decoration: none;
+    }
+    .btn-hero:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(0,0,0,0.22); }
+    .btn-hero .arrow { font-size: 1.1rem; }
+    .hero-scroll { position: absolute; bottom: 230px; left: 50%; transform: translateX(-50%); animation: bounce 2s ease-in-out infinite; }
+    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+    @media (max-width: 600px) { .ice-cone { display: none; } }
+
+    /* ─── SECTIONS ────────────────────────────────────── */
+    section { padding: clamp(4rem, 8vw, 7rem) clamp(1.2rem, 5vw, 3.5rem); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: .5rem; }
+    .section-header .emoji { font-size: 2rem; margin-bottom: .5rem; display: block; }
+    .divider {
+      width: 52px; height: 4px;
+      background: linear-gradient(90deg, var(--mint), var(--teal));
+      border-radius: 4px;
+      margin: 0 auto .7rem;
+    }
+
+    /* ─── STORY ──────────────────────────────────────── */
+    #histoire { background: var(--sand); }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .story-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--mint-l) 0%, var(--teal-l) 60%, var(--teal) 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-size: 4.5rem;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .story-img-label {
+      font-size: .8rem; font-weight: 700;
+      color: white;
+      background: rgba(0,0,0,0.22);
+      padding: .28rem .8rem;
+      border-radius: 50px;
+      margin-top: .6rem;
+      letter-spacing: .04em;
+    }
+    .story-content h2 { color: var(--mint-d); }
+    .story-content .divider { margin: .8rem 0 1.4rem; }
+    .story-content p {
+      font-size: 1.05rem; line-height: 1.75;
+      color: var(--brown-l); margin-bottom: 1.1rem;
+    }
+    .story-content p strong { color: var(--brown); }
+    .story-quote {
+      border-left: 4px solid var(--mint);
+      padding-left: 1.2rem;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--teal-d);
+      margin: 1.4rem 0;
+      line-height: 1.7;
+    }
+    @media (max-width: 780px) {
+      .story-grid { grid-template-columns: 1fr; }
+      .story-img { max-height: 220px; }
+    }
+
+    /* ─── LOCATION ──────────────────────────────────── */
+    #horaires { background: var(--cream); }
+    .location-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2.5rem; align-items: start;
+    }
+    .info-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2rem 2.2rem;
+      box-shadow: var(--shadow);
+    }
+    .info-card h3 {
+      font-size: 1.25rem; font-weight: 800;
+      color: var(--mint-d);
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .info-row {
+      display: flex; gap: .9rem; align-items: flex-start;
+      margin-bottom: .9rem; font-size: 1rem;
+    }
+    .info-row .icon { font-size: 1.25rem; flex-shrink: 0; margin-top: .1rem; }
+    .info-row p { line-height: 1.55; color: var(--brown-l); }
+    .info-row p strong { color: var(--brown); font-weight: 700; }
+    .ferry-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--teal-l), var(--teal));
+      color: white;
+      font-size: .82rem; font-weight: 700;
+      padding: .45rem 1rem;
+      border-radius: 50px;
+      margin-top: .6rem;
+      letter-spacing: .04em;
+    }
+    .map-wrap {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 3px solid white;
+      height: 340px;
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; }
+    @media (max-width: 780px) {
+      .location-grid { grid-template-columns: 1fr; }
+      .map-wrap { height: 260px; }
+    }
+
+    /* ─── MENU ──────────────────────────────────────── */
+    #carte { background: linear-gradient(170deg, var(--sand) 0%, #fdf6e8 100%); }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.8rem;
+    }
+    .menu-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2rem 1.8rem;
+      box-shadow: var(--shadow);
+      border-top: 5px solid;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .menu-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(58,50,40,0.14); }
+    .menu-card:nth-child(1) { border-color: var(--teal); }
+    .menu-card:nth-child(2) { border-color: var(--yellow); }
+    .menu-card:nth-child(3) { border-color: var(--coral); }
+    .menu-card:nth-child(4) { border-color: var(--mint); }
+    .menu-card:nth-child(5) { border-color: var(--coral-l); }
+    .menu-icon { font-size: 2.4rem; margin-bottom: .8rem; }
+    .menu-card h3 {
+      font-size: 1.15rem; font-weight: 800;
+      color: var(--brown);
+      margin-bottom: 1.1rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--sand);
+    }
+    .menu-item {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: .38rem 0;
+      font-size: .97rem;
+    }
+    .menu-item span { color: var(--brown-l); }
+    .menu-item .price {
+      font-weight: 800; color: var(--mint-d);
+      background: var(--sand);
+      padding: .18rem .6rem;
+      border-radius: 50px;
+      font-size: .9rem;
+      white-space: nowrap;
+    }
+    .menu-note {
+      font-size: .8rem; color: var(--teal-d);
+      font-style: italic; margin-top: .8rem;
+      background: #e8f7f5;
+      padding: .45rem .8rem;
+      border-radius: 8px;
+    }
+    .menu-extra {
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--sand);
+      border-radius: 10px;
+      padding: .8rem 1rem;
+      margin-top: .6rem;
+      font-size: .95rem;
+    }
+    .menu-extra .label { font-weight: 600; }
+    .menu-extra .price { font-weight: 800; color: var(--mint-d); }
+
+    /* ─── SPECIAL FEATURES ──────────────────────────── */
+    #extras { background: var(--cream); }
+    .extras-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .extra-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2.2rem 2rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: transform .25s;
+    }
+    .extra-card:hover { transform: translateY(-5px); }
+    .extra-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    }
+    .extra-card:nth-child(1)::before { background: linear-gradient(90deg, var(--coral), var(--yellow)); }
+    .extra-card:nth-child(2)::before { background: linear-gradient(90deg, var(--teal-l), var(--mint)); }
+    .extra-card:nth-child(3)::before { background: linear-gradient(90deg, var(--mint), var(--mint-d)); }
+    .extra-icon { font-size: 2.8rem; margin-bottom: 1rem; display: block; }
+    .extra-card h3 { font-size: 1.2rem; font-weight: 800; color: var(--brown); margin-bottom: .9rem; }
+    .extra-card p { font-size: 1rem; line-height: 1.65; color: var(--brown-l); margin-bottom: .9rem; }
+    .btn-contact {
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: linear-gradient(135deg, var(--mint), var(--mint-d));
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: .9rem;
+      padding: .7rem 1.5rem;
+      border-radius: 50px;
+      border: none; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(109,191,142,0.35);
+      transition: transform .2s, box-shadow .2s;
+      text-decoration: none;
+      margin-top: .4rem;
+    }
+    .btn-contact:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(109,191,142,0.4); }
+    .event-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin: .8rem 0 1rem; }
+    .event-tag {
+      background: var(--sand);
+      color: var(--brown-l);
+      font-size: .78rem; font-weight: 700;
+      padding: .28rem .75rem;
+      border-radius: 50px;
+      letter-spacing: .04em;
+    }
+
+    /* ─── GALLERY ───────────────────────────────────── */
+    #galerie { background: var(--sand); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+    }
+    .gallery-item {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 1;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .gallery-item:hover { transform: scale(1.03); box-shadow: 0 10px 36px rgba(58,50,40,0.18); }
+    .gallery-item:nth-child(1) { background: linear-gradient(135deg, #a8d8bc, #3a9e64); }
+    .gallery-item:nth-child(2) { background: linear-gradient(135deg, #8dd4e8, #3a9bb5); }
+    .gallery-item:nth-child(3) { background: linear-gradient(135deg, #f6d860, #f08070); }
+    .gallery-item:nth-child(4) { background: linear-gradient(135deg, #fbc4b8, #f08070); }
+    .gallery-item:nth-child(5) { background: linear-gradient(135deg, #3a9bb5, #1e6d84); }
+    .gallery-item:nth-child(6) { background: linear-gradient(135deg, #6dbf8e, #3a9bb5); }
+    .gallery-item:nth-child(7) { background: linear-gradient(135deg, #f5ead0, #f6d860); }
+    .gallery-item:nth-child(8) { background: linear-gradient(135deg, #a8d8bc, #8dd4e8); }
+    .gallery-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.55));
+      color: white;
+      font-size: .78rem; font-weight: 700;
+      padding: 1.5rem .9rem .6rem;
+      letter-spacing: .03em;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .gallery-item:hover .gallery-caption { opacity: 1; }
+    .gallery-emoji {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.8rem;
+      opacity: .7;
+      pointer-events: none;
+      transition: opacity .25s;
+    }
+    .gallery-item:hover .gallery-emoji { opacity: .4; }
+    .gallery-cta {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: var(--teal-d);
+      font-weight: 600;
+      font-style: italic;
+    }
+    @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 580px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: linear-gradient(170deg, var(--mint-d) 0%, var(--teal-d) 100%);
+      color: rgba(255,255,255,0.88);
+      padding: 3.5rem clamp(1.2rem, 5vw, 3.5rem) 2.2rem;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 2.5rem; padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+    }
+    .footer-brand .logo-f {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem; color: white;
+      display: block; margin-bottom: .5rem;
+    }
+    .footer-brand p { font-size: .9rem; line-height: 1.6; opacity: .85; }
+    .footer-col h4 { font-size: .9rem; font-weight: 800; color: white; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { font-size: .9rem; opacity: .82; margin-bottom: .55rem; display: flex; align-items: flex-start; gap: .4rem; }
+    .footer-bottom {
+      max-width: 1100px; margin: 0 auto;
+      padding-top: 1.6rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: .8rem; opacity: .65; flex-wrap: wrap; gap: .6rem;
+    }
+    @media (max-width: 640px) { .footer-inner { grid-template-columns: 1fr; gap: 1.6rem; } }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Glaces <span>en Seine</span></a>
+  <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="nav-links" id="nav-links">
+    <a href="#histoire">Notre histoire</a>
+    <a href="#horaires">Horaires</a>
+    <a href="#carte">Carte</a>
+    <a href="#extras">Événements</a>
+    <a href="#galerie">Galerie</a>
+    <a href="mailto:glacesenseine@gmail.com" class="nav-cta">📧 Contact</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <!-- Clouds -->
+  <div class="hero-cloud c1"></div>
+  <div class="hero-cloud c2"></div>
+  <div class="hero-cloud c3"></div>
+
+  <!-- Floating ice cream -->
+  <div class="ice-cone" aria-hidden="true">
+    <svg width="110" height="200" viewBox="0 0 110 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Cone body -->
+      <polygon points="55,198 8,90 102,90" fill="#e8c87a" />
+      <line x1="55" y1="198" x2="25" y2="108" stroke="#d4a94a" stroke-width="1.8" opacity=".6"/>
+      <line x1="55" y1="198" x2="55" y2="90" stroke="#d4a94a" stroke-width="1.8" opacity=".6"/>
+      <line x1="55" y1="198" x2="82" y2="108" stroke="#d4a94a" stroke-width="1.8" opacity=".6"/>
+      <ellipse cx="55" cy="90" rx="47" ry="8" fill="#d4a94a" opacity=".45"/>
+      <!-- Scoop 1: mint -->
+      <circle cx="55" cy="62" r="34" fill="#6dbf8e"/>
+      <circle cx="55" cy="62" r="34" fill="url(#g1)" opacity=".5"/>
+      <!-- Scoop 2: teal -->
+      <ellipse cx="55" cy="38" rx="28" ry="27" fill="#3a9bb5"/>
+      <ellipse cx="55" cy="38" rx="28" ry="27" fill="url(#g2)" opacity=".5"/>
+      <!-- Scoop 3: coral -->
+      <ellipse cx="55" cy="18" rx="21" ry="20" fill="#f08070"/>
+      <ellipse cx="55" cy="18" rx="21" ry="20" fill="url(#g3)" opacity=".5"/>
+      <!-- Drip -->
+      <path d="M36 70 Q34 80 35 88" stroke="#5aad7e" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <!-- Cherry -->
+      <circle cx="55" cy="1" r="6" fill="#e03030"/>
+      <path d="M55 7 Q58 2 62 4" stroke="#5a9e30" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <defs>
+        <radialGradient id="g1" cx="35%" cy="35%"><stop offset="0%" stop-color="white" stop-opacity=".35"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient>
+        <radialGradient id="g2" cx="35%" cy="35%"><stop offset="0%" stop-color="white" stop-opacity=".35"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient>
+        <radialGradient id="g3" cx="35%" cy="35%"><stop offset="0%" stop-color="white" stop-opacity=".35"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div>
+    <div class="hero-badge">🇫🇷 La Frette-sur-Seine · Saison 2025</div>
+    <h1 class="hero-title script">Glaces en Seine</h1>
+    <p class="hero-tagline">La gourmandise débarque sur les quais de Seine</p>
+    <p class="hero-sub">Glaces artisanales • Crêpes • Gaufres • Gourmandises</p>
+    <a href="#carte" class="btn-hero">
+      Voir la carte <span class="arrow">↓</span>
+    </a>
+  </div>
+
+  <!-- River ripples -->
+  <div class="ripple-wrap" aria-hidden="true">
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+  </div>
+</section>
+
+<!-- ═══════════════ STORY ═══════════════ -->
+<section id="histoire">
+  <div class="container">
+    <div class="story-grid reveal">
+      <div class="story-img">
+        🍦
+        <span class="story-img-label">Le food truck sur les quais</span>
+      </div>
+      <div class="story-content">
+        <span class="emoji">✨</span>
+        <h2 class="section-title">Notre Histoire</h2>
+        <div class="divider"></div>
+        <p>
+          Née de la passion de <strong>Marion Breton</strong> pour les glaces artisanales et les bonheurs simples,
+          <em>Glaces en Seine</em> est avant tout une histoire de famille, de saveurs authentiques et de bords de rivière.
+        </p>
+        <blockquote class="story-quote">
+          « Les quais de Seine sont un lieu privilégié de notre enfance — nous nous lançons dans cette aventure avec plaisir pour régaler petits et grands. »
+        </blockquote>
+        <p>
+          Notre terrasse, décorée avec soin par l'artiste locale <strong>Karine</strong>, vous offre une pause gourmande
+          dans un cadre unique, face à la Seine. Venez savourer une glace maison, une gaufre croustillante ou une crêpe
+          généreuse, les pieds presque dans l'eau !
+        </p>
+        <p>
+          Chaque semaine, une <strong>saveur spéciale</strong> vient surprendre vos papilles —
+          l'occasion de revenir encore et encore.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ LOCATION ═══════════════ -->
+<section id="horaires">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="emoji">📍</span>
+      <h2 class="section-title">Où nous trouver</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Sur les quais, entre deux rires et le doux bruit de la Seine</p>
+    </div>
+    <div class="location-grid reveal">
+      <div>
+        <div class="info-card" style="margin-bottom:1.6rem">
+          <h3>🕑 Horaires d'ouverture</h3>
+          <div class="info-row">
+            <span class="icon">📅</span>
+            <p><strong>Weekends, jours fériés &amp; jours de fête</strong><br/>Samedi &amp; dimanche — <strong>14h à 19h</strong></p>
+          </div>
+          <div class="info-row">
+            <span class="icon">🌸</span>
+            <p>Saison : <strong>début mai à fin septembre</strong></p>
+          </div>
+          <div class="info-row">
+            <span class="icon">☀️</span>
+            <p style="color:var(--teal-d); font-style: italic;">Par beau temps, on peut rester un peu plus longtemps !</p>
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>🗺️ Adresse &amp; accès</h3>
+          <div class="info-row">
+            <span class="icon">📌</span>
+            <p><strong>Quai de Seine</strong><br/>La Frette-sur-Seine, 95530<br/>Face à la Mairie / à côté de l'église</p>
+          </div>
+          <div class="info-row">
+            <span class="icon">🚗</span>
+            <p>Parking disponible à proximité sur les quais</p>
+          </div>
+          <div class="info-row">
+            <span class="icon">⛴️</span>
+            <p>Profitez du <strong>bac gratuit</strong> pour traverser la Seine<br/>direction <strong>Maisons-Laffitte</strong></p>
+          </div>
+          <span class="ferry-badge">⛴️ Bac gratuit · Maisons-Laffitte</span>
+        </div>
+      </div>
+      <div class="map-wrap">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=2.18,48.97,2.22,48.99&layer=mapnik&marker=48.9843,2.1836"
+          allowfullscreen
+          loading="lazy"
+          title="Carte OpenStreetMap — La Frette-sur-Seine"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ MENU ═══════════════ -->
+<section id="carte">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="emoji">🍽️</span>
+      <h2 class="section-title">Notre Carte</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Fait avec amour, servi avec le sourire</p>
+    </div>
+    <div class="menu-grid reveal">
+
+      <!-- Glaces -->
+      <div class="menu-card">
+        <div class="menu-icon">🍦</div>
+        <h3>Glaces Artisanales</h3>
+        <div class="menu-item">
+          <span>1 boule</span>
+          <span class="price">3,50€</span>
+        </div>
+        <div class="menu-item">
+          <span>2 boules</span>
+          <span class="price">6,00€</span>
+        </div>
+        <div class="menu-item">
+          <span>3 boules</span>
+          <span class="price">7,50€</span>
+        </div>
+        <div class="menu-note">🎨 Nombreux parfums au choix + 1 saveur spéciale par semaine<br/>Cornets avec dessins disponibles !</div>
+      </div>
+
+      <!-- Gaufres -->
+      <div class="menu-card">
+        <div class="menu-icon">🧇</div>
+        <h3>Gaufres</h3>
+        <div class="menu-item">
+          <span>Nature</span>
+          <span class="price">3,50€</span>
+        </div>
+        <div class="menu-item">
+          <span>Chocolat / Caramel</span>
+          <span class="price">4,50€</span>
+        </div>
+        <div class="menu-item">
+          <span>Folie <em style="font-size:.8em;opacity:.7">(chantilly + topping)</em></span>
+          <span class="price">7,50€</span>
+        </div>
+        <div class="menu-note">⭐ La "Folie" : notre spécialité maison</div>
+      </div>
+
+      <!-- Crêpes -->
+      <div class="menu-card">
+        <div class="menu-icon">🥞</div>
+        <h3>Crêpes</h3>
+        <div class="menu-item">
+          <span>Nature</span>
+          <span class="price">2,50€</span>
+        </div>
+        <div class="menu-item">
+          <span>Chocolat / Caramel</span>
+          <span class="price">3,50€</span>
+        </div>
+        <div class="menu-item">
+          <span>Folie</span>
+          <span class="price">7,50€</span>
+        </div>
+        <div class="menu-extra">
+          <span class="label">+ Chantilly</span>
+          <span class="price">+1,00€</span>
+        </div>
+      </div>
+
+      <!-- Boissons -->
+      <div class="menu-card">
+        <div class="menu-icon">☕</div>
+        <h3>Boissons</h3>
+        <div class="menu-item">
+          <span>Café</span>
+          <span class="price">2,00€</span>
+        </div>
+        <div class="menu-item">
+          <span>Thé</span>
+          <span class="price">3,00€</span>
+        </div>
+        <div class="menu-item">
+          <span>Softs <em style="font-size:.8em;opacity:.7">(Coca, IceTea…)</em></span>
+          <span class="price">2,50€</span>
+        </div>
+        <div class="menu-item">
+          <span>Eau</span>
+          <span class="price">2,00€</span>
+        </div>
+        <div class="menu-item">
+          <span>Vin bio sans alcool</span>
+          <span class="price">4,00€</span>
+        </div>
+        <div class="menu-item">
+          <span>Bière sans alcool</span>
+          <span class="price">4,00€</span>
+        </div>
+        <div class="menu-note">🥤 Softs : Coca · IceTea · Tropical · IceTea fruit du dragon · Perrier</div>
+      </div>
+
+      <!-- Autres gourmandises -->
+      <div class="menu-card">
+        <div class="menu-icon">🍬</div>
+        <h3>Autres gourmandises</h3>
+        <div class="menu-item">
+          <span>Brochettes de bonbons</span>
+          <span class="price">sur place</span>
+        </div>
+        <div class="menu-note" style="margin-top:.8rem">
+          🌟 Nos brochettes de bonbons font le bonheur des petits (et des grands !)
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ EXTRAS ═══════════════ -->
+<section id="extras">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="emoji">💛</span>
+      <h2 class="section-title">Nos petits plus</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Pour rendre votre moment encore plus spécial</p>
+    </div>
+    <div class="extras-grid reveal">
+
+      <!-- Terrasse artiste -->
+      <div class="extra-card">
+        <span class="extra-icon">🎨</span>
+        <h3>Notre Terrasse</h3>
+        <p>
+          Imaginez-vous assis au bord de la Seine, dans une terrasse décorée à la main par l'artiste locale <strong>Karine</strong>.
+          Chaque détail raconte une histoire, chaque coin invite à la rêverie.
+        </p>
+        <p>
+          6 tables, une vue sur l'eau, et votre glace préférée en main.
+          Le bonheur simple à son état pur.
+        </p>
+      </div>
+
+      <!-- Bar à Toutou -->
+      <div class="extra-card">
+        <span class="extra-icon">🐾</span>
+        <h3>Bar à Toutou</h3>
+        <p>
+          Nos amis à quatre pattes sont les bienvenus !
+          Le <strong>Bar à Toutou</strong> est là pour que vos compagnons profitent
+          eux aussi de la pause au bord de l'eau.
+        </p>
+        <p style="font-style:italic; color: var(--teal-d);">
+          « Amoureux des animaux, vous êtes les bienvenus ! »
+        </p>
+      </div>
+
+      <!-- Événements -->
+      <div class="extra-card">
+        <span class="extra-icon">🎉</span>
+        <h3>Privatisation &amp; Événements</h3>
+        <p>
+          Envie d'un food truck de glaces pour votre événement ?
+          Nous pouvons nous déplacer <strong>avec notre équipe</strong> pour rendre votre moment inoubliable.
+        </p>
+        <div class="event-tags">
+          <span class="event-tag">💍 Mariages</span>
+          <span class="event-tag">🍼 Baptêmes</span>
+          <span class="event-tag">💼 Événements pro</span>
+          <span class="event-tag">👨‍👩‍👧 Réunions familiales</span>
+        </div>
+        <a href="mailto:glacesenseine@gmail.com" class="btn-contact">
+          📧 Nous contacter pour un événement
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GALLERY ═══════════════ -->
+<section id="galerie">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="emoji">📸</span>
+      <h2 class="section-title">Nos moments gourmands</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Des instants de bonheur sur les quais de Seine</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="gallery-emoji">🚐</div>
+        <div class="gallery-caption">Le food truck sur les quais</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-emoji">🍦</div>
+        <div class="gallery-caption">Une glace bien méritée</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-emoji">🌅</div>
+        <div class="gallery-caption">Coucher de soleil sur la Seine</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-emoji">🎨</div>
+        <div class="gallery-caption">Notre terrasse artistique</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-emoji">🥞</div>
+        <div class="gallery-caption">La crêpe Folie maison</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-emoji">🧇</div>
+        <div class="gallery-caption">Gaufres du dimanche</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-emoji">🐾</div>
+        <div class="gallery-caption">Le Bar à Toutou</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-emoji">⛴️</div>
+        <div class="gallery-caption">Le bac vers Maisons-Laffitte</div>
+      </div>
+    </div>
+    <p class="gallery-cta reveal">📷 Suivez-nous pour plus de photos et les saveurs spéciales de la semaine !</p>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-f">Glaces en Seine</span>
+      <p>La gourmandise artisanale<br/>sur les quais de Seine depuis 2025.<br/><br/>Fait avec amour, servi avec le sourire.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Nous trouver</h4>
+      <ul>
+        <li>📌 Quai de Seine</li>
+        <li>🏘️ La Frette-sur-Seine, 95530</li>
+        <li>🏛️ Face à la Mairie</li>
+        <li>⛴️ Bac gratuit vers Maisons-Laffitte</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Infos pratiques</h4>
+      <ul>
+        <li>🕑 14h – 19h</li>
+        <li>📅 Weekends &amp; jours fériés</li>
+        <li>🌸 Mai – Septembre</li>
+        <li>📧 <a href="mailto:glacesenseine@gmail.com" style="color:inherit;text-decoration:underline;opacity:.85">glacesenseine@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Glaces en Seine — Tous droits réservés</span>
+    <span>🍦 La gourmandise débarque sur les quais</span>
+  </div>
+</footer>
+
+<!-- ═══════════════ JS ═══════════════ -->
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  hamburger.addEventListener('keydown', e => { if (e.key === 'Enter') navLinks.classList.toggle('open'); });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // IntersectionObserver scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
