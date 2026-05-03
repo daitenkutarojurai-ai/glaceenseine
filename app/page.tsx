@@ -1,6 +1,6 @@
 import { HeroCarousel } from "@/components/HeroCarousel";
-import { Menu } from "@/components/Menu";
-import { Poll } from "@/components/Poll";
+import { MenuBanner } from "@/components/MenuBanner";
+import { Gallery } from "@/components/Gallery";
 import { PrivatisationTeaser } from "@/components/PrivatisationTeaser";
 import { Newsletter } from "@/components/Newsletter";
 
@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <>
       <HeroCarousel />
-      <Menu />
-      <Poll />
+      <MenuBanner />
+      <Gallery />
       <PrivatisationTeaser />
       <Newsletter />
     </>

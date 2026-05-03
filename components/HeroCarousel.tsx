@@ -9,36 +9,33 @@ import { MapPin, Clock, Calendar, ChevronLeft, ChevronRight } from "lucide-react
 const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 
+// Upload these 3 files to /public/ to activate:
+//   glacesenseine3.png  glacesenseine1.png  menunew.png
 const slides = [
   {
-    src: "/camion-patronne.jpg",
-    alt: "La caravane Glaces en Seine et ses fondatrices sur le quai de la Seine",
-    position: "object-[center_30%]",
-    eyebrow: "Depuis 2024 · La Frette-sur-Seine",
-    title: "La gourmandise",
-    titleScript: "débarque",
-    titleEnd: "sur les quais.",
-    sub: "Glaces artisanales, crêpes minute et gaufres dorées à deux pas de l'eau.",
-  },
-  {
-    src: "/affiche.jpg",
-    alt: "Affiche Glaces en Seine — La gourmandise débarque sur les quais de Seine",
-    position: "object-top",
-    eyebrow: "Saison ouverte · mai → septembre",
-    title: "Trois douceurs,",
-    titleScript: "une caravane",
-    titleEnd: "au bord de l'eau.",
-    sub: "Glaces, crêpes, gaufres — préparées chaque matin avec des ingrédients du marché.",
-  },
-  {
-    src: "/inprod.jpg",
-    alt: "Préparation des crêpes au billig",
+    src: "/glacesenseine3.png",
+    alt: "Glaces en Seine — la caravane sur les quais",
     position: "object-center",
-    eyebrow: "Fait maison · chaque matin",
-    title: "Tout est préparé",
-    titleScript: "ici",
-    titleEnd: "devant vous.",
-    sub: "Pâte à crêpe du matin, glaces turbinées sur place, gaufres sortant du fer.",
+    headline: "La gourmandise",
+    script: "débarque",
+    sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine.",
+  },
+  {
+    src: "/glacesenseine1.png",
+    alt: "Glaces en Seine — glaces artisanales",
+    position: "object-center",
+    headline: "Artisanal,",
+    script: "local",
+    sub: "Préparé chaque matin avec des produits frais du marché.",
+  },
+  {
+    src: "/menunew.png",
+    alt: "La carte Glaces en Seine",
+    position: "object-center",
+    headline: "Trois douceurs,",
+    script: "une carte",
+    sub: "Découvrez toutes nos glaces, crêpes et gaufres.",
+    cta: { label: "Voir la carte complète", href: "/menu" },
   },
 ];
 
@@ -61,19 +58,19 @@ export function HeroCarousel() {
 
   return (
     <section
-      className="relative min-h-[92dvh] overflow-hidden"
-      aria-label="Glaces en Seine — présentation"
+      className="relative h-[85dvh] min-h-[520px] w-full overflow-hidden sm:h-[90dvh]"
+      aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* ── Slides ── */}
+      {/* ── Background slides ── */}
       <AnimatePresence mode="sync">
         <motion.div
           key={slide.src}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.9, ease: "easeInOut" }}
+          transition={{ duration: 0.85, ease: "easeInOut" }}
           className="absolute inset-0"
         >
           <Image
@@ -84,153 +81,125 @@ export function HeroCarousel() {
             sizes="100vw"
             className={`object-cover ${slide.position}`}
           />
-          {/* Dark gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/25 to-ink/70" />
-          {/* Warm tint layer */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-cherry/10 via-transparent to-sun-500/5" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/45 via-ink/20 to-ink/70" />
         </motion.div>
       </AnimatePresence>
 
       {/* ── Content ── */}
-      <div className="relative z-10 flex h-full min-h-[92dvh] flex-col justify-between px-4 py-8 sm:px-10">
+      <div className="relative z-10 flex h-full flex-col justify-between p-5 sm:p-10">
 
-        {/* Top bar: slide counter */}
-        <div className="flex items-center justify-end">
-          <span className="rounded-full bg-cream/15 px-3 py-1 text-[12px] font-semibold text-cream/80 backdrop-blur">
+        {/* Slide counter */}
+        <div className="flex justify-end">
+          <span className="rounded-full bg-cream/15 px-3 py-1 text-[11px] font-semibold text-cream/80 backdrop-blur">
             {current + 1} / {slides.length}
           </span>
         </div>
 
-        {/* Center copy */}
+        {/* Copy */}
         <div className="flex flex-1 flex-col justify-center">
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
-              className="max-w-3xl"
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.55, ease: [0.2, 0.8, 0.2, 1] }}
+              className="max-w-2xl"
             >
-              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-cream/70 sm:text-[12px]">
-                {slide.eyebrow}
-              </p>
-              <h1 className="h-display mt-3 text-[40px] leading-[1.04] text-cream drop-shadow-[0_2px_12px_rgba(0,0,0,0.35)] sm:text-6xl lg:text-7xl">
-                {slide.title}{" "}
-                <span className="font-script text-sun-300">{slide.titleScript}</span>
-                <br />
-                <span className="text-cream/90">{slide.titleEnd}</span>
+              <h1 className="h-display text-[36px] leading-[1.06] text-cream drop-shadow-[0_2px_16px_rgba(0,0,0,0.4)] sm:text-6xl lg:text-7xl">
+                {slide.headline}{" "}
+                <span className="font-script text-sun-300">{slide.script}</span>
               </h1>
-              <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-cream/75 sm:text-[17px]">
+              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-cream/75 sm:text-[17px]">
                 {slide.sub}
               </p>
+
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link
+                  href={slide.cta?.href ?? MAPS_URL}
+                  target={slide.cta ? undefined : "_blank"}
+                  rel={slide.cta ? undefined : "noopener noreferrer"}
+                  className="btn-liquid group inline-flex items-center gap-2.5 rounded-full bg-cherry px-6 py-3 text-sm font-semibold text-cream shadow-glow-cherry transition"
+                  onMouseMove={(e) => {
+                    const r = e.currentTarget.getBoundingClientRect();
+                    e.currentTarget.style.setProperty("--x", `${e.clientX - r.left}px`);
+                    e.currentTarget.style.setProperty("--y", `${e.clientY - r.top}px`);
+                  }}
+                >
+                  {slide.cta ? (
+                    slide.cta.label
+                  ) : (
+                    <>
+                      <span className="relative flex h-2.5 w-2.5 shrink-0">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cream/70" />
+                        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-cream" />
+                      </span>
+                      <MapPin className="h-4 w-4" />
+                      Voir l&apos;emplacement
+                    </>
+                  )}
+                </Link>
+                {!slide.cta && (
+                  <Link
+                    href="/menu"
+                    className="inline-flex items-center gap-2 rounded-full bg-cream/15 px-6 py-3 text-sm font-semibold text-cream backdrop-blur transition hover:bg-cream/25"
+                  >
+                    La carte
+                  </Link>
+                )}
+              </div>
             </motion.div>
           </AnimatePresence>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35 }}
-            className="mt-8 flex flex-wrap gap-3"
-          >
-            <Link
-              href={MAPS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-liquid group inline-flex items-center gap-2.5 rounded-full bg-cherry px-6 py-3.5 text-sm font-semibold text-cream shadow-glow-cherry transition"
-              onMouseMove={(e) => {
-                const r = e.currentTarget.getBoundingClientRect();
-                e.currentTarget.style.setProperty("--x", `${e.clientX - r.left}px`);
-                e.currentTarget.style.setProperty("--y", `${e.clientY - r.top}px`);
-              }}
-            >
-              <span className="relative flex h-2.5 w-2.5 shrink-0">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cream/70" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-cream" />
-              </span>
-              <MapPin className="h-4 w-4" />
-              Voir l'emplacement
-            </Link>
-            <Link
-              href="/#menu"
-              className="group inline-flex items-center gap-2 rounded-full bg-cream/15 px-6 py-3.5 text-sm font-semibold text-cream backdrop-blur transition hover:bg-cream/25"
-            >
-              Voir la carte
-            </Link>
-          </motion.div>
         </div>
 
-        {/* Bottom: schedule + navigation */}
+        {/* Bottom row: schedule + nav */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 
           {/* Schedule pill */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="glass inline-flex flex-wrap items-center gap-x-5 gap-y-2 rounded-2xl px-5 py-3.5 shadow-schedule"
+            transition={{ delay: 0.4 }}
+            className="glass inline-flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl px-4 py-3 shadow-schedule"
           >
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-70" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-500" />
               </span>
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-teal-700">
-                Ouvert ce week-end
-              </span>
+              <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-teal-700">Ouvert ce week-end</span>
             </div>
-            <div className="flex items-center gap-1.5 text-[13px] font-medium text-ink">
-              <Calendar className="h-3.5 w-3.5 text-ink/50" />
-              Sam · Dim · Fériés
+            <div className="flex items-center gap-1.5 text-[12.5px] font-medium text-ink">
+              <Calendar className="h-3.5 w-3.5 text-ink/50" />Sam · Dim · Fériés
             </div>
-            <div className="flex items-center gap-1.5 text-[13px] font-medium text-cherry">
-              <Clock className="h-3.5 w-3.5" />
-              14h – 19h
+            <div className="flex items-center gap-1.5 text-[13px] font-semibold text-cherry">
+              <Clock className="h-3.5 w-3.5" />14h – 19h
             </div>
-            <div className="flex items-center gap-1.5 text-[12px] text-ink/55">
-              <MapPin className="h-3 w-3 shrink-0 text-cherry" />
-              La Frette-sur-Seine · 95530
+            <div className="hidden items-center gap-1 text-[11.5px] text-ink/55 sm:flex">
+              <MapPin className="h-3 w-3 shrink-0 text-cherry" />La Frette-sur-Seine · 95530
             </div>
           </motion.div>
 
-          {/* Prev / Next + dots */}
+          {/* Prev / dots / Next */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={prev}
-              aria-label="Slide précédente"
-              className="grid h-10 w-10 place-items-center rounded-full bg-cream/20 text-cream backdrop-blur transition hover:bg-cream/35 cursor-pointer"
-            >
-              <ChevronLeft className="h-5 w-5" />
+            <button onClick={prev} aria-label="Précédent"
+              className="grid h-9 w-9 place-items-center rounded-full bg-cream/20 text-cream backdrop-blur transition hover:bg-cream/35 cursor-pointer">
+              <ChevronLeft className="h-4 w-4" />
             </button>
-
-            <div className="flex gap-1.5" role="tablist" aria-label="Slides">
+            <div className="flex gap-1.5" role="tablist">
               {slides.map((_, i) => (
-                <button
-                  key={i}
-                  role="tab"
-                  aria-selected={i === current}
-                  aria-label={`Slide ${i + 1}`}
-                  onClick={() => setCurrent(i)}
-                  className="cursor-pointer transition-all duration-300"
-                >
-                  <span
-                    className={`block rounded-full transition-all duration-300 ${
-                      i === current
-                        ? "h-2.5 w-8 bg-cream"
-                        : "h-2.5 w-2.5 bg-cream/40 hover:bg-cream/70"
-                    }`}
-                  />
+                <button key={i} onClick={() => setCurrent(i)} role="tab"
+                  aria-selected={i === current} aria-label={`Slide ${i + 1}`}
+                  className="cursor-pointer">
+                  <span className={`block rounded-full transition-all duration-300 ${
+                    i === current ? "h-2 w-7 bg-cream" : "h-2 w-2 bg-cream/40 hover:bg-cream/70"
+                  }`} />
                 </button>
               ))}
             </div>
-
-            <button
-              onClick={next}
-              aria-label="Slide suivante"
-              className="grid h-10 w-10 place-items-center rounded-full bg-cream/20 text-cream backdrop-blur transition hover:bg-cream/35 cursor-pointer"
-            >
-              <ChevronRight className="h-5 w-5" />
+            <button onClick={next} aria-label="Suivant"
+              className="grid h-9 w-9 place-items-center rounded-full bg-cream/20 text-cream backdrop-blur transition hover:bg-cream/35 cursor-pointer">
+              <ChevronRight className="h-4 w-4" />
             </button>
           </div>
         </div>
@@ -239,12 +208,12 @@ export function HeroCarousel() {
       {/* Progress bar */}
       {!paused && (
         <motion.div
-          key={`${current}-bar`}
+          key={`${current}-pb`}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: AUTO_DELAY / 1000, ease: "linear" }}
           style={{ transformOrigin: "left" }}
-          className="absolute bottom-0 left-0 z-20 h-0.5 w-full bg-cherry/70"
+          className="absolute bottom-0 left-0 z-20 h-0.5 w-full bg-cherry/60"
         />
       )}
     </section>
