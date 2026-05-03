@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendMail } from "@/lib/mailer";
 
 export const runtime = "nodejs";
 
@@ -51,13 +52,21 @@ export async function POST(req: Request) {
     );
   }
 
-  // For now we just log — wire to SMTP / Resend / a Slack webhook later.
-  console.log("[contact]", {
-    name,
-    email,
-    subject: (body.subject ?? "").slice(0, 200),
-    message: message.slice(0, 5000),
-    at: new Date().toISOString(),
+  const subject = (body.subject ?? "").trim().slice(0, 200) || "Message sans sujet";
+
+  await sendMail({
+    subject: `✉️ Message de ${name} — Glaces en Seine`,
+    replyTo: email,
+    html: `
+      <div style="font-family:sans-serif;max-width:520px;margin:auto">
+        <h2 style="color:#E26B5C">✉️ Nouveau message reçu</h2>
+        <p><strong>De :</strong> ${name} &lt;${email}&gt;</p>
+        <p><strong>Sujet :</strong> ${subject}</p>
+        <hr style="margin:16px 0;border-color:#eee">
+        <p>${message.replace(/\n/g, "<br>")}</p>
+        <hr style="margin:16px 0;border-color:#eee">
+        <p style="color:#999;font-size:12px">Reçu via glacesenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
+      </div>`,
   });
 
   return NextResponse.json({ ok: true });
