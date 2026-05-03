@@ -15,40 +15,55 @@ const slides = [
     fallback: "/carrouselfinal.png",
     alt: "Glaces en Seine — la caravane sur les quais",
     pos: "object-center",
+    lightOverlay: true,
+    accent: "from-black/10",
     headline: "La gourmandise",
     script: "débarque",
     sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine.",
-    accent: "from-teal-700/60",
   },
   {
-    src: "/menu2.jpg",
-    fallback: "/affiche.jpg",
-    alt: "Glaces en Seine — glaces artisanales",
+    src: "/carrouselfinal.png",
+    fallback: "/firstcarrouse.png",
+    alt: "Glaces en Seine — ambiance quai de Seine",
     pos: "object-center",
-    headline: "Artisanal,",
-    script: "local",
-    sub: "Préparé chaque matin avec des produits frais du marché.",
-    accent: "from-cherry/50",
+    lightOverlay: true,
+    accent: "from-black/15",
+    headline: "Sur les quais",
+    script: "de Seine",
+    sub: "Une halte douce au bord de l'eau, chaque week-end.",
   },
   {
     src: "/carroulast.png",
     fallback: "/glaceensein1.png",
     alt: "Le menu Glaces en Seine",
     pos: "object-center",
+    lightOverlay: false,
+    accent: "from-ink/60",
     headline: "Trois douceurs,",
     script: "un menu",
     sub: "Glaces, crêpes & gaufres — tout est préparé devant vous.",
-    accent: "from-ink/60",
+  },
+  {
+    src: "/menu2.jpg",
+    fallback: "/affiche.jpg",
+    alt: "Glaces en Seine — glaces artisanales",
+    pos: "object-center",
+    lightOverlay: false,
+    accent: "from-cherry/50",
+    headline: "Artisanal,",
+    script: "local",
+    sub: "Préparé chaque matin avec des produits frais du marché.",
   },
 ];
 
 const AUTO_DELAY = 6000;
 
-/* Ken Burns zoom effect per slide — subtle scale so the full image stays visible */
-const KB_VARIANTS = [
-  { initial: { scale: 1,    x: 0,   y: 0   }, animate: { scale: 1.04, x: -5, y: -3 } },
-  { initial: { scale: 1,    x: 0,   y: 0   }, animate: { scale: 1.03, x: 4,  y: -2 } },
-  { initial: { scale: 1.04, x: -4,  y: -2  }, animate: { scale: 1,    x: 0,  y: 0  } },
+/* Ken Burns zoom effect per slide — null disables movement for designed banner images */
+const KB_VARIANTS: Array<{ initial: Record<string, number>; animate: Record<string, number> } | null> = [
+  null,                                                                                    // slide 0: firstcarrouse.png — designed banner, no KB
+  null,                                                                                    // slide 1: carrouselfinal.png — designed banner, no KB
+  { initial: { scale: 1,    x: 0,  y: 0  }, animate: { scale: 1.04, x: -5, y: -3 } },   // slide 2
+  { initial: { scale: 1.04, x: -4, y: -2 }, animate: { scale: 1,    x: 0,  y: 0  } },   // slide 3
 ];
 
 function SlideImage({ src, fallback, alt, pos, index }: { src: string; fallback: string; alt: string; pos: string; index: number }) {
@@ -58,9 +73,9 @@ function SlideImage({ src, fallback, alt, pos, index }: { src: string; fallback:
   return (
     <motion.div
       className="absolute inset-0"
-      initial={kb.initial}
-      animate={kb.animate}
-      transition={{ duration: AUTO_DELAY / 1000 + 1.5, ease: "easeInOut" }}
+      initial={kb ? (kb.initial as Record<string, number>) : undefined}
+      animate={kb ? (kb.animate as Record<string, number>) : undefined}
+      transition={kb ? { duration: AUTO_DELAY / 1000 + 1.5, ease: "easeInOut" } : undefined}
     >
       <Image
         src={active}
@@ -107,7 +122,7 @@ export function HeroCarousel() {
   return (
     <section
       className="relative w-full overflow-hidden bg-ink"
-      style={{ aspectRatio: "16/9", minHeight: "280px", maxHeight: "92dvh" }}
+      style={{ aspectRatio: "3/2", minHeight: "260px", maxHeight: "85dvh" }}
       aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -125,9 +140,18 @@ export function HeroCarousel() {
           className="absolute inset-0 overflow-hidden"
         >
           <SlideImage src={slide.src} fallback={slide.fallback} alt={slide.alt} pos={slide.pos} index={current} />
-          {/* Layered gradient: directional accent colour + dark vignette */}
-          <div className={`absolute inset-0 bg-gradient-to-b ${slide.accent} via-transparent to-ink/75`} />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink/30 via-transparent to-transparent" />
+          {/* Layered gradient: lighter on designed banners, heavier on photos */}
+          {slide.lightOverlay ? (
+            <>
+              <div className={`absolute inset-0 bg-gradient-to-b ${slide.accent} via-transparent to-black/45`} />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent" />
+            </>
+          ) : (
+            <>
+              <div className={`absolute inset-0 bg-gradient-to-b ${slide.accent} via-transparent to-ink/75`} />
+              <div className="absolute inset-0 bg-gradient-to-r from-ink/30 via-transparent to-transparent" />
+            </>
+          )}
         </motion.div>
       </AnimatePresence>
 
