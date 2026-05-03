@@ -6,29 +6,19 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Mail, Clock, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 
-// Order: glaceensein1.png → menunew.png → glaceenseine3.png
 const slides = [
   {
-    src: "/glaceensein1.png",
+    src: "/imagecarrousel.png",
     fallback: "/bannerup.png",
-    alt: "Glaces en Seine — glaces artisanales",
+    alt: "Glaces en Seine — la caravane sur les quais",
     headline: "La gourmandise",
     script: "débarque",
     sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine.",
   },
   {
-    src: "/menunew.png",
-    fallback: "/inprod.jpg",
-    alt: "La carte Glaces en Seine",
-    headline: "Trois douceurs,",
-    script: "une carte",
-    sub: "Découvrez toutes nos glaces, crêpes et gaufres.",
-    cta: { label: "Voir la carte", href: "/menu" },
-  },
-  {
-    src: "/glaceenseine3.png",
+    src: "/glaceensein1.png",
     fallback: "/affiche.jpg",
-    alt: "Glaces en Seine — la caravane sur les quais",
+    alt: "Glaces en Seine — glaces artisanales",
     headline: "Artisanal,",
     script: "local",
     sub: "Préparé chaque matin avec des produits frais du marché.",
@@ -131,17 +121,11 @@ export function HeroCarousel() {
 
               <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-7 sm:gap-3">
                 <Link
-                  href={slide.cta?.href ?? "/privatisation"}
+                  href="/privatisation"
                   className="btn-liquid group inline-flex items-center gap-2 rounded-full bg-cherry px-5 py-2.5 text-[13px] font-semibold text-cream shadow-glow-cherry transition sm:px-6 sm:py-3 sm:text-sm"
                 >
-                  {slide.cta ? (
-                    slide.cta.label
-                  ) : (
-                    <>
-                      <Sparkles className="h-4 w-4" />
-                      Privatiser la caravane
-                    </>
-                  )}
+                  <Sparkles className="h-4 w-4" />
+                  Privatiser la caravane
                 </Link>
                 <Link
                   href="/contact"

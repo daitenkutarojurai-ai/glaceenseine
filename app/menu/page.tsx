@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Menu } from "@/components/Menu";
 import { Reveal } from "@/components/Reveal";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, MapPin, Clock } from "lucide-react";
 
 const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
@@ -16,8 +17,16 @@ export default function MenuPage() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero banner */}
-      <div className="relative bg-ink pb-16 pt-14 text-center text-cream">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-cherry/20 via-transparent to-teal-700/20" />
+      <div className="relative overflow-hidden bg-ink pb-16 pt-14 text-center text-cream">
+        <Image
+          src="/menunew.png"
+          alt="La carte Glaces en Seine"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-30"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/40 to-ink/80" />
         <div className="relative mx-auto max-w-2xl px-4">
           <Reveal>
             <p className="eyebrow text-teal-400">La carte</p>

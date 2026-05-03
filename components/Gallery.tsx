@@ -178,15 +178,17 @@ export function Gallery() {
             </motion.div>
           ))}
 
-          {/* Poll — same column width, same square footprint as photos on desktop */}
+          {/* Poll — same column width, fixed height on mobile, square on desktop */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.55, delay: 0.18 }}
-            className="sm:aspect-square"
+            className="min-h-[280px] sm:aspect-square sm:min-h-0"
           >
-            <MiniPoll />
+            <div className="h-full">
+              <MiniPoll />
+            </div>
           </motion.div>
         </div>
       </div>
