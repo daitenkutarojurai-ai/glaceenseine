@@ -9,7 +9,8 @@ const PILLS = [
 ];
 
 const MENU_SRC = "/menu2.jpg";
-const MENU_ZOOM_SRC = "/claseephoneupdate.png";
+// TODO: swap back to "/claseephoneupdate.png" once the asset is added to /public.
+const MENU_ZOOM_SRC = "/menu2.jpg";
 
 export function MenuBanner() {
   return (

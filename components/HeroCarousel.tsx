@@ -128,16 +128,19 @@ export function HeroCarousel() {
   const prev = useCallback(() => go((current - 1 + len) % len), [current, go, len]);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || isMobile) return;
     const id = setInterval(next, AUTO_DELAY);
     return () => clearInterval(id);
-  }, [next, paused]);
+  }, [next, paused, isMobile]);
 
-  /* Swipe support — works on both mobile and desktop touch devices. */
+  /* Swipe support — desktop touch devices only. Mobile is a static image. */
   const [touchX, setTouchX] = useState<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => setTouchX(e.touches[0].clientX);
-  const onTouchEnd   = (e: React.TouchEvent) => {
-    if (touchX === null) return;
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (isMobile) return;
+    setTouchX(e.touches[0].clientX);
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (isMobile || touchX === null) return;
     const dx = e.changedTouches[0].clientX - touchX;
     if (Math.abs(dx) > 44) {
       const delta = dx < 0 ? 1 : -1;
@@ -147,9 +150,11 @@ export function HeroCarousel() {
   };
 
   const slide = slides[current];
-  const heroSrc = slide.src;
-  const heroAlt = slide.alt;
-  const heroKey = slide.src;
+  const heroSrc = isMobile ? "/staticcarrousell.png" : slide.src;
+  const heroAlt = isMobile
+    ? "Glaces en Seine — caravane gourmande sur les quais"
+    : slide.alt;
+  const heroKey = isMobile ? "static-mobile" : slide.src;
   const showText = !isMobile && !slide.hideText;
   const dotCount = slides.length;
   const dotIndex = current;
@@ -239,8 +244,8 @@ export function HeroCarousel() {
         {/* ── Top bar: dots (always) + counter (desktop only) ── */}
         <div className="flex items-start justify-between">
 
-          {/* Slide indicators */}
-          <div className="flex items-center gap-2 pt-1" role="tablist">
+          {/* Slide indicators — desktop only; mobile is a static image */}
+          <div className="hidden items-center gap-2 pt-1 sm:flex" role="tablist">
             {Array.from({ length: dotCount }).map((_, i) => (
               <button
                 key={i}
@@ -374,7 +379,7 @@ export function HeroCarousel() {
       {/* ────────────────────────────────────────────────────────
           Layer 6 · Progress bar
       ──────────────────────────────────────────────────────── */}
-      {!paused && (
+      {!paused && !isMobile && (
         <motion.div
           key={`${current}-pb`}
           initial={{ scaleX: 0 }}
