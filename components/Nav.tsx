@@ -32,7 +32,7 @@ export function Nav() {
             : "bg-transparent px-4 sm:px-6"
         }`}
       >
-        {/* Logo — glaceup.png is already transparent */}
+        {/* Logo — détouré, fond transparent */}
         <Link href="/" aria-label="Glaces en Seine — accueil" className="flex items-center gap-2.5">
           <motion.div
             whileHover={{ rotate: [0, -5, 5, 0], scale: 1.06 }}
@@ -40,7 +40,7 @@ export function Nav() {
             className="relative h-12 w-12 shrink-0 drop-shadow-[0_4px_10px_rgba(226,107,92,0.25)]"
           >
             <Image
-              src="/glaceup.png"
+              src="/logo-transparent.png"
               alt="Glaces en Seine"
               fill
               sizes="48px"
