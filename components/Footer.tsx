@@ -59,19 +59,19 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-6 pb-4 text-center text-sm text-cream/80 md:flex-row md:justify-between">
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-1 px-6 pb-3 text-center text-[11px] text-cream/40 md:flex-row md:justify-between">
         <span>
           Site réalisé par{" "}
           <Link
             href="https://diyfunproject.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-semibold text-sun-300 underline-offset-2 hover:underline"
+            className="underline-offset-2 hover:text-cream hover:underline"
           >
             diyfunproject.com
           </Link>
         </span>
-        <span className="text-xs italic text-cream/70">Merci à Anaït pour la revue ✨</span>
+        <span className="italic">Merci à Anaït pour la revue</span>
       </div>
 
       <div className="border-t border-cream/10">
