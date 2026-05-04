@@ -107,7 +107,7 @@ const categories: Cat[] = [
         price: "3,50 €",
         ingredients: "Farine de blé, œufs, lait, beurre, pâte à tartiner aux noisettes",
         allergens: ["gluten", "oeufs", "lait", "noisettes", "soja"],
-        kcal: 460,
+        kcal: 350,
         tip: "Étalée après cuisson pour garder sa texture coulante.",
       },
       {
@@ -116,7 +116,7 @@ const categories: Cat[] = [
         price: "3,50 €",
         ingredients: "Farine de blé, œufs, lait, beurre, caramel",
         allergens: ["gluten", "oeufs", "lait"],
-        kcal: 360,
+        kcal: 290,
         tip: "Versé tiède sur la crêpe — il imprègne la pâte sans la détremper.",
       },
     ],
@@ -138,7 +138,7 @@ const categories: Cat[] = [
         star: true,
         ingredients: "Gaufre, garniture maison",
         allergens: ["gluten", "oeufs", "lait"],
-        kcal: 580,
+        kcal: 560,
         tip: "Notre coup de cœur de la carte — demandez la composition du jour.",
       },
       {
@@ -147,7 +147,7 @@ const categories: Cat[] = [
         price: "3,50 €",
         ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure, sucre glace",
         allergens: ["gluten", "oeufs", "lait"],
-        kcal: 280,
+        kcal: 290,
         tip: "Saupoudré juste avant de servir — la fine couche craque sous la dent.",
       },
       {
@@ -156,7 +156,7 @@ const categories: Cat[] = [
         price: "4,50 €",
         ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure, pâte à tartiner aux noisettes",
         allergens: ["gluten", "oeufs", "lait", "noisettes", "soja"],
-        kcal: 505,
+        kcal: 450,
         tip: "On laisse tiédir 1 min avant d'étaler — la pâte reste coulante sans absorber.",
       },
       {
@@ -165,7 +165,7 @@ const categories: Cat[] = [
         price: "4,50 €",
         ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure, caramel",
         allergens: ["gluten", "oeufs", "lait"],
-        kcal: 470,
+        kcal: 380,
         tip: "Le caramel s'infiltre dans les alvéoles de la gaufre — chaque bouchée est nappée.",
       },
     ],
@@ -181,13 +181,13 @@ const categories: Cat[] = [
     text: "text-sky-700",
     items: [
       {
-        name: "Coca-Cola 33 cl",
+        name: "Coca-Cola classique 33 cl",
         desc: "Canette fraîche",
         price: "2,50 €",
-        ingredients: "Coca-Cola",
+        ingredients: "Coca-Cola classique",
         allergens: [],
-        kcal: 140,
-        tip: "Servi bien frais.",
+        kcal: 139,
+        tip: "Servi bien frais (version classique, ≈ 35 g de sucre).",
       },
       {
         name: "Tropico tropical 33 cl",
@@ -195,7 +195,7 @@ const categories: Cat[] = [
         price: "2,50 €",
         ingredients: "Boisson aux fruits Tropico",
         allergens: [],
-        kcal: 140,
+        kcal: 150,
         tip: "Frais, fruité — parfait avec une gaufre.",
       },
       {
@@ -204,7 +204,7 @@ const categories: Cat[] = [
         price: "2,50 €",
         ingredients: "Fanta fruit du dragon",
         allergens: [],
-        kcal: 130,
+        kcal: 110,
         tip: "Une note exotique légèrement acidulée.",
       },
       {
@@ -231,8 +231,8 @@ const categories: Cat[] = [
         price: "4 €",
         ingredients: "Vin bio désalcoolisé",
         allergens: [],
-        kcal: 30,
-        tip: "Pour profiter de l'apéro sur le quai sans alcool.",
+        kcal: 35,
+        tip: "Pour profiter de l'apéro sur le quai sans alcool (verre 12 cl).",
       },
       {
         name: "Bière sans alcool",
@@ -240,7 +240,7 @@ const categories: Cat[] = [
         price: "4 €",
         ingredients: "Bière sans alcool",
         allergens: ["gluten"],
-        kcal: 60,
+        kcal: 75,
         tip: "Idéale après une promenade ensoleillée.",
       },
       {
