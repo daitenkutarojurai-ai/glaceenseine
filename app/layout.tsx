@@ -4,6 +4,7 @@ import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Footer } from "@/components/Footer";
+import { ScrollChrome } from "@/components/ScrollChrome";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -130,6 +131,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="font-sans">
+        <ScrollChrome />
         <AnnouncementBar />
         <Nav />
         <main className="relative w-full overflow-x-clip">{children}</main>

@@ -15,10 +15,14 @@ export function PrivatisationForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === "loading") return;
+
+    // Capturer le formulaire avant tout `await` : `e.currentTarget` est nullifié
+    // par React dès que le handler async rend la main.
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+
     setStatus("loading");
     setError("");
-
-    const data = Object.fromEntries(new FormData(e.currentTarget));
     try {
       const res = await fetch("/api/privatisation", {
         method: "POST",
@@ -28,7 +32,7 @@ export function PrivatisationForm() {
       const j = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(j?.message ?? "Une erreur est survenue.");
       setStatus("ok");
-      e.currentTarget.reset();
+      form.reset();
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Erreur inconnue.");

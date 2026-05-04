@@ -4,14 +4,32 @@
 
 /* ─── Base ─────────────────────────────────────────────── */
 :root { color-scheme: light; }
-html, body {
+html {
   scroll-behavior: smooth;
+  /* Sticky-nav clearance for any anchor jump (#emplacement, #menu, …).
+     Replaces per-section scroll-mt-* utilities and stays consistent
+     across the whole site. */
+  scroll-padding-top: 5rem;
+}
+html, body {
   overflow-x: clip;
   max-width: 100vw;
   width: 100%;
   position: relative;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 *, *::before, *::after { box-sizing: border-box; }
+
+/* ─── Below-the-fold paint optimisation ─────────────────
+   `content-visibility: auto` lets the browser skip layout/paint of
+   off-screen sections, cutting first-paint cost and freeing the
+   scroll thread on long pages. `contain-intrinsic-size` keeps the
+   scrollbar honest until the section is rendered. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 800px;
+}
 /* Don't constrain next/image fill mode; only block-level standalone media */
 
 /* ─── Background — inspired by the affiche (poster)
@@ -36,6 +54,33 @@ body {
     /* rose whisper — mid */
     radial-gradient(ellipse 50% 40% at 50% 50%,   rgba(248,166,132,0.08) 0%, transparent 70%);
   background-attachment: fixed;
+}
+
+/* ─── Mobile performance ──────────────────────────────────
+   `background-attachment: fixed` provoque un repaint massif sur
+   iOS Safari à chaque scroll (jank). On le désactive sur petit
+   écran et on allège les `backdrop-filter` (très coûteux GPU). */
+@media (max-width: 768px) {
+  body { background-attachment: scroll; }
+  .glass,
+  .glass-teal,
+  .glass-dark {
+    backdrop-filter: blur(8px) saturate(140%);
+    -webkit-backdrop-filter: blur(8px) saturate(140%);
+  }
+}
+@media (max-width: 480px) {
+  /* Sur très petits écrans, on coupe carrément le blur — l'effet
+     glassy est invisible derrière une image full-bleed et brûle
+     20-30 % du frame budget. */
+  .glass,
+  .glass-teal,
+  .glass-dark {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255,251,241,0.92);
+  }
+  .glass-dark { background: rgba(34,28,18,0.85); }
 }
 
 ::selection {
@@ -164,8 +209,49 @@ body {
 
 /* ─── Reduced motion ────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration:  0.001ms !important;
     transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
+}
+
+/* ─── Scroll progress bar (top of viewport) ─────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 60;
+  transform-origin: 0 50%;
+  background: linear-gradient(
+    90deg,
+    rgba(93,186,168,0.85) 0%,
+    rgba(226,107,92,0.9)  50%,
+    rgba(244,201,93,0.9)  100%
+  );
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ─── Back-to-top button ───────────────────────────────── */
+.back-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 45;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.2,0.7,0.2,1);
+  will-change: transform, opacity;
+}
+.back-to-top[data-visible="false"] {
+  opacity: 0;
+  transform: translateY(12px) scale(0.92);
+  pointer-events: none;
+}
+.back-to-top[data-visible="true"]  {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.back-to-top:hover {
+  transform: translateY(-2px) scale(1.04);
 }

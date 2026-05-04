@@ -25,9 +25,13 @@ export function ContactForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (state.kind === "loading") return;
-    setState({ kind: "loading" });
 
-    const data = Object.fromEntries(new FormData(e.currentTarget));
+    // Capturer le formulaire avant tout `await` : `e.currentTarget` est nullifié
+    // par React dès que le handler async rend la main.
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+
+    setState({ kind: "loading" });
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -37,7 +41,7 @@ export function ContactForm() {
       const j = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(j?.message ?? "Une erreur est survenue.");
       setState({ kind: "ok" });
-      e.currentTarget.reset();
+      form.reset();
     } catch (err) {
       setState({
         kind: "error",
@@ -49,6 +53,7 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
       <Field name="name" label="Votre prénom" required autoComplete="name" />
+      <Field name="email" label="Votre email" type="email" required autoComplete="email" placeholder="vous@email.fr" />
 
       {/* Subject select */}
       <div>

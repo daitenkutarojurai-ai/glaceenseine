@@ -11,7 +11,9 @@ const CARDS = [
     desc: "Une halte gourmande qui ravit petits et grands.",
     emoji: "💍",
     href: "/privatisation#formules",
-    accent: "from-cherry/30 via-rose-100/40 to-cream",
+    // Base blanche + voile coloré en haut à droite (côté médaillon emoji)
+    accent: "bg-white",
+    glow: "bg-cherry/15",
     ring: "ring-cherry/20",
     badge: "bg-cherry text-cream",
   },
@@ -20,7 +22,8 @@ const CARDS = [
     desc: "Séminaires, journées d'équipe, pots de départ.",
     emoji: "🏢",
     href: "/privatisation#formules",
-    accent: "from-teal-300/30 via-teal-100/40 to-cream",
+    accent: "bg-white",
+    glow: "bg-teal-300/25",
     ring: "ring-teal-500/20",
     badge: "bg-teal-500 text-cream",
   },
@@ -29,18 +32,20 @@ const CARDS = [
     desc: "Une animation qui change des bougies.",
     emoji: "🎉",
     href: "/privatisation#formules",
-    accent: "from-sun-300/40 via-sun-100/40 to-cream",
-    ring: "ring-amber-400/25",
-    badge: "bg-amber-400 text-ink",
+    accent: "bg-white",
+    glow: "bg-sun-300/35",
+    ring: "ring-sun-500/30",
+    badge: "bg-sun-500 text-ink",
   },
   {
     label: "Fête de quartier",
     desc: "Brocantes, vide-greniers, kermesses.",
     emoji: "🎪",
     href: "/privatisation#formules",
-    accent: "from-peach-100/60 via-rose-100/30 to-cream",
-    ring: "ring-rose-300/30",
-    badge: "bg-rose-300 text-ink",
+    accent: "bg-white",
+    glow: "bg-peach-300/35",
+    ring: "ring-peach-500/25",
+    badge: "bg-peach-500 text-ink",
   },
 ];
 
@@ -54,21 +59,21 @@ export function PrivatisationTeaser() {
   return (
     <section
       id="privatisation"
-      className="scroll-mt-24 py-12 sm:py-20"
+      className="cv-auto py-12 sm:py-20"
       aria-labelledby="priv-teaser-title"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-ink via-ink to-ink/95 text-cream shadow-ring">
-          {/* Decorative ambient glows */}
-          <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-cherry/30 blur-3xl" />
-          <div className="pointer-events-none absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-teal-500/20 blur-3xl" />
-          <div className="pointer-events-none absolute right-1/3 top-1/2 h-48 w-48 -translate-y-1/2 rounded-full bg-sun-300/15 blur-3xl" />
+        <div className="relative overflow-hidden rounded-[2rem] bg-cream text-ink shadow-ring ring-1 ring-inset ring-ink/8">
+          {/* Decorative ambient glows — soft, light, on-theme */}
+          <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-sun-300/25 blur-3xl" aria-hidden />
+          <div className="pointer-events-none absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-teal-300/20 blur-3xl" aria-hidden />
+          <div className="pointer-events-none absolute right-1/3 top-1/2 h-48 w-48 -translate-y-1/2 rounded-full bg-peach-300/20 blur-3xl" aria-hidden />
 
           <div className="relative grid gap-0 lg:grid-cols-[1.1fr_1fr]">
             {/* ── Left — copy ── */}
-            <div className="px-7 py-12 sm:px-12 sm:py-16 lg:py-20">
+            <div className="px-6 py-10 sm:px-12 sm:py-16 lg:py-20">
               <Reveal>
-                <span className="inline-flex items-center gap-2 rounded-full bg-cream/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-300 ring-1 ring-inset ring-cream/15 backdrop-blur">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-700 ring-1 ring-inset ring-teal-500/20 shadow-sm">
                   <Sparkles className="h-3 w-3" />
                   Privatisation
                 </span>
@@ -76,15 +81,15 @@ export function PrivatisationTeaser() {
               <Reveal delay={0.06}>
                 <h2
                   id="priv-teaser-title"
-                  className="h-display mt-4 text-3xl leading-[1.05] text-cream sm:text-4xl lg:text-[2.75rem]"
+                  className="h-display mt-4 text-3xl leading-[1.05] text-ink sm:text-4xl lg:text-[2.75rem]"
                 >
                   La caravane,{" "}
-                  <span className="font-script text-sun-300">rien que</span>{" "}
+                  <span className="font-script text-cherry">rien que</span>{" "}
                   pour vous.
                 </h2>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-cream/70">
+                <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-ink/70">
                   Mariage au bord de l&apos;eau, séminaire d&apos;entreprise,
                   anniversaire mémorable — on amène la caravane, la plaque
                   chaude et les glaces artisanales. Vous apportez les invités.
@@ -93,16 +98,16 @@ export function PrivatisationTeaser() {
 
               {/* Highlights row */}
               <Reveal delay={0.14}>
-                <ul className="mt-7 grid grid-cols-3 gap-3">
+                <ul className="mt-7 grid grid-cols-3 gap-2.5 sm:gap-3">
                   {HIGHLIGHTS.map((h) => (
                     <li
                       key={h.label}
-                      className="rounded-2xl bg-cream/6 px-3 py-3 ring-1 ring-inset ring-cream/10 backdrop-blur"
+                      className="rounded-2xl bg-white/75 px-3 py-3 ring-1 ring-inset ring-ink/8 shadow-sm"
                     >
-                      <div className="text-[12.5px] font-semibold text-cream/95">
+                      <div className="text-[12.5px] font-semibold text-ink">
                         {h.label}
                       </div>
-                      <div className="mt-0.5 text-[11px] text-cream/55">
+                      <div className="mt-0.5 text-[11px] text-ink/55">
                         {h.sub}
                       </div>
                     </li>
@@ -121,7 +126,7 @@ export function PrivatisationTeaser() {
                   </Link>
                   <Link
                     href="/privatisation#formules"
-                    className="text-[13.5px] font-semibold text-cream/70 transition hover:text-cream"
+                    className="text-[13.5px] font-semibold text-ink/70 transition hover:text-ink"
                   >
                     Voir les formules →
                   </Link>
@@ -130,8 +135,8 @@ export function PrivatisationTeaser() {
             </div>
 
             {/* ── Right — event grid ── */}
-            <div className="relative flex items-center px-7 pb-12 sm:px-12 sm:pb-16 lg:py-12 lg:pl-2 lg:pr-12">
-              <div className="grid w-full grid-cols-2 gap-4">
+            <div className="relative flex items-center px-6 pb-10 sm:px-12 sm:pb-16 lg:py-12 lg:pl-2 lg:pr-12">
+              <div className="grid w-full grid-cols-2 gap-3 sm:gap-4">
                 {CARDS.map((c, i) => (
                   <motion.div
                     key={c.label}
@@ -142,12 +147,19 @@ export function PrivatisationTeaser() {
                   >
                     <Link
                       href={c.href}
-                      className={`group relative flex h-full min-h-[148px] flex-col justify-end overflow-hidden rounded-2xl bg-gradient-to-br ${c.accent} p-5 shadow-soft ring-1 ring-inset ${c.ring} transition hover:-translate-y-1 hover:shadow-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cherry`}
+                      className={`group relative flex h-full min-h-[140px] sm:min-h-[148px] flex-col justify-end overflow-hidden rounded-2xl ${c.accent} p-4 sm:p-5 shadow-soft ring-1 ring-inset ${c.ring} transition hover:-translate-y-1 hover:shadow-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cherry`}
                       aria-label={`Privatisation — ${c.label}`}
                     >
+                      {/* Halo coloré derrière le médaillon — habille la boîte
+                          sans assombrir, dans le ton du badge */}
+                      <span
+                        className={`pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full blur-2xl ${c.glow}`}
+                        aria-hidden
+                      />
+
                       {/* Top-right floating emoji medallion */}
                       <span
-                        className={`absolute -right-3 -top-3 grid h-14 w-14 place-items-center rounded-full text-2xl shadow-soft ring-2 ring-cream/60 transition group-hover:rotate-6 ${c.badge}`}
+                        className={`absolute -right-3 -top-3 grid h-14 w-14 place-items-center rounded-full text-2xl shadow-soft ring-2 ring-white/80 transition group-hover:rotate-6 ${c.badge}`}
                         aria-hidden
                       >
                         {c.emoji}
