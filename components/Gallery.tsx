@@ -52,7 +52,7 @@ export function Gallery() {
         </Reveal>
 
         {/* 2 photos — 2-column grid */}
-        <div className="mt-6 grid grid-cols-1 items-start gap-3 sm:mt-7 sm:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-7 sm:grid-cols-2">
           {PHOTOS.map((p, i) => (
             <motion.div
               key={p.src}
@@ -60,15 +60,15 @@ export function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: i * 0.08 }}
-              className="group relative overflow-hidden rounded-2xl bg-cream-deep shadow-soft"
+              className="group relative w-full overflow-hidden rounded-2xl bg-cream-deep shadow-soft"
+              style={{ paddingBottom: "66.66%" }}
             >
               <Image
                 src={p.src}
                 alt={p.alt}
-                width={p.width}
-                height={p.height}
+                fill
                 sizes="(max-width: 640px) 100vw, 50vw"
-                className="h-auto w-full transition duration-500 group-hover:scale-105"
+                className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
               <p className="absolute bottom-3 left-4 right-4 text-[12px] font-medium text-cream/90 drop-shadow-sm">
