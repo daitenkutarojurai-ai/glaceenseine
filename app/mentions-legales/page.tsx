@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Shield } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { SectionBanner } from "@/components/SectionBanner";
 
@@ -22,15 +22,14 @@ export default function MentionsLegalesPage() {
   return (
     <div className="relative overflow-hidden">
       <SectionBanner src="/bannnersmall.png" alt="Mentions légales — Glaces en Seine">
-        <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-cream/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-cream/90 backdrop-blur">
-          <Shield className="h-3 w-3 text-teal-400" />
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-300 drop-shadow">
           Mentions légales
-        </span>
-        <h1 className="h-display text-3xl text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+        </p>
+        <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
           Informations{" "}
           <span className="font-script text-cherry">légales</span>
         </h1>
-        <p className="mt-3 max-w-lg text-[13px] leading-relaxed text-cream/75 sm:text-[14px]">
+        <p className="mt-3 max-w-lg text-[13px] leading-relaxed text-cream/95 drop-shadow sm:text-[14px]">
           Conformément à la loi LCEN et au RGPD, les utilisateurs du site glaceenseine.fr sont informés de ce qui suit.
         </p>
       </SectionBanner>

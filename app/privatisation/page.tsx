@@ -115,37 +115,39 @@ export default function PrivatisationPage() {
     <div className="relative overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PRIV_FAQ_LD) }} />
       <SectionBanner src="/bannnersmall.png" alt="Glaces en Seine — privatisation pour mariage et événements">
-        <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-cream/90 backdrop-blur">
-          <Heart className="h-3 w-3 text-cherry" />
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-cherry drop-shadow">
           Privatisation
-        </span>
-        <h1 className="h-display text-3xl leading-tight text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+        </p>
+        <h1 className="h-display text-3xl leading-tight text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
           La caravane,{" "}
-          <span className="font-script text-sun-300">rien que</span>
-          <br />
-          pour vous.
+          <span className="font-script text-sun-300">rien que</span> pour vous.
         </h1>
-        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/80 drop-shadow-sm sm:text-[15px]">
+        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Mariage, séminaire, anniversaire ou fête de quartier — on amène la
           caravane, la plaque chaude et les glaces artisanales.
         </p>
-        <div className="mt-5 flex flex-wrap gap-3">
+      </SectionBanner>
+
+      {/* Hero CTAs — moved out of the banner so every section banner across the
+          site stays uniformly text-only. */}
+      <div className="border-b border-ink/5 bg-cream">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-3 px-5 py-5 sm:px-12 sm:py-6 lg:px-20">
           <a
             href="#demande"
-            className="inline-flex items-center gap-2 rounded-full bg-cherry px-6 py-2.5 text-[13px] font-semibold text-cream shadow-glow-cherry transition hover:bg-cherry/90"
+            className="inline-flex items-center gap-2 rounded-full bg-cherry px-6 py-3 text-[13px] font-semibold text-cream shadow-glow-cherry transition hover:-translate-y-0.5 hover:bg-cherry/90"
           >
             <Heart className="h-3.5 w-3.5" />
             Demander un devis
           </a>
           <a
             href="#formules"
-            className="inline-flex items-center gap-2 rounded-full bg-cream/20 px-6 py-2.5 text-[13px] font-semibold text-cream backdrop-blur transition hover:bg-cream/30"
+            className="inline-flex items-center gap-2 rounded-full bg-ink/5 px-6 py-3 text-[13px] font-semibold text-ink transition hover:bg-ink/10"
           >
             Voir les formules
             <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
-      </SectionBanner>
+      </div>
 
       {/* Background blobs for lower sections */}
       <div className="pointer-events-none absolute left-0 top-[60vh] h-96 w-96 -translate-x-1/2 rounded-blob bg-rose-100 opacity-40 blur-3xl" />

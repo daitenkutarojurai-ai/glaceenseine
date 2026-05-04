@@ -65,15 +65,14 @@ export default function EmplacementPage() {
     <div className="relative overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_LD) }} />
       <SectionBanner src="/bannnersmall.png" alt="Emplacement Glaces en Seine — Quai de Seine, La Frette-sur-Seine">
-        <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-cream/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-cream/90 backdrop-blur">
-          <MapPin className="h-3 w-3 text-teal-400" />
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-300 drop-shadow">
           Où nous trouver
-        </span>
-        <h1 className="h-display text-3xl text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+        </p>
+        <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
           Face à la{" "}
           <span className="font-script text-cherry">mairie</span>, au bord de l&apos;eau.
         </h1>
-        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/80 drop-shadow-sm sm:text-[15px]">
+        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Quai de Seine, juste en face de la mairie de La Frette-sur-Seine —
           repérez la caravane vert tendre.
         </p>

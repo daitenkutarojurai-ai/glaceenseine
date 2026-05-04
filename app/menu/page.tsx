@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Menu } from "@/components/Menu";
 import Link from "next/link";
-import { ArrowRight, MapPin, Clock } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { SectionBanner } from "@/components/SectionBanner";
 import { MenuLightbox } from "@/components/MenuLightbox";
-
-const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 
 export const metadata: Metadata = {
   title: "Menu — glaces, crêpes & gaufres artisanales",
@@ -18,30 +16,17 @@ export default function MenuPage() {
   return (
     <div className="overflow-x-hidden">
       <SectionBanner src="/bannnersmall.png" alt="Glaces en Seine — la carte glaces, crêpes et gaufres">
-        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-400">
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-300 drop-shadow">
           Menu
         </p>
-        <h1 className="h-display text-3xl text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+        <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
           Trois douceurs,{" "}
           <span className="font-script text-sun-300">artisanales</span>
         </h1>
-        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/80 drop-shadow-sm sm:text-[15px]">
+        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Pâte à crêpe du matin, glaces turbinées sur place, gaufres sorties
           du fer — tout est préparé devant vous.
         </p>
-        <div className="mt-4 flex flex-wrap gap-2 text-[12.5px]">
-          <span className="flex items-center gap-1.5 rounded-full bg-cream/15 px-4 py-1.5 text-cream/85 backdrop-blur">
-            <Clock className="h-3 w-3 text-teal-400" /> Sam · Dim · Fériés · 14h–19h
-          </span>
-          <Link
-            href={MAPS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-full bg-cherry/80 px-4 py-1.5 font-semibold text-cream transition hover:bg-cherry"
-          >
-            <MapPin className="h-3 w-3" /> La Frette-sur-Seine
-          </Link>
-        </div>
       </SectionBanner>
 
       <Menu />

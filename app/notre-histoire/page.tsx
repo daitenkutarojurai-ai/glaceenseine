@@ -19,15 +19,14 @@ export default function HistoirePage() {
   return (
     <>
       <SectionBanner src="/bannnersmall.png" alt="L'histoire de Glaces en Seine — caravane artisanale sur les quais">
-        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-400">
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-300 drop-shadow">
           Notre histoire
         </p>
-        <h1 className="h-display text-3xl text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+        <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
           Une caravane,{" "}
-          <span className="font-script text-cherry">deux sœurs</span>,<br />
-          et le quai de Seine pour décor.
+          <span className="font-script text-cherry">deux sœurs</span>, et le quai de Seine pour décor.
         </h1>
-        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/80 drop-shadow-sm sm:text-[15px]">
+        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Une vieille caravane vert tendre, une promesse simple : tout faire
           maison, le matin même, à deux pas de l&apos;eau.
         </p>

@@ -20,14 +20,14 @@ export default function ContactPage() {
   return (
     <div className="relative overflow-hidden">
       <SectionBanner src="/bannnersmall.png" alt="Contactez Glaces en Seine — formulaire et coordonnées">
-        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-400">
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-300 drop-shadow">
           Nous contacter
         </p>
-        <h1 className="h-display text-3xl text-cream drop-shadow-sm sm:text-4xl lg:text-5xl">
+        <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
           Dites-nous{" "}
           <span className="font-script text-cherry">bonjour</span>.
         </h1>
-        <p className="mt-3 max-w-md text-[14px] leading-relaxed text-cream/80 drop-shadow-sm sm:text-[15px]">
+        <p className="mt-3 max-w-md text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Une question, une privatisation, un mot gentil, une suggestion de
           parfum ? On lit tout, on répond presque toujours.
         </p>
