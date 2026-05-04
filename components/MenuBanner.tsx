@@ -8,14 +8,14 @@ const PILLS = [
   { icon: CakeSlice,label: "Gaufres",               color: "bg-teal-100 text-teal-700" },
 ];
 
-const MENU_SRC = "/menu2.jpg";
-const MENU_ZOOM_SRC = "/claseephoneupdate.png";
+const MENU_SRC = "/newmenu.png";
+const MENU_ZOOM_SRC = "/careupdate.png";
 
 export function MenuBanner() {
   return (
     <section
       id="menu"
-      className="scroll-mt-20 py-8 sm:py-12"
+      className="cv-auto py-8 sm:py-12"
       aria-label="Notre carte"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">

@@ -36,8 +36,8 @@ export default function MenuPage() {
         className="mx-auto max-w-5xl px-4 py-10 sm:px-6"
       >
         <MenuLightbox
-          previewSrc="/menu2.jpg"
-          zoomSrc="/claseephoneupdate.png"
+          previewSrc="/newmenu.png"
+          zoomSrc="/careupdate.png"
           alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales"
         />
       </section>
