@@ -10,11 +10,15 @@ const PHOTOS = [
     src: "/inprod.jpg",
     alt: "Préparation des crêpes à la plaque",
     caption: "Crêpes préparées sur la plaque",
+    width: 2040,
+    height: 1148,
   },
   {
     src: "/camion-patronne.jpg",
     alt: "La caravane et ses fondatrices",
     caption: "La caravane, sous les tilleuls",
+    width: 1600,
+    height: 1201,
   },
 ];
 
@@ -48,7 +52,7 @@ export function Gallery() {
         </Reveal>
 
         {/* 2 photos — 2-column grid */}
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-7 sm:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 items-start gap-3 sm:mt-7 sm:grid-cols-2">
           {PHOTOS.map((p, i) => (
             <motion.div
               key={p.src}
@@ -61,10 +65,10 @@ export function Gallery() {
               <Image
                 src={p.src}
                 alt={p.alt}
-                width={1600}
-                height={1200}
+                width={p.width}
+                height={p.height}
                 sizes="(max-width: 640px) 100vw, 50vw"
-                className="h-auto w-full object-cover transition duration-500 group-hover:scale-105"
+                className="h-auto w-full transition duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
               <p className="absolute bottom-3 left-4 right-4 text-[12px] font-medium text-cream/90 drop-shadow-sm">
