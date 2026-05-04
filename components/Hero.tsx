@@ -59,8 +59,7 @@ export function Hero() {
                 débarque
               </span>
               <Underline />
-            </span>
-            <br />
+            </span>{" "}
             sur les{" "}
             <em className="font-display not-italic" style={{ WebkitTextStroke: "1.5px #221C12", color: "transparent" }}>
               quais&nbsp;de&nbsp;Seine

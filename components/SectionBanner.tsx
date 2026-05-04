@@ -8,10 +8,10 @@ interface SectionBannerProps {
 
 /**
  * Page hero banner. Single layout for every viewport:
- *   • image fills the full section (object-cover)
- *   • strong bottom-heavy dark scrim guarantees text contrast
- *   • children sit at the bottom-left and the section grows with content,
- *     so headings/buttons never overflow the image box on phones
+ *   • image fills the section as a background
+ *   • text content sits in a contained dark card at the bottom-left, so we
+ *     never get a full-width "bandeau" cutting across the screen
+ *   • container grows with content, so headings/buttons can't overflow
  */
 export function SectionBanner({
   src = "/bannnersmall.png",
@@ -30,15 +30,19 @@ export function SectionBanner({
         quality={92}
         className="absolute inset-0 -z-10 object-cover object-center"
       />
-      {/* Dark scrim — heavy at the bottom (where text lands), softer at top */}
+      {/* Subtle global tint so light parts of the image don't blow out the
+          contained text card edges. Kept very light so it doesn't read as a
+          dark band across the screen. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/55 to-ink/25"
+        className="pointer-events-none absolute inset-0 -z-10 bg-ink/15"
       />
 
       {children ? (
-        <div className="relative flex min-h-[380px] flex-col justify-end px-5 pb-10 pt-16 sm:min-h-[460px] sm:px-12 sm:pb-14 sm:pt-24 lg:px-20">
-          {children}
+        <div className="relative flex min-h-[360px] flex-col justify-end px-5 pb-8 pt-14 sm:min-h-[440px] sm:px-12 sm:pb-12 sm:pt-20 lg:px-20">
+          <div className="max-w-2xl rounded-2xl bg-ink/70 px-5 py-5 ring-1 ring-cream/10 sm:px-7 sm:py-6">
+            {children}
+          </div>
         </div>
       ) : (
         <div className="aspect-[16/9] min-h-[180px] sm:aspect-[23/5] sm:min-h-[200px]" />

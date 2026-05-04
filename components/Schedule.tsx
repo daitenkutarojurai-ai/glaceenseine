@@ -108,7 +108,7 @@ export function Schedule() {
                       className={`flex flex-col items-center rounded-xl px-1.5 py-3 text-center text-[12px] font-semibold ${
                         day.open
                           ? "bg-sun-300 text-ink"
-                          : "bg-white/5 text-cream/40"
+                          : "bg-white/10 text-cream/70"
                       }`}
                     >
                       <span>{day.d}</span>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Heart,
@@ -235,12 +236,14 @@ export default function PrivatisationPage() {
       <section className="py-12" aria-hidden>
         <div className="mx-auto max-w-4xl px-6">
           <Reveal>
-            <div className="overflow-hidden rounded-3xl shadow-ring">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+            <div className="relative h-72 w-full overflow-hidden rounded-3xl shadow-ring sm:h-96">
+              <Image
                 src="/camion-patronne.jpg"
                 alt="La caravane Glaces en Seine et ses fondatrices"
-                className="h-72 w-full object-cover object-[center_30%] sm:h-96"
+                fill
+                sizes="(max-width: 1024px) 100vw, 896px"
+                quality={90}
+                className="object-cover object-[center_30%]"
               />
             </div>
           </Reveal>

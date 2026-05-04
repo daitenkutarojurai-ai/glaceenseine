@@ -156,7 +156,7 @@ export function Poll() {
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 text-center text-[15px] text-cream/60"
+              className="mt-6 text-center text-[15px] text-cream/85"
             >
               {vote === "glace" && "Bonne décision. La vanille de Madagascar vous attend ☀️"}
               {vote === "crepe" && "Vous avez goût. Beurre-sucre-citron, grand classique 🍋"}
