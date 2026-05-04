@@ -59,6 +59,21 @@ export function Footer() {
         </div>
       </div>
 
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-6 pb-4 text-center text-sm text-cream/80 md:flex-row md:justify-between">
+        <span>
+          Site réalisé par{" "}
+          <Link
+            href="https://diyfunproject.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-sun-300 underline-offset-2 hover:underline"
+          >
+            diyfunproject.com
+          </Link>
+        </span>
+        <span className="text-xs italic text-cream/70">Merci à Anaït pour la revue ✨</span>
+      </div>
+
       <div className="border-t border-cream/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-xs text-cream/50 md:flex-row">
           <div className="flex items-center gap-1.5">
@@ -71,22 +86,6 @@ export function Footer() {
             <Link href="/notre-histoire" className="hover:text-cream">Notre histoire</Link>
             <Link href="/contact" className="hover:text-cream">Contact & Avis</Link>
           </div>
-        </div>
-      </div>
-      <div className="border-t border-cream/10 bg-ink">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-6 py-4 text-center text-sm text-cream/80 md:flex-row md:justify-between">
-          <span>
-            Site réalisé par{" "}
-            <Link
-              href="https://diyfunproject.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-sun-300 underline-offset-2 hover:underline"
-            >
-              diyfunproject.com
-            </Link>
-          </span>
-          <span className="text-xs italic text-cream/70">Merci à Anaït pour la revue ✨</span>
         </div>
       </div>
     </footer>
