@@ -103,7 +103,7 @@ const EVENTS = [
 ];
 
 const PERKS = [
-  { icon: IceCream, text: "Glaces artisanales préparées le matin même" },
+  { icon: IceCream, text: "Glaces artisanales préparées à la ferme" },
   { icon: Star,     text: "Crêpes et gaufres minute, sous vos yeux" },
   { icon: MapPin,   text: "Déplacement en Île-de-France (rayon ~40 km)" },
   { icon: Clock,    text: "Service de 2 h à la journée selon vos besoins" },
