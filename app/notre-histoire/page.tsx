@@ -7,38 +7,30 @@ const MAPS_URL =
 import { Reveal } from "@/components/Reveal";
 import { ArrowRight, Heart, Quote } from "lucide-react";
 import { SectionBanner } from "@/components/SectionBanner";
+import { Newsletter } from "@/components/Newsletter";
 
 export const metadata: Metadata = {
   title: "Notre histoire — la caravane Glaces en Seine",
   description:
-    "L'histoire de la caravane Glaces en Seine, posée chaque été sur les quais de La Frette-sur-Seine (95). Deux sœurs, une recette artisanale, et l'envie de ralentir le dimanche au bord de l'eau.",
+    "L'histoire de Glaces en Seine : trois amis voisins et parents, un food truck né au bord des quais de La Frette-sur-Seine (95). Glaces artisanales, crêpes et gaufres, dans un esprit familial et convivial.",
   alternates: { canonical: "/notre-histoire" },
 };
 
 export default function HistoirePage() {
   return (
     <>
-      <SectionBanner src="/bannnersmall.png" alt="L'histoire de Glaces en Seine — caravane artisanale sur les quais">
-        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-300 drop-shadow">
-          Notre histoire
-        </p>
-        <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
-          Une caravane,{" "}
-          <span className="font-script text-cherry">deux sœurs</span>, et le quai de Seine pour décor.
-        </h1>
-        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
-          Une vieille caravane vert tendre, une promesse simple : tout faire
-          maison, le matin même, à deux pas de l&apos;eau.
-        </p>
-      </SectionBanner>
+      <SectionBanner
+        src="/bannnersmall.png"
+        alt="L'histoire de Glaces en Seine — un food truck né au bord des quais"
+      />
 
       {/* Hero photo */}
-      <section className="relative">
+      <section className="relative px-4 pt-12 sm:px-6 sm:pt-16">
         <Reveal>
           <div className="relative mx-auto aspect-[16/9] max-w-6xl overflow-hidden rounded-[2.5rem] shadow-ring sm:aspect-[21/9]">
             <Image
               src="/camion-patronne.jpg"
-              alt="La caravane et ses fondatrices, sur les quais de la Seine"
+              alt="Le food truck Glaces en Seine et ses trois fondateurs, sur les quais"
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 1024px"
@@ -49,25 +41,30 @@ export default function HistoirePage() {
       </section>
 
       {/* Story columns */}
-      <section className="relative py-24 sm:py-32">
+      <section className="relative py-20 sm:py-28">
         <div className="mx-auto grid max-w-5xl gap-12 px-6 md:grid-cols-2">
           <Reveal>
             <h2 className="h-display text-3xl">Le déclic</h2>
             <p className="mt-3 text-[16.5px] leading-relaxed text-ink/70">
-              Tout commence un dimanche d'été où, faute de glacier ouvert le
-              long du quai, on rentre déçues. On se dit : "et si on s'y
-              mettait ?" L'idée traîne un hiver, prend forme au printemps. On
-              chine une caravane, on la repeint en vert tendre, on la baptise
-              <em className="font-display italic text-ink"> Glaces en Seine</em>.
+              Tout a commencé au bord des quais de Seine. Trois amis, voisins
+              et parents, habitués à se retrouver pour de longues balades avec
+              leurs enfants — entre rires, goûters improvisés et moments
+              partagés au fil de l&apos;eau. Un dimanche, en regardant les enfants
+              savourer une glace au soleil, l&apos;idée est née&nbsp;: créer un lieu
+              gourmand, simple et authentique, qui rassemble petits et grands
+              dans cette ambiance qu&apos;on aime tant.
             </p>
           </Reveal>
           <Reveal delay={0.08}>
-            <h2 className="h-display text-3xl">Le geste artisan</h2>
+            <h2 className="h-display text-3xl">Un projet de cœur</h2>
             <p className="mt-3 text-[16.5px] leading-relaxed text-ink/70">
-              On bat la pâte à crêpes le matin, on monte la chantilly minute,
-              on infuse la vanille la veille. Pas de poudre, pas de mix tout
-              prêt — juste du lait, des œufs, du sucre, et des fruits qui
-              viennent du Vexin quand la saison s'y prête.
+              C&apos;est ainsi qu&apos;est né notre food truck. Inspiré par ces instants
+              du quotidien, avec l&apos;envie de proposer des glaces artisanales
+              de qualité, des crêpes gourmandes et des gaufres généreuses —
+              le tout dans un esprit familial et convivial. Aujourd&apos;hui, on
+              est heureux de vous accueillir au bord de la Seine, pour
+              partager bien plus qu&apos;une pause sucrée&nbsp;: un vrai moment de
+              plaisir.
             </p>
           </Reveal>
         </div>
@@ -78,11 +75,11 @@ export default function HistoirePage() {
             <div className="relative rounded-[2rem] bg-cream p-10 shadow-soft">
               <Quote className="absolute -left-3 -top-3 h-10 w-10 rotate-180 text-sun-300" />
               <p className="font-display text-2xl leading-snug text-ink sm:text-3xl">
-                "On n'a pas inventé la glace. On a juste voulu rendre le
-                dimanche un peu plus doux."
+                «&nbsp;On n&apos;a pas inventé la glace. On a juste voulu prolonger
+                ces dimanches au bord de l&apos;eau, en famille.&nbsp;»
               </p>
               <p className="mt-4 font-script text-xl text-teal-700">
-                Marion & Camille
+                Les trois amis fondateurs
               </p>
             </div>
           </div>
@@ -117,6 +114,9 @@ export default function HistoirePage() {
         </div>
       </section>
 
+      {/* Newsletter */}
+      <Newsletter />
+
       {/* Footer call */}
       <section className="relative pb-32">
         <div className="mx-auto max-w-3xl px-6 text-center">
@@ -125,7 +125,7 @@ export default function HistoirePage() {
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="h-display mt-4 text-3xl sm:text-4xl">
-              Venez pousser la porte verte.
+              Venez partager un moment au bord de l&apos;eau.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
@@ -139,7 +139,7 @@ export default function HistoirePage() {
                 href="/privatisation"
                 className="btn-liquid group inline-flex items-center gap-2 rounded-full bg-cherry px-6 py-3.5 text-sm font-semibold text-cream shadow-soft hover:shadow-glow-cherry"
               >
-                Privatiser la caravane
+                Privatiser le food truck
                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
               </Link>
               <Link
