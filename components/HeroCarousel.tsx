@@ -150,9 +150,9 @@ export function HeroCarousel() {
   };
 
   const slide = slides[current];
-  const heroSrc = isMobile ? "/highdefglasse.png" : slide.src;
+  const heroSrc = isMobile ? "/highquality-phone.png" : slide.src;
   const heroAlt = isMobile
-    ? "Glaces en Seine — glaces artisanales sur les quais de Seine"
+    ? "Glaces en Seine — la caravane sur les quais de Seine"
     : slide.alt;
   const heroKey = isMobile ? "static-mobile" : slide.src;
   const showText = !isMobile && !slide.hideText;
@@ -194,7 +194,11 @@ export function HeroCarousel() {
               priority
               sizes="100vw"
               quality={92}
-              className="object-cover object-center"
+              className={
+                isMobile
+                  ? "object-cover object-[30%_center]"
+                  : "object-cover object-center"
+              }
             />
           </motion.div>
         </AnimatePresence>

@@ -19,22 +19,20 @@ export function MenuBanner() {
       aria-label="Notre carte"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <div className="mb-4 sm:mb-5">
-          <p className="eyebrow">La carte</p>
+        <div className="mb-5 sm:mb-6">
+          <p className="eyebrow">Notre carte</p>
           <h2 className="h-display mt-1 text-2xl sm:text-3xl">
-            Trois douceurs,{" "}
-            <span className="font-script text-cherry">une caravane</span>.
+            Glaces, crêpes &{" "}
+            <span className="font-script text-cherry">gaufres</span>.
           </h2>
+          <p className="mt-2 max-w-md text-[14.5px] leading-relaxed text-ink/65">
+            Toutes nos parfums, prix et allergènes — touchez l&apos;image
+            pour ouvrir la carte complète en grand.
+          </p>
         </div>
 
-        <MenuLightbox
-          previewSrc={MENU_SRC}
-          zoomSrc={MENU_ZOOM_SRC}
-          alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales sur les quais de Seine"
-        />
-
-        {/* Mobile pills */}
-        <div className="mt-3 flex flex-wrap gap-2 sm:hidden">
+        {/* Pills — visible on every viewport so the categories are clear at a glance */}
+        <div className="mb-4 flex flex-wrap gap-2">
           {PILLS.map((p) => (
             <span
               key={p.label}
@@ -45,6 +43,12 @@ export function MenuBanner() {
             </span>
           ))}
         </div>
+
+        <MenuLightbox
+          previewSrc={MENU_SRC}
+          zoomSrc={MENU_ZOOM_SRC}
+          alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales sur les quais de Seine"
+        />
 
         {/* Poll — contextuellement lié au menu */}
         <div className="mt-4">
