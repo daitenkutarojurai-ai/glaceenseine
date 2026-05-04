@@ -22,7 +22,19 @@ export default function HistoirePage() {
       <SectionBanner
         src="/bannnersmall.png"
         alt="L'histoire de Glaces en Seine — un food truck né au bord des quais"
-      />
+      >
+        <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-300 drop-shadow">
+          Notre histoire
+        </p>
+        <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
+          Trois amis,{" "}
+          <span className="font-script text-sun-300">une caravane</span>
+        </h1>
+        <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
+          Née au bord des quais de Seine, entre balades en famille et goûters
+          improvisés — un projet de cœur partagé à trois.
+        </p>
+      </SectionBanner>
 
       {/* Hero photo */}
       <section className="relative px-4 pt-12 sm:px-6 sm:pt-16">
