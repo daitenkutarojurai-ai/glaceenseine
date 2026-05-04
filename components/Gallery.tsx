@@ -22,7 +22,7 @@ export function Gallery() {
   return (
     <section
       id="galerie"
-      className="scroll-mt-20 py-8 sm:py-12"
+      className="cv-auto py-8 sm:py-12"
       aria-labelledby="gallery-title"
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
@@ -56,14 +56,15 @@ export function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.55, delay: i * 0.08 }}
-              className="group relative aspect-[4/3] overflow-hidden rounded-2xl bg-cream-deep shadow-soft sm:aspect-video"
+              className="group relative overflow-hidden rounded-2xl bg-cream-deep shadow-soft"
             >
               <Image
                 src={p.src}
                 alt={p.alt}
-                fill
+                width={1600}
+                height={1200}
                 sizes="(max-width: 640px) 100vw, 50vw"
-                className="object-cover transition duration-500 group-hover:scale-105"
+                className="h-auto w-full object-cover transition duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
               <p className="absolute bottom-3 left-4 right-4 text-[12px] font-medium text-cream/90 drop-shadow-sm">
