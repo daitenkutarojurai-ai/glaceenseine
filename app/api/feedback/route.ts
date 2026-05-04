@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { sendMail } from "@/lib/mailer";
+import { sendMail, escapeHtml } from "@/lib/mailer";
 
 export const runtime = "nodejs";
 
@@ -37,24 +37,20 @@ export async function POST(req: Request) {
 
   const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
 
-  try {
-    await sendMail({
-      subject: `⭐ Nouvel avis Glaces en Seine — ${stars}`,
-      html: `
-        <div style="font-family:sans-serif;max-width:520px;margin:auto">
-          <h2 style="color:#E26B5C">⭐ Nouvel avis reçu</h2>
-          <p><strong>Note :</strong> ${stars} (${rating}/5)</p>
-          ${emoji ? `<p><strong>Ressenti :</strong> ${emoji}</p>` : ""}
-          ${comment ? `<p><strong>Commentaire :</strong><br>${comment.replace(/\n/g, "<br>")}</p>` : "<p><em>Pas de commentaire.</em></p>"}
-          <hr style="margin:16px 0;border-color:#eee">
-          <p style="color:#999;font-size:12px">Reçu via glacesenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
-        </div>`,
-    });
-  } catch (err) {
-    console.error("[feedback] sendMail failed:", err);
-    // Avis enregistré côté serveur mais email non envoyé — ne pas bloquer l'UI
-    return NextResponse.json({ ok: true, emailFailed: true });
-  }
+  const result = await sendMail({
+    subject: `⭐ Nouvel avis Glaces en Seine — ${stars}`,
+    html: `
+      <div style="font-family:sans-serif;max-width:520px;margin:auto">
+        <h2 style="color:#E26B5C">⭐ Nouvel avis reçu</h2>
+        <p><strong>Note :</strong> ${stars} (${rating}/5)</p>
+        ${emoji ? `<p><strong>Ressenti :</strong> ${escapeHtml(emoji)}</p>` : ""}
+        ${comment ? `<p><strong>Commentaire :</strong><br>${escapeHtml(comment).replace(/\n/g, "<br>")}</p>` : "<p><em>Pas de commentaire.</em></p>"}
+        <hr style="margin:16px 0;border-color:#eee">
+        <p style="color:#999;font-size:12px">Reçu via glacesenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
+      </div>`,
+  });
 
-  return NextResponse.json({ ok: true });
+  // L'avis est best-effort : l'utilisateur a fait sa part, on ne le bloque pas
+  // si le mail ne part pas — on log côté serveur pour surveillance.
+  return NextResponse.json({ ok: true, emailFailed: !result.ok });
 }

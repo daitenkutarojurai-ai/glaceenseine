@@ -249,7 +249,7 @@ export default function PrivatisationPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <p className="mt-4 text-center text-[14px] text-ink/50">
-              La caravane vert tendre et ses deux sœurs fondatrices — disponibles pour votre événement.
+              La caravane vert tendre et son équipe fondatrice — disponibles pour votre événement.
             </p>
           </Reveal>
         </div>

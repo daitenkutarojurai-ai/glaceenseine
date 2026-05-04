@@ -74,7 +74,7 @@ export function Hero() {
             className="mt-5 max-w-md text-[16px] leading-relaxed text-ink/65 sm:text-[17px]"
           >
             Glaces artisanales, crêpes minute et gaufres dorées à deux pas de
-            l'eau. Une caravane verde, deux sœurs, et le quai de La Frette pour
+            l'eau. Une caravane vert tendre et le quai de La Frette pour
             décor.
           </motion.p>
 

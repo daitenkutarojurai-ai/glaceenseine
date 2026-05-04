@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { sendMail } from "@/lib/mailer";
+import { sendMail, escapeHtml } from "@/lib/mailer";
+
+const MAX_NAME = 120;
+const MAX_SUBJECT = 200;
+const MAX_MESSAGE = 4000;
 
 export const runtime = "nodejs";
 
@@ -29,9 +33,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const name = (body.name ?? "").trim();
-  const email = (body.email ?? "").trim();
-  const message = (body.message ?? "").trim();
+  const name = (body.name ?? "").trim().slice(0, MAX_NAME);
+  const email = (body.email ?? "").trim().slice(0, MAX_NAME);
+  const message = (body.message ?? "").trim().slice(0, MAX_MESSAGE);
 
   if (!name || name.length < 2) {
     return NextResponse.json(
@@ -52,28 +56,27 @@ export async function POST(req: Request) {
     );
   }
 
-  const subject = (body.subject ?? "").trim().slice(0, 200) || "Message sans sujet";
+  const subject = (body.subject ?? "").trim().slice(0, MAX_SUBJECT) || "Message sans sujet";
 
-  try {
-    await sendMail({
-      subject: `✉️ Message de ${name} — Glaces en Seine`,
-      replyTo: email,
-      html: `
-        <div style="font-family:sans-serif;max-width:520px;margin:auto">
-          <h2 style="color:#E26B5C">✉️ Nouveau message reçu</h2>
-          <p><strong>De :</strong> ${name} &lt;${email}&gt;</p>
-          <p><strong>Sujet :</strong> ${subject}</p>
-          <hr style="margin:16px 0;border-color:#eee">
-          <p>${message.replace(/\n/g, "<br>")}</p>
-          <hr style="margin:16px 0;border-color:#eee">
-          <p style="color:#999;font-size:12px">Reçu via glacesenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
-        </div>`,
-    });
-  } catch (err) {
-    console.error("[contact] sendMail failed:", err);
+  const result = await sendMail({
+    subject: `✉️ Message de ${name} — Glaces en Seine`,
+    replyTo: email,
+    html: `
+      <div style="font-family:sans-serif;max-width:520px;margin:auto">
+        <h2 style="color:#E26B5C">✉️ Nouveau message reçu</h2>
+        <p><strong>De :</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>
+        <p><strong>Sujet :</strong> ${escapeHtml(subject)}</p>
+        <hr style="margin:16px 0;border-color:#eee">
+        <p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>
+        <hr style="margin:16px 0;border-color:#eee">
+        <p style="color:#999;font-size:12px">Reçu via glacesenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
+      </div>`,
+  });
+
+  if (!result.ok) {
     return NextResponse.json(
       { ok: false, message: "L'envoi a échoué. Réessayez dans un instant ou écrivez-nous sur Instagram @glacesenseine." },
-      { status: 500 },
+      { status: 502 },
     );
   }
 

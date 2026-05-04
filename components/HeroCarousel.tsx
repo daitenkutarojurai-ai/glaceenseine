@@ -77,8 +77,19 @@ function CarouselCtas({ className = "" }: { className?: string }) {
   );
 }
 
-/* Floating ambient orbs — warm light-leak accents */
-function AmbientOrbs() {
+/* Floating ambient orbs — warm light-leak accents.
+   `animated=false` on mobile : on garde le rendu statique mais on
+   coupe les boucles framer-motion infinies (gros consommateur GPU
+   + JS thread sur les téléphones d'entrée de gamme). */
+function AmbientOrbs({ animated }: { animated: boolean }) {
+  if (!animated) {
+    return (
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <div className="absolute -right-16 top-[8%] h-72 w-72 rounded-full bg-sun-300/25 blur-3xl" />
+        <div className="absolute bottom-[18%] right-[10%] h-56 w-56 rounded-full bg-teal-300/20 blur-3xl" />
+      </div>
+    );
+  }
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
       <motion.div
@@ -115,12 +126,15 @@ export function HeroCarousel() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  /* Scroll-driven parallax — image moves at 60% of scroll speed */
+  /* Scroll-driven parallax — image moves at 60% of scroll speed.
+     Désactivé sur mobile : `useScroll` provoque un layout/paint à
+     chaque tick et tue la fluidité du scroll sur iOS Safari. */
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
+  const parallaxStyle = isMobile ? undefined : { y: parallaxY, willChange: "transform" as const };
 
   const go = useCallback((idx: number) => setCurrent(idx), []);
   const len = slides.length;
@@ -176,7 +190,7 @@ export function HeroCarousel() {
       ──────────────────────────────────────────────────────── */}
       <motion.div
         className="absolute inset-x-0 top-[-6%] bottom-[-6%]"
-        style={{ y: parallaxY, willChange: "transform" }}
+        style={parallaxStyle}
       >
         <AnimatePresence mode="sync">
           <motion.div
@@ -191,7 +205,7 @@ export function HeroCarousel() {
               src={heroSrc}
               alt={heroAlt}
               fill
-              priority
+              priority={current === 0}
               sizes="100vw"
               quality={92}
               className={
@@ -238,7 +252,7 @@ export function HeroCarousel() {
       {/* ────────────────────────────────────────────────────────
           Layer 4 · Ambient light-leak orbs
       ──────────────────────────────────────────────────────── */}
-      <AmbientOrbs />
+      <AmbientOrbs animated={!isMobile} />
 
       {/* ────────────────────────────────────────────────────────
           Layer 5 · Content

@@ -32,7 +32,6 @@ export default function HistoirePage() {
               src="/camion-patronne.jpg"
               alt="Le food truck Glaces en Seine et ses trois fondateurs, sur les quais"
               fill
-              priority
               sizes="(max-width: 1024px) 100vw, 1024px"
               className="object-cover"
             />
