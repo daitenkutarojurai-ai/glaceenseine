@@ -6,10 +6,11 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-
 import { Menu as MenuIcon, X, Instagram, Sparkles, MapPin, Bell } from "lucide-react";
 
 const links = [
-  { href: "/menu",         label: "Menu" },
-  { href: "/privatisation", label: "Privatisation" },
-  { href: "/emplacement",  label: "Nous trouver" },
-  { href: "/contact",      label: "Contact" },
+  { href: "/menu",            label: "Menu" },
+  { href: "/notre-histoire",  label: "Notre histoire" },
+  { href: "/privatisation",   label: "Privatisation" },
+  { href: "/emplacement",     label: "Nous trouver" },
+  { href: "/contact",         label: "Contact" },
 ];
 
 export function Nav() {
@@ -24,9 +25,9 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header className={`sticky top-0 z-40 transition-all duration-500 ${scrolled ? "py-1.5" : "py-3"}`}>
+    <header className={`sticky top-0 z-40 transition-[padding] duration-300 ease-out ${scrolled ? "py-1.5" : "py-3"}`}>
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between transition-all duration-500 ${
+        className={`mx-auto flex max-w-7xl items-center justify-between transition-[background-color,padding,margin,border-radius,box-shadow] duration-300 ease-out ${
           scrolled
             ? "glass mt-2 rounded-full px-4 py-2 shadow-soft mx-3 sm:mx-6"
             : "bg-transparent px-4 sm:px-6"
@@ -55,12 +56,12 @@ export function Nav() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Navigation principale">
+        <nav className="hidden items-center gap-4 md:flex lg:gap-6" aria-label="Navigation principale">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="group relative text-[13.5px] font-medium text-ink/75 transition hover:text-ink"
+              className="group relative whitespace-nowrap text-[13px] font-medium text-ink/75 transition hover:text-ink lg:text-[13.5px]"
             >
               {l.label}
               <span className="absolute -bottom-0.5 left-0 h-[2px] w-0 rounded-full bg-cherry transition-all duration-300 group-hover:w-full" />
@@ -69,33 +70,33 @@ export function Nav() {
         </nav>
 
         {/* Desktop actions */}
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="hidden items-center gap-2 md:flex">
           <Link
             href="https://instagram.com/glacesenseine"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram @glacesenseine"
-            className="grid h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-cherry"
+            className="hidden h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-cherry lg:grid"
           >
             <Instagram className="h-4 w-4" />
           </Link>
           <Link
             href="/emplacement"
             aria-label="Nous trouver"
-            className="grid h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-teal-600"
+            className="hidden h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-teal-600 lg:grid"
           >
             <MapPin className="h-4 w-4" />
           </Link>
           <Link
             href="/#newsletter"
             aria-label="Newsletter"
-            className="grid h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-teal-600"
+            className="hidden h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-teal-600 lg:grid"
           >
             <Bell className="h-4 w-4" />
           </Link>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-cream/80 px-4 py-2 text-[13px] font-semibold text-ink shadow-soft transition hover:bg-cream"
+            className="hidden items-center gap-2 rounded-full bg-cream/80 px-4 py-2 text-[13px] font-semibold text-ink shadow-soft transition hover:bg-cream lg:inline-flex"
           >
             Contact
           </Link>
@@ -113,7 +114,7 @@ export function Nav() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Fermer" : "Menu"}
           aria-expanded={open}
-          className="grid h-11 w-11 place-items-center rounded-full bg-cream/80 text-ink shadow-soft backdrop-blur lg:hidden"
+          className="grid h-11 w-11 place-items-center rounded-full bg-cream/80 text-ink shadow-soft backdrop-blur md:hidden"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
@@ -137,7 +138,7 @@ export function Nav() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
-            className="lg:hidden"
+            className="md:hidden"
           >
             <div className="mx-3 mt-2 overflow-hidden rounded-3xl bg-cream/95 shadow-ring backdrop-blur">
               <nav className="flex flex-col p-3" aria-label="Navigation mobile">
