@@ -51,7 +51,7 @@ const CARDS = [
 
 const HIGHLIGHTS = [
   { label: "Île-de-France", sub: "rayon ~40 km" },
-  { label: "Devis gratuit", sub: "réponse sous 48 h" },
+  { label: "Devis gratuit", sub: "réponse sous 24 h" },
   { label: "Sur-mesure", sub: "parfums & déco" },
 ];
 

@@ -92,7 +92,7 @@ export function ContactForm() {
 
       <div className="flex flex-col-reverse items-stretch gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-[12.5px] text-ink/55">
-          On répond sous 48 h. Souvent plus vite si le soleil brille.
+          On répond sous 24 h. Souvent plus vite si le soleil brille.
         </p>
         <button
           type="submit"

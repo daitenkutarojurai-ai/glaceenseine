@@ -51,7 +51,7 @@ export function Nav() {
           </motion.div>
           <div className="leading-tight">
             <div className="font-display text-[17px] tracking-tight text-ink">Glaces en Seine</div>
-            <div className="-mt-0.5 font-script text-[13px] text-teal-700">la frette-sur-seine</div>
+            <div className="-mt-0.5 font-script text-[13px] text-teal-700">La Frette-sur-Seine</div>
           </div>
         </Link>
 

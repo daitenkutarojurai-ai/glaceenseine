@@ -129,7 +129,7 @@ export default function HistoirePage() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-3 text-ink/65">
-              Le mieux, c'est encore de passer un dimanche après-midi.
+              Le mieux, c'est encore de passer un dimanche après-midi
             </p>
           </Reveal>
           <Reveal delay={0.15}>

@@ -50,7 +50,7 @@ export function Footer() {
           <div className="text-xs uppercase tracking-[0.2em] text-cream/50">Pratique</div>
           <ul className="mt-3 space-y-2 text-sm leading-relaxed text-cream/80">
             <li className="font-semibold text-sun-300">Quai de Seine</li>
-            <li>Face à la mairie de La Frette</li>
+            <li>Face à la Mairie de La Frette</li>
             <li className="text-cream/55 text-xs italic">Place de la Mairie · 95530 La Frette-sur-Seine</li>
             <li className="text-cream/45 text-[11px]">Vous pouvez pas nous louper 😉</li>
             <li className="pt-1">Sam · Dim · fériés</li>

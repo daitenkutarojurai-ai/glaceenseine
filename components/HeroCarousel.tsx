@@ -176,7 +176,7 @@ export function HeroCarousel() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[62dvh] min-h-[440px] w-full overflow-hidden bg-cream sm:h-[100dvh] sm:min-h-[640px]"
+      className="relative h-[62dvh] min-h-[440px] w-full overflow-hidden bg-cream sm:h-[92dvh] sm:min-h-[560px] sm:max-h-[820px]"
       aria-label="Glaces en Seine"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

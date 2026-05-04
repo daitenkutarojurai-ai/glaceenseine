@@ -58,7 +58,7 @@ export function PrivatisationForm() {
           </motion.div>
           <p className="text-xl font-display font-medium text-ink">Demande reçue !</p>
           <p className="max-w-sm text-[15px] text-ink/60">
-            On revient vers vous sous 48 h avec un devis sur-mesure.
+            On revient vers vous sous 24 h avec un devis sur-mesure.
             Hâte de faire partie de votre événement 🍦
           </p>
         </motion.div>
@@ -171,7 +171,7 @@ export function PrivatisationForm() {
 
           <div className="flex flex-col-reverse gap-4 pt-1 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[12.5px] text-ink/50">
-              Réponse sous 48 h · Devis gratuit · Aucun engagement
+              Réponse sous 24 h · Devis gratuit · Aucun engagement
             </p>
             <button
               type="submit"

@@ -42,7 +42,7 @@ export function MenuLightbox({
         {/* External-link cue */}
         <span className="pointer-events-none absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-ink/85 px-3 py-1.5 text-[11.5px] font-semibold text-cream shadow-soft backdrop-blur">
           <ExternalLink className="h-3.5 w-3.5" />
-          Nouvel onglet
+          Agrandir
         </span>
       </a>
 

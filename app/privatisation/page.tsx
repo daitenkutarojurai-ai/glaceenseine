@@ -20,7 +20,7 @@ import { SectionBanner } from "@/components/SectionBanner";
 export const metadata: Metadata = {
   title: "Privatisation caravane glaces, crêpes & gaufres — mariage, séminaire, événement",
   description:
-    "Privatisez la caravane Glaces en Seine pour mariage, anniversaire, séminaire ou fête de quartier en Île-de-France. Glaces artisanales, crêpes et gaufres préparées sur place. Devis gratuit sous 48 h.",
+    "Privatisez la caravane Glaces en Seine pour mariage, anniversaire, séminaire ou fête de quartier en Île-de-France. Glaces artisanales, crêpes et gaufres préparées sur place. Devis gratuit sous 24 h.",
   alternates: { canonical: "/privatisation" },
 };
 
@@ -65,7 +65,7 @@ const PRIV_FAQ_LD = {
       name: "Comment obtenir un devis ?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Remplissez le formulaire de demande sur la page Privatisation : on revient vers vous sous 48 heures avec une proposition personnalisée et le tarif détaillé.",
+        text: "Remplissez le formulaire de demande sur la page Privatisation : on revient vers vous sous 24 heures avec une proposition personnalisée et le tarif détaillé.",
       },
     },
   ],
@@ -107,7 +107,7 @@ const PERKS = [
   { icon: Star,     text: "Crêpes et gaufres minute, sous vos yeux" },
   { icon: MapPin,   text: "Déplacement en Île-de-France (rayon ~40 km)" },
   { icon: Clock,    text: "Service de 2 h à la journée selon vos besoins" },
-  { icon: CheckCircle2, text: "Devis personnalisé sous 48 h" },
+  { icon: CheckCircle2, text: "Devis personnalisé sous 24 h" },
   { icon: Heart,    text: "Une équipe sœurs-fondatrices, passionnées et souriantes" },
 ];
 
@@ -172,7 +172,7 @@ export default function PrivatisationPage() {
           </Reveal>
           <Reveal delay={0.06}>
             <p className="mt-3 text-center text-[15px] text-ink/55">
-              On s'adapte à votre contexte, votre budget et votre nombre d'invités.
+              On s'adapte à votre contexte, votre budget et votre nombre d'invités
             </p>
           </Reveal>
 
@@ -249,7 +249,7 @@ export default function PrivatisationPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <p className="mt-4 text-center text-[14px] text-ink/50">
-              La caravane vert tendre et son équipe fondatrice — disponibles pour votre événement.
+              La caravane vert tendre et son équipe fondatrice — disponibles pour votre événement
             </p>
           </Reveal>
         </div>
@@ -276,7 +276,7 @@ export default function PrivatisationPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-3 text-center text-[15px] text-ink/55">
-              Remplissez le formulaire — on vous répond sous 48 h avec un devis personnalisé.
+              Remplissez le formulaire — on vous répond sous 24 h avec un devis personnalisé.
               Pas d'engagement, juste une conversation.
             </p>
           </Reveal>

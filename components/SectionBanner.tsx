@@ -45,7 +45,7 @@ export function SectionBanner({
           </div>
         </div>
       ) : (
-        <div className="aspect-[21/9] min-h-[200px] sm:aspect-[32/9] sm:min-h-[260px]" />
+        <div className="h-[360px] sm:h-[440px]" />
       )}
     </section>
   );
