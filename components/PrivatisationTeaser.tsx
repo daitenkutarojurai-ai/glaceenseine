@@ -85,7 +85,7 @@ export function PrivatisationTeaser() {
                 >
                   La caravane,{" "}
                   <span className="font-script text-cherry">rien que</span>{" "}
-                  pour vous.
+                  pour vous
                 </h2>
               </Reveal>
               <Reveal delay={0.1}>

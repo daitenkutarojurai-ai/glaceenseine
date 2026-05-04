@@ -23,7 +23,7 @@ export function MenuBanner() {
           <p className="eyebrow">Notre carte</p>
           <h2 className="h-display mt-1 text-2xl sm:text-3xl">
             Glaces, crêpes &{" "}
-            <span className="font-script text-cherry">gaufres</span>.
+            <span className="font-script text-cherry">gaufres</span>
           </h2>
           <p className="mt-2 max-w-md text-[14.5px] leading-relaxed text-ink/65">
             Toutes nos parfums, prix et allergènes — touchez l&apos;image

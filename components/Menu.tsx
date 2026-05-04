@@ -470,7 +470,7 @@ export function Menu() {
         <Reveal delay={0.05}>
           <h2 id="menu-title" className="h-display mt-2 text-center text-3xl sm:text-left sm:text-5xl">
             Quatre envies,{" "}
-            <span className="font-script text-teal-700">une caravane</span>.
+            <span className="font-script text-teal-700">une caravane</span>
           </h2>
         </Reveal>
         <Reveal delay={0.07}>

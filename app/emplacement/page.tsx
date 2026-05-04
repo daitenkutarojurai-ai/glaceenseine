@@ -70,7 +70,7 @@ export default function EmplacementPage() {
         </p>
         <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
           Face à la{" "}
-          <span className="font-script text-cherry">mairie</span>, au bord de l&apos;eau.
+          <span className="font-script text-cherry">mairie</span>, au bord de l&apos;eau
         </h1>
         <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Quai de Seine, juste en face de la mairie de La Frette-sur-Seine —

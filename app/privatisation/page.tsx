@@ -121,7 +121,7 @@ export default function PrivatisationPage() {
         </p>
         <h1 className="h-display text-3xl leading-tight text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
           La caravane,{" "}
-          <span className="font-script text-sun-300">rien que</span> pour vous.
+          <span className="font-script text-sun-300">rien que</span> pour vous
         </h1>
         <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Mariage, séminaire, anniversaire ou fête de quartier — on amène la

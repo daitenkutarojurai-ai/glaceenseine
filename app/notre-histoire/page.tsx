@@ -136,7 +136,7 @@ export default function HistoirePage() {
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="h-display mt-4 text-3xl sm:text-4xl">
-              Venez partager un moment au bord de l&apos;eau.
+              Venez partager un moment au bord de l&apos;eau
             </h2>
           </Reveal>
           <Reveal delay={0.1}>

@@ -25,7 +25,7 @@ export default function ContactPage() {
         </p>
         <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
           Dites-nous{" "}
-          <span className="font-script text-cherry">bonjour</span>.
+          <span className="font-script text-cherry">bonjour</span>
         </h1>
         <p className="mt-3 max-w-md text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Une question, une privatisation, un mot gentil, une suggestion de

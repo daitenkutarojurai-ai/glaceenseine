@@ -33,7 +33,7 @@ export function Location() {
             <Reveal delay={0.05}>
               <h2 id="loc-title" className="h-display mt-3 text-4xl sm:text-5xl">
                 Face à la mairie de{" "}
-                <span className="font-script text-cherry">La Frette</span>.
+                <span className="font-script text-cherry">La Frette</span>
               </h2>
             </Reveal>
             <Reveal delay={0.1}>

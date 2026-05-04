@@ -40,7 +40,7 @@ export function Gallery() {
           >
             Une halte{" "}
             <span className="font-script text-cherry">douce</span>{" "}
-            au bord de la Seine.
+            au bord de la Seine
           </h2>
         </Reveal>
         <Reveal delay={0.08}>

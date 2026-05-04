@@ -62,7 +62,7 @@ export function Testimonials() {
               className="h-display mt-2 text-2xl sm:text-5xl"
             >
               Ce que disent{" "}
-              <span className="font-script text-cherry">les promeneurs</span>.
+              <span className="font-script text-cherry">les promeneurs</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
