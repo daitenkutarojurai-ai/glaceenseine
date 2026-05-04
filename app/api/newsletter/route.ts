@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendMail, escapeHtml } from "@/lib/mailer";
+import { addContactToList } from "@/lib/brevo";
 
 export const runtime = "nodejs";
 
@@ -22,19 +23,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, message: "Email invalide." }, { status: 400 });
   }
 
+  // Best-effort: push to Brevo list, then notify ops by email. We don't surface
+  // partial failures to the user — they did their part.
+  const listId = Number(process.env.BREVO_LIST_ID);
+  if (Number.isFinite(listId) && listId > 0) {
+    const r = await addContactToList(email, listId, { OPTIN_SOURCE: "site" });
+    if (!r.ok) {
+      console.error(`[newsletter] Brevo addContact failed (${r.status}): ${r.error} — email: ${email}`);
+    }
+  }
+
   const result = await sendMail({
     subject: "📧 Nouvelle inscription newsletter — Glaces en Seine",
     html: `
       <div style="font-family:sans-serif;max-width:480px;margin:auto">
         <h2 style="color:#2E8475">📧 Nouvelle inscription</h2>
         <p>L'adresse <strong>${escapeHtml(email)}</strong> souhaite être prévenue à l'ouverture de la saison.</p>
+        <p>Ajoutée à la liste Brevo #${listId || "(non configurée)"}.</p>
         <hr style="margin:16px 0;border-color:#eee">
         <p style="color:#999;font-size:12px">Reçu via glacesenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
       </div>`,
   });
 
-  // L'inscription est best-effort : on log la trace côté serveur pour rattraper
-  // si SMTP est cassé, mais l'utilisateur n'a aucune action corrective possible.
   if (!result.ok) {
     console.error(`[newsletter] inscription enregistrée mais email non envoyé (${result.reason}) — adresse: ${email}`);
   }
