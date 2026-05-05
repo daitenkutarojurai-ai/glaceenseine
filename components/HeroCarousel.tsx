@@ -16,6 +16,8 @@ interface Slide {
   alt: string;
   /** Slides whose image already contains the brand text (e.g. bannerforsection) skip the overlay text. */
   hideText?: boolean;
+  /** "contain" keeps the full image visible (letterboxed). Defaults to "cover". */
+  fit?: "cover" | "contain";
   headline?: string;
   script?: string;
   sub?: string;
@@ -25,6 +27,7 @@ const slides: Slide[] = [
   {
     src: "/carousel1-2026.png",
     alt: "Glaces en Seine — la caravane artisanale sur les quais de Seine à La Frette",
+    fit: "contain",
     headline: "La gourmandise",
     script: "débarque",
     sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine.",
@@ -218,7 +221,7 @@ export function HeroCarousel() {
               priority={current === 0}
               sizes="100vw"
               quality={92}
-              className="object-cover object-center"
+              className={`${(slide as Slide).fit === "contain" ? "object-contain" : "object-cover"} object-center`}
             />
           </motion.div>
         </AnimatePresence>
