@@ -147,7 +147,7 @@ export function PrivatisationTeaser() {
                   >
                     <Link
                       href={c.href}
-                      className={`group relative flex h-full min-h-[140px] sm:min-h-[148px] flex-col justify-end overflow-hidden rounded-2xl ${c.accent} p-4 sm:p-5 shadow-soft ring-1 ring-inset ${c.ring} transition hover:-translate-y-1 hover:shadow-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cherry`}
+                      className={`group relative flex h-full min-h-[150px] sm:min-h-[160px] flex-col overflow-hidden rounded-2xl ${c.accent} px-4 pb-4 pt-14 sm:px-5 sm:pb-5 sm:pt-16 shadow-soft ring-1 ring-inset ${c.ring} transition hover:-translate-y-1 hover:shadow-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cherry`}
                       aria-label={`Privatisation — ${c.label}`}
                     >
                       {/* Halo coloré derrière le médaillon — habille la boîte
@@ -165,12 +165,12 @@ export function PrivatisationTeaser() {
                         {c.emoji}
                       </span>
 
-                      {/* Content pinned to bottom for consistent baseline */}
+                      {/* Content anchored from the top so titles align across all 4 cards */}
                       <div className="relative">
-                        <div className="font-display text-[15px] font-semibold text-ink">
+                        <div className="font-display text-[15px] font-semibold leading-tight text-ink">
                           {c.label}
                         </div>
-                        <p className="mt-1 text-[12.5px] leading-relaxed text-ink/65">
+                        <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink/65">
                           {c.desc}
                         </p>
                       </div>
