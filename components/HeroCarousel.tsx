@@ -35,9 +35,20 @@ const slides: Slide[] = [
     hideText: true,
   },
   {
-    src: "/carousel3-2026.png",
+    src: "/Gemini_Generated_Image_cf7smgcf7smgcf7s.png",
     alt: "Glaces en Seine — venez nous retrouver entre La Frette et Cormeilles",
     hideText: true,
+  },
+];
+
+const mobileSlides: { src: string; alt: string }[] = [
+  {
+    src: "/test2.png",
+    alt: "Glaces en Seine — la caravane sur les quais de Seine",
+  },
+  {
+    src: "/test3.png",
+    alt: "Glaces en Seine — gourmandises artisanales",
   },
 ];
 
@@ -136,42 +147,41 @@ export function HeroCarousel() {
   const parallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
   const parallaxStyle = isMobile ? undefined : { y: parallaxY, willChange: "transform" as const };
 
+  const activeSlides = isMobile ? mobileSlides : slides;
+  const len = activeSlides.length;
+  const safeCurrent = current % len;
   const go = useCallback((idx: number) => setCurrent(idx), []);
-  const len = slides.length;
-  const next = useCallback(() => go((current + 1) % len), [current, go, len]);
-  const prev = useCallback(() => go((current - 1 + len) % len), [current, go, len]);
+  const next = useCallback(() => go((safeCurrent + 1) % len), [safeCurrent, go, len]);
+  const prev = useCallback(() => go((safeCurrent - 1 + len) % len), [safeCurrent, go, len]);
 
   useEffect(() => {
-    if (paused || isMobile) return;
+    if (paused) return;
     const id = setInterval(next, AUTO_DELAY);
     return () => clearInterval(id);
-  }, [next, paused, isMobile]);
+  }, [next, paused]);
 
-  /* Swipe support — desktop touch devices only. Mobile is a static image. */
+  /* Swipe support */
   const [touchX, setTouchX] = useState<number | null>(null);
   const onTouchStart = (e: React.TouchEvent) => {
-    if (isMobile) return;
     setTouchX(e.touches[0].clientX);
   };
   const onTouchEnd = (e: React.TouchEvent) => {
-    if (isMobile || touchX === null) return;
+    if (touchX === null) return;
     const dx = e.changedTouches[0].clientX - touchX;
     if (Math.abs(dx) > 44) {
       const delta = dx < 0 ? 1 : -1;
-      go((current + delta + len) % len);
+      go((safeCurrent + delta + len) % len);
     }
     setTouchX(null);
   };
 
-  const slide = slides[current];
-  const heroSrc = isMobile ? "/highquality-phone.png" : slide.src;
-  const heroAlt = isMobile
-    ? "Glaces en Seine — la caravane sur les quais de Seine"
-    : slide.alt;
-  const heroKey = isMobile ? "static-mobile" : slide.src;
-  const showText = !isMobile && !slide.hideText;
-  const dotCount = slides.length;
-  const dotIndex = current;
+  const slide = activeSlides[safeCurrent];
+  const heroSrc = slide.src;
+  const heroAlt = slide.alt;
+  const heroKey = slide.src;
+  const showText = !isMobile && !(slide as Slide).hideText;
+  const dotCount = len;
+  const dotIndex = safeCurrent;
 
   return (
     <section
@@ -208,11 +218,7 @@ export function HeroCarousel() {
               priority={current === 0}
               sizes="100vw"
               quality={92}
-              className={
-                isMobile
-                  ? "object-cover object-[30%_center]"
-                  : "object-cover object-center"
-              }
+              className="object-cover object-center"
             />
           </motion.div>
         </AnimatePresence>
@@ -262,8 +268,8 @@ export function HeroCarousel() {
         {/* ── Top bar: dots (always) + counter (desktop only) ── */}
         <div className="flex items-start justify-between">
 
-          {/* Slide indicators — desktop only; mobile is a static image */}
-          <div className="hidden items-center gap-2 pt-1 sm:flex" role="tablist">
+          {/* Slide indicators */}
+          <div className="flex items-center gap-2 pt-1" role="tablist">
             {Array.from({ length: dotCount }).map((_, i) => (
               <button
                 key={i}
@@ -315,9 +321,9 @@ export function HeroCarousel() {
                 </motion.p>
 
                 <h1 className="h-display text-[36px] leading-[1.04] text-ink drop-shadow-sm xs:text-[44px] sm:text-6xl lg:text-[4.25rem]">
-                  {slide.headline}{" "}
+                  {(slide as Slide).headline}{" "}
                   <span className="font-script text-cherry drop-shadow-sm">
-                    {slide.script}
+                    {(slide as Slide).script}
                   </span>
                 </h1>
 
@@ -327,7 +333,7 @@ export function HeroCarousel() {
                   transition={{ delay: 0.18, duration: 0.5 }}
                   className="mt-3 max-w-sm text-[14px] leading-relaxed text-ink/65 drop-shadow-sm sm:text-[15.5px]"
                 >
-                  {slide.sub}
+                  {(slide as Slide).sub}
                 </motion.p>
               </motion.div>
             )}
@@ -397,7 +403,7 @@ export function HeroCarousel() {
       {/* ────────────────────────────────────────────────────────
           Layer 6 · Progress bar
       ──────────────────────────────────────────────────────── */}
-      {!paused && !isMobile && (
+      {!paused && (
         <motion.div
           key={`${current}-pb`}
           initial={{ scaleX: 0 }}
