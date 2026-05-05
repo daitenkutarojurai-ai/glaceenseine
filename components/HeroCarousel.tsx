@@ -37,7 +37,7 @@ const slides: Slide[] = [
     hideText: true,
   },
   {
-    src: "/Gemini_Generated_Image_cf7smgcf7smgcf7s.png",
+    src: "/thridcarrou.png",
     alt: "Glaces en Seine — venez nous retrouver entre La Frette et Cormeilles",
     hideText: true,
   },
