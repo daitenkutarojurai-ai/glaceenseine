@@ -45,7 +45,7 @@ const categories: Cat[] = [
     key: "glaces",
     label: "Glaces",
     emoji: "🍦",
-    tagline: "Glaces artisanales — parfums au choix, saveur spéciale chaque semaine",
+    tagline: "Glaces artisanales · parfums au choix, saveur spéciale chaque semaine",
     icon: IceCream,
     bg: "bg-rose-100",
     accent: "bg-rose-300/30",
@@ -85,7 +85,7 @@ const categories: Cat[] = [
     key: "crepes",
     label: "Crêpes",
     emoji: "🥞",
-    tagline: "Crêpes sucrées — pâte du matin, dorée à la plaque",
+    tagline: "Crêpes sucrées · pâte du matin, dorée à la plaque",
     icon: Cookie,
     bg: "bg-sun-100",
     accent: "bg-sun-300/30",
@@ -125,7 +125,7 @@ const categories: Cat[] = [
     key: "gaufres",
     label: "Gaufres",
     emoji: "🧇",
-    tagline: "Gaufres sucrées — croustillantes dehors, moelleuses dedans",
+    tagline: "Gaufres sucrées · croustillantes dehors, moelleuses dedans",
     icon: CakeSlice,
     bg: "bg-teal-100",
     accent: "bg-teal-300/30",
@@ -174,7 +174,7 @@ const categories: Cat[] = [
     key: "boissons",
     label: "Boissons",
     emoji: "🥤",
-    tagline: "Boissons soft & boissons chaudes — servies sur le quai",
+    tagline: "Boissons soft & boissons chaudes · servies sur le quai",
     icon: Coffee,
     bg: "bg-sky-100",
     accent: "bg-sky-200/40",
@@ -475,7 +475,7 @@ export function Menu() {
         </Reveal>
         <Reveal delay={0.07}>
           <p className="mt-2 text-center text-[13.5px] text-ink/50 sm:text-left">
-            Cliquez sur un article pour voir ingrédients, allergènes et calories.
+            Cliquez sur un article pour voir ingrédients, allergènes et calories
           </p>
         </Reveal>
 

@@ -8,7 +8,7 @@ import { Reveal } from "./Reveal";
 const CARDS = [
   {
     label: "Mariage & PACS",
-    desc: "Une halte gourmande qui ravit petits et grands.",
+    desc: "Une halte gourmande qui ravit petits et grands",
     emoji: "💍",
     href: "/privatisation#formules",
     // Base blanche + voile coloré en haut à droite (côté médaillon emoji)
@@ -19,7 +19,7 @@ const CARDS = [
   },
   {
     label: "Entreprise",
-    desc: "Séminaires, journées d'équipe, pots de départ.",
+    desc: "Séminaires, journées d'équipe, pots de départ",
     emoji: "🏢",
     href: "/privatisation#formules",
     accent: "bg-white",
@@ -29,7 +29,7 @@ const CARDS = [
   },
   {
     label: "Anniversaire",
-    desc: "Une animation qui change des bougies.",
+    desc: "Une animation qui change des bougies",
     emoji: "🎉",
     href: "/privatisation#formules",
     accent: "bg-white",
@@ -39,7 +39,7 @@ const CARDS = [
   },
   {
     label: "Fête de quartier",
-    desc: "Brocantes, vide-greniers, kermesses.",
+    desc: "Brocantes, vide-greniers, kermesses",
     emoji: "🎪",
     href: "/privatisation#formules",
     accent: "bg-white",
@@ -102,7 +102,7 @@ export function PrivatisationTeaser() {
                   {HIGHLIGHTS.map((h) => (
                     <li
                       key={h.label}
-                      className="rounded-2xl bg-white/75 px-3 py-3 ring-1 ring-inset ring-ink/8 shadow-sm"
+                      className="rounded-2xl bg-white/75 px-3 py-3 text-center ring-1 ring-inset ring-ink/8 shadow-sm"
                     >
                       <div className="text-[12.5px] font-semibold text-ink">
                         {h.label}

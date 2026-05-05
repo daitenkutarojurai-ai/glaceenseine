@@ -32,7 +32,7 @@ export default function HistoirePage() {
         </h1>
         <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Née au bord des quais de Seine, entre balades en famille et goûters
-          improvisés — un projet de cœur partagé à trois.
+          improvisés. Un projet de cœur partagé à trois.
         </p>
       </SectionBanner>
 

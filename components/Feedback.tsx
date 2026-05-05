@@ -19,7 +19,7 @@ const EMOJIS: { key: EmojiKey; icon: string; label: string }[] = [
   { key: "bad",  icon: "😕", label: "Décevant" },
 ];
 
-const RATING_LABELS = ["", "Hm… pas top.", "Peut mieux faire.", "Pas mal !", "Très bien !", "On est aux anges ! 🎉"];
+const RATING_LABELS = ["", "Hm… pas top", "Peut mieux faire", "Pas mal !", "Très bien !", "On est aux anges ! 🎉"];
 
 type Status = "idle" | "loading" | "ok" | "error";
 

@@ -85,7 +85,7 @@ export function Location() {
               <ul className="mt-6 grid gap-3 text-sm text-ink/70 sm:grid-cols-2">
                 <li className="flex items-center gap-3 rounded-2xl bg-cream/60 px-4 py-3">
                   <Train className="h-4 w-4 text-teal-700" />
-                  <span>SNCF Ligne J · gare La Frette-Montigny — 10 min à pied</span>
+                  <span>SNCF Ligne J · gare La Frette-Montigny · 10 min à pied</span>
                 </li>
                 <li className="flex items-center gap-3 rounded-2xl bg-cream/60 px-4 py-3">
                   <Bike className="h-4 w-4 text-teal-700" />

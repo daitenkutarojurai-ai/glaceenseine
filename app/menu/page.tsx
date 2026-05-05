@@ -25,7 +25,7 @@ export default function MenuPage() {
         </h1>
         <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Pâte à crêpe du matin, glaces turbinées sur place, gaufres sorties
-          du fer — tout est préparé devant vous.
+          du fer. Tout est préparé devant vous.
         </p>
       </SectionBanner>
 

@@ -76,14 +76,14 @@ const EVENTS = [
     icon: Heart,
     color: "bg-rose-100 text-cherry",
     title: "Mariage & PACS",
-    desc: "Offrez à vos invités un espace gourmand et inattendu — la caravane devient votre « stand glaces » le temps d'un jour magique.",
+    desc: "Offrez à vos invités un espace gourmand et inattendu. La caravane devient votre « stand glaces » le temps d'un jour magique.",
     details: ["Personnalisation aux couleurs de l'événement", "Parfums sur-mesure", "Animation crêpes en direct"],
   },
   {
     icon: Briefcase,
     color: "bg-teal-100 text-teal-700",
     title: "Événement entreprise",
-    desc: "Team building, séminaire, journée d'intégration ou simple pot de départ — la caravane sort vos équipes du bureau avec le sourire.",
+    desc: "Team building, séminaire, journée d'intégration ou simple pot de départ. La caravane sort vos équipes du bureau avec le sourire.",
     details: ["Forfait groupes à partir de 20 pers.", "Service en continu", "Facturation entreprise"],
   },
   {
@@ -124,7 +124,7 @@ export default function PrivatisationPage() {
           <span className="font-script text-sun-300">rien que</span> pour vous
         </h1>
         <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
-          Mariage, séminaire, anniversaire ou fête de quartier — on amène la
+          Mariage, séminaire, anniversaire ou fête de quartier. On amène la
           caravane, la plaque chaude et les glaces artisanales.
         </p>
       </SectionBanner>
@@ -249,7 +249,7 @@ export default function PrivatisationPage() {
           </Reveal>
           <Reveal delay={0.08}>
             <p className="mt-4 text-center text-[14px] text-ink/50">
-              La caravane vert tendre et son équipe fondatrice — disponibles pour votre événement
+              La caravane vert tendre et son équipe fondatrice · disponibles pour votre événement
             </p>
           </Reveal>
         </div>
@@ -276,7 +276,7 @@ export default function PrivatisationPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-3 text-center text-[15px] text-ink/55">
-              Remplissez le formulaire — on vous répond sous 24 h avec un devis personnalisé.
+              Remplissez le formulaire. On vous répond sous 24 h avec un devis personnalisé.
               Pas d'engagement, juste une conversation.
             </p>
           </Reveal>

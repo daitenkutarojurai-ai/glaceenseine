@@ -54,8 +54,8 @@ export function Newsletter() {
               <span className="font-script text-cherry">redémarre</span> ?
             </h2>
             <p className="mt-1.5 max-w-md text-[13.5px] leading-relaxed text-ink/60 sm:text-[14px]">
-              Nouveaux parfums, prochains horaires, événements sur le quai —
-              un email court, jamais de spam.
+              Nouveaux parfums, prochains horaires, événements sur le quai.
+              Un email court, jamais de spam.
             </p>
           </div>
 

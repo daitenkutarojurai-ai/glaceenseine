@@ -58,7 +58,7 @@ const MAPS_SEARCH_URL =
   "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
 const EMBED_SRC =
   "https://www.openstreetmap.org/export/embed.html?bbox=2.1736%2C48.9793%2C2.1936%2C48.9893&layer=mapnik&marker=48.9843%2C2.1836";
-const FULL_ADDRESS = "Quai de Seine, face à la mairie — 95530 La Frette-sur-Seine";
+const FULL_ADDRESS = "Quai de Seine, face à la mairie · 95530 La Frette-sur-Seine";
 
 export default function EmplacementPage() {
   return (
@@ -155,7 +155,7 @@ export default function EmplacementPage() {
                       </span>
                       <div>
                         <div className="text-[14px] font-semibold text-ink">SNCF Ligne J</div>
-                        <div className="text-[13px] text-ink/60">Gare La Frette-Montigny — 10 min à pied le long du quai</div>
+                        <div className="text-[13px] text-ink/60">Gare La Frette-Montigny · 10 min à pied le long du quai</div>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
@@ -173,7 +173,7 @@ export default function EmplacementPage() {
                       </span>
                       <div>
                         <div className="text-[14px] font-semibold text-ink">En voiture</div>
-                        <div className="text-[13px] text-ink/60">Parking sur le quai et autour de la mairie — accès depuis la D48</div>
+                        <div className="text-[13px] text-ink/60">Parking sur le quai et autour de la mairie · accès depuis la D48</div>
                       </div>
                     </li>
                   </ul>
@@ -278,7 +278,7 @@ function SocialPlaceholder({ icon, label }: { icon: React.ReactNode; label: stri
     <li>
       <div
         aria-disabled
-        title={`${label} — bientôt`}
+        title={`${label} · bientôt`}
         className="flex h-full cursor-not-allowed flex-col gap-2 rounded-2xl bg-cream/60 p-4 opacity-60 ring-1 ring-ink/5"
       >
         <span className="grid h-10 w-10 place-items-center rounded-xl bg-ink/5 text-ink/55">

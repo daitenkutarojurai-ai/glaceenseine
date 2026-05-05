@@ -29,7 +29,7 @@ const slides: Slide[] = [
     alt: "Glaces en Seine — la caravane artisanale sur les quais de Seine à La Frette",
     headline: "La gourmandise",
     script: "débarque",
-    sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine.",
+    sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine",
   },
   {
     src: "/bannerforsection.png",

@@ -11,7 +11,7 @@ type Question = { text: string; sub: string; choices: Choice[] };
 const QUESTIONS: Question[] = [
   {
     text: "Ce qu'on aime le plus à La Frette ?",
-    sub: "Plusieurs bonnes réponses, on sait.",
+    sub: "Plusieurs bonnes réponses, on sait",
     choices: [
       { key: "quais",   emoji: "🌊", label: "Les quais de Seine",        bar: "bg-teal-400" },
       { key: "marche",  emoji: "🥖", label: "Le marché du dimanche",      bar: "bg-sun-400" },
@@ -21,7 +21,7 @@ const QUESTIONS: Question[] = [
   },
   {
     text: "Le meilleur endroit pour une pause sur le quai ?",
-    sub: "On vous lit, on note.",
+    sub: "On vous lit, on note",
     choices: [
       { key: "mairie",  emoji: "🏛️", label: "Devant la mairie",            bar: "bg-cherry" },
       { key: "berge",   emoji: "🌳", label: "Sous les arbres de la berge", bar: "bg-green-400" },
@@ -31,7 +31,7 @@ const QUESTIONS: Question[] = [
   },
   {
     text: "La balade idéale à La Frette ?",
-    sub: "Avec ou sans glace, à vous de voir.",
+    sub: "Avec ou sans glace, à vous de voir",
     choices: [
       { key: "quaiseine", emoji: "🌊", label: "Le long de la Seine",          bar: "bg-teal-400" },
       { key: "herblay",   emoji: "🚶", label: "Jusqu'à Herblay",              bar: "bg-green-400" },
@@ -41,7 +41,7 @@ const QUESTIONS: Question[] = [
   },
   {
     text: "La saison préférée à La Frette ?",
-    sub: "Toute l'année, mais quand même.",
+    sub: "Toute l'année, mais quand même",
     choices: [
       { key: "printemps", emoji: "🌸", label: "Le printemps en fleurs",     bar: "bg-rose-400" },
       { key: "ete",       emoji: "☀️", label: "L'été au bord de l'eau",     bar: "bg-sun-400" },
@@ -51,16 +51,16 @@ const QUESTIONS: Question[] = [
   },
   {
     text: "Le meilleur moment pour passer au food truck ?",
-    sub: "On est là sam · dim · fériés, 14h–19h.",
+    sub: "On est là sam · dim · fériés, 14h–19h",
     choices: [
-      { key: "debut",   emoji: "☀️", label: "14h — début de l'après-midi", bar: "bg-sun-400" },
-      { key: "gouter",  emoji: "🕓", label: "16h — l'heure du goûter",     bar: "bg-cherry" },
-      { key: "fin",     emoji: "🌅", label: "18h — coucher de soleil",     bar: "bg-teal-400" },
+      { key: "debut",   emoji: "☀️", label: "14h · début de l'après-midi", bar: "bg-sun-400" },
+      { key: "gouter",  emoji: "🕓", label: "16h · l'heure du goûter",     bar: "bg-cherry" },
+      { key: "fin",     emoji: "🌅", label: "18h · coucher de soleil",     bar: "bg-teal-400" },
     ],
   },
   {
     text: "Avec qui aimez-vous venir au quai ?",
-    sub: "On vous reconnaît tous.",
+    sub: "On vous reconnaît tous",
     choices: [
       { key: "famille", emoji: "👨‍👩‍👧", label: "En famille",          bar: "bg-cherry" },
       { key: "amis",    emoji: "👯", label: "Entre amis",            bar: "bg-sun-400" },
@@ -70,7 +70,7 @@ const QUESTIONS: Question[] = [
   },
   {
     text: "Votre combo Glaces en Seine préféré ?",
-    sub: "On retient les votes.",
+    sub: "On retient les votes",
     choices: [
       { key: "crepe_glace",  emoji: "🥞", label: "Une crêpe + une boule",    bar: "bg-sun-400" },
       { key: "gaufre_choco", emoji: "🧇", label: "Une gaufre pâte à tartiner", bar: "bg-amber-500" },
@@ -80,7 +80,7 @@ const QUESTIONS: Question[] = [
   },
   {
     text: "La plus belle vue de La Frette ?",
-    sub: "Question difficile, on l'avoue.",
+    sub: "Question difficile, on l'avoue",
     choices: [
       { key: "pont",    emoji: "🌉", label: "Le pont vu depuis le quai", bar: "bg-teal-400" },
       { key: "berge",   emoji: "🌊", label: "La Seine au coucher du soleil", bar: "bg-cherry" },
@@ -90,7 +90,7 @@ const QUESTIONS: Question[] = [
   },
   {
     text: "Ce qui rend un dimanche parfait à La Frette ?",
-    sub: "On peut deviner, mais on préfère vous lire.",
+    sub: "On peut deviner, mais on préfère vous lire",
     choices: [
       { key: "soleil",  emoji: "☀️", label: "Du soleil sur le quai",       bar: "bg-sun-400" },
       { key: "marche",  emoji: "🥐", label: "Le marché et un café",        bar: "bg-amber-400" },
@@ -100,7 +100,7 @@ const QUESTIONS: Question[] = [
   },
   {
     text: "Le petit plaisir frettois ?",
-    sub: "Celui qu'on garde pour soi.",
+    sub: "Celui qu'on garde pour soi",
     choices: [
       { key: "boulang", emoji: "🥖", label: "La baguette du boulanger",   bar: "bg-sun-400" },
       { key: "terrasse",emoji: "☕", label: "Un café en terrasse",        bar: "bg-amber-400" },
