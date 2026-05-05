@@ -150,7 +150,7 @@ export default function HistoirePage() {
                 href="/privatisation"
                 className="btn-liquid group inline-flex items-center gap-2 rounded-full bg-cherry px-6 py-3.5 text-sm font-semibold text-cream shadow-soft hover:shadow-glow-cherry"
               >
-                Privatiser le food truck
+                Demander un devis
                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
               </Link>
               <Link

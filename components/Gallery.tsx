@@ -9,7 +9,7 @@ const PHOTOS = [
   {
     src: "/inprod.jpg",
     alt: "Préparation des crêpes à la plaque",
-    caption: "Crêpes préparées sur la plaque",
+    caption: "À la plaque, comme à la maison",
     width: 2040,
     height: 1148,
   },
