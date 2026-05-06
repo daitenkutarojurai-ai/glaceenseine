@@ -91,13 +91,16 @@ const jsonLd = {
       servesCuisine: ["Desserts", "Glaces artisanales", "Crêpes", "Gaufres"],
       priceRange: "€",
       currenciesAccepted: "EUR",
-      paymentAccepted: "Cash, Credit Card",
+      paymentAccepted: ["Cash", "Credit Card"],
       acceptsReservations: false,
       hasMenu: "https://glaceenseine.fr/menu",
+      knowsLanguage: ["fr-FR"],
       areaServed: [
         { "@type": "City", name: "La Frette-sur-Seine" },
         { "@type": "City", name: "Cormeilles-en-Parisis" },
+        { "@type": "City", name: "Herblay-sur-Seine" },
         { "@type": "AdministrativeArea", name: "Val-d'Oise" },
+        { "@type": "AdministrativeArea", name: "Île-de-France" },
       ],
       address: {
         "@type": "PostalAddress",
@@ -109,9 +112,20 @@ const jsonLd = {
       },
       geo: { "@type": "GeoCoordinates", latitude: 48.9843, longitude: 2.1836 },
       openingHoursSpecification: [
-        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday", "Sunday", "PublicHolidays"], opens: "14:00", closes: "19:00", validFrom: "2026-05-01", validThrough: "2026-09-30" },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday", "Sunday", "PublicHolidays"], opens: "14:00", closes: "19:00" },
       ],
-      sameAs: ["https://instagram.com/glacesenseine"],
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          url: "https://glaceenseine.fr/contact",
+          availableLanguage: ["French"],
+        },
+      ],
+      sameAs: [
+        "https://instagram.com/glacesenseine",
+        "https://www.facebook.com/glacesenseine",
+      ],
     },
     {
       "@type": "WebSite",
@@ -120,6 +134,11 @@ const jsonLd = {
       name: "Glaces en Seine",
       inLanguage: "fr-FR",
       publisher: { "@id": "https://glaceenseine.fr/#business" },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: { "@type": "EntryPoint", urlTemplate: "https://glaceenseine.fr/menu?q={search_term_string}" },
+        "query-input": "required name=search_term_string",
+      },
     },
   ],
 };

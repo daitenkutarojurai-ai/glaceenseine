@@ -14,6 +14,12 @@ export const metadata: Metadata = {
   description:
     "L'histoire de Glaces en Seine : trois amis voisins et parents, un food truck né au bord des quais de La Frette-sur-Seine (95). Glaces artisanales, crêpes et gaufres, dans un esprit familial et convivial.",
   alternates: { canonical: "/notre-histoire" },
+  openGraph: {
+    title: "Notre histoire — Glaces en Seine",
+    description: "Trois amis voisins, une caravane gourmande sur les quais de Seine. L'histoire familiale de Glaces en Seine.",
+    url: "https://glaceenseine.fr/notre-histoire",
+    images: [{ url: "/camion-patronne.jpg", width: 1200, height: 630, alt: "L'équipe Glaces en Seine devant la caravane" }],
+  },
 };
 
 export default function HistoirePage() {

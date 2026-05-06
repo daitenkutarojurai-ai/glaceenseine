@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendMail, escapeHtml } from "@/lib/mailer";
+import { gcBuckets, getClientIp, rateLimit } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 
@@ -18,6 +19,15 @@ const EMOJIS: Record<string, string> = {
 };
 
 export async function POST(req: Request) {
+  gcBuckets();
+  const ip = getClientIp(req);
+  const rl = rateLimit(`feedback:${ip}`, { windowMs: 60_000, max: 5 });
+  if (!rl.ok) {
+    return NextResponse.json(
+      { ok: false, message: "Trop d'avis envoyés — réessayez dans une minute." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
+  }
   let body: Payload;
   try {
     body = (await req.json()) as Payload;

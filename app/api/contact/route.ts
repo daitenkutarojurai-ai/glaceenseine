@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendMail, escapeHtml } from "@/lib/mailer";
+import { gcBuckets, getClientIp, rateLimit } from "@/lib/ratelimit";
 
 const MAX_NAME = 120;
 const MAX_SUBJECT = 200;
@@ -18,6 +19,15 @@ type Payload = {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: Request) {
+  gcBuckets();
+  const ip = getClientIp(req);
+  const rl = rateLimit(`contact:${ip}`, { windowMs: 60_000, max: 3 });
+  if (!rl.ok) {
+    return NextResponse.json(
+      { ok: false, message: "Trop de messages d'affilée — réessayez dans une minute." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
+  }
   let body: Payload;
   try {
     body = (await req.json()) as Payload;

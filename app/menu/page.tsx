@@ -10,6 +10,12 @@ export const metadata: Metadata = {
   description:
     "Découvrez la carte Glaces en Seine : glaces artisanales, crêpes et gaufres préparées chaque matin à La Frette-sur-Seine. Ouvert sam·dim·fériés de 14h à 19h, mai → septembre.",
   alternates: { canonical: "/menu" },
+  openGraph: {
+    title: "Menu — Glaces en Seine",
+    description: "Glaces artisanales, crêpes et gaufres préparées sur les quais de Seine, à La Frette-sur-Seine (95).",
+    url: "https://glaceenseine.fr/menu",
+    images: [{ url: "/newmenu.png", width: 1200, height: 630, alt: "Carte Glaces en Seine" }],
+  },
 };
 
 export default function MenuPage() {

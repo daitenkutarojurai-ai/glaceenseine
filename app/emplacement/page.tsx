@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description:
     "Glaces en Seine est installée Quai de Seine, juste en face de la mairie de La Frette-sur-Seine (95530). Ouverte sam·dim·fériés de 14h à 19h, de mai à septembre. Accès SNCF Ligne J et véloroute des bords de Seine.",
   alternates: { canonical: "/emplacement" },
+  openGraph: {
+    title: "Nous trouver — Glaces en Seine",
+    description: "Quai de Seine, face à la mairie de La Frette-sur-Seine (95530). Sam·dim·fériés 14h–19h, mai → septembre.",
+    url: "https://glaceenseine.fr/emplacement",
+  },
 };
 
 const FAQ_LD = {

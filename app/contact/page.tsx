@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   description:
     "Une question, un mot doux, un avis sur votre visite ? Contactez Glaces en Seine via notre formulaire ou venez nous voir sur le quai à La Frette-sur-Seine (95530).",
   alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact & Avis — Glaces en Seine",
+    description: "Écrivez-nous, déposez un avis ou suivez-nous sur Instagram @glacesenseine.",
+    url: "https://glaceenseine.fr/contact",
+  },
 };
 
 export default function ContactPage() {

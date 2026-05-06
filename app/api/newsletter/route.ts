@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { sendMail, escapeHtml } from "@/lib/mailer";
 import { addContactToList } from "@/lib/brevo";
+import { gcBuckets, getClientIp, rateLimit } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 
@@ -9,6 +10,15 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type Payload = { email?: string; website?: string };
 
 export async function POST(req: Request) {
+  gcBuckets();
+  const ip = getClientIp(req);
+  const rl = rateLimit(`newsletter:${ip}`, { windowMs: 60_000, max: 5 });
+  if (!rl.ok) {
+    return NextResponse.json(
+      { ok: false, message: "Trop d'inscriptions d'affilée — réessayez plus tard." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
+  }
   let body: Payload;
   try {
     body = (await req.json()) as Payload;
