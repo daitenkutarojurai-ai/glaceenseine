@@ -3,7 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { Menu as MenuIcon, X, Instagram, Sparkles, MapPin, Bell } from "lucide-react";
+import { Menu as MenuIcon, X, Instagram, Sparkles, MapPin, Bell, Star } from "lucide-react";
+
+const GOOGLE_REVIEW_URL = "https://g.page/r/CcKQvU-g5mpzEBM/review";
 
 const links = [
   { href: "/menu",            label: "Menu" },
@@ -72,7 +74,17 @@ export function Nav() {
         {/* Desktop actions */}
         <div className="hidden items-center gap-2 md:flex">
           <Link
-            href="https://instagram.com/glacesenseine"
+            href={GOOGLE_REVIEW_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Laisser un avis Google"
+            title="Laisser un avis Google"
+            className="grid h-9 w-9 place-items-center rounded-full bg-cream/80 text-sun-300 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-cherry"
+          >
+            <Star className="h-4 w-4 fill-current" />
+          </Link>
+          <Link
+            href="https://www.instagram.com/glacesenseine/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram @glacesenseine"
@@ -109,12 +121,24 @@ export function Nav() {
           </Link>
         </div>
 
+        {/* Mobile-only Google review icon (visible alongside hamburger) */}
+        <div className="flex items-center gap-2 md:hidden">
+          <Link
+            href={GOOGLE_REVIEW_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Laisser un avis Google"
+            title="Laisser un avis Google"
+            className="grid h-11 w-11 place-items-center rounded-full bg-cream/80 text-sun-300 shadow-soft backdrop-blur transition active:scale-95"
+          >
+            <Star className="h-4 w-4 fill-current" />
+          </Link>
         {/* Hamburger */}
         <button
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Fermer" : "Menu"}
           aria-expanded={open}
-          className="grid h-11 w-11 place-items-center rounded-full bg-cream/80 text-ink shadow-soft backdrop-blur md:hidden"
+          className="grid h-11 w-11 place-items-center rounded-full bg-cream/80 text-ink shadow-soft backdrop-blur"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
@@ -128,6 +152,7 @@ export function Nav() {
             </motion.div>
           </AnimatePresence>
         </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}
@@ -190,6 +215,16 @@ export function Nav() {
                 >
                   <Bell className="h-4 w-4" />
                   Newsletter
+                </Link>
+                <Link
+                  href={GOOGLE_REVIEW_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="col-span-2 flex items-center justify-center gap-2 rounded-full bg-sun-100 py-3 text-sm font-semibold text-ink"
+                >
+                  <Star className="h-4 w-4 fill-sun-300 text-sun-300" />
+                  Laisser un avis Google
                 </Link>
               </div>
             </div>

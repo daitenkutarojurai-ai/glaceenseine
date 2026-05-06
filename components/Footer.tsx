@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { Instagram, MapPin, Heart } from "lucide-react";
+import { Instagram, MapPin, Heart, Star } from "lucide-react";
+
+const GOOGLE_REVIEW_URL = "https://g.page/r/CcKQvU-g5mpzEBM/review";
 
 export function Footer() {
   return (
@@ -14,13 +16,23 @@ export function Footer() {
           </p>
           <div className="mt-5 flex items-center gap-2">
             <Link
-              href="https://instagram.com/glacesenseine"
+              href="https://www.instagram.com/glacesenseine/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram @glacesenseine"
               className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 transition hover:bg-cream/20"
             >
               <Instagram className="h-4 w-4" />
+            </Link>
+            <Link
+              href={GOOGLE_REVIEW_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Laisser un avis Google"
+              title="Laisser un avis Google"
+              className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 text-sun-300 transition hover:bg-cream/20"
+            >
+              <Star className="h-4 w-4 fill-current" />
             </Link>
             <Link
               href="https://www.google.com/maps/search/?api=1&query=mairie+La+Frette-sur-Seine"

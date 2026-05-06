@@ -5,11 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Star, Check, Heart, ExternalLink, X } from "lucide-react";
 import { Reveal } from "./Reveal";
 
-// TODO: Replace with your Google Business Profile review link
-// Get it from Google My Business → Get more reviews → Short URL
-// Format: https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID
-const GOOGLE_REVIEW_URL =
-  "https://www.google.com/maps/search/Glaces+en+Seine+La+Frette+sur+Seine+95530/";
+const GOOGLE_REVIEW_URL = "https://g.page/r/CcKQvU-g5mpzEBM/review";
 
 type EmojiKey = "love" | "good" | "meh" | "bad";
 const EMOJIS: { key: EmojiKey; icon: string; label: string }[] = [

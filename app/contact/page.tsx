@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Instagram, MapPin, Clock } from "lucide-react";
+import { Instagram, MapPin, Clock, Star } from "lucide-react";
 
 const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
+const GOOGLE_REVIEW_URL = "https://g.page/r/CcKQvU-g5mpzEBM/review";
 import { Reveal } from "@/components/Reveal";
 import { ContactForm } from "@/components/ContactForm";
 import { Feedback } from "@/components/Feedback";
@@ -49,9 +50,25 @@ export default function ContactPage() {
             {/* Left — info cards */}
             <div>
               <div className="grid gap-3">
+                <Reveal delay={0.08}>
+                  <a
+                    href={GOOGLE_REVIEW_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                  >
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-sun-100 text-sun-300">
+                      <Star className="h-4 w-4 fill-current" />
+                    </span>
+                    <div>
+                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Avis Google</div>
+                      <div className="font-semibold text-ink group-hover:text-cherry">Laisser un avis ⭐⭐⭐⭐⭐</div>
+                    </div>
+                  </a>
+                </Reveal>
                 <Reveal delay={0.1}>
                   <a
-                    href="https://instagram.com/glacesenseine"
+                    href="https://www.instagram.com/glacesenseine/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
