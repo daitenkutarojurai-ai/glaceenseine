@@ -96,7 +96,6 @@ section{padding:28px 0;scroll-margin-top:8px}
   padding:3px 9px;border-radius:999px;letter-spacing:.02em;white-space:nowrap}
 .badge-star{background:var(--cherry);box-shadow:0 4px 14px -4px rgba(226,107,92,.6)}
 .badge-team{background:var(--teal-700);box-shadow:0 4px 14px -4px rgba(46,132,117,.6)}
-.badge-heart{background:#8134AF;box-shadow:0 4px 14px -4px rgba(129,52,175,.6)}
 .menu-bridge{margin:28px 16px 0;text-align:center;font-family:'Caveat',cursive;
   font-size:22px;color:var(--cherry-deep);line-height:1.25}
 .menu-bridge::before{content:"";display:block;width:40px;height:2px;background:var(--cherry);
@@ -129,7 +128,8 @@ section{padding:28px 0;scroll-margin-top:8px}
 .quiz-prog span{flex:1;height:5px;border-radius:3px;background:var(--cream-deep);transition:background .3s}
 .quiz-prog span.on{background:var(--cherry)}
 .quiz-q{font-family:'Fraunces',Georgia,serif;font-size:19px;font-weight:600;line-height:1.25;
-  margin-bottom:14px;min-height:60px}
+  margin-bottom:14px;min-height:54px}
+.quiz-card{min-height:340px}
 .quiz-opts{display:grid;gap:8px}
 .quiz-opt{background:var(--cream);border:1.5px solid rgba(34,28,18,.08);text-align:left;
   padding:13px 14px;border-radius:14px;font-size:14.5px;cursor:pointer;transition:all .15s;
@@ -139,7 +139,8 @@ section{padding:28px 0;scroll-margin-top:8px}
 .quiz-opt:focus-visible{outline:3px solid var(--teal-300);outline-offset:2px}
 
 /* ── Result card ── */
-.res-section{display:none}
+.res-section{display:none;animation:fadeUp .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .res-card{border-radius:28px;padding:0;box-shadow:var(--sr);text-align:center;
   position:relative;overflow:hidden;min-height:300px}
 .res-canvas-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.32;pointer-events:none}
@@ -297,8 +298,7 @@ section{padding:28px 0;scroll-margin-top:8px}
   <div class="menu-cat">
     <h3 class="menu-cat-h"><span style="font-size:20px">🥞</span> Crêpes (pâte du matin)</h3>
     <div class="menu-grid">
-      <div class="menu-card cr hlt">
-        <span class="badge badge-team">💚 Le choix de l'équipe</span>
+      <div class="menu-card cr">
         <div class="name">Sucre cristal</div>
         <div class="desc">Le classique qui fait jamais débat</div>
         <span class="price">2,50 €</span>
@@ -320,7 +320,7 @@ section{padding:28px 0;scroll-margin-top:8px}
     <h3 class="menu-cat-h"><span style="font-size:20px">🧇</span> Gaufres dorées au fer</h3>
     <div class="menu-grid">
       <div class="menu-card ga hlt">
-        <span class="badge badge-heart">✨ Le coup de cœur</span>
+        <span class="badge badge-team">💚 Le choix de l'équipe</span>
         <div class="name">La Foli's</div>
         <div class="desc">La signature de la maison</div>
         <span class="price">7,50 €</span>
@@ -346,8 +346,7 @@ section{padding:28px 0;scroll-margin-top:8px}
   <div class="menu-cat">
     <h3 class="menu-cat-h"><span style="font-size:20px">🥤</span> Boissons</h3>
     <div class="menu-grid">
-      <div class="menu-card bo hlt">
-        <span class="badge badge-team">💚 Le choix de l'équipe</span>
+      <div class="menu-card bo">
         <div class="name">Café</div>
         <div class="desc">Serré ou allongé</div>
         <span class="price">2 €</span>
@@ -408,13 +407,13 @@ section{padding:28px 0;scroll-margin-top:8px}
 <!-- 4. QUIZ -->
 <section id="quiz" class="wrap" aria-label="Quiz">
   <div class="sec-head">
-    <span class="eyebrow">4 questions · 0 jugement</span>
+    <span class="eyebrow">3 questions · 0 jugement</span>
     <h2>Quel parfum es-tu ?</h2>
     <p>Réponds vite, c'est bientôt ton tour.</p>
   </div>
   <div class="quiz-card" id="quizCard">
     <div class="quiz-prog" id="quizProg" aria-hidden="true">
-      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span>
     </div>
     <div class="quiz-q" id="quizQ"></div>
     <div class="quiz-opts" id="quizOpts"></div>
@@ -488,8 +487,8 @@ section{padding:28px 0;scroll-margin-top:8px}
 <!-- 7. NEWSLETTER -->
 <section class="wrap" aria-label="Newsletter">
   <div class="nl-card">
-    <h3>📬 Rejoins le club <span class="ac">gourmand</span></h3>
-    <p>1 mail/mois · 1 tirage au sort · 1 glace offerte 🍨</p>
+    <h3>📬 Le mail <span class="ac">du quai</span></h3>
+    <p>1 mail par mois — saveurs du moment, événements, dates d'ouverture.</p>
     <form class="nl-form" id="nlForm" novalidate>
       <input type="email" id="nlEmail" placeholder="ton@email.fr" required autocomplete="email"/>
       <input type="text" name="website" tabindex="-1" autocomplete="off"
@@ -609,313 +608,307 @@ const RESULTS={
     prod:{nm:"2 boules au choix · surprise",px:"6 €"}},
 };
 
-/* 50 questions — keys R T S A E L G P Z C */
+/* 50 fun questions — keys R T S A E L G P Z C */
 const QS=[
-  {q:"Face à la carte, tu es…",opts:[
-    {t:"Décidé·e en 10 secondes. Je prends toujours le même.",w:{E:2,G:1}},
-    {t:"Paralysé·e. Je relis tout. Deux fois.",w:{T:2,S:1}},
-    {t:"Je demande ce que le staff recommande et je fais l'inverse.",w:{L:2,A:1}},
-    {t:"Je prends ce que la personne devant moi a pris.",w:{Z:2,C:1}},
+  {q:"Cône ou pot ?",opts:[
+    {t:"Cône, toujours. Pour le drama du drip.",w:{P:2,A:1}},
+    {t:"Pot. Je suis là pour le contenu.",w:{G:2,L:1}},
+    {t:"Cône mais je panique à mi-parcours.",w:{T:2,R:1}},
+    {t:"Au choix. Surprends-moi.",w:{Z:2,C:1}},
   ]},
-  {q:"\"Surprise-moi.\" Ta réaction ?",opts:[
-    {t:"Surtout pas. J'ai besoin de contrôle.",w:{G:2,L:1}},
-    {t:"Ok, mais pas trop fou non plus.",w:{E:2,Z:1}},
-    {t:"Vas-y, le truc le plus bizarre que tu as.",w:{A:2,P:1}},
-    {t:"J'aurais préféré qu'on me prévienne avant.",w:{R:2,T:1}},
+  {q:"Ta première bouchée d'une glace ?",opts:[
+    {t:"Petite. Faut faire durer.",w:{S:2,E:1}},
+    {t:"Énorme. La vie est courte.",w:{P:2,A:1}},
+    {t:"Avec une vraie cérémonie intérieure.",w:{R:2,T:1}},
+    {t:"Je goûte, j'évalue, je hoche la tête.",w:{G:2,L:1}},
   ]},
-  {q:"La queue avance mais t'as pas encore choisi. Tu…",opts:[
-    {t:"T'affoles discrètement. Mais en silence.",w:{T:2,C:1}},
-    {t:"Pointes au hasard avec confiance totale.",w:{P:2,A:1}},
-    {t:"Décides à la dernière seconde et assumes.",w:{L:2,G:1}},
-    {t:"Demandes à la personne derrière toi ce qu'elle prend.",w:{R:2,Z:1}},
+  {q:"Sprinkles oui ou non ?",opts:[
+    {t:"Toujours. Plus = mieux.",w:{P:2,C:1}},
+    {t:"Non. Ça gâche le goût.",w:{S:2,L:1}},
+    {t:"Si c'est offert, oui.",w:{Z:2,E:1}},
+    {t:"Seulement les colorées qui sentent rien.",w:{R:2,A:1}},
   ]},
-  {q:"Le staff dit \"tout est bon\". Tu…",opts:[
-    {t:"Insistes. Il y a forcément une réponse.",w:{S:2,T:1}},
-    {t:"Ris et prends la première chose qui te vient.",w:{P:2,A:1}},
-    {t:"Respectes la réponse et choisis calmement.",w:{Z:2,E:1}},
-    {t:"Sors ton téléphone pour tourner la roue.",w:{C:2,R:1}},
+  {q:"Tu choisis ta glace en…",opts:[
+    {t:"10 secondes, toujours le même parfum.",w:{E:2,G:1}},
+    {t:"30 secondes, tu négocies avec toi-même.",w:{T:2,S:1}},
+    {t:"1 seconde — le truc le plus bizarre.",w:{A:2,L:1}},
+    {t:"Tu laisses la personne avec toi décider.",w:{Z:2,R:1}},
   ]},
-  {q:"Ton rituel quand tu commandes une glace ?",opts:[
-    {t:"Je demande toujours un goût. Puis je prends autre chose.",w:{C:2,L:1}},
-    {t:"Même chose depuis 10 ans. Pas touche.",w:{E:2,G:1}},
-    {t:"Je repère le parfum inhabituel et je tente.",w:{A:2,S:1}},
-    {t:"Je laisse la personne avec moi décider. Moins de stress.",w:{R:2,Z:1}},
+  {q:"Glace au petit-déj' ?",opts:[
+    {t:"Un dimanche d'été, oui.",w:{P:2,R:1}},
+    {t:"Non. Y'a un ordre.",w:{G:2,E:1}},
+    {t:"Pourquoi pas, c'est du lait après tout.",w:{L:2,C:1}},
+    {t:"Si on me l'offre, je refuse pas.",w:{Z:2,A:1}},
   ]},
-  {q:"Le dimanche pour toi c'est…",opts:[
-    {t:"Brunch long, photos, regrets le soir.",w:{P:2,R:1}},
-    {t:"Canapé. Netflix. Silence respectueux.",w:{T:2,E:1}},
-    {t:"Activité physique puis dessert mérité.",w:{G:2,A:1}},
-    {t:"Suivre le programme de la personne à côté.",w:{Z:2,C:1}},
+  {q:"Ta glace tombe par terre. Tu…",opts:[
+    {t:"Cri silencieux + 5 minutes de deuil.",w:{T:2,R:1}},
+    {t:"Tu ris. Tu en reprends une.",w:{P:2,A:1}},
+    {t:"Règle des 3 secondes (tu sais que c'est faux).",w:{C:2,L:1}},
+    {t:"Tu fais ton acte de paix avec l'univers.",w:{Z:2,E:1}},
   ]},
-  {q:"Ta playlist du moment, c'est…",opts:[
-    {t:"Française années 80–90. Assumée.",w:{R:2,E:1}},
-    {t:"Post-rock instrumental pour contempler.",w:{T:2,S:1}},
-    {t:"Tout en aléatoire. Cohérence = prison.",w:{C:2,A:1}},
-    {t:"Ce que Spotify décide pour moi. Je fais confiance.",w:{Z:2,P:1}},
+  {q:"À quoi sert un dessert ?",opts:[
+    {t:"Réconforter le cœur.",w:{R:2,E:1}},
+    {t:"Récompenser une bonne journée.",w:{G:2,S:1}},
+    {t:"Casser la routine.",w:{A:2,L:1}},
+    {t:"Y'a pas besoin de raison.",w:{P:2,Z:1}},
   ]},
-  {q:"En soirée, on te trouve…",opts:[
-    {t:"Dans la cuisine à refaire le monde avec 2 personnes.",w:{G:2,T:1}},
-    {t:"À parler à tout le monde pendant 5 min chacun.",w:{P:2,C:1}},
-    {t:"Sur le canapé avec le chat.",w:{Z:2,E:1}},
-    {t:"Parti·e à 22h sans prévenir.",w:{L:2,S:1}},
+  {q:"L'été à la plage tu es…",opts:[
+    {t:"Sous le parasol avec un livre.",w:{S:2,T:1}},
+    {t:"Première dans l'eau, dernière sortie.",w:{A:2,P:1}},
+    {t:"Sieste à plat ventre. Aucun bruit.",w:{Z:2,E:1}},
+    {t:"À surveiller tes affaires comme un faucon.",w:{G:2,L:1}},
   ]},
-  {q:"Quand tu es en retard (ce qui arrive)…",opts:[
-    {t:"T'es jamais en retard. Voilà, on clôt le sujet.",w:{G:2,E:1}},
-    {t:"Tu envoies un 'j'arrive' depuis le canapé.",w:{T:2,C:1}},
-    {t:"Tu arrives frais·che comme si tu étais à l'heure.",w:{P:2,A:1}},
-    {t:"Tu te sens horriblement coupable toute la journée.",w:{R:2,Z:1}},
+  {q:"Choisis un fruit d'été.",opts:[
+    {t:"Fraise. Toujours.",w:{R:2,E:1}},
+    {t:"Mangue. Drama et soleil.",w:{P:2,A:1}},
+    {t:"Citron. La franchise en fruit.",w:{L:2,S:1}},
+    {t:"Pastèque. Sans réfléchir.",w:{Z:2,C:1}},
   ]},
-  {q:"Ton rapport aux surprises ?",opts:[
-    {t:"Adore en faire. Déteste en recevoir.",w:{S:2,L:1}},
-    {t:"Les deux me stressent. Mais je fais bonne figure.",w:{T:2,E:1}},
-    {t:"J'adore. Donne-moi tout.",w:{P:2,A:1}},
-    {t:"Ça dépend de la surprise et de l'heure.",w:{C:2,G:1}},
+  {q:"Un parfum bizarre te tente ? Tu…",opts:[
+    {t:"Tentes. Sans hésiter.",w:{A:2,P:1}},
+    {t:"Poses 4 questions avant.",w:{S:2,G:1}},
+    {t:"Refuses poliment.",w:{E:2,T:1}},
+    {t:"Prends ton parfum normal et tu y goûtes après.",w:{Z:2,C:1}},
   ]},
-  {q:"Un dessert parfait c'est…",opts:[
-    {t:"Simple et exécuté à la perfection.",w:{E:2,Z:1}},
-    {t:"Un truc que je n'aurais jamais commandé seul·e.",w:{A:2,C:1}},
-    {t:"Le même depuis l'enfance. Avec la même cuillère.",w:{R:2,T:1}},
-    {t:"Quelque chose qu'on peut analyser en mangeant.",w:{S:2,G:1}},
+  {q:"Ton emoji glace préféré ?",opts:[
+    {t:"🍦 — le classique.",w:{E:2,G:1}},
+    {t:"🍨 — la cerise, plus chic.",w:{S:2,R:1}},
+    {t:"🍧 — granité, l'outsider.",w:{L:2,A:1}},
+    {t:"🥶 — parce que c'est l'humeur.",w:{T:2,C:1}},
   ]},
-  {q:"Tu goûtes dans l'assiette des autres ?",opts:[
-    {t:"Toujours. C'est pour ça qu'on est là.",w:{P:2,C:1}},
-    {t:"Non. C'est leur assiette.",w:{G:2,S:1}},
-    {t:"Si on me propose. Jamais sans invitation.",w:{Z:2,E:1}},
-    {t:"Seulement si leur truc a l'air meilleur que le mien.",w:{L:2,T:1}},
+  {q:"Pluie sur la terrasse. Tu…",opts:[
+    {t:"Restes. Une glace sous la pluie c'est cinéma.",w:{R:2,T:1}},
+    {t:"Cours te mettre à l'abri en sauvant la glace.",w:{P:2,A:1}},
+    {t:"Hausses les épaules. Tant que tu manges.",w:{Z:2,E:1}},
+    {t:"Tu avais un parapluie. Évidemment.",w:{G:2,S:1}},
   ]},
-  {q:"Sucré fort ou sucré subtil ?",opts:[
-    {t:"Subtil. Le sucre doit se mériter.",w:{S:2,E:1}},
-    {t:"Fort. On est là pour ça.",w:{P:2,R:1}},
-    {t:"Sucré-acide. L'équilibre, toujours.",w:{L:2,A:1}},
-    {t:"Je sais pas vraiment. Je mange et je vois.",w:{Z:2,C:1}},
+  {q:"Tu choisis 1 parfum pour la vie.",opts:[
+    {t:"Chocolat. Sans débat.",w:{E:2,G:1}},
+    {t:"Pistache. Pour le plaisir minoritaire.",w:{S:2,L:1}},
+    {t:"Caramel beurre salé. Le confort.",w:{R:2,Z:1}},
+    {t:"Refus de la question. Trop dramatique.",w:{T:2,C:1}},
   ]},
-  {q:"Cone ou barquette ?",opts:[
-    {t:"Cone. C'est la seule vraie réponse.",w:{P:2,A:1}},
-    {t:"Barquette. Je suis là pour manger, pas pour le décor.",w:{G:2,L:1}},
-    {t:"Cone mais je panique à la moitié.",w:{T:2,C:1}},
-    {t:"Peu importe. L'important c'est dedans.",w:{Z:2,E:1}},
+  {q:"Ta tactique anti-coulure ?",opts:[
+    {t:"Vitesse. Manger vite, manger fort.",w:{P:2,A:1}},
+    {t:"Lèchage stratégique du contour.",w:{G:2,S:1}},
+    {t:"Acceptation. Elle fond, c'est la vie.",w:{Z:2,E:1}},
+    {t:"T'y as pas pensé. Trop tard.",w:{C:2,T:1}},
   ]},
-  {q:"La première bouchée d'une glace c'est…",opts:[
-    {t:"Un moment de silence. Respect.",w:{S:2,Z:1}},
-    {t:"Une joie simple et immédiate.",w:{R:2,E:1}},
-    {t:"La confirmation ou la déception.",w:{G:2,T:1}},
-    {t:"Le signe que la journée était une bonne idée.",w:{P:2,A:1}},
+  {q:"Dans la queue, ton truc préféré ?",opts:[
+    {t:"Observer ce que prennent les autres.",w:{S:2,G:1}},
+    {t:"Discuter avec la personne devant.",w:{P:2,R:1}},
+    {t:"Profiter du silence.",w:{Z:2,T:1}},
+    {t:"Changer 3 fois d'avis.",w:{C:2,L:1}},
   ]},
-  {q:"Nutella : cuillère directe ou seulement sur tartine ?",opts:[
-    {t:"Cuillère. J'assume qui je suis.",w:{P:2,C:1}},
-    {t:"Tartine uniquement. J'ai des principes.",w:{G:2,S:1}},
-    {t:"Je ne mange pas de Nutella. (Mensonge)",w:{L:2,T:1}},
-    {t:"Ça dépend de comment s'est passée la semaine.",w:{Z:2,E:1}},
+  {q:"Au cinéma, ton snack c'est…",opts:[
+    {t:"Popcorn salé, point.",w:{E:2,G:1}},
+    {t:"Popcorn sucré + boisson — combo.",w:{P:2,R:1}},
+    {t:"Mes propres bonbons en douce.",w:{L:2,C:1}},
+    {t:"Rien. Je suis là pour le film.",w:{S:2,Z:1}},
   ]},
-  {q:"Si tu étais une glace, quelle catastrophe t'arriverait ?",opts:[
-    {t:"Tu fonds au soleil en regardant la Seine.",w:{R:2,T:1}},
-    {t:"Tu tombes du cone et personne ne te ramasse.",w:{T:2,C:1}},
-    {t:"Tu es parfaite mais personne n'ose te commander.",w:{S:2,L:1}},
-    {t:"Tu es la saveur surprise et tout le monde veut te goûter.",w:{P:2,A:1}},
+  {q:"On te dit 'tu prends quoi ?'. Tu…",opts:[
+    {t:"Je sais déjà. Pas le temps.",w:{G:2,E:1}},
+    {t:"Hum. Tu hésites encore 30 secondes.",w:{T:2,S:1}},
+    {t:"Surprends-moi.",w:{A:2,P:1}},
+    {t:"Comme toi.",w:{Z:2,R:1}},
   ]},
-  {q:"Coincé·e sur une île déserte avec un seul dessert. C'est…",opts:[
-    {t:"Tarte au citron. Acide et structurée comme moi.",w:{L:2,G:1}},
-    {t:"Crêpe sucre beurre. Simple et j'en fais des kilos.",w:{E:2,Z:1}},
-    {t:"Chocolat fondant. Dramatique et nécessaire.",w:{T:2,S:1}},
-    {t:"Je sais pas. Mais j'aurais une belle vue.",w:{R:2,C:1}},
+  {q:"Glace ou crêpe ?",opts:[
+    {t:"Crêpe. C'est plus consistant.",w:{G:2,E:1}},
+    {t:"Glace. C'est plus joli.",w:{R:2,S:1}},
+    {t:"Les deux. À la suite.",w:{P:2,A:1}},
+    {t:"Gaufre. Tu changes la donne.",w:{L:2,C:1}},
   ]},
-  {q:"Une glace te parle. Elle dit…",opts:[
-    {t:"'Tu méritais mieux que Vanilla.'",w:{L:2,T:1}},
-    {t:"'Mange-moi avant que je fonde.' Tu obéis.",w:{Z:2,E:1}},
-    {t:"'Je suis la meilleure chose qui te soit arrivée aujourd'hui.'",w:{P:2,A:1}},
-    {t:"'On se connaît depuis si longtemps...' et là tu stresses.",w:{R:2,C:1}},
+  {q:"Une saveur régressive te tente le plus ?",opts:[
+    {t:"Vanille. Simple, parfait.",w:{E:2,Z:1}},
+    {t:"Bubble gum. Goût d'enfance pure.",w:{P:2,R:1}},
+    {t:"Fraise — pour le rouge sur le cône.",w:{R:2,A:1}},
+    {t:"Stracciatella. Élégance assumée.",w:{S:2,G:1}},
   ]},
-  {q:"Dans une autre vie, tu étais…",opts:[
-    {t:"Un peintre raté mais heureux.",w:{R:2,T:1}},
-    {t:"Un explorateur qui rentrait toujours.",w:{A:2,C:1}},
-    {t:"Un philosophe que personne n'écoutait. À tort.",w:{L:2,S:1}},
-    {t:"Un·e boulanger·ère. Content·e et silencieux·se.",w:{Z:2,E:1}},
+  {q:"Tu manges ta glace…",opts:[
+    {t:"À petites cuillères, paisiblement.",w:{Z:2,S:1}},
+    {t:"À grandes lichettes joyeuses.",w:{P:2,A:1}},
+    {t:"Méthodiquement, parfum par parfum.",w:{G:2,E:1}},
+    {t:"Vite avant qu'elle fonde — drama.",w:{T:2,C:1}},
   ]},
-  {q:"Tu dois choisir UN parfum de glace pour le reste de ta vie.",opts:[
-    {t:"Chocolat. Fiable. Toujours là.",w:{E:2,G:1}},
-    {t:"Pistache. Les gens ne comprennent pas. C'est le but.",w:{S:2,L:1}},
-    {t:"Caramel. Le confort, toujours.",w:{R:2,Z:1}},
-    {t:"Je refuse la question. C'est une attaque personnelle.",w:{T:2,C:1}},
+  {q:"Choisis un instrument.",opts:[
+    {t:"Piano. Classique élégant.",w:{S:2,G:1}},
+    {t:"Guitare. Versatile, accessible.",w:{E:2,R:1}},
+    {t:"Batterie. Pour le bruit.",w:{P:2,A:1}},
+    {t:"Triangle. Pour faire rire.",w:{L:2,C:1}},
   ]},
-  {q:"En groupe, tu es la personne qui…",opts:[
-    {t:"Écoute et pose la question que tout le monde évitait.",w:{G:2,L:1}},
-    {t:"Fait rire sans vraiment essayer.",w:{P:2,A:1}},
-    {t:"Est là, bien, et repart reposé·e.",w:{Z:2,E:1}},
-    {t:"Prend les décisions parce que personne d'autre ne le fait.",w:{C:2,S:1}},
+  {q:"Ton yaourt préféré enfant ?",opts:[
+    {t:"Fraise/framboise — toujours.",w:{R:2,E:1}},
+    {t:"Vanille. Pas de risque.",w:{E:2,Z:1}},
+    {t:"Citron — déjà rebelle.",w:{L:2,S:1}},
+    {t:"Fruits exotiques — t'es en vacances.",w:{A:2,P:1}},
   ]},
-  {q:"Quelqu'un commande exactement la même chose que toi. Tu ressens…",opts:[
-    {t:"Rien du tout. C'est une glace.",w:{Z:2,G:1}},
-    {t:"Une connexion cosmique inexplicable.",w:{R:2,T:1}},
-    {t:"Une légère fierté d'avoir bon goût.",w:{S:2,P:1}},
-    {t:"L'envie de changer ta commande. Par principe.",w:{L:2,C:1}},
+  {q:"Tu es plus…",opts:[
+    {t:"Cône signé Picasso.",w:{S:2,R:1}},
+    {t:"Pot solide et pratique.",w:{G:2,E:1}},
+    {t:"Bâtonnet — l'enfance retrouvée.",w:{P:2,A:1}},
+    {t:"Cuillère direct dans le pot.",w:{C:2,L:1}},
   ]},
-  {q:"Tu recommandes un endroit à des amis. Ils n'aiment pas. Tu…",opts:[
-    {t:"Défends l'endroit jusqu'à la mort.",w:{S:2,T:1}},
-    {t:"Acceptes. Les goûts, ça ne se discute pas.",w:{Z:2,E:1}},
-    {t:"Remets en question toute la relation.",w:{R:2,C:1}},
-    {t:"Prends note pour la prochaine fois.",w:{G:2,L:1}},
+  {q:"Ton été parfait ?",opts:[
+    {t:"Petit village du Sud, marché, sieste.",w:{Z:2,R:1}},
+    {t:"Festival, amis, peu de sommeil.",w:{P:2,A:1}},
+    {t:"Maison, ventilateur, livre.",w:{S:2,T:1}},
+    {t:"Voyage planifié au mois près.",w:{G:2,E:1}},
   ]},
-  {q:"Ta façon de photographier ta nourriture ?",opts:[
-    {t:"Rapide, discrète, pour moi.",w:{Z:2,G:1}},
-    {t:"Lumière naturelle, cadrage, 12 essais.",w:{S:2,R:1}},
-    {t:"Je ne prends pas de photo. Je mange.",w:{E:2,L:1}},
-    {t:"Vidéo + story avant même d'y goûter.",w:{P:2,A:1}},
+  {q:"Glaçon dans la boisson ?",opts:[
+    {t:"Beaucoup. La fraîcheur d'abord.",w:{P:2,A:1}},
+    {t:"Un seul. Pas dilué.",w:{S:2,G:1}},
+    {t:"Aucun. Pas de bruit dans le verre.",w:{Z:2,L:1}},
+    {t:"Au choix du serveur.",w:{E:2,R:1}},
   ]},
-  {q:"Quelqu'un dit 'c'est trop sucré'. Tu réponds…",opts:[
-    {t:"'C'est le but.' Et tu reprends une cuillère.",w:{P:2,C:1}},
-    {t:"'Tu as peut-être pas tort.' Et tu analyses.",w:{S:2,G:1}},
-    {t:"Rien. Tu respectes les opinions sans les partager.",w:{Z:2,E:1}},
-    {t:"'T'aurais dû prendre autre chose alors.'",w:{L:2,T:1}},
+  {q:"Ton dessert d'enfance ?",opts:[
+    {t:"Yop fraise gardé en cachette.",w:{R:2,P:1}},
+    {t:"Cake aux fruits de mamie.",w:{E:2,S:1}},
+    {t:"Glace Solero — le bon vieux temps.",w:{T:2,A:1}},
+    {t:"Tout dans le frigo. Tu raidais.",w:{C:2,L:1}},
   ]},
-  {q:"Tu es la cuillère ou le cornet ?",opts:[
-    {t:"Cuillère. Pratique et souvent oubliée.",w:{Z:2,E:1}},
-    {t:"Cornet. Esthétique mais à durée limitée.",w:{S:2,R:1}},
-    {t:"Ni l'un ni l'autre. Je lèche directement.",w:{P:2,A:1}},
-    {t:"La question me dérange et je ne sais pas pourquoi.",w:{T:2,L:1}},
+  {q:"Glace gratuite, tu prends…",opts:[
+    {t:"Le parfum que tu prends toujours.",w:{E:2,G:1}},
+    {t:"Le plus cher du menu — tactique.",w:{S:2,L:1}},
+    {t:"Le truc le plus weird.",w:{A:2,C:1}},
+    {t:"Ce qu'on te recommande.",w:{Z:2,R:1}},
   ]},
-  {q:"Ton émoji le plus utilisé ?",opts:[
-    {t:"✨ (ambiance générale)",w:{R:2,P:1}},
-    {t:"🙃 (dire non sans dire non)",w:{L:2,T:1}},
-    {t:"👍 (efficace, on passe)",w:{G:2,E:1}},
-    {t:"😅 (pour tout)",w:{C:2,Z:1}},
+  {q:"Le pire timing pour une glace ?",opts:[
+    {t:"Sous la pluie.",w:{T:2,R:1}},
+    {t:"Avec un gros pull.",w:{E:2,S:1}},
+    {t:"Y'a pas de mauvais timing.",w:{P:2,A:1}},
+    {t:"Devant ton ex.",w:{C:2,L:1}},
   ]},
-  {q:"Ton mot préféré ?",opts:[
-    {t:"'Bof' — il dit tout sans rien dire.",w:{T:2,L:1}},
-    {t:"'Précisément' — jamais dit par hasard.",w:{S:2,G:1}},
-    {t:"'Allez' — parce qu'on y va.",w:{A:2,P:1}},
-    {t:"'D'accord' — parce que ça apaise.",w:{Z:2,R:1}},
+  {q:"Tu offres un dessert. Tu choisis…",opts:[
+    {t:"Le grand classique pour pas se planter.",w:{E:2,G:1}},
+    {t:"Le plus joli pour la photo.",w:{S:2,R:1}},
+    {t:"Le plus fort en goût pour impressionner.",w:{P:2,A:1}},
+    {t:"Au pif. Ça lance la conversation.",w:{C:2,L:1}},
   ]},
-  {q:"Une chose que tu remets toujours à demain ?",opts:[
-    {t:"Trier la boîte mail. (Pleine depuis 2021.)",w:{C:2,R:1}},
-    {t:"Décider ce que tu veux faire de ta vie.",w:{T:2,L:1}},
-    {t:"Répondre aux messages qui méritent réflexion.",w:{S:2,G:1}},
-    {t:"Rien. J'ai des listes.",w:{E:2,Z:1}},
+  {q:"Dans une chorale, tu serais…",opts:[
+    {t:"Voix principale — tu assumes.",w:{P:2,S:1}},
+    {t:"Chœur du fond — peinarde.",w:{Z:2,R:1}},
+    {t:"Tu pleures à chaque chanson.",w:{T:2,E:1}},
+    {t:"Tu changes d'octave par accident.",w:{C:2,L:1}},
   ]},
-  {q:"Ta définition du bonheur en ce moment ?",opts:[
-    {t:"Ici. Une glace. La Seine. Ça suffit.",w:{Z:2,E:1}},
-    {t:"Un projet qui avance enfin.",w:{G:2,S:1}},
-    {t:"Quelqu'un qui rit avec toi sans raison précise.",w:{R:2,A:1}},
-    {t:"Savoir ce que je veux. Enfin.",w:{T:2,C:1}},
+  {q:"À la kermesse, tu vises…",opts:[
+    {t:"La barbe à papa.",w:{R:2,E:1}},
+    {t:"La pêche aux canards.",w:{G:2,S:1}},
+    {t:"La grande roue — point de vue.",w:{Z:2,T:1}},
+    {t:"Un truc dont t'avais jamais entendu parler.",w:{A:2,C:1}},
   ]},
-  {q:"Tu arrives au comptoir et le prix a changé. Tu…",opts:[
-    {t:"Constates, paies, repars.",w:{Z:2,G:1}},
-    {t:"Demandes poliment depuis quand.",w:{E:2,S:1}},
-    {t:"Continues comme si t'avais rien vu.",w:{C:2,R:1}},
-    {t:"Fais un commentaire acéré qui reste dans l'air.",w:{L:2,T:1}},
+  {q:"Ta phrase préférée à la caisse ?",opts:[
+    {t:"'C'est offert ?' (avec sourire).",w:{P:2,L:1}},
+    {t:"'Sans sac, merci.'",w:{G:2,E:1}},
+    {t:"'Vous prenez la carte ?'",w:{T:2,S:1}},
+    {t:"'Ah ok, super.'",w:{Z:2,R:1}},
   ]},
-  {q:"Attendre 10 minutes dans une file, c'est…",opts:[
-    {t:"Insupportable. Je n'aurais pas dû venir sans plan.",w:{T:2,G:1}},
-    {t:"L'occasion d'observer les gens. C'est fascinant.",w:{S:2,L:1}},
-    {t:"Ok. Ça donne le temps de décider.",w:{E:2,Z:1}},
-    {t:"Une aventure. Je discute avec les inconnus.",w:{P:2,A:1}},
+  {q:"Road trip, tu emportes…",opts:[
+    {t:"Une playlist plus longue que le voyage.",w:{P:2,R:1}},
+    {t:"Des snacks calculés au gramme.",w:{G:2,S:1}},
+    {t:"Rien. Tu improvises.",w:{A:2,C:1}},
+    {t:"Un livre, un pull, c'est suffisant.",w:{Z:2,E:1}},
   ]},
-  {q:"Tu es là parce que…",opts:[
-    {t:"Le QR code t'a intrigué·e. Tu suis les signs.",w:{A:2,C:1}},
-    {t:"Tu cherchais quelque chose à faire dans la queue.",w:{Z:2,E:1}},
-    {t:"Quelqu'un à côté t'a regardé le faire. Tu as copié.",w:{R:2,T:1}},
-    {t:"Tu voulais voir ce que c'est. Curiosité pure.",w:{L:2,S:1}},
+  {q:"Ton style d'attente dans la queue ?",opts:[
+    {t:"Téléphone, mais tu écoutes tout.",w:{S:2,L:1}},
+    {t:"Patiente, philosophique.",w:{Z:2,E:1}},
+    {t:"Légère panique silencieuse.",w:{T:2,R:1}},
+    {t:"Tu fais ami-ami avec le voisin.",w:{P:2,A:1}},
   ]},
-  {q:"La Seine en ce moment, c'est…",opts:[
-    {t:"Jolie. J'aurais dû prendre un café.",w:{R:2,T:1}},
-    {t:"Un contexte. L'important c'est la glace.",w:{G:2,E:1}},
-    {t:"L'endroit parfait pour penser à rien.",w:{Z:2,L:1}},
-    {t:"La meilleure décoration possible.",w:{P:2,A:1}},
+  {q:"Tu gagnes au loto. Premier achat ?",opts:[
+    {t:"Glaces pour tout le quartier.",w:{P:2,R:1}},
+    {t:"Une boîte aux lettres anti-pubs.",w:{G:2,L:1}},
+    {t:"Un billet d'avion — destination ?",w:{A:2,C:1}},
+    {t:"Rien. Tu réfléchis 6 mois.",w:{S:2,T:1}},
   ]},
-  {q:"Tu raconteras cette glace à quelqu'un ce soir ?",opts:[
-    {t:"Oui. Probablement en story.",w:{P:2,R:1}},
-    {t:"Non. C'est une glace.",w:{G:2,E:1}},
-    {t:"Si c'est vraiment bon, peut-être.",w:{L:2,Z:1}},
-    {t:"Je vais l'immortaliser dans 30 secondes.",w:{S:2,A:1}},
+  {q:"Couleur de glace préférée ?",opts:[
+    {t:"Rose pâle — joliesse pure.",w:{R:2,S:1}},
+    {t:"Vert pistache — chic.",w:{S:2,L:1}},
+    {t:"Brun chocolat — fiable.",w:{E:2,G:1}},
+    {t:"Bleu schtroumpf — chaos joyeux.",w:{P:2,C:1}},
   ]},
-  {q:"Ce week-end c'est réussi si…",opts:[
-    {t:"J'ai vu des gens que j'aime.",w:{R:2,Z:1}},
-    {t:"J'ai fait quelque chose que je n'avais jamais fait.",w:{A:2,C:1}},
-    {t:"J'ai eu du temps pour moi.",w:{T:2,S:1}},
-    {t:"Quelque chose s'est passé comme prévu.",w:{G:2,E:1}},
+  {q:"On te demande ta glace à goûter.",opts:[
+    {t:"Bien sûr, tiens !",w:{R:2,P:1}},
+    {t:"Une cuillère, pas plus.",w:{G:2,S:1}},
+    {t:"Hum, je viens de la commencer…",w:{T:2,E:1}},
+    {t:"Tu donnes la cuillère et tu prends la sienne.",w:{C:2,L:1}},
   ]},
-  {q:"La prochaine fois que tu viens ici, tu…",opts:[
-    {t:"Prends exactement la même chose.",w:{E:2,G:1}},
-    {t:"Essaies le truc que tu n'as pas osé aujourd'hui.",w:{A:2,L:1}},
-    {t:"Reviens avec quelqu'un pour lui montrer.",w:{R:2,P:1}},
-    {t:"Tu verras. Pas besoin de décider maintenant.",w:{Z:2,C:1}},
+  {q:"Une chanson en boucle dans ta tête ?",opts:[
+    {t:"Un slow des 80s.",w:{R:2,T:1}},
+    {t:"Un tube de l'été qui te suit.",w:{P:2,A:1}},
+    {t:"Un truc obscur que personne connaît.",w:{S:2,L:1}},
+    {t:"Aucune. Paix mentale.",w:{Z:2,E:1}},
   ]},
-  {q:"Si ta glace était une météo ?",opts:[
-    {t:"Soleil avec nuage isolé. Juste assez de mélancolie.",w:{T:2,R:1}},
-    {t:"Grand beau, sans commentaire.",w:{Z:2,E:1}},
-    {t:"Orage puis arc-en-ciel. Du spectacle.",w:{P:2,A:1}},
-    {t:"Fraîcheur piquante de l'automne qui commence.",w:{L:2,S:1}},
+  {q:"Marché du dimanche, tu repars avec…",opts:[
+    {t:"Des fleurs et un sourire.",w:{R:2,P:1}},
+    {t:"Exactement la liste, rien de plus.",w:{G:2,E:1}},
+    {t:"Un truc bizarre que tu sais pas cuisiner.",w:{A:2,C:1}},
+    {t:"Rien. Tu y allais pour l'ambiance.",w:{Z:2,S:1}},
   ]},
-  {q:"Le parfum glace de ta personnalité est probablement…",opts:[
-    {t:"Quelque chose de doux qu'on sous-estime.",w:{E:2,R:1}},
-    {t:"Quelque chose d'inattendu qu'on retient.",w:{A:2,L:1}},
-    {t:"Quelque chose de classique mais de qualité.",w:{G:2,S:1}},
-    {t:"Impossible à définir. Histoire de ma vie.",w:{C:2,T:1}},
+  {q:"Glace végétale, ton avis ?",opts:[
+    {t:"Pourquoi pas, je teste.",w:{A:2,L:1}},
+    {t:"Non. Le lait, c'est sacré.",w:{E:2,G:1}},
+    {t:"Si c'est bon je m'en fiche.",w:{Z:2,P:1}},
+    {t:"Je préfère mais je le crie pas.",w:{S:2,R:1}},
   ]},
-  {q:"La meilleure chose à faire avec une glace c'est…",opts:[
-    {t:"La manger seul·e en regardant l'eau.",w:{Z:2,T:1}},
-    {t:"La partager en piochant dans celle des autres.",w:{P:2,R:1}},
-    {t:"La finir avant qu'elle fonde. C'est une course.",w:{G:2,A:1}},
-    {t:"La tenir et regarder quelque chose de beau.",w:{S:2,L:1}},
+  {q:"Une mouche tourne autour de ta glace.",opts:[
+    {t:"Tu bouges la glace. Pas de drame.",w:{Z:2,E:1}},
+    {t:"Tu hurles intérieurement.",w:{T:2,R:1}},
+    {t:"Coexistence pacifique.",w:{S:2,L:1}},
+    {t:"Tu finis ta glace en 30 secondes par défense.",w:{P:2,A:1}},
   ]},
-  {q:"Aujourd'hui tu mérites…",opts:[
-    {t:"Quelque chose de simple et de vraiment bon.",w:{E:2,Z:1}},
-    {t:"Quelque chose de spectaculaire. La semaine était dure.",w:{P:2,T:1}},
-    {t:"Quelque chose de nouveau. Ça fait du bien.",w:{A:2,C:1}},
-    {t:"Ce que tu veux. Pas besoin de justification.",w:{L:2,R:1}},
+  {q:"Ton héros d'enfance ?",opts:[
+    {t:"Un personnage Disney émouvant.",w:{R:2,T:1}},
+    {t:"Un sportif que tu copiais.",w:{G:2,A:1}},
+    {t:"Personne. T'étais déjà chill.",w:{Z:2,E:1}},
+    {t:"Quelqu'un que personne ne connaissait.",w:{S:2,L:1}},
   ]},
-  {q:"En sortant d'ici, tu seras…",opts:[
-    {t:"Content·e d'avoir fait un bon choix.",w:{E:2,G:1}},
-    {t:"En train de penser à la prochaine fois.",w:{R:2,A:1}},
-    {t:"Un peu mélancolique. Toutes les bonnes choses finissent.",w:{T:2,S:1}},
-    {t:"Ok. C'était bien. On passe à autre chose.",w:{Z:2,L:1}},
+  {q:"Saison préférée ?",opts:[
+    {t:"Été, sans hésiter.",w:{P:2,A:1}},
+    {t:"Automne. La belle mélancolie.",w:{T:2,R:1}},
+    {t:"Printemps. Le renouveau.",w:{Z:2,E:1}},
+    {t:"Hiver. Le chocolat chaud.",w:{S:2,L:1}},
   ]},
-  {q:"Si ta vie était un film, le titre serait…",opts:[
-    {t:"'Tout va bien (presque)'",w:{E:2,Z:1}},
-    {t:"'Je gère, en théorie'",w:{C:2,L:1}},
-    {t:"'On verra demain'",w:{A:2,T:1}},
-    {t:"'Encore une fois'",w:{R:2,P:1}},
+  {q:"En cuisine, tu es plutôt…",opts:[
+    {t:"La recette à la lettre.",w:{G:2,E:1}},
+    {t:"Improvisation, tu touilles.",w:{A:2,C:1}},
+    {t:"La même recette depuis 10 ans.",w:{Z:2,R:1}},
+    {t:"Quelque chose de très ambitieux.",w:{S:2,T:1}},
   ]},
-  {q:"À la plage, tu es…",opts:[
-    {t:"Sous le parasol avec un livre épais.",w:{S:2,T:1}},
-    {t:"Dans l'eau dès la 1ère minute.",w:{A:2,P:1}},
-    {t:"Allongé·e à scroller, parfaitement bien.",w:{Z:2,R:1}},
-    {t:"En train de demander si l'eau est bonne.",w:{E:2,C:1}},
+  {q:"Apéro improvisé, tu apportes…",opts:[
+    {t:"Du vin et tes anecdotes.",w:{P:2,R:1}},
+    {t:"Trois trucs choisis avec soin.",w:{S:2,G:1}},
+    {t:"N'importe quoi du frigo.",w:{C:2,L:1}},
+    {t:"Rien — tu aides à la cuisine.",w:{Z:2,E:1}},
   ]},
-  {q:"Ton rapport au planning ?",opts:[
-    {t:"Notion + Google Calendar + post-its.",w:{G:2,S:1}},
-    {t:"Ça se fait dans la tête, ça se passe bien (parfois).",w:{A:2,C:1}},
-    {t:"J'écris tout, je perds la liste.",w:{R:2,T:1}},
-    {t:"Le destin sait ce qu'il fait.",w:{Z:2,P:1}},
+  {q:"Dessert pour un dîner spécial ?",opts:[
+    {t:"Tarte au citron — l'élégance.",w:{S:2,L:1}},
+    {t:"Fondant chocolat — sécurité.",w:{E:2,G:1}},
+    {t:"Pavlova — la grande forme.",w:{P:2,R:1}},
+    {t:"Salade de fruits — sage.",w:{Z:2,T:1}},
   ]},
-  {q:"Ta photo de profil, c'est…",opts:[
-    {t:"Toi, propre, fond neutre.",w:{G:2,S:1}},
-    {t:"Toi en voyage, c'est important qu'on le sache.",w:{A:2,P:1}},
-    {t:"Une photo de ton chat ou d'un coucher de soleil.",w:{R:2,Z:1}},
-    {t:"Un truc absurde que personne ne comprend.",w:{L:2,C:1}},
+  {q:"Quelqu'un coupe la queue. Tu…",opts:[
+    {t:"Toux discrète + regard.",w:{G:2,S:1}},
+    {t:"Rien. Pas ton problème.",w:{Z:2,R:1}},
+    {t:"Une remarque sobre.",w:{L:2,T:1}},
+    {t:"Tu lui parles 5 min, tu deviens amis.",w:{P:2,A:1}},
   ]},
-  {q:"On te dit 'je t'aime bien'. Tu réponds…",opts:[
-    {t:"'Moi aussi' mais 30 fois.",w:{R:2,P:1}},
-    {t:"'Pourquoi ?'",w:{L:2,G:1}},
-    {t:"Un sourire poli mais tu y penseras 3 jours.",w:{T:2,E:1}},
-    {t:"Tu changes de sujet immédiatement.",w:{S:2,C:1}},
+  {q:"Ta glace fond plus vite que prévu. Tu…",opts:[
+    {t:"Course contre la montre.",w:{P:2,A:1}},
+    {t:"Tu acceptes le destin coulant.",w:{Z:2,E:1}},
+    {t:"Frustration silencieuse.",w:{T:2,R:1}},
+    {t:"Tu inventes une nouvelle façon de la manger.",w:{C:2,L:1}},
   ]},
-  {q:"Tu rentres dans une boulangerie. Tu ressors avec…",opts:[
-    {t:"Une baguette. Comme prévu. Bravo.",w:{E:2,G:1}},
-    {t:"3 trucs que tu n'avais pas prévus.",w:{R:2,A:1}},
-    {t:"Un éclair au chocolat, en silence.",w:{S:2,T:1}},
-    {t:"Rien. Tu as oublié pourquoi tu étais entré·e.",w:{L:2,C:1}},
+  {q:"On te demande 'tu reviendras ?'. Tu…",opts:[
+    {t:"Carrément. Tu es déjà fan.",w:{P:2,A:1}},
+    {t:"Probablement. Si je suis dans le coin.",w:{Z:2,E:1}},
+    {t:"Je note l'adresse.",w:{G:2,S:1}},
+    {t:"Avec quelqu'un à qui le faire découvrir.",w:{R:2,L:1}},
   ]},
-  {q:"Face à deux parfums qui se ressemblent, tu…",opts:[
-    {t:"Demandes un goût des deux. Évidemment.",w:{P:2,A:1}},
-    {t:"Choisis vite. La différence est minime.",w:{G:2,E:1}},
-    {t:"Analyses pendant 3 minutes. C'est important.",w:{S:2,T:1}},
-    {t:"Prends les deux. Problème réglé.",w:{C:2,L:1}},
-  ]},
-  {q:"Ton talent caché ?",opts:[
-    {t:"Reconnaître une chanson en 1 seconde.",w:{P:2,R:1}},
-    {t:"Faire des listes ultra précises.",w:{G:2,S:1}},
-    {t:"Calmer les gens en panique.",w:{Z:2,E:1}},
-    {t:"Trouver ce qui cloche dans une situation.",w:{L:2,T:1}},
+  {q:"Ta vibe en ce moment ?",opts:[
+    {t:"Doux, lent, soleil sur la peau.",w:{R:2,Z:1}},
+    {t:"Plein d'idées qui se bousculent.",w:{C:2,A:1}},
+    {t:"Concentrée, focus, productive.",w:{G:2,S:1}},
+    {t:"Légèrement dramatique, pour le style.",w:{T:2,L:1}},
   ]},
 ];
 
@@ -1098,7 +1091,7 @@ let qState=null;
 
 function startQuiz(){
   qState={
-    questions:shuffle(QS).slice(0,4),
+    questions:shuffle(QS).slice(0,3),
     idx:0,
     scores:Object.fromEntries(ALL_KEYS.map(k=>[k,0])),
   };
@@ -1150,14 +1143,13 @@ function showResult(){
   document.getElementById("rPpx").textContent=r.prod.px;
 
   /* Card background */
-  const card=document.getElementById("resCard");
   const ov=document.getElementById("resOverlay");
   ov.style.background=r.ov||"rgba(255,251,241,.72)";
-  // Draw affiche on the in-card canvas
-  drawAficheBg(r);
 
   const sec=document.getElementById("resultSection");
   sec.style.display="";
+  // Draw affiche AFTER section is visible so canvas has real width/height
+  requestAnimationFrame(()=>requestAnimationFrame(()=>drawAficheBg(r)));
   sec.scrollIntoView({behavior:"smooth",block:"start"});
   document.getElementById("floatIg").classList.add("show");
 
