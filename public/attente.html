@@ -84,21 +84,29 @@ section + section{padding-top:24px}
 .menu-card{position:relative;background:#fff;border-radius:20px;padding:14px 12px 12px;
   box-shadow:var(--ss);border:1px solid rgba(34,28,18,.04);text-align:left;
   transition:transform .2s,box-shadow .2s}
+.menu-card .ico{font-size:22px;line-height:1;display:block;margin-bottom:6px;filter:drop-shadow(0 2px 4px rgba(34,28,18,.08))}
 .menu-card .name{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:15px;line-height:1.2}
 .menu-card .desc{font-size:12px;color:var(--ink-soft);margin-top:2px;min-height:28px}
 .menu-card .price{display:inline-block;margin-top:8px;background:var(--ink);color:var(--cream);
   font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:999px}
 .menu-card.gl{background:linear-gradient(160deg,var(--rose-100) 0%,#fff 80%)}
 .menu-card.cr{background:linear-gradient(160deg,var(--sun-100) 0%,#fff 80%)}
-.menu-card.ga{background:linear-gradient(160deg,#FFF3E0 0%,#fff 80%)}
+.menu-card.ga{background:linear-gradient(160deg,var(--cream-deep) 0%,var(--cream) 80%)}
 .menu-card.bo{background:linear-gradient(160deg,#E6F2FB 0%,#fff 80%)}
 .menu-card.hlt{outline:2px solid var(--cherry)}
 .badge{position:absolute;top:-9px;right:10px;color:#fff;font-size:10.5px;font-weight:700;
   padding:3px 9px;border-radius:999px;letter-spacing:.02em;white-space:nowrap;z-index:2}
 .badge-star{background:var(--cherry);box-shadow:0 4px 14px -4px rgba(226,107,92,.6)}
 .badge-team{background:var(--teal-700);box-shadow:0 4px 14px -4px rgba(46,132,117,.6)}
-.menu-supp{margin-top:18px;padding:12px 14px;background:var(--cream-deep);border-radius:14px;
-  font-size:12px;color:var(--ink-soft);text-align:center;line-height:1.5}
+.menu-supp{margin-top:22px;padding:0;border-radius:18px;overflow:hidden;
+  box-shadow:var(--ss);border:1.5px dashed rgba(226,107,92,.35);background:#fff}
+.menu-supp .supp-row{display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:linear-gradient(135deg,var(--peach-100) 0%,var(--sun-100) 100%);
+  font-size:13.5px;color:var(--ink);font-weight:600;line-height:1.35}
+.menu-supp .supp-row .supp-ico{font-size:22px;line-height:1;flex-shrink:0}
+.menu-supp .supp-row + .supp-row{background:linear-gradient(135deg,var(--cream-deep),#fff)}
+.menu-supp .supp-foot{padding:9px 16px;background:#fff;border-top:1px solid rgba(34,28,18,.06);
+  font-size:11.5px;color:var(--ink-soft);text-align:center;font-style:italic;letter-spacing:.02em}
 .menu-bridge{margin:30px 16px 0;text-align:center;font-family:'Caveat',cursive;
   font-size:22px;color:var(--cherry-deep);line-height:1.25}
 .menu-bridge::before{content:"";display:block;width:40px;height:2px;background:var(--cherry);
@@ -186,16 +194,16 @@ section + section{padding-top:24px}
 .res-brand strong{color:var(--ink)}
 
 /* Share buttons */
-.share-wrap{margin-top:14px;display:flex;flex-direction:column;gap:10px}
-.share-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:14px 18px;border-radius:999px;border:none;cursor:pointer;font-size:15px;font-weight:700;
-  transition:transform .25s,opacity .2s;min-height:50px}
+.share-wrap{margin-top:14px;display:flex;flex-direction:row;gap:8px;flex-wrap:wrap;justify-content:center}
+.share-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:9px 14px;border-radius:999px;border:none;cursor:pointer;font-size:13px;font-weight:700;
+  transition:transform .25s,opacity .2s;min-height:38px;flex:1 1 140px;max-width:220px;line-height:1.1}
 .share-ig{background:linear-gradient(135deg,#F58529,#DD2A7B 50%,#8134AF);color:#fff;
   box-shadow:0 8px 24px -8px rgba(221,42,123,.55)}
 .share-fb{background:#1877F2;color:#fff;box-shadow:0 8px 24px -8px rgba(24,119,242,.45)}
 .share-btn:active{transform:scale(.98)}
 .share-btn:focus-visible{outline:3px solid var(--teal-300);outline-offset:2px}
-.share-hint{font-size:12px;color:var(--ink-soft);text-align:center;line-height:1.5;margin-top:4px}
+.share-hint{font-size:12px;color:var(--ink-soft);text-align:center;line-height:1.5;margin-top:8px;flex-basis:100%}
 
 /* Competition banner */
 .comp-banner{margin-top:18px;background:linear-gradient(135deg,var(--sun-100),var(--peach-100));
@@ -273,17 +281,20 @@ section + section{padding-top:24px}
     <h3 class="menu-cat-h"><span style="font-size:20px">🍦</span> Glaces artisanales</h3>
     <div class="menu-grid">
       <div class="menu-card gl">
+        <span class="ico" aria-hidden="true">🍨</span>
         <div class="name">Une boule</div>
         <div class="desc">Un parfum au choix</div>
         <span class="price">3,50 €</span>
       </div>
       <div class="menu-card gl hlt">
         <span class="badge badge-star">⭐ Le plus commandé</span>
+        <span class="ico" aria-hidden="true">🍦</span>
         <div class="name">Deux boules</div>
         <div class="desc">Deux parfums au choix</div>
         <span class="price">6 €</span>
       </div>
       <div class="menu-card gl">
+        <span class="ico" aria-hidden="true">🍧</span>
         <div class="name">Trois boules</div>
         <div class="desc">Trois parfums au choix</div>
         <span class="price">7,50 €</span>
@@ -295,16 +306,19 @@ section + section{padding-top:24px}
     <h3 class="menu-cat-h"><span style="font-size:20px">🥞</span> Crêpes</h3>
     <div class="menu-grid">
       <div class="menu-card cr">
+        <span class="ico" aria-hidden="true">🥞</span>
         <div class="name">Sucre cristal</div>
         <div class="desc">Le classique</div>
         <span class="price">2,50 €</span>
       </div>
       <div class="menu-card cr">
+        <span class="ico" aria-hidden="true">🍫</span>
         <div class="name">Pâte à tartiner</div>
         <div class="desc">Une cuillère généreuse</div>
         <span class="price">3,50 €</span>
       </div>
       <div class="menu-card cr">
+        <span class="ico" aria-hidden="true">🍯</span>
         <div class="name">Caramel</div>
         <div class="desc">Caramel doux</div>
         <span class="price">3,50 €</span>
@@ -317,7 +331,7 @@ section + section{padding-top:24px}
 
     <!-- Signature : La Foli's -->
     <div class="foli-card">
-      <img class="foli-img" src="/lafolisup.png" alt="La Foli's — coupelle gaufre, chantilly, cubes croustillants" loading="lazy"/>
+      <img class="foli-img" src="/lafolisup.png?v=2" alt="La Foli's — coupelle gaufre, chantilly, cubes croustillants" loading="lazy" onerror="this.onerror=null;this.src='/lafolis.png';"/>
       <div class="foli-tx">
         <div class="foli-eye">💚 Choix de l'équipe</div>
         <div class="foli-nm">La <span class="sig">Foli's</span></div>
@@ -329,16 +343,19 @@ section + section{padding-top:24px}
     <h3 class="menu-cat-h" style="margin-top:20px"><span style="font-size:20px">🧇</span> Gaufres</h3>
     <div class="menu-grid" style="margin-top:8px">
       <div class="menu-card ga">
+        <span class="ico" aria-hidden="true">🧇</span>
         <div class="name">Sucre glace</div>
         <div class="desc">Toute simple</div>
         <span class="price">3,50 €</span>
       </div>
       <div class="menu-card ga">
+        <span class="ico" aria-hidden="true">🍫</span>
         <div class="name">Pâte à tartiner</div>
         <div class="desc">Coulante, généreuse</div>
         <span class="price">4,50 €</span>
       </div>
       <div class="menu-card ga">
+        <span class="ico" aria-hidden="true">🍯</span>
         <div class="name">Caramel</div>
         <div class="desc">Caramel doux</div>
         <span class="price">4,50 €</span>
@@ -350,31 +367,37 @@ section + section{padding-top:24px}
     <h3 class="menu-cat-h"><span style="font-size:20px">🥤</span> Boissons</h3>
     <div class="menu-grid">
       <div class="menu-card bo">
+        <span class="ico" aria-hidden="true">☕</span>
         <div class="name">Café</div>
         <div class="desc">Serré ou allongé</div>
         <span class="price">2 €</span>
       </div>
       <div class="menu-card bo">
+        <span class="ico" aria-hidden="true">🍵</span>
         <div class="name">Thé</div>
         <div class="desc">Servi chaud</div>
         <span class="price">3 €</span>
       </div>
       <div class="menu-card bo">
+        <span class="ico" aria-hidden="true">🥤</span>
         <div class="name">Soft 33 cl</div>
         <div class="desc">Coca · Tropico · Fanta dragon · Perrier</div>
         <span class="price">2,50 €</span>
       </div>
       <div class="menu-card bo">
+        <span class="ico" aria-hidden="true">💧</span>
         <div class="name">Eau 50 cl</div>
         <div class="desc">Bouteille fraîche</div>
         <span class="price">2 €</span>
       </div>
       <div class="menu-card bo">
+        <span class="ico" aria-hidden="true">🍷</span>
         <div class="name">Vin bio sans alcool</div>
         <div class="desc">Désalcoolisé, certifié bio</div>
         <span class="price">4 €</span>
       </div>
       <div class="menu-card bo">
+        <span class="ico" aria-hidden="true">🍺</span>
         <div class="name">Bière sans alcool</div>
         <div class="desc">Fraîche et légère</div>
         <span class="price">4 €</span>
@@ -382,13 +405,20 @@ section + section{padding-top:24px}
     </div>
   </div>
 
-  <p class="menu-supp">
-    Suppléments&nbsp;: <img src="/chantilly.png" alt="" style="width:20px;height:19px;vertical-align:middle;object-fit:contain;display:inline-block;margin:-2px 3px 0 1px"> chantilly +1&nbsp;€ · 🍭 brochette de bonbons 2&nbsp;€<br/>
-    <span style="opacity:.75">Parfums selon arrivages · prix indicatifs</span>
-  </p>
+  <div class="menu-supp" role="group" aria-label="Suppléments">
+    <div class="supp-row">
+      <img src="/chantilly.png" alt="" class="supp-ico" style="width:24px;height:23px;object-fit:contain"/>
+      <span>Chantilly maison <strong>+1 €</strong></span>
+    </div>
+    <div class="supp-row">
+      <span class="supp-ico" aria-hidden="true">🍭</span>
+      <span>Brochette de bonbons <strong>2 €</strong></span>
+    </div>
+    <div class="supp-foot">Parfums selon arrivages · prix indicatifs</div>
+  </div>
 
   <p class="menu-bridge">
-    Toujours pas décidé·e ?<br/>
+    Toujours pas décidé ?<br/>
     La roue ne ment jamais. Enfin, presque. 🎡
   </p>
 </section>
@@ -412,9 +442,9 @@ section + section{padding-top:24px}
     <div class="em" id="spinEm"></div>
     <div class="nm" id="spinNm"></div>
     <div class="ds" id="spinDs"></div>
-    <button class="cta cta-p" id="spinOrderBtn" style="width:100%;margin-top:12px;flex:none;display:none">
-      Montre ça au comptoir 🙌
-    </button>
+    <div class="spin-pair" id="spinPair" style="display:none;margin-top:14px;padding:11px 14px;
+      background:linear-gradient(135deg,var(--teal-50),var(--sun-100));border-radius:14px;
+      font-family:'Caveat',cursive;font-size:18px;color:var(--cherry-deep);line-height:1.3"></div>
   </div>
   <p class="spin-bridge">
     C'est le destin… ou presque.<br/>
@@ -463,8 +493,8 @@ section + section{padding-top:24px}
   </div>
 
   <div class="share-wrap">
-    <button class="share-btn share-ig" id="shareIgBtn">📲 Story Instagram ou DM</button>
-    <button class="share-btn share-fb" id="shareFbBtn">📘 Partager sur Facebook</button>
+    <button class="share-btn share-ig" id="shareIgBtn">📲 Instagram</button>
+    <button class="share-btn share-fb" id="shareFbBtn">📘 Facebook</button>
     <p class="share-hint">
       Partage ta story ou envoie le résultat en DM à <strong>@glacesenseine</strong><br/>
       On reposte les meilleures ✨
@@ -485,7 +515,7 @@ section + section{padding-top:24px}
 
   <!-- Back to menu -->
   <div class="back-menu">
-    <a href="#menu">← Voir la carte complète</a>
+    <a href="https://www.glaceenseine.fr/careupdate.png" target="_blank" rel="noopener">← Voir la carte complète</a>
   </div>
 </section>
 
@@ -522,73 +552,73 @@ section + section{padding-top:24px}
 
 /* 12 wheel slices */
 const WHEEL=[
-  {name:"Boule fraise",     em:"🍓",col:"#F4B6B6",desc:"La star romantique du quai. Fais semblant que c'était ton premier choix."},
-  {name:"Boule pistache",   em:"🥜",col:"#9CD8CC",desc:"Tu es un peu chic. Ou du moins tu le fais croire. C'est suffisant."},
-  {name:"Boule chocolat",   em:"🍫",col:"#C9A07A",desc:"Le classique qui ne déçoit jamais. C'est presque trop facile."},
-  {name:"Boule vanille",    em:"🍦",col:"#FBE08E",desc:"L'humble. Le subtil. Le sage. Personne ne te juge."},
-  {name:"Boule mangue",     em:"🥭",col:"#F8A684",desc:"Tu pars en vacances mentalement. On garde ta place dans la queue."},
-  {name:"Boule citron",     em:"🍋",col:"#FFF1C4",desc:"Acide, frais, anti-conformiste. On t'aime bien quand même."},
-  {name:"Crêpe pâte à tartiner",em:"🥞",col:"#E26B5C",desc:"Le réconfort universel. Aucune honte. Que de l'amour."},
-  {name:"Crêpe sucre cristal",  em:"🥞",col:"#FFF1C4",desc:"Le minimalisme assumé. Un peu de beurre, du sucre, la paix."},
-  {name:"La Foli's",            em:"🧇",col:"#5DBAA8",desc:"Tu viens de gagner. La maison est fière de toi."},
-  {name:"Gaufre caramel",   em:"🧇",col:"#F4C95D",desc:"Doré, fondant, dramatique. Ta journée prend du sens."},
-  {name:"Café",             em:"☕",col:"#A0826D",desc:"Le destin a décidé que tu es un adulte sérieux. C'est faux, mais on joue le jeu."},
-  {name:"Tropico tropical", em:"🥤",col:"#FFCAB1",desc:"Tu as 10 ans dans la tête. Tu as totalement raison."},
+  {name:"Boule fraise",     em:"🍓",col:"#F4B6B6",desc:"La star romantique du quai. Fais semblant que c'était ton premier choix.",pair:"☕ Ça irait très bien avec un café serré."},
+  {name:"Boule pistache",   em:"🥜",col:"#9CD8CC",desc:"Tu es un peu chic. Ou du moins tu le fais croire. C'est suffisant.",pair:"🍫 Une boule chocolat à côté, tu nous remercieras."},
+  {name:"Boule chocolat",   em:"🍫",col:"#C9A07A",desc:"Le classique qui ne déçoit jamais. C'est presque trop facile.",pair:"🌶 Une chantilly +1 € et c'est la fête."},
+  {name:"Boule vanille",    em:"🍦",col:"#FBE08E",desc:"L'humble. Le subtil. Le sage. Personne ne te juge.",pair:"☕ Un café à côté — la combo intemporelle."},
+  {name:"Boule mangue",     em:"🥭",col:"#F8A684",desc:"Tu pars en vacances mentalement. On garde ta place dans la queue.",pair:"🥤 Un Tropico tropical dans la même main."},
+  {name:"Boule citron",     em:"🍋",col:"#FFF1C4",desc:"Acide, frais, anti-conformiste. On t'aime bien quand même.",pair:"🍓 Avec une fraise, l'équilibre parfait."},
+  {name:"Crêpe pâte à tartiner",em:"🥞",col:"#E26B5C",desc:"Le réconfort universel. Aucune honte. Que de l'amour.",pair:"☕ Un café à côté, c'est la pause qu'il te faut."},
+  {name:"Crêpe sucre cristal",  em:"🥞",col:"#FFF1C4",desc:"Le minimalisme assumé. Un peu de beurre, du sucre, la paix.",pair:"☕ Un café — la pause goûter complète."},
+  {name:"La Foli's",            em:"🧇",col:"#5DBAA8",desc:"Tu viens de gagner. La maison est fière de toi.",pair:"🥤 Un soft frais pour calmer le sucre."},
+  {name:"Gaufre caramel",   em:"🧇",col:"#F4C95D",desc:"Doré, fondant, dramatique. Ta journée prend du sens.",pair:"🍦 Une boule vanille pour finir en beauté."},
+  {name:"Café",             em:"☕",col:"#A0826D",desc:"Le destin a décidé que tu es un adulte sérieux. C'est faux, mais on joue le jeu.",pair:"🥞 Avec une crêpe sucre cristal, c'est dimanche."},
+  {name:"Tropico tropical", em:"🥤",col:"#FFCAB1",desc:"Tu as 10 ans dans la tête. Tu as totalement raison.",pair:"🥭 Une boule mangue par-dessus, c'est l'été."},
 ];
 
 /* 8 result archetypes — keys: R S A E L G P Z */
 const RESULTS={
   R:{em:"🌸",name:"La Romantique du Quai",
-    tag:"sensible · doux·ce · attachant·e",
+    tag:"sensible · doux · attachant",
     sub:"Tu trouves la beauté dans les petits trucs.",
     ds:"Le mot \"joli\" sort de ta bouche cinq fois par jour, et c'est mérité. Tu envoies des vocaux trop longs. Tu pleures un peu devant les pubs touchantes. Les gens te disent \"c'est mignon\" et c'est vrai.",
     col:"linear-gradient(160deg,#FBE0E0,#FFE5D2 60%,#FFF1C4)",
     ov:"rgba(255,241,242,.72)",
     prod:{nm:"2 boules Fraise + Framboise",px:"6 €"}},
-  S:{em:"🥜",name:"L'Esthète Discret·e",
-    tag:"exigeant·e · pointu·e · doux·ce",
+  S:{em:"🥜",name:"L'Esthète Discret",
+    tag:"exigeant · pointu · doux",
     sub:"Tu sais ce que tu veux et pourquoi.",
     ds:"Tu peux parler vingt minutes d'un truc que personne ne connaît. Tu dis \"subtil\" là où d'autres disent \"bon\". Tu remarques toujours la qualité — y compris quand c'est sous-estimé.",
     col:"linear-gradient(160deg,#CFEAE3,#EAF6F3 60%,#FFFBF1)",
     ov:"rgba(234,246,243,.7)",
     prod:{nm:"2 boules Pistache + Citron",px:"6 €"}},
-  A:{em:"🥭",name:"L'Aventurier·ère du Quai",
-    tag:"curieux·se · audacieux·se · mémorable",
+  A:{em:"🥭",name:"L'Aventurier du Quai",
+    tag:"curieux · audacieux · mémorable",
     sub:"Tu commandes ce que personne d'autre n'ose.",
     ds:"\"Allez on essaie\" sort souvent de ta bouche. C'est grâce à toi que les bonnes histoires existent. Et les moins bonnes aussi — mais elles valaient quand même le détour.",
     col:"linear-gradient(160deg,#FFE5D2,#FFCAB1 50%,#FFF1C4)",
     ov:"rgba(255,236,220,.72)",
     prod:{nm:"La Foli's",px:"7,50 €"}},
-  E:{em:"🍦",name:"L'Éternel·le Sage",
-    tag:"stable · rassurant·e · fondamental·e",
+  E:{em:"🍦",name:"L'Éternel Sage",
+    tag:"stable · rassurant · fondamental",
     sub:"Tu es la vanille — la base de tout.",
     ds:"Sans toi les recettes ne tiennent pas. Tu rappelles les anniversaires. Tu arrives à l'heure. Les gens te confient leurs trucs importants — ils savent que tu les gardes vraiment.",
     col:"linear-gradient(160deg,#FFF1C4,#FBE08E 40%,#FFFBF1)",
     ov:"rgba(255,248,210,.72)",
     prod:{nm:"Crêpe sucre cristal + café",px:"4,50 €"}},
-  L:{em:"🍋",name:"Le·La Franc-Tireur·se",
-    tag:"acéré·e · indépendant·e · franc·he",
+  L:{em:"🍋",name:"Le Franc-Tireur",
+    tag:"acéré · indépendant · franc",
     sub:"Tu poses la question que personne n'avait osé.",
     ds:"Tu changes d'avis pour de bonnes raisons. Tu préfères le silence à la politesse de façade. Difficile à lire, à moitié exprès. L'autre moitié, tu t'en souviens plus.",
     col:"linear-gradient(160deg,#FFF1C4,#FFE5D2 60%,#FFFBF1)",
     ov:"rgba(255,248,220,.72)",
     prod:{nm:"2 boules Citron + Mangue",px:"6 €"}},
-  G:{em:"☕",name:"Le·La Sérieux·se",
+  G:{em:"☕",name:"Le Sérieux",
     tag:"fiable · pragmatique · efficace",
     sub:"Tu prends le dessert comme une décision adulte.",
     ds:"Tu as une opinion sur tout mais tu la partages que si c'est utile. On te confie les choses importantes — tu les perds pas. Tu te souviens même des trucs que les autres aimeraient que tu oublies.",
     col:"linear-gradient(160deg,#D4B896,#E8D4BC 50%,#F5EBE0)",
     ov:"rgba(248,242,235,.72)",
     prod:{nm:"Café + crêpe sucre cristal",px:"4,50 €"}},
-  P:{em:"🎪",name:"Le·La Spectaculaire",
-    tag:"vivant·e · social·e · inoubliable",
+  P:{em:"🎪",name:"Le Spectaculaire",
+    tag:"vivant · social · inoubliable",
     sub:"Tu rends les trucs ordinaires plus drôles.",
     ds:"Tu commandes ce que personne d'autre n'ose et ça a toujours l'air meilleur. Tu n'as pas besoin d'être au centre, mais tu finis souvent par l'être. Sans toi les bonnes soirées seraient juste des soirées.",
     col:"linear-gradient(160deg,#FFCAB1,#F8A684 40%,#FFE5D2)",
     ov:"rgba(255,228,210,.72)",
     prod:{nm:"Gaufre caramel + Tropico",px:"7 €"}},
-  Z:{em:"🌿",name:"Le·La Zen Absolu·e",
-    tag:"calme · présent·e · reposant·e",
+  Z:{em:"🌿",name:"Le Zen Absolu",
+    tag:"calme · présent · reposant",
     sub:"Tu attends dans la queue sans angoisser.",
     ds:"Tu remarques des trucs que les autres ratent. Les gens se sentent moins stressés après t'avoir parlé cinq minutes. Tu n'en fais pas grand-chose. C'est très bien comme ça.",
     col:"linear-gradient(160deg,#EAF6F3,#CFEAE3 50%,#FFFBF1)",
@@ -873,7 +903,8 @@ function spinWheel(){
   wSpin=true;
   const res=document.getElementById("spinResult");
   res.classList.remove("show");res.setAttribute("aria-hidden","true");
-  document.getElementById("spinOrderBtn").style.display="none";
+  const pairEl=document.getElementById("spinPair");
+  if(pairEl) pairEl.style.display="none";
   const idx=Math.floor(Math.random()*WHEEL.length);
   const sl=(Math.PI*2)/WHEEL.length;
   const turns=5+Math.random()*2;
@@ -894,9 +925,8 @@ function spinWheel(){
       document.getElementById("spinEm").textContent=it.em;
       document.getElementById("spinNm").textContent=it.name;
       document.getElementById("spinDs").textContent=it.desc;
-      const ob=document.getElementById("spinOrderBtn");
-      ob.style.display="";
-      ob.onclick=()=>showCounter({em:it.em,nm:it.name,px:"",col:null});
+      const pe=document.getElementById("spinPair");
+      if(pe){ pe.textContent=it.pair||""; pe.style.display=it.pair?"":"none"; }
       res.setAttribute("aria-hidden","false");
       requestAnimationFrame(()=>res.classList.add("show"));
     }
