@@ -50,12 +50,11 @@ export function Newsletter() {
               <IceCream className="h-5 w-5" />
             </motion.span>
             <h2 className="h-display mt-3 text-xl sm:text-2xl">
-              On vous prévient quand la caravane{" "}
-              <span className="font-script text-cherry">redémarre</span> ?
+              📬 Le mail <span className="font-script text-cherry">du quai</span>
             </h2>
             <p className="mt-1.5 max-w-md text-[13.5px] leading-relaxed text-ink/60 sm:text-[14px]">
-              Nouveaux parfums, prochains horaires, événements sur le quai.
-              Un email court, jamais de spam.
+              Rejoins l&apos;équipage. On te dit où on s&apos;installe 24h avant le
+              prochain rassemblement — ça reste entre nous 🤫
             </p>
           </div>
 
@@ -88,7 +87,7 @@ export function Newsletter() {
                 >
                   {status === "loading"
                     ? <span className="mx-auto block h-4 w-4 animate-spin rounded-full border-2 border-cream/30 border-t-cream" />
-                    : "Suivre la caravane"}
+                    : "Allez, embarque-moi 🛶"}
                 </button>
               </motion.form>
             ) : (
