@@ -59,7 +59,7 @@ const categories: Cat[] = [
         name: "Une boule",
         desc: "Un parfum au choix",
         price: "3,50 €",
-        emoji: "🍨",
+        emoji: "🍧",
         ingredients: "Glace artisanale — parfums du jour",
         allergens: ["lait"],
         kcal: 120,
@@ -70,7 +70,7 @@ const categories: Cat[] = [
         desc: "Deux parfums au choix",
         price: "6 €",
         star: true,
-        emoji: "🍦",
+        emoji: "🍒",
         ingredients: "Glace artisanale — parfums du jour",
         allergens: ["lait"],
         kcal: 240,
@@ -80,7 +80,7 @@ const categories: Cat[] = [
         name: "Trois boules",
         desc: "Trois parfums au choix",
         price: "7,50 €",
-        emoji: "🍧",
+        emoji: "🍨",
         ingredients: "Glace artisanale — parfums du jour",
         allergens: ["lait"],
         kcal: 360,
@@ -149,7 +149,7 @@ const categories: Cat[] = [
         price: "7,50 €",
         star: true,
         emoji: "🌟",
-        ingredients: "Gaufre, garniture maison",
+        ingredients: "Gaufre, garniture du jour",
         allergens: ["gluten", "oeufs", "lait"],
         kcal: 560,
         tip: "Notre coup de cœur de la carte — demandez la composition du jour.",
@@ -445,73 +445,6 @@ function ProductCard({
   );
 }
 
-/* ── Glace pick card (Choix de l'équipe — glaces) ───────── */
-function GlaceTeamCard({
-  item,
-  isOpen,
-  onToggle,
-}: {
-  item: Item;
-  isOpen: boolean;
-  onToggle: () => void;
-}) {
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: isOpen ? 0 : -2 }}
-      transition={{ duration: 0.25 }}
-      className="relative overflow-hidden rounded-3xl border border-rose-200/70 bg-gradient-to-br from-rose-100 via-peach-100 to-cream shadow-ring"
-    >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 50% at 100% 0%, rgba(255,255,255,0.55), transparent 60%)",
-        }}
-      />
-      <button
-        type="button"
-        onClick={onToggle}
-        className="relative flex w-full cursor-pointer items-center gap-4 px-4 py-4 text-left sm:px-5 sm:py-5"
-        aria-expanded={isOpen}
-      >
-        <span
-          className="grid h-[88px] w-[88px] shrink-0 place-items-center rounded-2xl bg-white/70 text-[54px] leading-none shadow-soft"
-          aria-hidden
-        >
-          {item.emoji}
-        </span>
-        <div className="min-w-0 flex-1">
-          <div className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-cherry-deep">
-            💚 Choix de l&apos;équipe
-          </div>
-          <div className="mt-0.5 font-display text-[22px] font-semibold leading-tight text-ink">
-            {item.name}
-          </div>
-          <p className="mt-1 text-[12.5px] leading-snug text-ink-soft">
-            {item.desc} — saveur spéciale différente chaque semaine.
-          </p>
-          <div className="mt-2 flex items-center gap-2">
-            <span className="inline-block rounded-full bg-ink px-3 py-1 text-[13px] font-bold text-cream">
-              {item.price}
-            </span>
-            <motion.span
-              animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.25 }}
-              className="ml-auto text-ink/30"
-              aria-hidden
-            >
-              <ChevronDown className="h-4 w-4" />
-            </motion.span>
-          </div>
-        </div>
-      </button>
-    </motion.article>
-  );
-}
-
 /* ── La Foli's signature card (Choix de l'équipe) ───────── */
 function FoliCard({
   item,
@@ -588,22 +521,27 @@ export function Menu() {
   const cat = categories.find((c) => c.key === active)!;
   const tabsRef = useRef<HTMLDivElement>(null);
 
-  // Promote a starred item into a "Choix de l'équipe" hero card for glaces & gaufres.
+  // La Foli's is the team-pick hero on the GLACES tab (the user's headline product),
+  // and is hidden from the gaufres grid so it never appears twice.
   const isGaufres = cat.key === "gaufres";
   const isGlaces = cat.key === "glaces";
-  const teamPick: Item | null = isGaufres
-    ? cat.items.find((i) => i.name === "La Foli's") ?? null
-    : isGlaces
-      ? cat.items.find((i) => i.star) ?? null
-      : null;
-  const gridItems = teamPick ? cat.items.filter((i) => i !== teamPick) : cat.items;
+  const foli =
+    categories.find((c) => c.key === "gaufres")?.items.find((i) => i.name === "La Foli's") ?? null;
+  const teamPick: Item | null = isGlaces ? foli : null;
+  const gridItems = isGaufres
+    ? cat.items.filter((i) => i.name !== "La Foli's")
+    : cat.items;
 
   function toggle(key: string) {
     setOpenKey((k) => (k === key ? null : key));
   }
 
+  // Look up the open item across the whole catalog so the team-pick detail
+  // (e.g. La Foli's shown on the glaces tab) resolves correctly.
   const openItem = openKey
-    ? cat.items.find((i) => `${cat.key}:${i.name}` === openKey) ?? null
+    ? categories
+        .flatMap((c) => c.items.map((i) => ({ key: `${c.key}:${i.name}`, item: i })))
+        .find((x) => x.key === openKey)?.item ?? null
     : null;
 
   return (
@@ -694,26 +632,18 @@ export function Menu() {
               {cat.tagline}
             </p>
 
-            {/* Team pick (glaces & gaufres) */}
+            {/* Team pick — La Foli's, displayed on the glaces tab */}
             {teamPick && (
               <div className="mt-6">
                 <h3 className="mb-3 flex items-center gap-2 px-1 font-display text-[17px] font-semibold text-ink">
                   <span className="text-[20px]" aria-hidden>💚</span>
                   Choix de l&apos;équipe
                 </h3>
-                {isGaufres ? (
-                  <FoliCard
-                    item={teamPick}
-                    isOpen={openKey === `${cat.key}:${teamPick.name}`}
-                    onToggle={() => toggle(`${cat.key}:${teamPick.name}`)}
-                  />
-                ) : (
-                  <GlaceTeamCard
-                    item={teamPick}
-                    isOpen={openKey === `${cat.key}:${teamPick.name}`}
-                    onToggle={() => toggle(`${cat.key}:${teamPick.name}`)}
-                  />
-                )}
+                <FoliCard
+                  item={teamPick}
+                  isOpen={openKey === `gaufres:${teamPick.name}`}
+                  onToggle={() => toggle(`gaufres:${teamPick.name}`)}
+                />
                 <h3 className="mt-6 mb-3 flex items-center gap-2 px-1 font-display text-[17px] font-semibold text-ink">
                   <span className="text-[20px]" aria-hidden>{cat.emoji}</span>
                   {cat.label}
@@ -801,7 +731,7 @@ export function Menu() {
             <div className="flex items-center gap-3 bg-gradient-to-br from-peach-100 to-sun-100 px-4 py-3 text-[13.5px] font-semibold text-ink sm:px-5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/chantilly.png" alt="" className="h-6 w-6 shrink-0 object-contain" aria-hidden />
-              <span>Chantilly maison <strong>+1&nbsp;€</strong></span>
+              <span>Chantilly <strong>+1&nbsp;€</strong></span>
             </div>
             <div className="flex items-center gap-3 bg-gradient-to-br from-cream-deep to-white px-4 py-3 text-[13.5px] font-semibold text-ink sm:px-5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
