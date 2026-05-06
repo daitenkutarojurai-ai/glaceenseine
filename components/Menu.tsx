@@ -22,6 +22,8 @@ type Item = {
   desc: string;
   price: string;
   star?: boolean;
+  /* Per-item emoji — related to the category but visually distinct from siblings. */
+  emoji: string;
   ingredients: string;
   allergens: AllergenKey[];
   kcal: number;
@@ -57,6 +59,7 @@ const categories: Cat[] = [
         name: "Une boule",
         desc: "Un parfum au choix",
         price: "3,50 €",
+        emoji: "🍨",
         ingredients: "Glace artisanale — parfums du jour",
         allergens: ["lait"],
         kcal: 120,
@@ -67,15 +70,17 @@ const categories: Cat[] = [
         desc: "Deux parfums au choix",
         price: "6 €",
         star: true,
+        emoji: "🍦",
         ingredients: "Glace artisanale — parfums du jour",
         allergens: ["lait"],
         kcal: 240,
-        tip: "Demandez la saveur de la semaine — elle change tous les samedis.",
+        tip: "Demandez la saveur de la semaine — elle change toutes les semaines.",
       },
       {
         name: "Trois boules",
         desc: "Trois parfums au choix",
         price: "7,50 €",
+        emoji: "🍧",
         ingredients: "Glace artisanale — parfums du jour",
         allergens: ["lait"],
         kcal: 360,
@@ -99,6 +104,7 @@ const categories: Cat[] = [
         desc: "Le classique",
         price: "2,50 €",
         star: true,
+        emoji: "🥞",
         ingredients: "Farine de blé, œufs, lait, beurre, sucre cristal",
         allergens: ["gluten", "oeufs", "lait"],
         kcal: 215,
@@ -108,6 +114,7 @@ const categories: Cat[] = [
         name: "Pâte à tartiner",
         desc: "Une cuillère généreuse",
         price: "3,50 €",
+        emoji: "🍫",
         ingredients: "Farine de blé, œufs, lait, beurre, pâte à tartiner aux noisettes",
         allergens: ["gluten", "oeufs", "lait", "noisettes", "soja"],
         kcal: 350,
@@ -117,6 +124,7 @@ const categories: Cat[] = [
         name: "Caramel",
         desc: "Caramel doux",
         price: "3,50 €",
+        emoji: "🍯",
         ingredients: "Farine de blé, œufs, lait, beurre, caramel",
         allergens: ["gluten", "oeufs", "lait"],
         kcal: 290,
@@ -140,6 +148,7 @@ const categories: Cat[] = [
         desc: "Notre signature gourmande",
         price: "7,50 €",
         star: true,
+        emoji: "🌟",
         ingredients: "Gaufre, garniture maison",
         allergens: ["gluten", "oeufs", "lait"],
         kcal: 560,
@@ -149,6 +158,7 @@ const categories: Cat[] = [
         name: "Sucre glace",
         desc: "Toute simple",
         price: "3,50 €",
+        emoji: "🧇",
         ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure, sucre glace",
         allergens: ["gluten", "oeufs", "lait"],
         kcal: 290,
@@ -158,6 +168,7 @@ const categories: Cat[] = [
         name: "Pâte à tartiner",
         desc: "Coulante, généreuse",
         price: "4,50 €",
+        emoji: "🍫",
         ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure, pâte à tartiner aux noisettes",
         allergens: ["gluten", "oeufs", "lait", "noisettes", "soja"],
         kcal: 450,
@@ -167,6 +178,7 @@ const categories: Cat[] = [
         name: "Caramel",
         desc: "Caramel doux",
         price: "4,50 €",
+        emoji: "🍯",
         ingredients: "Farine de blé, œufs, lait, beurre, sucre, levure, caramel",
         allergens: ["gluten", "oeufs", "lait"],
         kcal: 380,
@@ -189,6 +201,7 @@ const categories: Cat[] = [
         name: "Coca-Cola classique 33 cl",
         desc: "Canette fraîche",
         price: "2,50 €",
+        emoji: "🥤",
         ingredients: "Coca-Cola classique",
         allergens: [],
         kcal: 139,
@@ -198,6 +211,7 @@ const categories: Cat[] = [
         name: "Tropico tropical 33 cl",
         desc: "Mélange de fruits tropicaux",
         price: "2,50 €",
+        emoji: "🍹",
         ingredients: "Boisson aux fruits Tropico",
         allergens: [],
         kcal: 150,
@@ -207,6 +221,7 @@ const categories: Cat[] = [
         name: "Fanta fruit du dragon 33 cl",
         desc: "Édition pétillante",
         price: "2,50 €",
+        emoji: "🐉",
         ingredients: "Fanta fruit du dragon",
         allergens: [],
         kcal: 110,
@@ -216,6 +231,7 @@ const categories: Cat[] = [
         name: "Perrier 33 cl",
         desc: "Eau gazeuse minérale",
         price: "2,50 €",
+        emoji: "💧",
         ingredients: "Eau minérale gazeuse Perrier",
         allergens: [],
         kcal: 0,
@@ -225,6 +241,7 @@ const categories: Cat[] = [
         name: "Eau 50 cl",
         desc: "Bouteille fraîche",
         price: "2 €",
+        emoji: "🧊",
         ingredients: "Eau minérale",
         allergens: [],
         kcal: 0,
@@ -234,6 +251,7 @@ const categories: Cat[] = [
         name: "Vin bio sans alcool",
         desc: "Désalcoolisé, certifié bio",
         price: "4 €",
+        emoji: "🍷",
         ingredients: "Vin bio désalcoolisé",
         allergens: [],
         kcal: 35,
@@ -243,6 +261,7 @@ const categories: Cat[] = [
         name: "Bière sans alcool",
         desc: "Fraîche et légère",
         price: "4 €",
+        emoji: "🍺",
         ingredients: "Bière sans alcool",
         allergens: ["gluten"],
         kcal: 75,
@@ -253,6 +272,7 @@ const categories: Cat[] = [
         desc: "Serré ou allongé",
         price: "2 €",
         star: true,
+        emoji: "☕",
         ingredients: "Café",
         allergens: [],
         kcal: 5,
@@ -262,6 +282,7 @@ const categories: Cat[] = [
         name: "Thé",
         desc: "Servi chaud",
         price: "3 €",
+        emoji: "🍵",
         ingredients: "Thé",
         allergens: [],
         kcal: 0,
@@ -386,11 +407,11 @@ function ProductCard({
       <button
         type="button"
         onClick={onToggle}
-        className="block w-full cursor-pointer rounded-2xl p-3.5 text-left"
+        className="block w-full cursor-pointer rounded-2xl p-4 text-left sm:p-3.5"
         aria-expanded={isOpen}
       >
-        <span className="block text-[22px] leading-none drop-shadow-sm" aria-hidden>
-          {cat.emoji}
+        <span className="block text-[28px] leading-none drop-shadow-sm sm:text-[22px]" aria-hidden>
+          {item.emoji}
         </span>
         <div className="mt-1.5 flex items-center gap-1.5">
           <h3 className="font-display text-[15px] font-semibold leading-tight text-ink">
@@ -418,6 +439,73 @@ function ProductCard({
           >
             <ChevronDown className="h-4 w-4" />
           </motion.span>
+        </div>
+      </button>
+    </motion.article>
+  );
+}
+
+/* ── Glace pick card (Choix de l'équipe — glaces) ───────── */
+function GlaceTeamCard({
+  item,
+  isOpen,
+  onToggle,
+}: {
+  item: Item;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: isOpen ? 0 : -2 }}
+      transition={{ duration: 0.25 }}
+      className="relative overflow-hidden rounded-3xl border border-rose-200/70 bg-gradient-to-br from-rose-100 via-peach-100 to-cream shadow-ring"
+    >
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 50% at 100% 0%, rgba(255,255,255,0.55), transparent 60%)",
+        }}
+      />
+      <button
+        type="button"
+        onClick={onToggle}
+        className="relative flex w-full cursor-pointer items-center gap-4 px-4 py-4 text-left sm:px-5 sm:py-5"
+        aria-expanded={isOpen}
+      >
+        <span
+          className="grid h-[88px] w-[88px] shrink-0 place-items-center rounded-2xl bg-white/70 text-[54px] leading-none shadow-soft"
+          aria-hidden
+        >
+          {item.emoji}
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-cherry-deep">
+            💚 Choix de l&apos;équipe
+          </div>
+          <div className="mt-0.5 font-display text-[22px] font-semibold leading-tight text-ink">
+            {item.name}
+          </div>
+          <p className="mt-1 text-[12.5px] leading-snug text-ink-soft">
+            {item.desc} — saveur spéciale différente chaque semaine.
+          </p>
+          <div className="mt-2 flex items-center gap-2">
+            <span className="inline-block rounded-full bg-ink px-3 py-1 text-[13px] font-bold text-cream">
+              {item.price}
+            </span>
+            <motion.span
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.25 }}
+              className="ml-auto text-ink/30"
+              aria-hidden
+            >
+              <ChevronDown className="h-4 w-4" />
+            </motion.span>
+          </div>
         </div>
       </button>
     </motion.article>
@@ -500,10 +588,15 @@ export function Menu() {
   const cat = categories.find((c) => c.key === active)!;
   const tabsRef = useRef<HTMLDivElement>(null);
 
-  // For gaufres: pull La Foli's out into the "Choix de l'équipe" hero card.
+  // Promote a starred item into a "Choix de l'équipe" hero card for glaces & gaufres.
   const isGaufres = cat.key === "gaufres";
-  const foli = isGaufres ? cat.items.find((i) => i.name === "La Foli's") ?? null : null;
-  const gridItems = isGaufres ? cat.items.filter((i) => i.name !== "La Foli's") : cat.items;
+  const isGlaces = cat.key === "glaces";
+  const teamPick: Item | null = isGaufres
+    ? cat.items.find((i) => i.name === "La Foli's") ?? null
+    : isGlaces
+      ? cat.items.find((i) => i.star) ?? null
+      : null;
+  const gridItems = teamPick ? cat.items.filter((i) => i !== teamPick) : cat.items;
 
   function toggle(key: string) {
     setOpenKey((k) => (k === key ? null : key));
@@ -548,11 +641,11 @@ export function Menu() {
           </div>
         </Reveal>
 
-        {/* Tabs */}
+        {/* Tabs — sticky 2x2 grid on mobile, row on desktop. No horizontal scroll. */}
         <Reveal delay={0.11}>
           <div
             ref={tabsRef}
-            className="no-scrollbar mt-8 flex gap-3 overflow-x-auto pb-1 sm:justify-start"
+            className="sticky top-2 z-20 mt-8 grid grid-cols-2 gap-2 rounded-3xl bg-cream/85 p-2 shadow-soft ring-1 ring-ink/5 backdrop-blur sm:flex sm:flex-wrap sm:gap-3 sm:bg-transparent sm:p-0 sm:shadow-none sm:ring-0 sm:backdrop-blur-0"
             role="tablist"
             aria-label="Catégories"
           >
@@ -567,8 +660,8 @@ export function Menu() {
                     setActive(c.key);
                     setOpenKey(null);
                   }}
-                  className={`relative flex shrink-0 cursor-pointer items-center gap-2 rounded-2xl px-5 py-3 text-[15px] font-semibold transition ${
-                    isActive ? `${c.bg} ${c.text} shadow-soft` : "bg-cream/60 text-ink/55 hover:text-ink"
+                  className={`relative flex min-h-[52px] cursor-pointer items-center justify-center gap-2 rounded-2xl px-3 py-3 text-[15px] font-semibold transition active:scale-[0.98] sm:min-h-0 sm:px-5 ${
+                    isActive ? `${c.bg} ${c.text} shadow-soft` : "bg-white/60 text-ink/55 hover:text-ink sm:bg-cream/60"
                   }`}
                 >
                   <span className="text-xl leading-none" role="img" aria-hidden>{c.emoji}</span>
@@ -601,18 +694,26 @@ export function Menu() {
               {cat.tagline}
             </p>
 
-            {/* Foli's signature (gaufres only) */}
-            {foli && (
+            {/* Team pick (glaces & gaufres) */}
+            {teamPick && (
               <div className="mt-6">
                 <h3 className="mb-3 flex items-center gap-2 px-1 font-display text-[17px] font-semibold text-ink">
                   <span className="text-[20px]" aria-hidden>💚</span>
                   Choix de l&apos;équipe
                 </h3>
-                <FoliCard
-                  item={foli}
-                  isOpen={openKey === `${cat.key}:${foli.name}`}
-                  onToggle={() => toggle(`${cat.key}:${foli.name}`)}
-                />
+                {isGaufres ? (
+                  <FoliCard
+                    item={teamPick}
+                    isOpen={openKey === `${cat.key}:${teamPick.name}`}
+                    onToggle={() => toggle(`${cat.key}:${teamPick.name}`)}
+                  />
+                ) : (
+                  <GlaceTeamCard
+                    item={teamPick}
+                    isOpen={openKey === `${cat.key}:${teamPick.name}`}
+                    onToggle={() => toggle(`${cat.key}:${teamPick.name}`)}
+                  />
+                )}
                 <h3 className="mt-6 mb-3 flex items-center gap-2 px-1 font-display text-[17px] font-semibold text-ink">
                   <span className="text-[20px]" aria-hidden>{cat.emoji}</span>
                   {cat.label}
@@ -621,7 +722,7 @@ export function Menu() {
             )}
 
             {/* Grid of products */}
-            <div className={`grid grid-cols-2 gap-3 ${foli ? "" : "mt-6"}`}>
+            <div className={`grid grid-cols-2 gap-3 ${teamPick ? "" : "mt-6"}`}>
               {gridItems.map((item) => {
                 const key = `${cat.key}:${item.name}`;
                 return (

@@ -493,21 +493,23 @@ section + section{padding-top:24px}
     </div>
   </div>
 
-  <!-- Competition banner -->
+  <!-- Back to menu -->
+  <div class="back-menu">
+    <a href="https://www.glaceenseine.fr/careupdate.png" target="_blank" rel="noopener">← Voir la carte complète</a>
+  </div>
+</section>
+
+<!-- Competition banner — always visible, regardless of quiz state -->
+<section class="wrap" style="padding-top:24px" aria-label="Concours photo du mois">
   <div class="comp-banner">
     <div class="trophy">🏆</div>
     <h4>La plus belle photo du mois gagne une crêpe offerte</h4>
     <p>Envoie ta glace en DM à <strong>@glacesenseine</strong> et on annonce le gagnant en fin de mois.</p>
     <div class="comp-actions">
       <button class="comp-action-btn" id="compCameraBtn">📷 Prendre une photo</button>
-      <a class="comp-action-btn ig-btn" href="https://instagram.com/glacesenseine" target="_blank" rel="noopener">📸 Instagram</a>
-      <a class="comp-action-btn fb-btn" href="https://www.facebook.com/glacesenseine" target="_blank" rel="noopener">📘 Facebook</a>
+      <a class="comp-action-btn ig-btn" href="https://www.instagram.com/glacesenseine/" rel="noopener noreferrer">📸 Instagram</a>
+      <a class="comp-action-btn fb-btn" href="https://www.facebook.com/glacesenseine" rel="noopener noreferrer">📘 Facebook</a>
     </div>
-  </div>
-
-  <!-- Back to menu -->
-  <div class="back-menu">
-    <a href="https://www.glaceenseine.fr/careupdate.png" target="_blank" rel="noopener">← Voir la carte complète</a>
   </div>
 </section>
 
@@ -554,7 +556,7 @@ const WHEEL=[
   {name:"Crêpe sucre cristal",  em:"🥞",col:"#FFF1C4",price:2.50,desc:"Le minimalisme assumé. Un peu de beurre, du sucre, la paix.",pair:"☕ Un café — la pause goûter complète."},
   {name:"La Foli's",            em:"🧇",col:"#5DBAA8",price:7.50,desc:"Tu viens de gagner. La maison est fière de toi.",pair:"🥤 Un soft frais pour calmer le sucre."},
   {name:"Gaufre caramel",   em:"🧇",col:"#F4C95D",price:4.50,desc:"Doré, fondant, dramatique. Ta journée prend du sens.",pair:"🍦 Une boule vanille pour finir en beauté."},
-  {name:"Café",             em:"☕",col:"#A0826D",price:2.00,desc:"Le destin a décidé que tu es un adulte sérieux. C'est faux, mais on joue le jeu.",pair:"🥞 Avec une crêpe sucre cristal, c'est dimanche."},
+  {name:"Café",             em:"☕",col:"#A0826D",price:2.00,desc:"Le destin a décidé que tu es un adulte sérieux. C'est faux, mais on joue le jeu.",pair:"🥞 Avec une crêpe sucre cristal, le combo classique."},
   {name:"Tropico tropical", em:"🥤",col:"#FFCAB1",price:2.50,desc:"Tu as 10 ans dans la tête. Tu as totalement raison.",pair:"🥭 Une boule mangue par-dessus, c'est l'été."},
 ];
 
@@ -910,21 +912,33 @@ function spinWheel(){
   res.classList.remove("show");res.setAttribute("aria-hidden","true");
   const pairEl=document.getElementById("spinPair");
   if(pairEl) pairEl.style.display="none";
+
+  const TAU=Math.PI*2;
   const idx=pickWheelIndex();
-  const sl=(Math.PI*2)/WHEEL.length;
+  const sl=TAU/WHEEL.length;
   const turns=5+Math.random()*2;
-  const off=-Math.PI/2-(idx*sl+sl/2);
-  const target=turns*Math.PI*2+((off%(Math.PI*2))+(Math.PI*2))%(Math.PI*2);
-  const base=Math.floor(wRot/(Math.PI*2))*(Math.PI*2);
-  const end=base+target, total=end-wRot, start=wRot;
-  const dur=4200, t0=performance.now();
+
+  /* Normalize current rotation to [0, TAU) — keeps precision predictable. */
+  const startMod=((wRot%TAU)+TAU)%TAU;
+  wRot=startMod;
+  /* Final rotation needed so slice idx center sits exactly under the pointer (-π/2). */
+  const desired=((-Math.PI/2-(idx*sl+sl/2))%TAU+TAU)%TAU;
+  /* Forward delta from current → desired, then add full turns for spin. */
+  let delta=desired-startMod;
+  if(delta<=0) delta+=TAU;
+  delta+=turns*TAU;
+
+  const start=wRot, end=wRot+delta, dur=4200, t0=performance.now();
   (function frame(now){
     const t=Math.min(1,(now-t0)/dur);
     const e=1-Math.pow(1-t,3.4);
-    wRot=start+total*e;
+    wRot=start+delta*e;
     drawWheel(wRot);
     if(t<1){requestAnimationFrame(frame);}
     else{
+      /* Snap to exact target — eliminates any float drift. */
+      wRot=desired;
+      drawWheel(wRot);
       wSpin=false;
       const it=WHEEL[idx];
       document.getElementById("spinEm").textContent=it.em;
