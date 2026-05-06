@@ -9,14 +9,14 @@ const PHOTOS = [
   {
     src: "/inprod.jpg",
     alt: "Préparation des crêpes à la plaque",
-    caption: "À la plaque, comme à la maison",
+    caption: "Un sourire offert avec chaque boule",
     width: 2040,
     height: 1148,
   },
   {
     src: "/camion-patronne.jpg",
     alt: "La caravane et ses fondatrices",
-    caption: "La caravane, sous les tilleuls",
+    caption: "Petits plaisirs, grande joie 🍦",
     width: 1600,
     height: 1201,
   },
