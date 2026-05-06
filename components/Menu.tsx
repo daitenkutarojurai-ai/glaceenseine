@@ -70,7 +70,7 @@ const categories: Cat[] = [
         desc: "Deux parfums au choix",
         price: "6 €",
         star: true,
-        emoji: "🍒",
+        emoji: "🍦",
         ingredients: "Glace artisanale — parfums du jour",
         allergens: ["lait"],
         kcal: 240,
