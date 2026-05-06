@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "./Reveal";
-import { IceCream, Cookie, CakeSlice, Coffee, Star, ChevronDown, Flame, Leaf, Info } from "lucide-react";
+import { IceCream, Cookie, CakeSlice, Coffee, ChevronDown, Flame, Leaf, Info } from "lucide-react";
 
 /* ── Allergen definitions ─────────────────────────────── */
 type AllergenKey = "gluten" | "lait" | "oeufs" | "noisettes" | "pistache" | "soja";
@@ -37,6 +37,7 @@ type Cat = {
   bg: string;
   accent: string;
   text: string;
+  cardBg: string; // gradient for the small product cards (attente-style)
   items: Item[];
 };
 
@@ -50,6 +51,7 @@ const categories: Cat[] = [
     bg: "bg-rose-100",
     accent: "bg-rose-300/30",
     text: "text-cherry",
+    cardBg: "bg-gradient-to-br from-rose-100 to-white",
     items: [
       {
         name: "Une boule",
@@ -90,6 +92,7 @@ const categories: Cat[] = [
     bg: "bg-sun-100",
     accent: "bg-sun-300/30",
     text: "text-ink",
+    cardBg: "bg-gradient-to-br from-sun-100 to-white",
     items: [
       {
         name: "Sucre cristal",
@@ -130,6 +133,7 @@ const categories: Cat[] = [
     bg: "bg-teal-100",
     accent: "bg-teal-300/30",
     text: "text-teal-700",
+    cardBg: "bg-gradient-to-br from-cream-deep to-cream",
     items: [
       {
         name: "La Foli's",
@@ -179,6 +183,7 @@ const categories: Cat[] = [
     bg: "bg-sky-100",
     accent: "bg-sky-200/40",
     text: "text-sky-700",
+    cardBg: "bg-gradient-to-br from-sky-100 to-white",
     items: [
       {
         name: "Coca-Cola classique 33 cl",
@@ -343,118 +348,170 @@ function ItemDetail({ item, accent }: { item: Item; accent: string }) {
   );
 }
 
-/* ── Menu item row / card ───────────────────────────────── */
-function MenuItem({ item, cat, isLast }: { item: Item; cat: Cat; isLast: boolean }) {
-  const [open, setOpen] = useState(false);
-
-  if (item.star) {
-    return (
-      <motion.article
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={{ y: open ? 0 : -2 }}
-        className={`relative overflow-hidden rounded-3xl ${cat.bg} shadow-soft`}
-      >
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="w-full cursor-pointer p-5 text-left"
-          aria-expanded={open}
-        >
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0 flex-1">
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-ink/45">
-                Coup de cœur
-              </span>
-              <h3 className="mt-1 font-display text-xl text-ink">{item.name}</h3>
-              <p className="mt-0.5 text-[14px] text-ink/65">{item.desc}</p>
-            </div>
-            <div className="flex shrink-0 flex-col items-end gap-2">
-              <Star className={`h-4 w-4 ${cat.text} opacity-60 fill-current`} />
-              <span className="rounded-full bg-ink px-3.5 py-1.5 text-[13px] font-bold text-cream">
-                {item.price}
-              </span>
-            </div>
-          </div>
-          <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className={`text-[12px] font-medium ${cat.text}`}>
-              {cat.emoji} Artisanal
-            </span>
-            <span className="flex items-center gap-1 text-[12px] text-ink/40">
-              <Flame className="h-3 w-3" />≈ {item.kcal} kcal
-            </span>
-            {item.allergens.length === 0 && (
-              <span className="flex items-center gap-1 text-[12px] text-teal-600">
-                <Leaf className="h-3 w-3" />Sans allergène
-              </span>
-            )}
-            <motion.span
-              animate={{ rotate: open ? 180 : 0 }}
-              transition={{ duration: 0.25 }}
-              className="ml-auto text-ink/30"
-            >
-              <ChevronDown className="h-4 w-4" />
-            </motion.span>
-          </div>
-        </button>
-        <AnimatePresence>
-          {open && <ItemDetail item={item} accent={cat.accent} />}
-        </AnimatePresence>
-      </motion.article>
-    );
-  }
+/* ── Product card (attente.html style) ──────────────────── */
+function ProductCard({
+  item,
+  cat,
+  isOpen,
+  onToggle,
+  badge,
+}: {
+  item: Item;
+  cat: Cat;
+  isOpen: boolean;
+  onToggle: () => void;
+  badge?: { label: string; color: "cherry" | "teal" };
+}) {
+  const ringClass = item.star ? "ring-2 ring-cherry" : "ring-1 ring-ink/5";
+  const badgeBg =
+    badge?.color === "cherry"
+      ? "bg-cherry shadow-[0_4px_14px_-4px_rgba(226,107,92,0.6)]"
+      : "bg-teal-700 shadow-[0_4px_14px_-4px_rgba(46,132,117,0.6)]";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -8 }}
-      animate={{ opacity: 1, x: 0 }}
-      className={!isLast ? "border-b border-ink/6" : ""}
+    <motion.article
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: isOpen ? 0 : -2 }}
+      transition={{ duration: 0.25 }}
+      className={`relative ${cat.cardBg} ${ringClass} rounded-2xl shadow-soft`}
     >
+      {badge && (
+        <span
+          className={`absolute -top-2.5 right-3 z-10 rounded-full px-2.5 py-0.5 text-[10.5px] font-bold tracking-[0.02em] text-white whitespace-nowrap ${badgeBg}`}
+        >
+          {badge.label}
+        </span>
+      )}
       <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-ink/[0.02]"
-        aria-expanded={open}
+        type="button"
+        onClick={onToggle}
+        className="block w-full cursor-pointer rounded-2xl p-3.5 text-left"
+        aria-expanded={isOpen}
       >
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="font-display text-[16px] text-ink">{item.name}</span>
-            {item.allergens.length === 0 && (
-              <Leaf className="h-3.5 w-3.5 shrink-0 text-teal-500" />
-            )}
-          </div>
-          <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5">
-            <span className="text-[13px] leading-snug text-ink/55">{item.desc}</span>
-            <span className="flex items-center gap-0.5 text-[12px] text-ink/35">
-              <Flame className="h-3 w-3" />≈ {item.kcal} kcal
-            </span>
-          </div>
+        <span className="block text-[22px] leading-none drop-shadow-sm" aria-hidden>
+          {cat.emoji}
+        </span>
+        <div className="mt-1.5 flex items-center gap-1.5">
+          <h3 className="font-display text-[15px] font-semibold leading-tight text-ink">
+            {item.name}
+          </h3>
+          {item.allergens.length === 0 && (
+            <Leaf className="h-3 w-3 shrink-0 text-teal-600" aria-label="Sans allergène majeur" />
+          )}
         </div>
-        <div className="flex shrink-0 items-center gap-2">
-          <span className="rounded-full bg-ink/8 px-3 py-1 text-[13px] font-semibold text-ink">
+        <p className="mt-0.5 min-h-[28px] text-[12px] leading-snug text-ink/55">
+          {item.desc}
+        </p>
+        <div className="mt-2 flex items-center gap-2">
+          <span className="rounded-full bg-ink px-2.5 py-1 text-[12.5px] font-bold text-cream">
             {item.price}
           </span>
+          <span className="flex items-center gap-0.5 text-[11px] text-ink/35">
+            <Flame className="h-3 w-3" />≈ {item.kcal} kcal
+          </span>
           <motion.span
-            animate={{ rotate: open ? 180 : 0 }}
+            animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.25 }}
-            className="text-ink/30"
+            className="ml-auto text-ink/30"
+            aria-hidden
           >
             <ChevronDown className="h-4 w-4" />
           </motion.span>
         </div>
       </button>
-      <AnimatePresence>
-        {open && <ItemDetail item={item} accent="bg-ink/[0.03]" />}
-      </AnimatePresence>
-    </motion.div>
+    </motion.article>
+  );
+}
+
+/* ── La Foli's signature card (Choix de l'équipe) ───────── */
+function FoliCard({
+  item,
+  isOpen,
+  onToggle,
+}: {
+  item: Item;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: isOpen ? 0 : -2 }}
+      transition={{ duration: 0.25 }}
+      className="relative overflow-hidden rounded-3xl border border-sun-300/60 bg-gradient-to-br from-sun-100 via-peach-100 to-sun-300 shadow-ring"
+    >
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 50% at 100% 0%, rgba(255,255,255,0.55), transparent 60%)",
+        }}
+      />
+      <button
+        type="button"
+        onClick={onToggle}
+        className="relative flex w-full cursor-pointer items-center gap-4 px-4 py-4 text-left sm:px-5 sm:py-5"
+        aria-expanded={isOpen}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/lafolisup.png?v=6"
+          alt="La Foli's — coupelle gaufre, chantilly, cubes croustillants"
+          className="h-[108px] w-[90px] shrink-0 object-contain drop-shadow-[0_6px_14px_rgba(184,107,38,0.28)]"
+          loading="lazy"
+        />
+        <div className="min-w-0 flex-1">
+          <div className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-cherry-deep">
+            💚 Choix de l&apos;équipe
+          </div>
+          <div className="mt-0.5 font-display text-[22px] font-semibold leading-tight text-ink">
+            La <span className="font-script text-cherry">Foli&apos;s</span>
+          </div>
+          <p className="mt-1 text-[12.5px] leading-snug text-ink-soft">
+            Notre signature gourmande — gaufre, chantilly, cubes croustillants.
+            Demandez la composition du jour.
+          </p>
+          <div className="mt-2 flex items-center gap-2">
+            <span className="inline-block rounded-full bg-ink px-3 py-1 text-[13px] font-bold text-cream">
+              {item.price}
+            </span>
+            <motion.span
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.25 }}
+              className="ml-auto text-ink/30"
+              aria-hidden
+            >
+              <ChevronDown className="h-4 w-4" />
+            </motion.span>
+          </div>
+        </div>
+      </button>
+    </motion.article>
   );
 }
 
 /* ── Main export ────────────────────────────────────────── */
 export function Menu() {
   const [active, setActive] = useState(categories[0].key);
+  const [openKey, setOpenKey] = useState<string | null>(null);
   const cat = categories.find((c) => c.key === active)!;
-  const starred = cat.items.filter((i) => i.star);
-  const rest = cat.items.filter((i) => !i.star);
   const tabsRef = useRef<HTMLDivElement>(null);
+
+  // For gaufres: pull La Foli's out into the "Choix de l'équipe" hero card.
+  const isGaufres = cat.key === "gaufres";
+  const foli = isGaufres ? cat.items.find((i) => i.name === "La Foli's") ?? null : null;
+  const gridItems = isGaufres ? cat.items.filter((i) => i.name !== "La Foli's") : cat.items;
+
+  function toggle(key: string) {
+    setOpenKey((k) => (k === key ? null : key));
+  }
+
+  const openItem = openKey
+    ? cat.items.find((i) => `${cat.key}:${i.name}` === openKey) ?? null
+    : null;
 
   return (
     <section
@@ -475,7 +532,7 @@ export function Menu() {
         </Reveal>
         <Reveal delay={0.07}>
           <p className="mt-2 text-center text-[13.5px] text-ink/50 sm:text-left">
-            Cliquez sur un article pour voir ingrédients, allergènes et calories
+            Touchez un article pour voir ingrédients, allergènes et calories
           </p>
         </Reveal>
 
@@ -506,7 +563,10 @@ export function Menu() {
                   key={c.key}
                   role="tab"
                   aria-selected={isActive}
-                  onClick={() => setActive(c.key)}
+                  onClick={() => {
+                    setActive(c.key);
+                    setOpenKey(null);
+                  }}
                   className={`relative flex shrink-0 cursor-pointer items-center gap-2 rounded-2xl px-5 py-3 text-[15px] font-semibold transition ${
                     isActive ? `${c.bg} ${c.text} shadow-soft` : "bg-cream/60 text-ink/55 hover:text-ink"
                   }`}
@@ -541,33 +601,121 @@ export function Menu() {
               {cat.tagline}
             </p>
 
-            {/* Starred */}
-            {starred.length > 0 && (
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                {starred.map((item) => (
-                  <MenuItem key={item.name} item={item} cat={cat} isLast={false} />
-                ))}
+            {/* Foli's signature (gaufres only) */}
+            {foli && (
+              <div className="mt-6">
+                <h3 className="mb-3 flex items-center gap-2 px-1 font-display text-[17px] font-semibold text-ink">
+                  <span className="text-[20px]" aria-hidden>💚</span>
+                  Choix de l&apos;équipe
+                </h3>
+                <FoliCard
+                  item={foli}
+                  isOpen={openKey === `${cat.key}:${foli.name}`}
+                  onToggle={() => toggle(`${cat.key}:${foli.name}`)}
+                />
+                <h3 className="mt-6 mb-3 flex items-center gap-2 px-1 font-display text-[17px] font-semibold text-ink">
+                  <span className="text-[20px]" aria-hidden>{cat.emoji}</span>
+                  {cat.label}
+                </h3>
               </div>
             )}
 
-            {/* Regular */}
-            {rest.length > 0 && (
-              <div className="mt-4 overflow-hidden rounded-3xl bg-cream shadow-soft">
-                {rest.map((item, i) => (
-                  <MenuItem key={item.name} item={item} cat={cat} isLast={i === rest.length - 1} />
-                ))}
-              </div>
-            )}
+            {/* Grid of products */}
+            <div className={`grid grid-cols-2 gap-3 ${foli ? "" : "mt-6"}`}>
+              {gridItems.map((item) => {
+                const key = `${cat.key}:${item.name}`;
+                return (
+                  <ProductCard
+                    key={item.name}
+                    item={item}
+                    cat={cat}
+                    isOpen={openKey === key}
+                    onToggle={() => toggle(key)}
+                    badge={item.star ? { label: "⭐ Le plus commandé", color: "cherry" } : undefined}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Inline detail panel for the open card */}
+            <AnimatePresence>
+              {openItem && (
+                <motion.div
+                  key={openKey}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: [0.2, 0.8, 0.2, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-3 rounded-2xl bg-cream/70 px-4 py-3.5 text-[13px] shadow-soft ring-1 ring-ink/5 sm:px-5 sm:py-4">
+                    <div className="mb-2 flex items-center justify-between gap-2">
+                      <h4 className="font-display text-[15px] font-semibold text-ink">
+                        {openItem.name}
+                      </h4>
+                      <span className="flex items-center gap-1.5 rounded-full bg-ink/10 px-2.5 py-0.5 text-[11.5px] font-semibold text-ink">
+                        <Flame className="h-3 w-3 text-cherry" />≈ {openItem.kcal} kcal
+                      </span>
+                    </div>
+                    <p className="mb-2.5 text-[10.5px] font-bold uppercase tracking-[0.15em] text-ink/40">
+                      Ingrédients
+                    </p>
+                    <p className="mb-3 leading-relaxed text-ink/75">
+                      {openItem.ingredients}.
+                    </p>
+                    {openItem.allergens.length > 0 ? (
+                      <>
+                        <p className="mb-1.5 text-[10.5px] font-bold uppercase tracking-[0.15em] text-ink/40">
+                          Allergènes
+                        </p>
+                        <div className="mb-3 flex flex-wrap gap-1.5">
+                          {openItem.allergens.map((a) => <AllergenChip key={a} id={a} />)}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="mb-3 flex items-center gap-1.5">
+                        <Leaf className="h-3.5 w-3.5 text-teal-600" />
+                        <span className="text-[12px] font-medium text-teal-700">Sans allergène majeur</span>
+                      </div>
+                    )}
+                    {openItem.kcal > 500 && (
+                      <p className="mb-2 text-[12px] font-medium text-orange-600">
+                        ⚠️ À déguster avec modération
+                      </p>
+                    )}
+                    <div className="flex gap-2 rounded-xl bg-cream p-3">
+                      <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ink/40" />
+                      <p className="text-[12.5px] leading-relaxed text-ink/70">{openItem.tip}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </AnimatePresence>
 
-        {/* Footer note */}
+        {/* Suppléments block (attente.html style) */}
         <Reveal delay={0.1}>
-          <p className="mt-8 text-center text-[13px] text-ink/45">
-            Suppléments : chantilly +1 € · brochette de bonbons 2 € ·
-            carte indicative · parfums selon arrivages · prix susceptibles de varier ·
-            contamination croisée possible en cuisine — signalez vos allergies sévères ·
-            Nos produits sont artisanaux, préparés sur place.
+          <div className="mt-10 overflow-hidden rounded-2xl border border-dashed border-cherry/35 bg-white shadow-soft">
+            <div className="flex items-center gap-3 bg-gradient-to-br from-peach-100 to-sun-100 px-4 py-3 text-[13.5px] font-semibold text-ink sm:px-5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/chantilly.png" alt="" className="h-6 w-6 shrink-0 object-contain" aria-hidden />
+              <span>Chantilly maison <strong>+1&nbsp;€</strong></span>
+            </div>
+            <div className="flex items-center gap-3 bg-gradient-to-br from-cream-deep to-white px-4 py-3 text-[13.5px] font-semibold text-ink sm:px-5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/brochettes.png" alt="" className="h-6 w-9 shrink-0 object-contain" aria-hidden />
+              <span>Brochette de bonbons <strong>2&nbsp;€</strong></span>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Footer note */}
+        <Reveal delay={0.12}>
+          <p className="mt-6 text-center text-[12.5px] text-ink/45">
+            Carte indicative · prix susceptibles de varier · contamination croisée
+            possible en cuisine — signalez vos allergies sévères · nos produits
+            sont artisanaux, préparés sur place.
           </p>
         </Reveal>
       </div>
