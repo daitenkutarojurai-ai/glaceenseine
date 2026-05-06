@@ -1,0 +1,1132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#FFFBF1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Tu fais la queue ? — Glaces en Seine</title>
+<meta name="description" content="On s'occupe de toi pendant l'attente. Carte, roue des saveurs et quiz sur les quais." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="icon" href="/favicon.ico" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ─── Tokens (mirroring tailwind.config.ts) ─── */
+  :root{
+    --cream:#FFFBF1; --cream-deep:#FBF3DF;
+    --ink:#221C12; --ink-soft:#5C5040;
+    --teal-50:#EAF6F3; --teal-100:#CFEAE3; --teal-300:#9CD8CC; --teal-500:#5DBAA8; --teal-700:#2E8475;
+    --peach-100:#FFE5D2; --peach-300:#FFCAB1; --peach-500:#F8A684;
+    --sun-100:#FFF1C4; --sun-300:#FBE08E; --sun-500:#F4C95D;
+    --rose-100:#FBE0E0; --rose-300:#F4B6B6; --rose-500:#E68F8F;
+    --cherry:#E26B5C; --cherry-deep:#B14637;
+    --shadow-soft:0 8px 30px rgba(34,28,18,.08);
+    --shadow-ring:0 0 0 1px rgba(34,28,18,.06),0 12px 40px -12px rgba(34,28,18,.18);
+    --shadow-glow:0 20px 60px -20px rgba(93,186,168,.45);
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0;overflow-x:clip;max-width:100vw}
+  html{scroll-behavior:smooth;color-scheme:light}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    background-color:var(--cream);
+    background-image:
+      repeating-linear-gradient(90deg,transparent 0,transparent 90px,rgba(244,218,118,.14) 90px,rgba(244,218,118,.14) 155px),
+      radial-gradient(ellipse 70% 50% at -5% 0%,rgba(93,186,168,.13) 0%,transparent 65%),
+      radial-gradient(ellipse 70% 50% at 105% 105%,rgba(244,201,93,.13) 0%,transparent 65%),
+      radial-gradient(ellipse 50% 40% at 50% 50%,rgba(248,166,132,.08) 0%,transparent 70%);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    min-height:100dvh;
+  }
+  ::selection{background:var(--sun-500);color:var(--ink)}
+  a{color:inherit}
+  button{font-family:inherit}
+
+  /* ─── Layout ─── */
+  .wrap{max-width:560px;margin:0 auto;padding:0 16px}
+  section{padding:28px 0;scroll-margin-top:8px}
+  .h-display{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em;line-height:1.05}
+  .script{font-family:'Caveat',cursive;font-weight:600}
+  .eyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:11px;font-weight:700;color:var(--teal-700)}
+
+  /* ─── Hero ─── */
+  .hero{padding-top:40px;padding-bottom:8px;text-align:center;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;left:50%;top:-80px;width:420px;height:420px;border-radius:50%;background:var(--sun-100);opacity:.55;filter:blur(60px);transform:translateX(-50%);pointer-events:none}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,251,241,.85);backdrop-filter:blur(8px);padding:7px 14px;border-radius:999px;font-size:12px;font-weight:600;color:var(--teal-700);box-shadow:var(--shadow-soft);position:relative}
+  .hero h1{font-size:34px;line-height:1.05;margin:18px 0 8px;letter-spacing:-.02em;position:relative}
+  @media(min-width:480px){.hero h1{font-size:42px}}
+  .hero h1 .accent{font-family:'Caveat',cursive;color:var(--cherry);font-weight:700;letter-spacing:0;text-shadow:0 2px 8px rgba(226,107,92,.25);font-size:1.05em}
+  .hero p.sub{margin:8px 0 22px;color:var(--ink-soft);font-size:15px;position:relative}
+  .cta-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative}
+  .cta{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 20px;border-radius:999px;border:none;cursor:pointer;
+    font-size:15px;font-weight:700;text-decoration:none;
+    transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s ease,background .2s;
+    flex:1 1 160px;min-height:50px;
+  }
+  .cta-primary{background:var(--ink);color:var(--cream);box-shadow:var(--shadow-soft)}
+  .cta-secondary{background:var(--cream);color:var(--ink);box-shadow:var(--shadow-ring)}
+  .cta:active{transform:translateY(1px) scale(.99)}
+  .cta:hover{transform:translateY(-2px)}
+  .cta:focus-visible{outline:3px solid var(--teal-300);outline-offset:3px}
+
+  /* ─── Section heads ─── */
+  .sec-head{text-align:center;margin-bottom:18px}
+  .sec-head h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:26px;letter-spacing:-.01em;margin:6px 0 4px;line-height:1.1}
+  .sec-head p{margin:0;color:var(--ink-soft);font-size:13.5px}
+
+  /* ─── Menu ─── */
+  .menu-cat{margin-top:18px}
+  .menu-cat-h{display:flex;align-items:center;gap:8px;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:17px;margin:0 0 10px 4px;color:var(--ink)}
+  .menu-cat-h .em{font-size:20px}
+  .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .menu-card{
+    position:relative;background:#fff;border-radius:20px;padding:14px 12px 12px;
+    box-shadow:var(--shadow-soft);border:1px solid rgba(34,28,18,.04);
+    text-align:left;cursor:default;
+    transition:transform .25s,box-shadow .25s;
+  }
+  .menu-card.tap{cursor:pointer}
+  .menu-card.tap:active{transform:scale(.98)}
+  .menu-card .name{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:15px;line-height:1.2;color:var(--ink)}
+  .menu-card .desc{font-size:12px;color:var(--ink-soft);margin-top:2px;min-height:28px}
+  .menu-card .price{display:inline-block;margin-top:8px;background:var(--ink);color:var(--cream);font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:999px}
+  .menu-card.glaces{background:linear-gradient(160deg,var(--rose-100) 0%,#fff 80%)}
+  .menu-card.crepes{background:linear-gradient(160deg,var(--sun-100) 0%,#fff 80%)}
+  .menu-card.gaufres{background:linear-gradient(160deg,var(--teal-100) 0%,#fff 80%)}
+  .menu-card.boissons{background:linear-gradient(160deg,#E6F2FB 0%,#fff 80%)}
+  .menu-card.bestseller{outline:2px solid var(--cherry);outline-offset:0}
+  .badge-best{
+    position:absolute;top:-9px;right:10px;background:var(--cherry);color:#fff;
+    font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px;
+    box-shadow:0 4px 14px -4px rgba(226,107,92,.6);letter-spacing:.02em;white-space:nowrap;
+  }
+  .menu-bridge{
+    margin:28px 16px 0;text-align:center;font-family:'Caveat',cursive;
+    font-size:22px;color:var(--cherry-deep);line-height:1.25;
+  }
+  .menu-bridge::before{content:"";display:block;width:40px;height:2px;background:var(--cherry);opacity:.4;margin:0 auto 10px;border-radius:2px}
+
+  /* ─── Wheel ─── */
+  .wheel-wrap{position:relative;margin:6px auto 12px;width:min(320px,86vw);aspect-ratio:1/1}
+  .wheel-canvas{width:100%;height:100%;display:block;border-radius:50%;box-shadow:0 18px 50px -10px rgba(34,28,18,.25),0 0 0 6px var(--cream),0 0 0 8px rgba(34,28,18,.06)}
+  .wheel-pointer{
+    position:absolute;top:-2px;left:50%;transform:translateX(-50%);
+    width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;
+    border-top:22px solid var(--cherry);
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));z-index:2;
+  }
+  .wheel-hub{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:54px;height:54px;border-radius:50%;background:var(--cream);
+    box-shadow:0 4px 14px rgba(0,0,0,.18),inset 0 0 0 3px var(--ink);
+    display:grid;place-items:center;font-size:24px;z-index:1;pointer-events:none;
+  }
+  .spin-result{
+    margin-top:14px;background:#fff;border-radius:22px;padding:18px 18px 16px;
+    box-shadow:var(--shadow-ring);text-align:center;
+    transform:translateY(8px);opacity:0;transition:transform .4s,opacity .4s;
+  }
+  .spin-result.show{transform:translateY(0);opacity:1}
+  .spin-result .em{font-size:42px;line-height:1;margin-bottom:6px}
+  .spin-result .nm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:22px}
+  .spin-result .ds{color:var(--ink-soft);font-size:14px;margin-top:6px;line-height:1.4}
+  .spin-bridge{margin-top:14px;font-family:'Caveat',cursive;text-align:center;font-size:20px;color:var(--cherry-deep);line-height:1.3}
+
+  /* ─── Quiz ─── */
+  .quiz-card{background:#fff;border-radius:24px;padding:20px 18px;box-shadow:var(--shadow-ring)}
+  .quiz-progress{display:flex;gap:5px;margin-bottom:14px}
+  .quiz-progress span{flex:1;height:5px;border-radius:3px;background:var(--cream-deep);transition:background .3s}
+  .quiz-progress span.on{background:var(--cherry)}
+  .quiz-q{font-family:'Fraunces',Georgia,serif;font-size:19px;font-weight:600;line-height:1.25;margin-bottom:14px;min-height:60px}
+  .quiz-opts{display:grid;gap:8px}
+  .quiz-opt{
+    background:var(--cream);border:1.5px solid rgba(34,28,18,.08);
+    text-align:left;padding:13px 14px;border-radius:14px;font-size:14.5px;
+    cursor:pointer;transition:all .15s;line-height:1.3;
+    color:var(--ink);font-weight:500;
+  }
+  .quiz-opt:hover{border-color:var(--teal-500);background:#fff}
+  .quiz-opt:active{transform:scale(.985)}
+  .quiz-opt:focus-visible{outline:3px solid var(--teal-300);outline-offset:2px}
+
+  /* ─── Result card / share ─── */
+  .result-card{
+    background:linear-gradient(160deg,var(--sun-100),var(--peach-100) 60%,var(--rose-100));
+    border-radius:28px;padding:24px 20px;box-shadow:var(--shadow-ring);
+    text-align:center;position:relative;overflow:hidden;
+  }
+  .result-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(255,255,255,.6),transparent 50%);pointer-events:none}
+  .result-card .em{font-size:64px;line-height:1;margin-bottom:6px;position:relative}
+  .result-card .lbl{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-700);position:relative}
+  .result-card .nm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:30px;margin:6px 0 10px;line-height:1.05;position:relative}
+  .result-card .nm .accent{font-family:'Caveat',cursive;color:var(--cherry);font-size:1.05em}
+  .result-card .ds{font-size:14.5px;line-height:1.5;color:var(--ink);max-width:380px;margin:0 auto;position:relative}
+  .result-card .brand{margin-top:14px;font-size:12px;color:var(--ink-soft);position:relative}
+  .result-card .brand strong{color:var(--ink)}
+  .share-btns{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+  .share-btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 18px;border-radius:999px;border:none;cursor:pointer;
+    font-size:15px;font-weight:700;
+    transition:transform .25s,box-shadow .25s;min-height:50px;
+  }
+  .share-btn-ig{background:linear-gradient(135deg,#F58529,#DD2A7B 50%,#8134AF);color:#fff;box-shadow:0 8px 24px -8px rgba(221,42,123,.55)}
+  .share-btn-restart{background:var(--cream);color:var(--ink);box-shadow:var(--shadow-ring)}
+  .share-btn:active{transform:scale(.98)}
+  .share-btn:focus-visible{outline:3px solid var(--teal-300);outline-offset:2px}
+
+  /* ─── Photo CTA ─── */
+  .photo-card{
+    background:#fff;border-radius:22px;padding:16px 18px;box-shadow:var(--shadow-soft);
+    display:flex;align-items:center;gap:12px;
+  }
+  .photo-card .ic{
+    width:46px;height:46px;border-radius:14px;flex-shrink:0;
+    background:linear-gradient(135deg,#F58529,#DD2A7B 50%,#8134AF);
+    display:grid;place-items:center;font-size:22px;color:#fff;
+  }
+  .photo-card .tx{flex:1;min-width:0}
+  .photo-card .tx .t1{font-family:'Fraunces',Georgia,serif;font-size:15px;font-weight:600;line-height:1.2}
+  .photo-card .tx .t2{font-size:12.5px;color:var(--ink-soft);margin-top:3px}
+  .photo-card .go{
+    background:var(--ink);color:var(--cream);padding:10px 14px;border-radius:999px;
+    font-size:13px;font-weight:700;border:none;cursor:pointer;flex-shrink:0;
+    text-decoration:none;display:inline-flex;align-items:center;gap:5px;
+  }
+  .photo-card .go:active{transform:scale(.97)}
+  .hashtag-row{display:flex;align-items:center;gap:8px;margin-top:12px;background:var(--cream-deep);padding:10px 12px;border-radius:14px}
+  .hashtag-row code{font-family:'Inter',monospace;font-size:13px;font-weight:600;color:var(--cherry-deep);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .hashtag-row button{background:var(--ink);color:var(--cream);border:none;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer}
+  .hashtag-row button.ok{background:var(--teal-500)}
+  .photo-tag{font-size:12px;text-align:center;color:var(--ink-soft);margin-top:10px;font-style:italic}
+
+  /* Floating IG button */
+  .float-ig{
+    position:fixed;right:14px;bottom:max(14px,env(safe-area-inset-bottom));
+    width:54px;height:54px;border-radius:50%;
+    background:linear-gradient(135deg,#F58529,#DD2A7B 50%,#8134AF);
+    display:none;place-items:center;color:#fff;text-decoration:none;
+    box-shadow:0 12px 30px -8px rgba(221,42,123,.55);z-index:50;
+    transition:transform .25s;
+    border:none;cursor:pointer;
+  }
+  .float-ig.show{display:grid;animation:popin .35s cubic-bezier(.2,.8,.2,1.2)}
+  .float-ig:active{transform:scale(.94)}
+  @keyframes popin{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
+
+  /* ─── Newsletter ─── */
+  .nl-card{
+    background:linear-gradient(135deg,var(--teal-50),var(--cream) 50%,var(--sun-100));
+    border-radius:22px;padding:18px;box-shadow:var(--shadow-ring);text-align:center;
+  }
+  .nl-card h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:18px;margin:0 0 4px;line-height:1.2}
+  .nl-card h3 .accent{font-family:'Caveat',cursive;color:var(--cherry);font-size:1.1em}
+  .nl-card p{margin:0;color:var(--ink-soft);font-size:13px;line-height:1.4}
+  .nl-form{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .nl-form input{
+    flex:1 1 180px;min-width:0;border:1.5px solid rgba(34,28,18,.1);background:#fff;
+    border-radius:999px;padding:12px 16px;font-size:14px;font-family:inherit;
+    color:var(--ink);
+  }
+  .nl-form input:focus{outline:none;border-color:var(--teal-500);box-shadow:0 0 0 4px rgba(93,186,168,.18)}
+  .nl-form button{
+    background:var(--cherry);color:#fff;border:none;font-weight:700;font-size:14px;
+    padding:12px 18px;border-radius:999px;cursor:pointer;flex-shrink:0;
+    transition:transform .2s,background .2s;
+  }
+  .nl-form button:active{transform:scale(.97)}
+  .nl-form button:disabled{opacity:.6;cursor:wait}
+  .nl-msg{margin-top:10px;font-size:13px;font-weight:600;min-height:18px}
+  .nl-msg.ok{color:var(--teal-700)}
+  .nl-msg.err{color:var(--cherry-deep)}
+
+  /* ─── Footer ─── */
+  .ft{padding:24px 16px 100px;text-align:center;color:var(--ink-soft);font-size:12px}
+  .ft a{color:var(--teal-700);text-decoration:none;font-weight:600}
+
+  /* Hidden helper */
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* Reduced motion */
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     1. HERO
+     ═══════════════════════════════════════════ -->
+<section class="hero wrap" aria-label="Bienvenue">
+  <span class="hero-badge">🍦 Sur le quai · La Frette-sur-Seine</span>
+  <h1>
+    Tu fais la queue ?<br/>
+    <span class="accent">On s'occupe de toi</span> 🌞
+  </h1>
+  <p class="sub">3 minutes pour patienter en beauté. Goûte un peu, joue un peu, repars heureux·se.</p>
+  <div class="cta-row">
+    <a href="#menu" class="cta cta-primary">Voir la carte 🍨</a>
+    <a href="#wheel" class="cta cta-secondary">Tourner la roue 🎡</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     2. MENU
+     ═══════════════════════════════════════════ -->
+<section id="menu" class="wrap" aria-label="Menu">
+  <div class="sec-head">
+    <span class="eyebrow">La carte</span>
+    <h2>Parfums du moment <span style="color:var(--cherry)">🍓</span></h2>
+    <p>Tout est préparé devant toi, sur le quai.</p>
+  </div>
+
+  <!-- Glaces -->
+  <div class="menu-cat">
+    <h3 class="menu-cat-h"><span class="em">🍦</span> Glaces artisanales</h3>
+    <div class="menu-grid">
+      <div class="menu-card glaces">
+        <div class="name">Une boule</div>
+        <div class="desc">Un parfum au choix</div>
+        <span class="price">3,50 €</span>
+      </div>
+      <div class="menu-card glaces bestseller">
+        <span class="badge-best">⭐ Le plus commandé</span>
+        <div class="name">Deux boules</div>
+        <div class="desc">Deux parfums au choix</div>
+        <span class="price">6 €</span>
+      </div>
+      <div class="menu-card glaces">
+        <div class="name">Trois boules</div>
+        <div class="desc">Pour les vrais gourmands</div>
+        <span class="price">7,50 €</span>
+      </div>
+      <div class="menu-card glaces">
+        <div class="name">Saveur de la semaine</div>
+        <div class="desc">Surprise du chef · ça change tous les samedis</div>
+        <span class="price">demande !</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Crêpes -->
+  <div class="menu-cat">
+    <h3 class="menu-cat-h"><span class="em">🥞</span> Crêpes (pâte du matin)</h3>
+    <div class="menu-grid">
+      <div class="menu-card crepes bestseller">
+        <span class="badge-best">⭐ Le plus commandé</span>
+        <div class="name">Sucre cristal</div>
+        <div class="desc">Le classique qui fait jamais débat</div>
+        <span class="price">2,50 €</span>
+      </div>
+      <div class="menu-card crepes">
+        <div class="name">Pâte à tartiner</div>
+        <div class="desc">Une cuillère bien généreuse</div>
+        <span class="price">3,50 €</span>
+      </div>
+      <div class="menu-card crepes">
+        <div class="name">Caramel</div>
+        <div class="desc">Caramel doux, versé tiède</div>
+        <span class="price">3,50 €</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gaufres -->
+  <div class="menu-cat">
+    <h3 class="menu-cat-h"><span class="em">🧇</span> Gaufres dorées au fer</h3>
+    <div class="menu-grid">
+      <div class="menu-card gaufres bestseller">
+        <span class="badge-best">⭐ Le plus commandé</span>
+        <div class="name">La Foli's</div>
+        <div class="desc">La signature de la maison</div>
+        <span class="price">7,50 €</span>
+      </div>
+      <div class="menu-card gaufres">
+        <div class="name">Sucre glace</div>
+        <div class="desc">Saupoudré juste avant</div>
+        <span class="price">3,50 €</span>
+      </div>
+      <div class="menu-card gaufres">
+        <div class="name">Pâte à tartiner</div>
+        <div class="desc">Coulante, généreuse</div>
+        <span class="price">4,50 €</span>
+      </div>
+      <div class="menu-card gaufres">
+        <div class="name">Caramel</div>
+        <div class="desc">S'infiltre dans chaque alvéole</div>
+        <span class="price">4,50 €</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Boissons -->
+  <div class="menu-cat">
+    <h3 class="menu-cat-h"><span class="em">🥤</span> Boissons</h3>
+    <div class="menu-grid">
+      <div class="menu-card boissons">
+        <div class="name">Café</div>
+        <div class="desc">Serré ou allongé</div>
+        <span class="price">2 €</span>
+      </div>
+      <div class="menu-card boissons">
+        <div class="name">Soft 33 cl</div>
+        <div class="desc">Coca · Tropico · Fanta · Perrier</div>
+        <span class="price">2,50 €</span>
+      </div>
+      <div class="menu-card boissons">
+        <div class="name">Eau 50 cl</div>
+        <div class="desc">Bouteille fraîche</div>
+        <span class="price">2 €</span>
+      </div>
+      <div class="menu-card boissons">
+        <div class="name">Sans alcool</div>
+        <div class="desc">Vin bio · bière fraîche</div>
+        <span class="price">4 €</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="menu-bridge">
+    Tu hésites encore ?<br/>
+    Laisse le destin choisir pour toi 🎡
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     3. SPIN WHEEL
+     ═══════════════════════════════════════════ -->
+<section id="wheel" class="wrap" aria-label="Roue des saveurs">
+  <div class="sec-head">
+    <span class="eyebrow">Le destin t'écoute</span>
+    <h2>La Roue des Saveurs 🎡</h2>
+    <p>Un tour, une trouvaille. Pas de pression.</p>
+  </div>
+
+  <div class="wheel-wrap">
+    <div class="wheel-pointer" aria-hidden="true"></div>
+    <canvas class="wheel-canvas" id="wheelCanvas" width="640" height="640"></canvas>
+    <div class="wheel-hub" aria-hidden="true">🍦</div>
+  </div>
+
+  <div style="text-align:center;margin-top:6px">
+    <button class="cta cta-primary" id="spinBtn" style="min-width:180px;flex:0 0 auto">Tourner la roue 🎡</button>
+  </div>
+
+  <div class="spin-result" id="spinResult" role="status" aria-live="polite" aria-hidden="true">
+    <div class="em" id="spinEm">🍦</div>
+    <div class="nm" id="spinNm"></div>
+    <div class="ds" id="spinDs"></div>
+  </div>
+
+  <p class="spin-bridge">
+    C'est le destin… ou presque.<br/>
+    Découvre aussi quel parfum tu es <em>vraiment</em> 👇
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     4. QUIZ
+     ═══════════════════════════════════════════ -->
+<section id="quiz" class="wrap" aria-label="Quiz">
+  <div class="sec-head">
+    <span class="eyebrow">5 questions, 0 jugement</span>
+    <h2>Quel parfum es-tu ?</h2>
+    <p>Réponds vite, c'est bientôt ton tour.</p>
+  </div>
+
+  <div class="quiz-card" id="quizCard">
+    <div class="quiz-progress" id="quizProgress" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="quiz-q" id="quizQ"></div>
+    <div class="quiz-opts" id="quizOpts"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     5. RESULT (hidden until done)
+     ═══════════════════════════════════════════ -->
+<section id="resultSection" class="wrap" style="display:none" aria-label="Résultat">
+  <div class="sec-head">
+    <span class="eyebrow">Verdict</span>
+    <h2>Tu es… 🎉</h2>
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="em" id="rEm"></div>
+    <div class="lbl" id="rLbl">Ton parfum</div>
+    <div class="nm" id="rNm"></div>
+    <div class="ds" id="rDs"></div>
+    <div class="brand">
+      <strong>Glaces en Seine</strong> · Quai de Seine, La Frette<br/>
+      #GlacesEnSeine
+    </div>
+  </div>
+
+  <div class="share-btns">
+    <button class="share-btn share-btn-ig" id="shareBtn">📲 Partager sur Instagram</button>
+    <button class="share-btn share-btn-restart" id="restartBtn">🔄 Recommencer le quiz</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     6. PHOTO CTA
+     ═══════════════════════════════════════════ -->
+<section id="photo" class="wrap" aria-label="Photo Instagram">
+  <div class="photo-card">
+    <div class="ic">📸</div>
+    <div class="tx">
+      <div class="t1">Ta glace mérite d'être vue.</div>
+      <div class="t2">On reposte les meilleures stories ✨</div>
+    </div>
+    <button class="go" id="igCamBtn">Story →</button>
+  </div>
+  <div class="hashtag-row">
+    <code>#GlacesEnSeine</code>
+    <button id="copyHashBtn" type="button">Copier</button>
+  </div>
+  <p class="photo-tag">Ajoute le hashtag et tague <strong>@glacesenseine</strong></p>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     7. NEWSLETTER
+     ═══════════════════════════════════════════ -->
+<section class="wrap" aria-label="Newsletter">
+  <div class="nl-card">
+    <h3>📬 Rejoins le club <span class="accent">gourmand</span></h3>
+    <p>1 mail/mois · 1 gagnant tiré au sort · 1 glace offerte 🍨</p>
+    <form class="nl-form" id="nlForm" novalidate>
+      <input type="email" id="nlEmail" placeholder="ton@email.fr" required autocomplete="email" />
+      <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true" />
+      <button type="submit" id="nlBtn">Je m'inscris</button>
+    </form>
+    <div class="nl-msg" id="nlMsg" role="status" aria-live="polite"></div>
+  </div>
+</section>
+
+<footer class="ft">
+  Glaces en Seine · sam·dim·fériés · 14h–19h<br/>
+  <a href="/">← Retour au site principal</a>
+</footer>
+
+<!-- Floating IG button (appears after result) -->
+<button class="float-ig" id="floatIg" aria-label="Instagram caméra">📸</button>
+
+<!-- Hidden canvas for share image -->
+<canvas id="shareCanvas" width="1080" height="1920" class="sr" aria-hidden="true"></canvas>
+
+<script>
+(function(){
+"use strict";
+
+/* ═══════════════════════════════════
+   DATA — wheel slices & quiz pool
+   ═══════════════════════════════════ */
+const WHEEL = [
+  { name:"Boule glace fraise",     em:"🍓", color:"#F4B6B6", desc:"La star romantique du quai. Demande-la, et fais semblant que c'est ton premier choix." },
+  { name:"Boule glace pistache",   em:"🥜", color:"#9CD8CC", desc:"Tu es un peu chic. On dirait. Mais ça fait toujours plaisir d'avoir l'air." },
+  { name:"Boule glace chocolat",   em:"🍫", color:"#B14637", desc:"Le classique qui ne déçoit jamais. C'est presque trop facile." },
+  { name:"Boule glace vanille",    em:"🍦", color:"#FBE08E", desc:"L'humble. Le subtil. Le sage. (Personne ne te juge, promis.)" },
+  { name:"Boule glace mangue",     em:"🥭", color:"#F8A684", desc:"Tu pars en vacances mentalement. Ramène-nous une carte postale." },
+  { name:"Boule glace citron",     em:"🍋", color:"#FFE5D2", desc:"Acide, frais, anti-conformiste. On t'aime bien quand même." },
+  { name:"Crêpe pâte à tartiner",  em:"🥞", color:"#E26B5C", desc:"Le geste de réconfort universel. Aucune honte. Que de l'amour." },
+  { name:"Crêpe sucre cristal",    em:"🥞", color:"#FFF1C4", desc:"Le minimalisme assumé. Un peu de beurre, du sucre, et la paix." },
+  { name:"Gaufre La Foli's",       em:"🧇", color:"#5DBAA8", desc:"Tu viens de gagner. La maison est gourmande aujourd'hui." },
+  { name:"Gaufre caramel",         em:"🧇", color:"#F4C95D", desc:"Doré, fondant, dramatique. Ta journée vient de prendre du sens." },
+  { name:"Café",                   em:"☕", color:"#5C5040", desc:"Le destin a décidé que tu es un·e adulte sérieux·se. C'est faux mais on joue le jeu." },
+  { name:"Tropico tropical",       em:"🥤", color:"#FFCAB1", desc:"Tu as 10 ans dans ta tête. Tu as raison. On sert ça avec une paille." }
+];
+
+// 6 result archetypes
+const RESULTS = {
+  fraise:    { em:"🍓", name:"Fraise",   tag:"romantique discret", ds:"Tu fonds quand quelqu'un te tient la porte. Tu pleures (un peu) devant les pubs Noël en juillet. Tu es la personne qui dit \"ça me fait plaisir\" en pensant chaque mot." },
+  pistache:  { em:"🥜", name:"Pistache", tag:"sophistiqué·e malgré soi", ds:"Tu prononces \"ricotta\" correctement. Tu sais ce qu'est le yuzu. Mais tu mets toujours du ketchup sur tes pâtes en cachette." },
+  chocolat:  { em:"🍫", name:"Chocolat", tag:"profond·e mais fiable", ds:"Tu n'as pas besoin d'attention, juste de calme et d'une bonne playlist. Les gens se confient à toi sans prévenir. Tu écoutes. Tu juges silencieusement. Mais tu écoutes." },
+  mangue:    { em:"🥭", name:"Mangue",   tag:"aventurier·e du dimanche", ds:"Tu as déjà sérieusement envisagé de tout plaquer pour ouvrir un bar à Bali. Tu ne le feras pas. Mais tu en parles bien." },
+  vanille:   { em:"🍦", name:"Vanille",  tag:"essentiel·le et sous-coté·e", ds:"On te traite de basique alors que tu es la base. Sans toi, rien ne tient. Tu es la personne qui rappelle l'anniversaire de la cousine. Merci." },
+  citron:    { em:"🍋", name:"Citron",   tag:"anti-conformiste assumé·e", ds:"Tu réponds \"ça dépend\" à toutes les questions importantes. Tu corriges les gens sur des détails qui s'en fichent. On t'adore quand même. Vraiment." }
+};
+
+// 25+ questions, each option weights one or two flavors
+// flavors: F=fraise, P=pistache, C=chocolat, M=mangue, V=vanille, L=citron(lemon)
+const QUESTIONS = [
+  { q:"Comment tu commandes ta glace, en vrai ?", opts:[
+    { t:"Comme d'habitude, sans réfléchir", w:{V:2,C:1} },
+    { t:"En panique totale, je bloque la file", w:{F:2,L:1} },
+    { t:"Je fais semblant de savoir, je pointe au hasard", w:{P:2} },
+    { t:"J'attends que quelqu'un décide pour moi", w:{V:2,F:1} },
+  ]},
+  { q:"On te dit \"surprise-moi\". Tu réponds…", opts:[
+    { t:"Surtout pas, j'ai besoin de contrôle", w:{C:2,L:1} },
+    { t:"Vas-y, mais pas trop fou non plus", w:{V:2,P:1} },
+    { t:"Lance le truc le plus bizarre que tu as", w:{M:2,L:1} },
+    { t:"J'aurais préféré qu'on me prévienne avant", w:{F:2} },
+  ]},
+  { q:"Le dimanche idéal, c'est…", opts:[
+    { t:"Brunch interminable, photos, regrets le soir", w:{P:2,M:1} },
+    { t:"Rien. Vraiment rien. Le canapé.", w:{V:2,C:1} },
+    { t:"Une rando improvisée qui finit en café", w:{M:2,L:1} },
+    { t:"Pleurer sur un bon film", w:{F:2,C:1} },
+  ]},
+  { q:"Au resto, tu es la personne qui…", opts:[
+    { t:"Lit la carte 4 fois et reprend la même chose", w:{V:2} },
+    { t:"Demande \"c'est quoi le meilleur ?\" puis ne le prend pas", w:{L:2,P:1} },
+    { t:"Goûte dans toutes les assiettes des autres", w:{F:2,M:1} },
+    { t:"Commande le truc le plus bizarre par principe", w:{L:2,M:1} },
+  ]},
+  { q:"Ta plus grande qualité ?", opts:[
+    { t:"Je suis à l'heure (on me le dit)", w:{V:2,P:1} },
+    { t:"Je sais écouter (on me le dit moins)", w:{C:2,F:1} },
+    { t:"Je n'ai pas peur du ridicule", w:{M:2,L:1} },
+    { t:"Je sais où sont les meilleures glaces", w:{F:2,P:1} },
+  ]},
+  { q:"Ton défaut le plus assumé ?", opts:[
+    { t:"Je suis incapable de choisir", w:{V:2,F:1} },
+    { t:"Je dis \"oui\" trop vite", w:{F:2} },
+    { t:"Je corrige les gens sans qu'on me le demande", w:{L:2,P:1} },
+    { t:"Je pars sans prévenir", w:{M:2,C:1} },
+  ]},
+  { q:"Ton playlist actuelle, en un mot ?", opts:[
+    { t:"Mélancolique mais cool", w:{C:2,F:1} },
+    { t:"Italie 2003, ne juge pas", w:{F:2,M:1} },
+    { t:"Que des morceaux de 40 secondes", w:{L:2,M:1} },
+    { t:"\"Variétés des années 80\" sur YouTube", w:{V:2,P:1} },
+  ]},
+  { q:"À la plage, tu es…", opts:[
+    { t:"Sous le parasol avec un livre épais", w:{C:2,V:1} },
+    { t:"Dans l'eau dès la 1ère minute", w:{M:2,L:1} },
+    { t:"Allongé·e à scroller, parfaitement bien", w:{F:2,P:1} },
+    { t:"En train de demander si l'eau est bonne", w:{V:2,L:1} },
+  ]},
+  { q:"Si ta vie était un film, le titre serait…", opts:[
+    { t:"\"Tout va bien (presque)\"", w:{V:2,C:1} },
+    { t:"\"Je gère, en théorie\"", w:{P:2,L:1} },
+    { t:"\"On verra demain\"", w:{M:2} },
+    { t:"\"Encore une fois\"", w:{F:2,C:1} },
+  ]},
+  { q:"Les surprises, en général ?", opts:[
+    { t:"Adorable. J'en pleure presque.", w:{F:2} },
+    { t:"Mauvaise idée. Toujours.", w:{L:2,C:1} },
+    { t:"J'aime bien en faire, pas en recevoir", w:{P:2,V:1} },
+    { t:"Oui, mais avec un calendrier détaillé", w:{V:2,C:1} },
+  ]},
+  { q:"Quand tu es en retard, tu…", opts:[
+    { t:"N'es jamais en retard. Voilà.", w:{V:2,P:1} },
+    { t:"Inventes une histoire élaborée", w:{L:2,M:1} },
+    { t:"Envoie un \"5 min\" alors que t'es à 25 min", w:{F:2,M:1} },
+    { t:"Te sens horriblement coupable toute la journée", w:{C:2,F:1} },
+  ]},
+  { q:"Ton truc préféré dans une glace ?", opts:[
+    { t:"Le moment où elle commence à fondre", w:{F:2,C:1} },
+    { t:"Le craquant qu'on ne voit pas venir", w:{P:2,L:1} },
+    { t:"La couleur, sincèrement", w:{M:2,F:1} },
+    { t:"Le silence après la première bouchée", w:{V:2,C:1} },
+  ]},
+  { q:"Au boulot/à l'école, tu es…", opts:[
+    { t:"Le·la fiable. On te confie tout.", w:{V:2,C:1} },
+    { t:"Le·la chaotique-mais-attachant·e", w:{M:2,F:1} },
+    { t:"Le·la perfectionniste qui stresse pour rien", w:{P:2,C:1} },
+    { t:"Celui·celle qui pose les vraies questions", w:{L:2} },
+  ]},
+  { q:"Ta réponse à \"on se voit ce week-end ?\"", opts:[
+    { t:"OUI ENCORE OUI", w:{F:2,M:1} },
+    { t:"On verra. Tu envoies un récap dimanche.", w:{V:2} },
+    { t:"Dépend des gens. Tu te renseignes.", w:{L:2,P:1} },
+    { t:"Trop tard, je suis déjà en mode hibernation", w:{C:2,V:1} },
+  ]},
+  { q:"L'odeur qui te rend immédiatement heureux·se ?", opts:[
+    { t:"Croissant chaud, sans débat", w:{V:2,F:1} },
+    { t:"L'air après la pluie", w:{C:2,M:1} },
+    { t:"La crème solaire en juillet", w:{M:2,F:1} },
+    { t:"Le café d'une boulangerie inconnue", w:{P:2,L:1} },
+  ]},
+  { q:"Tu choisis un dessert dans la vie, et c'est pour toujours.", opts:[
+    { t:"Je refuse de répondre. Question violente.", w:{L:2,M:1} },
+    { t:"Tarte au citron meringuée. Voilà.", w:{L:2,P:1} },
+    { t:"Tiramisu. Toujours tiramisu.", w:{C:2,P:1} },
+    { t:"Une glace, peu importe le parfum", w:{V:2,F:1} },
+  ]},
+  { q:"Ton rapport au planning ?", opts:[
+    { t:"Notion + Google Calendar + post-its", w:{P:2,V:1} },
+    { t:"Ça se fait dans la tête, ça se passe bien (parfois)", w:{M:2,F:1} },
+    { t:"J'écris tout, je perds la liste", w:{F:2,L:1} },
+    { t:"Le destin sait ce qu'il fait", w:{C:2,M:1} },
+  ]},
+  { q:"On te demande ton avis sur un truc qui ne te concerne pas. Tu…", opts:[
+    { t:"Donne un avis très tranché en 4 secondes", w:{L:2,P:1} },
+    { t:"Hoche la tête poliment", w:{V:2,F:1} },
+    { t:"Réfléchis honnêtement et propose 3 options", w:{C:2,P:1} },
+    { t:"Réponds par une autre question", w:{M:2,L:1} },
+  ]},
+  { q:"Ta photo de profil, c'est…", opts:[
+    { t:"Toi, propre, avec un fond neutre", w:{V:2,P:1} },
+    { t:"Toi en voyage, c'est important qu'on le sache", w:{M:2,P:1} },
+    { t:"Une photo de ton chat. Ou d'un coucher de soleil.", w:{F:2,C:1} },
+    { t:"Un truc absurde que personne ne comprend", w:{L:2} },
+  ]},
+  { q:"En soirée, on te trouve…", opts:[
+    { t:"Dans la cuisine, près du frigo, en pleine théorie", w:{C:2,L:1} },
+    { t:"Au milieu, en train de raconter une histoire", w:{M:2,F:1} },
+    { t:"Avec 2 personnes que tu connais déjà", w:{V:2,P:1} },
+    { t:"Parti·e dès 22h sans dire au revoir", w:{C:2,M:1} },
+  ]},
+  { q:"Ton enfance idéale, c'était…", opts:[
+    { t:"Goûter chez la grand-mère, sieste interdite", w:{V:2,F:1} },
+    { t:"Vacances chaotiques, sable partout", w:{M:2,F:1} },
+    { t:"Cabane dans les bois, secrets compliqués", w:{C:2,L:1} },
+    { t:"Catalogue de jouets à la loupe", w:{P:2,V:1} },
+  ]},
+  { q:"On te dit \"je t'aime bien\". Tu réponds…", opts:[
+    { t:"\"Moi aussi\" mais 30 fois", w:{F:2} },
+    { t:"\"Pourquoi ?\"", w:{L:2,C:1} },
+    { t:"Un sourire poli mais tu y penseras 3 jours", w:{V:2,C:1} },
+    { t:"Tu changes de sujet immédiatement", w:{P:2,M:1} },
+  ]},
+  { q:"Ton talent caché ?", opts:[
+    { t:"Reconnaître une chanson en 1 seconde", w:{M:2,F:1} },
+    { t:"Faire des listes ultra précises", w:{P:2,V:1} },
+    { t:"Calmer les gens en panique", w:{C:2,V:1} },
+    { t:"Trouver le truc qui ne va pas dans une pièce", w:{L:2,P:1} },
+  ]},
+  { q:"Ton mot préféré ?", opts:[
+    { t:"\"Bof\" — il dit tout", w:{L:2,C:1} },
+    { t:"\"D'accord\" — apaisant", w:{V:2,F:1} },
+    { t:"\"Allez\" — entraînant", w:{M:2,F:1} },
+    { t:"\"Précisément\" — jamais utilisé sans intention", w:{P:2,L:1} },
+  ]},
+  { q:"Le truc que tu remets toujours à demain ?", opts:[
+    { t:"Répondre aux messages", w:{C:2,M:1} },
+    { t:"Trier la boîte mail", w:{V:2,P:1} },
+    { t:"Décider de ce que tu veux faire de ta vie", w:{L:2,F:1} },
+    { t:"Tout. Honnêtement, tout.", w:{M:2,F:1} },
+  ]},
+  { q:"Tu rentres dans une boulangerie. Tu sors avec…", opts:[
+    { t:"Une baguette, comme prévu. Bravo.", w:{V:2} },
+    { t:"3 trucs que tu n'avais pas prévu", w:{F:2,M:1} },
+    { t:"Un éclair au chocolat, en silence", w:{C:2,P:1} },
+    { t:"Rien, tu as oublié pourquoi tu étais entré·e", w:{L:2,M:1} },
+  ]},
+  { q:"Ton émoji le plus utilisé ?", opts:[
+    { t:"😅 (dit beaucoup de moi)", w:{F:2,V:1} },
+    { t:"🙃 (subtil, c'est de l'ironie)", w:{L:2,C:1} },
+    { t:"✨ (parce que voilà)", w:{M:2,F:1} },
+    { t:"👍 (efficace, on passe à autre chose)", w:{P:2,V:1} },
+  ]},
+];
+
+/* ═══════════════════════════════════
+   WHEEL — canvas drawing & spin
+   ═══════════════════════════════════ */
+const wheelCanvas = document.getElementById("wheelCanvas");
+const wheelCtx = wheelCanvas.getContext("2d");
+let wheelRotation = 0;
+let wheelSpinning = false;
+
+function drawWheel(rot){
+  const W = wheelCanvas.width, H = wheelCanvas.height;
+  const cx = W/2, cy = H/2, r = W/2 - 10;
+  const slice = (Math.PI*2) / WHEEL.length;
+  wheelCtx.clearRect(0,0,W,H);
+  wheelCtx.save();
+  wheelCtx.translate(cx,cy);
+  wheelCtx.rotate(rot);
+
+  WHEEL.forEach((item,i)=>{
+    const a0 = i*slice, a1 = a0+slice;
+    // slice fill
+    wheelCtx.beginPath();
+    wheelCtx.moveTo(0,0);
+    wheelCtx.arc(0,0,r,a0,a1);
+    wheelCtx.closePath();
+    wheelCtx.fillStyle = item.color;
+    wheelCtx.fill();
+    // separators
+    wheelCtx.strokeStyle = "rgba(255,251,241,.85)";
+    wheelCtx.lineWidth = 3;
+    wheelCtx.stroke();
+
+    // label (emoji + short text)
+    wheelCtx.save();
+    wheelCtx.rotate(a0 + slice/2);
+    wheelCtx.textAlign = "right";
+    wheelCtx.textBaseline = "middle";
+    wheelCtx.fillStyle = "#221C12";
+    wheelCtx.font = "600 28px 'Inter',system-ui,sans-serif";
+    wheelCtx.fillText(item.em, r-26, 0);
+    wheelCtx.font = "600 17px 'Inter',system-ui,sans-serif";
+    const short = item.name.length > 16 ? item.name.slice(0,14)+"…" : item.name;
+    wheelCtx.fillText(short, r-66, 0);
+    wheelCtx.restore();
+  });
+
+  // outer ring
+  wheelCtx.beginPath();
+  wheelCtx.arc(0,0,r,0,Math.PI*2);
+  wheelCtx.lineWidth = 6;
+  wheelCtx.strokeStyle = "#FFFBF1";
+  wheelCtx.stroke();
+
+  wheelCtx.restore();
+}
+drawWheel(0);
+
+function spinWheel(){
+  if(wheelSpinning) return;
+  wheelSpinning = true;
+  const result = document.getElementById("spinResult");
+  result.classList.remove("show");
+  result.setAttribute("aria-hidden","true");
+
+  const turns = 5 + Math.random()*2;            // 5–7 full rotations
+  const targetIdx = Math.floor(Math.random() * WHEEL.length);
+  const slice = (Math.PI*2) / WHEEL.length;
+  // pointer is at top (-90°). We want target slice center to land at -PI/2.
+  // Slice i center angle (with rotation 0) is i*slice + slice/2.
+  // After rotation by R, slice center at top means: R + i*slice + slice/2 ≡ -PI/2 (mod 2PI)
+  const offsetRad = -Math.PI/2 - (targetIdx*slice + slice/2);
+  const finalRot = turns*Math.PI*2 + ((offsetRad % (Math.PI*2)) + Math.PI*2) % (Math.PI*2);
+
+  const start = wheelRotation;
+  // delta from current rot to (start_floor + finalRot)
+  const baseFloor = Math.floor(start / (Math.PI*2)) * (Math.PI*2);
+  const end = baseFloor + finalRot;
+  const total = end - start;
+
+  const duration = 4200;
+  const t0 = performance.now();
+  function frame(now){
+    const t = Math.min(1, (now - t0)/duration);
+    // ease-out cubic-ish, dramatic slow at end
+    const e = 1 - Math.pow(1 - t, 3.4);
+    wheelRotation = start + total * e;
+    drawWheel(wheelRotation);
+    if(t < 1){
+      requestAnimationFrame(frame);
+    } else {
+      wheelSpinning = false;
+      const it = WHEEL[targetIdx];
+      document.getElementById("spinEm").textContent = it.em;
+      document.getElementById("spinNm").textContent = it.name;
+      document.getElementById("spinDs").textContent = it.desc;
+      result.setAttribute("aria-hidden","false");
+      requestAnimationFrame(()=> result.classList.add("show"));
+    }
+  }
+  requestAnimationFrame(frame);
+}
+document.getElementById("spinBtn").addEventListener("click", spinWheel);
+
+/* ═══════════════════════════════════
+   QUIZ — random 5/25, score 6 flavors
+   ═══════════════════════════════════ */
+const FLAVOR_KEYS = ["fraise","pistache","chocolat","mangue","vanille","citron"];
+const FLAVOR_LETTER = {F:"fraise",P:"pistache",C:"chocolat",M:"mangue",V:"vanille",L:"citron"};
+let quizState = null;
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function startQuiz(){
+  quizState = {
+    questions: shuffle(QUESTIONS).slice(0,5),
+    idx: 0,
+    scores: { fraise:0, pistache:0, chocolat:0, mangue:0, vanille:0, citron:0 },
+  };
+  document.getElementById("resultSection").style.display = "none";
+  document.getElementById("floatIg").classList.remove("show");
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const { questions, idx } = quizState;
+  const q = questions[idx];
+  const qEl = document.getElementById("quizQ");
+  const optsEl = document.getElementById("quizOpts");
+
+  // progress
+  const dots = document.querySelectorAll("#quizProgress span");
+  dots.forEach((d,i)=> d.classList.toggle("on", i <= idx));
+
+  qEl.textContent = (idx+1)+". "+q.q;
+  optsEl.innerHTML = "";
+  // shuffle options for each render so the "right answer position" doesn't look gameable
+  shuffle(q.opts).forEach(opt=>{
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "quiz-opt";
+    b.textContent = opt.t;
+    b.addEventListener("click", ()=> answer(opt));
+    optsEl.appendChild(b);
+  });
+}
+
+function answer(opt){
+  Object.entries(opt.w).forEach(([letter,pts])=>{
+    const k = FLAVOR_LETTER[letter];
+    if(k) quizState.scores[k] += pts;
+  });
+  quizState.idx++;
+  if(quizState.idx >= quizState.questions.length){
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResult(){
+  // Pick top scoring flavor; tiebreak by random among tied.
+  let best = -1, winners = [];
+  FLAVOR_KEYS.forEach(k=>{
+    const s = quizState.scores[k];
+    if(s > best){ best = s; winners = [k]; }
+    else if(s === best){ winners.push(k); }
+  });
+  const winner = winners[Math.floor(Math.random()*winners.length)];
+  const r = RESULTS[winner];
+
+  document.getElementById("rEm").textContent = r.em;
+  document.getElementById("rLbl").textContent = "Tu es… " + r.tag;
+  document.getElementById("rNm").innerHTML = "Tu es <span class=\"accent\">"+r.name+"</span>";
+  document.getElementById("rDs").textContent = r.ds;
+
+  const sec = document.getElementById("resultSection");
+  sec.style.display = "";
+  sec.scrollIntoView({behavior:"smooth", block:"start"});
+
+  // reveal float IG once result is in
+  document.getElementById("floatIg").classList.add("show");
+
+  // store winner for share image
+  window.__currentResult = { key:winner, ...r };
+}
+
+document.getElementById("restartBtn").addEventListener("click", startQuiz);
+startQuiz();
+
+/* ═══════════════════════════════════
+   SHARE — canvas image + Web Share API
+   ═══════════════════════════════════ */
+function buildShareCanvas(r){
+  const c = document.getElementById("shareCanvas");
+  const ctx = c.getContext("2d");
+  const W = c.width, H = c.height;
+
+  // Background gradient (matches result-card)
+  const grad = ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0,"#FFF1C4");
+  grad.addColorStop(.55,"#FFE5D2");
+  grad.addColorStop(1,"#FBE0E0");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,W,H);
+
+  // soft white glow top-right
+  const g2 = ctx.createRadialGradient(W*.8, H*.1, 0, W*.8, H*.1, W*.7);
+  g2.addColorStop(0,"rgba(255,255,255,.7)");
+  g2.addColorStop(1,"rgba(255,255,255,0)");
+  ctx.fillStyle = g2;
+  ctx.fillRect(0,0,W,H);
+
+  // stripes (subtle)
+  ctx.save();
+  ctx.globalAlpha = .12;
+  ctx.fillStyle = "#F4DA76";
+  for(let x=0; x<W; x+=180){ ctx.fillRect(x,0,70,H); }
+  ctx.restore();
+
+  // Eyebrow
+  ctx.fillStyle = "#2E8475";
+  ctx.font = "700 36px 'Inter',system-ui,sans-serif";
+  ctx.textAlign = "center";
+  ctx.fillText("TON PARFUM ·  GLACES EN SEINE", W/2, 320);
+
+  // Big emoji
+  ctx.font = "320px 'Inter',system-ui,sans-serif";
+  ctx.fillText(r.em, W/2, 720);
+
+  // Name (Fraunces fallback)
+  ctx.fillStyle = "#221C12";
+  ctx.font = "600 180px 'Fraunces',Georgia,serif";
+  ctx.fillText("Tu es " + r.name, W/2, 950);
+
+  // Tagline
+  ctx.fillStyle = "#5C5040";
+  ctx.font = "500 56px 'Inter',system-ui,sans-serif";
+  ctx.fillText(r.tag, W/2, 1040);
+
+  // Description (wrap)
+  ctx.fillStyle = "#221C12";
+  ctx.font = "500 52px 'Inter',system-ui,sans-serif";
+  wrapText(ctx, r.ds, W/2, 1200, W-180, 70);
+
+  // Footer brand
+  ctx.fillStyle = "#221C12";
+  ctx.font = "700 60px 'Inter',system-ui,sans-serif";
+  ctx.fillText("Glaces en Seine 🍦", W/2, H-260);
+
+  ctx.fillStyle = "#5C5040";
+  ctx.font = "500 42px 'Inter',system-ui,sans-serif";
+  ctx.fillText("Quai de Seine · La Frette-sur-Seine", W/2, H-190);
+
+  ctx.fillStyle = "#E26B5C";
+  ctx.font = "700 50px 'Inter',system-ui,sans-serif";
+  ctx.fillText("#GlacesEnSeine", W/2, H-110);
+
+  return c;
+}
+function wrapText(ctx,text,cx,cy,maxW,lineH){
+  const words = text.split(" ");
+  let line = "";
+  let y = cy;
+  const lines = [];
+  for(let i=0;i<words.length;i++){
+    const test = line ? line+" "+words[i] : words[i];
+    if(ctx.measureText(test).width > maxW && line){
+      lines.push(line);
+      line = words[i];
+    } else { line = test; }
+  }
+  if(line) lines.push(line);
+  // limit to 5 lines
+  const max = Math.min(lines.length, 5);
+  for(let i=0;i<max;i++){
+    ctx.fillText(lines[i], cx, y + i*lineH);
+  }
+}
+
+async function sharePicture(){
+  const r = window.__currentResult;
+  if(!r) return;
+  const c = buildShareCanvas(r);
+  const blob = await new Promise(res=> c.toBlob(res, "image/png", .92));
+  if(!blob) { fallbackOpenInstagram(); return; }
+
+  // Try Web Share API with file (best mobile experience — user can pick Instagram)
+  try{
+    if(navigator.canShare && navigator.share){
+      const file = new File([blob], "glaces-en-seine.png", { type:"image/png" });
+      if(navigator.canShare({ files:[file] })){
+        await navigator.share({
+          files:[file],
+          title:"Glaces en Seine",
+          text:"Mon parfum : "+r.name+" · #GlacesEnSeine"
+        });
+        return;
+      }
+    }
+  }catch(e){ /* fallthrough to download */ }
+
+  // Fallback: download image then open Instagram
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "glaces-en-seine-"+r.name.toLowerCase()+".png";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(()=> URL.revokeObjectURL(url), 1500);
+  setTimeout(fallbackOpenInstagram, 600);
+}
+
+function fallbackOpenInstagram(){
+  // Try deep link, fallback to web after small delay
+  const start = Date.now();
+  const t = setTimeout(()=>{
+    if(Date.now() - start < 1800){
+      window.open("https://instagram.com/glacesenseine","_blank","noopener");
+    }
+  }, 1200);
+  window.location.href = "instagram://camera";
+  // page may navigate away; if not, fallback fires
+}
+
+document.getElementById("shareBtn").addEventListener("click", sharePicture);
+
+/* ═══════════════════════════════════
+   PHOTO CTA — deep link & copy hashtag
+   ═══════════════════════════════════ */
+document.getElementById("igCamBtn").addEventListener("click", openIgCamera);
+document.getElementById("floatIg").addEventListener("click", openIgCamera);
+function openIgCamera(){
+  const t0 = Date.now();
+  const fb = setTimeout(()=>{
+    if(document.visibilityState === "visible" && Date.now()-t0 < 1800){
+      window.open("https://instagram.com/glacesenseine","_blank","noopener");
+    }
+  }, 1300);
+  try{ window.location.href = "instagram://camera"; } catch(e){}
+}
+
+document.getElementById("copyHashBtn").addEventListener("click", async function(){
+  const btn = this;
+  try{
+    await navigator.clipboard.writeText("#GlacesEnSeine");
+    const old = btn.textContent;
+    btn.textContent = "Copié ✓";
+    btn.classList.add("ok");
+    setTimeout(()=>{ btn.textContent = old; btn.classList.remove("ok"); }, 1800);
+  }catch(e){
+    // legacy fallback
+    const ta = document.createElement("textarea");
+    ta.value = "#GlacesEnSeine";
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand("copy"); btn.textContent="Copié ✓"; btn.classList.add("ok"); setTimeout(()=>{btn.textContent="Copier";btn.classList.remove("ok");},1800); }catch(_){}
+    document.body.removeChild(ta);
+  }
+});
+
+/* ═══════════════════════════════════
+   NEWSLETTER — POST /api/newsletter (Brevo)
+   ═══════════════════════════════════ */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const nlForm = document.getElementById("nlForm");
+nlForm.addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const email = document.getElementById("nlEmail").value.trim();
+  const msg   = document.getElementById("nlMsg");
+  const btn   = document.getElementById("nlBtn");
+  msg.className = "nl-msg";
+  msg.textContent = "";
+  if(!EMAIL_RE.test(email)){
+    msg.textContent = "Hmm, l'email a l'air étrange. Vérifie ?";
+    msg.classList.add("err");
+    return;
+  }
+  btn.disabled = true;
+  const oldLabel = btn.textContent;
+  btn.textContent = "...";
+  try{
+    const r = await fetch("/api/newsletter", {
+      method:"POST",
+      headers:{ "content-type":"application/json" },
+      body: JSON.stringify({ email })
+    });
+    if(!r.ok) throw new Error();
+    msg.textContent = "C'est noté ! 🎉 On t'écrit le mois prochain.";
+    msg.classList.add("ok");
+    nlForm.reset();
+  }catch(_){
+    msg.textContent = "Petit souci d'envoi — réessaie dans une minute.";
+    msg.classList.add("err");
+  }finally{
+    btn.disabled = false;
+    btn.textContent = oldLabel;
+  }
+});
+
+})();
+</script>
+</body>
+</html>
