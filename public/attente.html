@@ -101,12 +101,10 @@ section + section{padding-top:24px}
 .menu-supp{margin-top:22px;padding:0;border-radius:18px;overflow:hidden;
   box-shadow:var(--ss);border:1.5px dashed rgba(226,107,92,.35);background:#fff}
 .menu-supp .supp-row{display:flex;align-items:center;gap:12px;padding:12px 16px;
-  background:linear-gradient(135deg,var(--peach-100) 0%,var(--sun-100) 100%);
+  background:linear-gradient(135deg,var(--cream-deep),#fff);
   font-size:13.5px;color:var(--ink);font-weight:600;line-height:1.35}
 .menu-supp .supp-row .supp-ico{font-size:22px;line-height:1;flex-shrink:0}
-.menu-supp .supp-row + .supp-row{background:linear-gradient(135deg,var(--cream-deep),#fff)}
-.menu-supp .supp-foot{padding:9px 16px;background:#fff;border-top:1px solid rgba(34,28,18,.06);
-  font-size:11.5px;color:var(--ink-soft);text-align:center;font-style:italic;letter-spacing:.02em}
+.menu-supp .supp-row + .supp-row{background:linear-gradient(135deg,var(--peach-100) 0%,var(--sun-100) 100%)}
 .menu-bridge{margin:30px 16px 0;text-align:center;font-family:'Caveat',cursive;
   font-size:22px;color:var(--cherry-deep);line-height:1.25}
 .menu-bridge::before{content:"";display:block;width:40px;height:2px;background:var(--cherry);
@@ -327,11 +325,9 @@ section + section{padding-top:24px}
   </div>
 
   <div class="menu-cat">
-    <h3 class="menu-cat-h"><span style="font-size:20px">💚</span> Le choix de l'équipe</h3>
-
     <!-- Signature : La Foli's -->
     <div class="foli-card">
-      <img class="foli-img" src="/lafolisup.png?v=2" alt="La Foli's — coupelle gaufre, chantilly, cubes croustillants" loading="lazy" onerror="this.onerror=null;this.src='/lafolis.png';"/>
+      <img class="foli-img" src="/lafolisup.png?v=3" alt="La Foli's — coupelle gaufre, chantilly, cubes croustillants" loading="lazy" onerror="this.onerror=null;this.src='/lafolis.png';"/>
       <div class="foli-tx">
         <div class="foli-eye">💚 Choix de l'équipe</div>
         <div class="foli-nm">La <span class="sig">Foli's</span></div>
@@ -340,7 +336,7 @@ section + section{padding-top:24px}
       </div>
     </div>
 
-    <h3 class="menu-cat-h" style="margin-top:20px"><span style="font-size:20px">🧇</span> Gaufres</h3>
+    <h3 class="menu-cat-h" style="margin-top:24px"><span style="font-size:20px">🧇</span> Gaufres</h3>
     <div class="menu-grid" style="margin-top:8px">
       <div class="menu-card ga">
         <span class="ico" aria-hidden="true">🧇</span>
@@ -411,10 +407,9 @@ section + section{padding-top:24px}
       <span>Chantilly maison <strong>+1 €</strong></span>
     </div>
     <div class="supp-row">
-      <span class="supp-ico" aria-hidden="true">🍭</span>
+      <img src="/brochettes.png" alt="" class="supp-ico" style="width:34px;height:24px;object-fit:contain"/>
       <span>Brochette de bonbons <strong>2 €</strong></span>
     </div>
-    <div class="supp-foot">Parfums selon arrivages · prix indicatifs</div>
   </div>
 
   <p class="menu-bridge">
@@ -550,21 +545,34 @@ section + section{padding-top:24px}
    DATA
    ══════════════════════════════════════════════════════ */
 
-/* 12 wheel slices */
+/* 12 wheel slices — `price` (€) drives a slight bias toward more expensive picks */
 const WHEEL=[
-  {name:"Boule fraise",     em:"🍓",col:"#F4B6B6",desc:"La star romantique du quai. Fais semblant que c'était ton premier choix.",pair:"☕ Ça irait très bien avec un café serré."},
-  {name:"Boule pistache",   em:"🥜",col:"#9CD8CC",desc:"Tu es un peu chic. Ou du moins tu le fais croire. C'est suffisant.",pair:"🍫 Une boule chocolat à côté, tu nous remercieras."},
-  {name:"Boule chocolat",   em:"🍫",col:"#C9A07A",desc:"Le classique qui ne déçoit jamais. C'est presque trop facile.",pair:"🌶 Une chantilly +1 € et c'est la fête."},
-  {name:"Boule vanille",    em:"🍦",col:"#FBE08E",desc:"L'humble. Le subtil. Le sage. Personne ne te juge.",pair:"☕ Un café à côté — la combo intemporelle."},
-  {name:"Boule mangue",     em:"🥭",col:"#F8A684",desc:"Tu pars en vacances mentalement. On garde ta place dans la queue.",pair:"🥤 Un Tropico tropical dans la même main."},
-  {name:"Boule citron",     em:"🍋",col:"#FFF1C4",desc:"Acide, frais, anti-conformiste. On t'aime bien quand même.",pair:"🍓 Avec une fraise, l'équilibre parfait."},
-  {name:"Crêpe pâte à tartiner",em:"🥞",col:"#E26B5C",desc:"Le réconfort universel. Aucune honte. Que de l'amour.",pair:"☕ Un café à côté, c'est la pause qu'il te faut."},
-  {name:"Crêpe sucre cristal",  em:"🥞",col:"#FFF1C4",desc:"Le minimalisme assumé. Un peu de beurre, du sucre, la paix.",pair:"☕ Un café — la pause goûter complète."},
-  {name:"La Foli's",            em:"🧇",col:"#5DBAA8",desc:"Tu viens de gagner. La maison est fière de toi.",pair:"🥤 Un soft frais pour calmer le sucre."},
-  {name:"Gaufre caramel",   em:"🧇",col:"#F4C95D",desc:"Doré, fondant, dramatique. Ta journée prend du sens.",pair:"🍦 Une boule vanille pour finir en beauté."},
-  {name:"Café",             em:"☕",col:"#A0826D",desc:"Le destin a décidé que tu es un adulte sérieux. C'est faux, mais on joue le jeu.",pair:"🥞 Avec une crêpe sucre cristal, c'est dimanche."},
-  {name:"Tropico tropical", em:"🥤",col:"#FFCAB1",desc:"Tu as 10 ans dans la tête. Tu as totalement raison.",pair:"🥭 Une boule mangue par-dessus, c'est l'été."},
+  {name:"Boule fraise",     em:"🍓",col:"#F4B6B6",price:3.50,desc:"La star romantique du quai. Fais semblant que c'était ton premier choix.",pair:"☕ Ça irait très bien avec un café serré."},
+  {name:"Boule pistache",   em:"🥜",col:"#9CD8CC",price:3.50,desc:"Tu es un peu chic. Ou du moins tu le fais croire. C'est suffisant.",pair:"🍫 Une boule chocolat à côté, tu nous remercieras."},
+  {name:"Boule chocolat",   em:"🍫",col:"#C9A07A",price:3.50,desc:"Le classique qui ne déçoit jamais. C'est presque trop facile.",pair:"🌶 Une chantilly +1 € et c'est la fête."},
+  {name:"Boule vanille",    em:"🍦",col:"#FBE08E",price:3.50,desc:"L'humble. Le subtil. Le sage. Personne ne te juge.",pair:"☕ Un café à côté — la combo intemporelle."},
+  {name:"Boule mangue",     em:"🥭",col:"#F8A684",price:3.50,desc:"Tu pars en vacances mentalement. On garde ta place dans la queue.",pair:"🥤 Un Tropico tropical dans la même main."},
+  {name:"Boule citron",     em:"🍋",col:"#FFF1C4",price:3.50,desc:"Acide, frais, anti-conformiste. On t'aime bien quand même.",pair:"🍓 Avec une fraise, l'équilibre parfait."},
+  {name:"Crêpe pâte à tartiner",em:"🥞",col:"#E26B5C",price:3.50,desc:"Le réconfort universel. Aucune honte. Que de l'amour.",pair:"☕ Un café à côté, c'est la pause qu'il te faut."},
+  {name:"Crêpe sucre cristal",  em:"🥞",col:"#FFF1C4",price:2.50,desc:"Le minimalisme assumé. Un peu de beurre, du sucre, la paix.",pair:"☕ Un café — la pause goûter complète."},
+  {name:"La Foli's",            em:"🧇",col:"#5DBAA8",price:7.50,desc:"Tu viens de gagner. La maison est fière de toi.",pair:"🥤 Un soft frais pour calmer le sucre."},
+  {name:"Gaufre caramel",   em:"🧇",col:"#F4C95D",price:4.50,desc:"Doré, fondant, dramatique. Ta journée prend du sens.",pair:"🍦 Une boule vanille pour finir en beauté."},
+  {name:"Café",             em:"☕",col:"#A0826D",price:2.00,desc:"Le destin a décidé que tu es un adulte sérieux. C'est faux, mais on joue le jeu.",pair:"🥞 Avec une crêpe sucre cristal, c'est dimanche."},
+  {name:"Tropico tropical", em:"🥤",col:"#FFCAB1",price:2.50,desc:"Tu as 10 ans dans la tête. Tu as totalement raison.",pair:"🥭 Une boule mangue par-dessus, c'est l'été."},
 ];
+
+/* Weighted index — sqrt(price) gives a slight bias toward more expensive picks
+   without making cheap items vanish. Foli's ≈13% (vs 8.3% uniform), Café ≈7%. */
+function pickWheelIndex(){
+  const weights=WHEEL.map(it=>Math.sqrt(it.price||1));
+  const total=weights.reduce((a,b)=>a+b,0);
+  let r=Math.random()*total;
+  for(let i=0;i<weights.length;i++){
+    r-=weights[i];
+    if(r<=0) return i;
+  }
+  return weights.length-1;
+}
 
 /* 8 result archetypes — keys: R S A E L G P Z */
 const RESULTS={
@@ -905,7 +913,7 @@ function spinWheel(){
   res.classList.remove("show");res.setAttribute("aria-hidden","true");
   const pairEl=document.getElementById("spinPair");
   if(pairEl) pairEl.style.display="none";
-  const idx=Math.floor(Math.random()*WHEEL.length);
+  const idx=pickWheelIndex();
   const sl=(Math.PI*2)/WHEEL.length;
   const turns=5+Math.random()*2;
   const off=-Math.PI/2-(idx*sl+sl/2);
