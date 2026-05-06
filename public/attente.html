@@ -189,38 +189,6 @@ section{padding:28px 0;scroll-margin-top:8px}
   box-shadow:var(--ss);transition:transform .2s}
 .back-menu a:hover{transform:translateY(-2px)}
 
-/* ── Photo CTA ── */
-.photo-card{background:#fff;border-radius:22px;padding:16px 18px;box-shadow:var(--ss);
-  display:flex;align-items:center;gap:12px}
-.photo-ic{width:46px;height:46px;border-radius:14px;flex-shrink:0;
-  background:linear-gradient(135deg,#F58529,#DD2A7B 50%,#8134AF);
-  display:grid;place-items:center;font-size:22px;color:#fff}
-.photo-tx{flex:1;min-width:0}
-.photo-t1{font-family:'Fraunces',Georgia,serif;font-size:15px;font-weight:600;line-height:1.2}
-.photo-t2{font-size:12.5px;color:var(--ink-soft);margin-top:3px}
-.photo-go{background:var(--ink);color:var(--cream);padding:10px 14px;border-radius:999px;
-  font-size:13px;font-weight:700;border:none;flex-shrink:0;text-decoration:none;
-  display:inline-flex;align-items:center;gap:5px}
-.photo-go:active{transform:scale(.97)}
-.hash-row{display:flex;align-items:center;gap:8px;margin-top:12px;
-  background:var(--cream-deep);padding:10px 12px;border-radius:14px}
-.hash-row code{font-family:'Inter',monospace;font-size:13px;font-weight:600;
-  color:var(--cherry-deep);flex:1}
-.hash-row button{background:var(--ink);color:var(--cream);border:none;
-  padding:7px 12px;border-radius:999px;font-size:12px;font-weight:700}
-.hash-row button.ok{background:var(--teal-500)}
-.photo-note{font-size:12px;text-align:center;color:var(--ink-soft);margin-top:10px;font-style:italic}
-
-/* Floating IG button */
-.float-ig{position:fixed;right:14px;bottom:max(14px,env(safe-area-inset-bottom));
-  width:54px;height:54px;border-radius:50%;
-  background:linear-gradient(135deg,#F58529,#DD2A7B 50%,#8134AF);
-  display:none;place-items:center;color:#fff;
-  box-shadow:0 12px 30px -8px rgba(221,42,123,.55);z-index:50;border:none}
-.float-ig.show{display:grid;animation:popin .35s cubic-bezier(.2,.8,.2,1.2)}
-.float-ig:active{transform:scale(.94)}
-@keyframes popin{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
-
 /* ── Newsletter ── */
 .nl-card{background:linear-gradient(135deg,var(--teal-50),var(--cream) 50%,var(--sun-100));
   border-radius:22px;padding:18px;box-shadow:var(--sr);text-align:center}
@@ -468,24 +436,7 @@ section{padding:28px 0;scroll-margin-top:8px}
   </div>
 </section>
 
-<!-- 6. PHOTO CTA -->
-<section id="photo" class="wrap" aria-label="Photo Instagram">
-  <div class="photo-card">
-    <div class="photo-ic">📸</div>
-    <div class="photo-tx">
-      <div class="photo-t1">Ta glace mérite d'être vue.</div>
-      <div class="photo-t2">On reposte les meilleures stories ✨</div>
-    </div>
-    <button class="photo-go" id="igCamBtn">Story →</button>
-  </div>
-  <div class="hash-row">
-    <code>#GlacesEnSeine</code>
-    <button id="copyHashBtn" type="button">Copier</button>
-  </div>
-  <p class="photo-note">Story ou DM à <strong>@glacesenseine</strong> — fin de mois : meilleure photo = crêpe offerte 🥞</p>
-</section>
-
-<!-- 7. NEWSLETTER -->
+<!-- 6. NEWSLETTER -->
 <section class="wrap" aria-label="Newsletter">
   <div class="nl-card">
     <h3>📬 Le mail <span class="ac">du quai</span></h3>
@@ -504,9 +455,6 @@ section{padding:28px 0;scroll-margin-top:8px}
   Glaces en Seine · sam·dim·fériés · 14h–19h<br/>
   <a href="/">← Retour au site principal</a>
 </footer>
-
-<!-- Floating IG button -->
-<button class="float-ig" id="floatIg" aria-label="Ouvrir Instagram">📸</button>
 
 <!-- Hidden canvas for share image -->
 <canvas id="shareCanvas" width="1080" height="1920"
@@ -1096,8 +1044,9 @@ function startQuiz(){
     idx:0,
     scores:Object.fromEntries(ALL_KEYS.map(k=>[k,0])),
   };
-  document.getElementById("resultSection").style.display="none";
-  document.getElementById("floatIg").classList.remove("show");
+  const sec=document.getElementById("resultSection");
+  sec.style.display="none";
+  sec.classList.remove("is-visible");
   renderQ();
 }
 
@@ -1148,18 +1097,15 @@ function showResult(){
   ov.style.background=r.ov||"rgba(255,251,241,.72)";
 
   const sec=document.getElementById("resultSection");
-  sec.style.display="";
-  // Trigger animation class after display change (avoids opacity:0 freeze on Safari)
+  sec.style.display="block"; // explicit override of CSS display:none
+  // Trigger animation class + draw bg after layout
   requestAnimationFrame(()=>{
     sec.classList.add("is-visible");
     drawAficheBg(r);
   });
-  sec.scrollIntoView({behavior:"smooth",block:"start"});
-  document.getElementById("floatIg").classList.add("show");
+  // Smooth scroll once layout is settled
+  setTimeout(()=>sec.scrollIntoView({behavior:"smooth",block:"start"}),60);
 
-  // Update sticky bar
-  const sl=document.getElementById("stickyLabel");
-  if(sl) sl.textContent=r.em+"  "+r.name;
   window.__currentReco={em:r.em,nm:r.name+' · '+r.prod.nm,px:r.prod.px,col:r.col};
 }
 
@@ -1361,50 +1307,6 @@ function openIgCamera(){
   },1300);
   try{ window.location.href="instagram://camera"; }catch(e){}
 }
-document.getElementById("igCamBtn").addEventListener("click",openIgCamera);
-document.getElementById("floatIg").addEventListener("click",openIgCamera);
-
-document.getElementById("copyHashBtn").addEventListener("click",async function(){
-  const btn=this;
-  const txt="#GlacesEnSeine";
-  try{
-    await navigator.clipboard.writeText(txt);
-  }catch(e){
-    const ta=document.createElement("textarea");
-    ta.value=txt; document.body.appendChild(ta); ta.select();
-    try{ document.execCommand("copy"); }catch(_){}
-    document.body.removeChild(ta);
-  }
-  btn.textContent="Copié ✓"; btn.classList.add("ok");
-  setTimeout(()=>{ btn.textContent="Copier"; btn.classList.remove("ok"); },1800);
-});
-
-/* ══════════════════════════════════════════════════════
-   STICKY BAR
-   ══════════════════════════════════════════════════════ */
-const sBar=document.createElement("div");
-sBar.style.cssText="position:fixed;bottom:0;left:0;right:0;"+
-  "background:rgba(34,28,18,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);"+
-  "padding:12px 16px max(12px,env(safe-area-inset-bottom));"+
-  "display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:49;"+
-  "transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);border-radius:20px 20px 0 0;";
-sBar.innerHTML=`
-  <span id="stickyLabel" style="color:#FFFBF1;font-size:14px;font-weight:600;flex:1;
-    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.3">
-    Tu sais ce que tu veux ?
-  </span>
-  <button style="background:#E26B5C;color:#fff;border:none;padding:11px 16px;border-radius:999px;
-    font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0;white-space:nowrap;font-family:inherit"
-    onclick="showCounter(window.__currentReco||{em:'🍦',nm:'Dis-moi ce que tu veux',px:'',col:null})">
-    Montre au comptoir 🙌
-  </button>`;
-document.body.appendChild(sBar);
-let stickyShown=false;
-function showSticky(){ sBar.style.transform="translateY(0)"; }
-setTimeout(()=>{ if(!stickyShown){ stickyShown=true; showSticky(); } },42000);
-window.addEventListener("scroll",()=>{
-  if(!stickyShown && window.scrollY>320){ stickyShown=true; showSticky(); }
-},{passive:true});
 
 /* ══════════════════════════════════════════════════════
    NEWSLETTER
