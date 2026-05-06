@@ -90,7 +90,7 @@ section + section{padding-top:24px}
   font-weight:700;font-size:12.5px;padding:5px 11px;border-radius:999px}
 .menu-card.gl{background:linear-gradient(160deg,var(--rose-100) 0%,#fff 80%)}
 .menu-card.cr{background:linear-gradient(160deg,var(--sun-100) 0%,#fff 80%)}
-.menu-card.ga{background:linear-gradient(160deg,var(--teal-100) 0%,#fff 80%)}
+.menu-card.ga{background:linear-gradient(160deg,#FFF3E0 0%,#fff 80%)}
 .menu-card.bo{background:linear-gradient(160deg,#E6F2FB 0%,#fff 80%)}
 .menu-card.hlt{outline:2px solid var(--cherry)}
 .badge{position:absolute;top:-9px;right:10px;color:#fff;font-size:10.5px;font-weight:700;
@@ -203,6 +203,15 @@ section + section{padding-top:24px}
 .comp-banner .trophy{font-size:32px;margin-bottom:6px}
 .comp-banner h4{font-family:'Fraunces',Georgia,serif;font-size:16px;font-weight:600;margin:0 0 4px}
 .comp-banner p{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.4}
+.comp-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.comp-action-btn{display:inline-flex;align-items:center;gap:5px;
+  padding:8px 14px;border-radius:999px;border:1.5px solid rgba(34,28,18,.18);
+  background:rgba(255,255,255,.65);backdrop-filter:blur(4px);
+  font-size:12.5px;font-weight:600;color:var(--ink);text-decoration:none;cursor:pointer;
+  font-family:inherit;transition:transform .2s,background .2s}
+.comp-action-btn:hover{background:#fff;transform:translateY(-1px)}
+.comp-action-btn.ig-btn{border-color:rgba(221,42,123,.3);color:#B5005B}
+.comp-action-btn.fb-btn{border-color:rgba(24,119,242,.3);color:#1877F2}
 
 /* Back to menu */
 .back-menu{display:block;text-align:center;margin-top:18px}
@@ -304,11 +313,11 @@ section + section{padding-top:24px}
   </div>
 
   <div class="menu-cat">
-    <h3 class="menu-cat-h"><span style="font-size:20px">🧇</span> Gaufres</h3>
+    <h3 class="menu-cat-h"><span style="font-size:20px">💚</span> Le choix de l'équipe</h3>
 
     <!-- Signature : La Foli's -->
     <div class="foli-card">
-      <img class="foli-img" src="/lafolis.png" alt="La Foli's — coupelle gaufre, chantilly, cubes croustillants" loading="lazy"/>
+      <img class="foli-img" src="/lafolisup.png" alt="La Foli's — coupelle gaufre, chantilly, cubes croustillants" loading="lazy"/>
       <div class="foli-tx">
         <div class="foli-eye">💚 Choix de l'équipe</div>
         <div class="foli-nm">La <span class="sig">Foli's</span></div>
@@ -317,7 +326,8 @@ section + section{padding-top:24px}
       </div>
     </div>
 
-    <div class="menu-grid" style="margin-top:14px">
+    <h3 class="menu-cat-h" style="margin-top:20px"><span style="font-size:20px">🧇</span> Gaufres</h3>
+    <div class="menu-grid" style="margin-top:8px">
       <div class="menu-card ga">
         <div class="name">Sucre glace</div>
         <div class="desc">Toute simple</div>
@@ -373,7 +383,7 @@ section + section{padding-top:24px}
   </div>
 
   <p class="menu-supp">
-    Suppléments&nbsp;: chantilly +1 € · brochette de bonbons 2 €<br/>
+    Suppléments&nbsp;: <img src="/chantilly.png" alt="" style="width:20px;height:19px;vertical-align:middle;object-fit:contain;display:inline-block;margin:-2px 3px 0 1px"> chantilly +1&nbsp;€ · 🍭 brochette de bonbons 2&nbsp;€<br/>
     <span style="opacity:.75">Parfums selon arrivages · prix indicatifs</span>
   </p>
 
@@ -447,7 +457,6 @@ section + section{padding-top:24px}
       <div class="res-ds"  id="rDs"></div>
       <div class="res-product" id="rProduct">
         <div class="pnm" id="rPnm"></div>
-        <span class="ppx" id="rPpx"></span>
       </div>
       <div class="res-brand"><strong>Glaces en Seine</strong> · Quai de Seine, La Frette · #GlacesEnSeine</div>
     </div>
@@ -467,6 +476,11 @@ section + section{padding-top:24px}
     <div class="trophy">🏆</div>
     <h4>La plus belle photo du mois gagne une crêpe offerte</h4>
     <p>Envoie ta glace en DM à <strong>@glacesenseine</strong> et on annonce le gagnant en fin de mois.</p>
+    <div class="comp-actions">
+      <button class="comp-action-btn" id="compCameraBtn">📷 Prendre une photo</button>
+      <a class="comp-action-btn ig-btn" href="https://instagram.com/glacesenseine" target="_blank" rel="noopener">📸 Instagram</a>
+      <a class="comp-action-btn fb-btn" href="https://www.facebook.com/glacesenseine" target="_blank" rel="noopener">📘 Facebook</a>
+    </div>
   </div>
 
   <!-- Back to menu -->
@@ -476,7 +490,7 @@ section + section{padding-top:24px}
 </section>
 
 <!-- 6. NEWSLETTER -->
-<section class="wrap" aria-label="Newsletter">
+<section class="wrap" style="padding-top:40px" aria-label="Newsletter">
   <div class="nl-card">
     <h3>📬 Le mail <span class="ac">du quai</span></h3>
     <p>1 mail par mois — saveurs du moment, événements, dates d'ouverture.</p>
@@ -811,13 +825,13 @@ function shuffle(a){
   return b;
 }
 
-/* Preload affiche image */
+/* Preload background image */
 let afficheImg=null;
 (function(){
   const img=new Image();
   img.crossOrigin="anonymous";
   img.onload=()=>{ afficheImg=img; };
-  img.src="/affiche.jpeg";
+  img.src="/test2.png";
 })();
 
 /* ══════════════════════════════════════════════════════
@@ -1031,7 +1045,6 @@ function showResult(){
   document.getElementById("rSub").textContent=r.sub;
   document.getElementById("rDs").textContent=r.ds;
   document.getElementById("rPnm").textContent=r.prod.nm;
-  document.getElementById("rPpx").textContent=r.prod.px;
 
   /* Card background */
   const ov=document.getElementById("resOverlay");
@@ -1149,13 +1162,13 @@ async function buildShareCanvas(r){
 
   /* — Product recommendation box — */
   ctx.fillStyle="rgba(255,255,255,.75)";
-  roundRect(ctx,120,1490,840,200,30);
+  roundRect(ctx,120,1490,840,155,30);
   ctx.fillStyle="#221C12";
   ctx.font="600 52px 'Fraunces',Georgia,serif";
-  ctx.fillText(r.prod.nm,W/2,1570);
-  ctx.fillStyle="#E26B5C";
-  ctx.font="700 48px 'Inter',system-ui,sans-serif";
-  ctx.fillText("→ "+r.prod.px+" au comptoir",W/2,1640);
+  ctx.fillText(r.prod.nm,W/2,1583);
+  ctx.fillStyle="#5C5040";
+  ctx.font="500 40px 'Inter',system-ui,sans-serif";
+  ctx.fillText("Notre sélection du jour ✨",W/2,1637);
 
   /* — Footer — */
   ctx.fillStyle="rgba(34,28,18,.15)";
@@ -1236,6 +1249,13 @@ function downloadBlob(blob,filename){
 
 document.getElementById("shareIgBtn").addEventListener("click",()=>shareImage("ig"));
 document.getElementById("shareFbBtn").addEventListener("click",()=>shareImage("fb"));
+
+/* Competition camera button */
+document.getElementById("compCameraBtn").addEventListener("click",function(){
+  const inp=document.createElement("input");
+  inp.type="file"; inp.accept="image/*"; inp.capture="environment";
+  inp.click();
+});
 
 /* ══════════════════════════════════════════════════════
    INSTAGRAM CAMERA / PHOTO CTA
