@@ -53,7 +53,8 @@ export function Newsletter() {
               📬 Le mail <span className="font-script text-cherry">du quai</span>
             </h2>
             <p className="mt-1.5 max-w-md text-[13.5px] leading-relaxed text-ink/60 sm:text-[14px]">
-              Spot lâché 1h avant. Motus. 🤐
+              Les prochaines dates du gang Glaces en Seine ne circulent
+              qu&apos;entre initiés.
             </p>
           </div>
 
@@ -86,7 +87,7 @@ export function Newsletter() {
                 >
                   {status === "loading"
                     ? <span className="mx-auto block h-4 w-4 animate-spin rounded-full border-2 border-cream/30 border-t-cream" />
-                    : "Embarque 🛶"}
+                    : "Je rejoins le gang"}
                 </button>
               </motion.form>
             ) : (
