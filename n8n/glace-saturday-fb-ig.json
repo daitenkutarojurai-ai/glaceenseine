@@ -1,5 +1,5 @@
 {
-  "name": "Glace en Seine — Saturday post (FB + IG)",
+  "name": "Glace en Seine — Weekly post (FB + IG, Drive rotating)",
   "nodes": [
     {
       "parameters": {
@@ -20,13 +20,45 @@
     },
     {
       "parameters": {
-        "jsCode": "// Pick a caption variant deterministically by week.\n// Anchor: Sat 2026-05-02 00:00 Europe/Paris = week 0 (matches the website\n// newsletter rotation in newsletter/sendEmail.js).\nconst EPOCH = Date.UTC(2026, 4, 1, 22, 0, 0);\nconst week = Math.floor((Date.now() - EPOCH) / (7 * 24 * 60 * 60 * 1000));\n\nconst captions = [\n  // 0 — météo\n  `Si la météo tient ses promesses, c'est week-end glace les pieds dans l'herbe.\\n\\nOn vous attend face à la mairie de La Frette-sur-Seine, samedi & dimanche, 14h–19h.\\n\\nCrêpes · gaufres · glaces artisanales\\n#glaceenseine`,\n  // 1 — humour\n  `Y'a des jours où t'as juste pas envie de réfléchir. Bonne nouvelle, on a tout prévu.\\n\\nTu marches, tu pointes, tu manges.\\nQuai de La Frette-sur-Seine, sam & dim, 14h–19h.\\n#glaceenseine`,\n  // 2 — QR\n  `Hésiter entre douze parfums, ça fatigue. Sur place, scanne le QR du menu : un mini-jeu te tire un parfum au hasard.\\n\\nDécision : 0,3 seconde.\\n\\nCe week-end, sam & dim, 14h–19h, face à la mairie de La Frette-sur-Seine.\\n#glaceenseine`,\n  // 3 — crew\n  `Le gang Glace en Seine te garde une place ce week-end. Banc, herbe, marches du quai — choisis ton spot.\\n\\nSamedi & dimanche, 14h–19h, face à la mairie de La Frette-sur-Seine.\\nCrêpes · gaufres · glaces artisanales\\n#glaceenseine`\n];\n\nconst caption = captions[((week % captions.length) + captions.length) % captions.length];\nconst imageUrl = 'https://www.glaceenseine.fr/newsletter/affiche.jpeg';\n\nreturn [{ json: { week, caption, imageUrl } }];"
+        "method": "GET",
+        "url": "https://www.googleapis.com/drive/v3/files",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleDriveOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "'1kIj62TL-IkmLSt_3qVvkkyiYSWi8B-VV' in parents and mimeType contains 'image/' and trashed=false"
+            },
+            { "name": "fields", "value": "files(id,name,mimeType)" },
+            { "name": "pageSize", "value": "200" },
+            { "name": "orderBy", "value": "name" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9c1c0f6e-1111-4f01-9001-000000000010",
+      "name": "Drive · list n8n folder",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "REPLACE_WITH_DRIVE_CREDENTIAL_ID",
+          "name": "Google Drive — Glace en Seine"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pick a Drive image that has not been posted yet, plus a rotating caption.\n//\n// Dedup: workflow staticData persists postedIds across runs. When all files\n// have been posted, the list resets so the rotation continues (warned via\n// cycleReset = true so the run can be inspected in the n8n executions log).\n//\n// Caption rotation: 4-week cycle [météo → humour → QR → crew], anchored on\n// Sat 2026-05-02 22:00 UTC = Sat 00:00 Europe/Paris (matches\n// newsletter/sendEmail.js).\n\nconst response = $input.first().json;\nconst files = (response && response.files) || [];\nif (files.length === 0) {\n  throw new Error('Drive folder returned no images. Check folder ID and OAuth scope.');\n}\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.postedIds = Array.isArray(staticData.postedIds) ? staticData.postedIds : [];\n\nlet pool = files.filter((f) => !staticData.postedIds.includes(f.id));\nlet cycleReset = false;\nif (pool.length === 0) {\n  staticData.postedIds = [];\n  pool = files.slice();\n  cycleReset = true;\n}\n\n// Deterministic pick: alphabetical name order on the unposted pool.\npool.sort((a, b) => String(a.name).localeCompare(String(b.name)));\nconst pick = pool[0];\nstaticData.postedIds.push(pick.id);\n\n// Public Drive CDN URL — requires the n8n folder to be shared\n// \"Anyone with the link → Viewer\" (one-time Drive setting).\nconst imageUrl = `https://lh3.googleusercontent.com/d/${pick.id}=w2000`;\n\n// Week-based caption rotation\nconst EPOCH = Date.UTC(2026, 4, 1, 22, 0, 0);\nconst week = Math.floor((Date.now() - EPOCH) / (7 * 24 * 60 * 60 * 1000));\nconst captions = [\n  // 0 — météo\n  `Si la météo tient ses promesses, c'est week-end glace les pieds dans l'herbe.\\n\\nOn vous attend face à la mairie de La Frette-sur-Seine, samedi & dimanche, 14h–19h.\\n\\nCrêpes · gaufres · glaces artisanales\\n#glaceenseine`,\n  // 1 — humour\n  `Y'a des jours où t'as juste pas envie de réfléchir. Bonne nouvelle, on a tout prévu.\\n\\nTu marches, tu pointes, tu manges.\\nQuai de La Frette-sur-Seine, sam & dim, 14h–19h.\\n#glaceenseine`,\n  // 2 — QR\n  `Hésiter entre douze parfums, ça fatigue. Sur place, scanne le QR du menu : un mini-jeu te tire un parfum au hasard.\\n\\nDécision : 0,3 seconde.\\n\\nCe week-end, sam & dim, 14h–19h, face à la mairie de La Frette-sur-Seine.\\n#glaceenseine`,\n  // 3 — crew\n  `Le gang Glace en Seine te garde une place ce week-end. Banc, herbe, marches du quai — choisis ton spot.\\n\\nSamedi & dimanche, 14h–19h, face à la mairie de La Frette-sur-Seine.\\nCrêpes · gaufres · glaces artisanales\\n#glaceenseine`\n];\nconst caption = captions[((week % captions.length) + captions.length) % captions.length];\n\nreturn [\n  {\n    json: {\n      week,\n      pickedId: pick.id,\n      pickedName: pick.name,\n      imageUrl,\n      caption,\n      cycleReset,\n      postedCount: staticData.postedIds.length,\n      poolSize: files.length\n    }\n  }\n];"
       },
       "id": "9c1c0f6e-1111-4f01-9001-000000000002",
-      "name": "Pick caption (week-based)",
+      "name": "Pick image + caption",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 300]
+      "position": [680, 300]
     },
     {
       "parameters": {
@@ -47,7 +79,7 @@
       "name": "IG · create container",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [680, 200],
+      "position": [900, 200],
       "credentials": {
         "httpHeaderAuth": {
           "id": "REPLACE_WITH_CREDENTIAL_ID",
@@ -64,7 +96,7 @@
       "name": "Wait 8s (container ready)",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
-      "position": [900, 200],
+      "position": [1120, 200],
       "webhookId": "9c1c0f6e-1111-4f01-9001-000000000004"
     },
     {
@@ -85,7 +117,7 @@
       "name": "IG · publish",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1120, 200],
+      "position": [1340, 200],
       "credentials": {
         "httpHeaderAuth": {
           "id": "REPLACE_WITH_CREDENTIAL_ID",
@@ -102,8 +134,8 @@
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
-            { "name": "url", "value": "={{ $('Pick caption (week-based)').item.json.imageUrl }}" },
-            { "name": "message", "value": "={{ $('Pick caption (week-based)').item.json.caption }}" }
+            { "name": "url", "value": "={{ $('Pick image + caption').item.json.imageUrl }}" },
+            { "name": "message", "value": "={{ $('Pick image + caption').item.json.caption }}" }
           ]
         },
         "options": {}
@@ -112,7 +144,7 @@
       "name": "FB Page · post photo",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [680, 420],
+      "position": [900, 420],
       "credentials": {
         "httpHeaderAuth": {
           "id": "REPLACE_WITH_CREDENTIAL_ID",
@@ -123,13 +155,18 @@
   ],
   "connections": {
     "Saturday 09:00 UTC": {
-      "main": [[{ "node": "Pick caption (week-based)", "type": "main", "index": 0 }]]
+      "main": [[{ "node": "Drive · list n8n folder", "type": "main", "index": 0 }]]
     },
-    "Pick caption (week-based)": {
-      "main": [[
-        { "node": "IG · create container", "type": "main", "index": 0 },
-        { "node": "FB Page · post photo", "type": "main", "index": 0 }
-      ]]
+    "Drive · list n8n folder": {
+      "main": [[{ "node": "Pick image + caption", "type": "main", "index": 0 }]]
+    },
+    "Pick image + caption": {
+      "main": [
+        [
+          { "node": "IG · create container", "type": "main", "index": 0 },
+          { "node": "FB Page · post photo", "type": "main", "index": 0 }
+        ]
+      ]
     },
     "IG · create container": {
       "main": [[{ "node": "Wait 8s (container ready)", "type": "main", "index": 0 }]]
@@ -140,5 +177,5 @@
   },
   "active": false,
   "settings": { "executionOrder": "v1" },
-  "version": 1
+  "version": 2
 }

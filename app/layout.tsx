@@ -49,13 +49,13 @@ export const metadata: Metadata = {
     siteName: "Glaces en Seine",
     locale: "fr_FR",
     type: "website",
-    images: [{ url: "/logo.jpg", width: 496, height: 377, alt: "Logo Glaces en Seine" }],
+    images: [{ url: "/glaceensein1.png", width: 1536, height: 1024, alt: "Glaces en Seine — caravane gourmande sur les quais" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Glaces en Seine",
     description: "La gourmandise débarque sur les quais de Seine.",
-    images: ["/logo.jpg"],
+    images: ["/glaceensein1.png"],
   },
   robots: {
     index: true,
@@ -83,6 +83,7 @@ const jsonLd = {
         "Glacier artisanal de quai à La Frette-sur-Seine (95530). Glaces, crêpes et gaufres préparées devant vous, sur les quais de Seine, sam·dim·fériés de 14h à 19h, mai → septembre.",
       url: "https://glaceenseine.fr",
       image: [
+        "https://glaceenseine.fr/glaceensein1.png",
         "https://glaceenseine.fr/logo.jpg",
         "https://glaceenseine.fr/camion.jpg",
         "https://glaceenseine.fr/carrouselfinal.png",
