@@ -80,7 +80,7 @@ export function Nav() {
             rel="noopener noreferrer"
             aria-label="Laisser un avis Google"
             title="Laisser un avis Google"
-            className="grid h-9 w-9 place-items-center rounded-full bg-cream/80 text-sun-300 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-cherry"
+            className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-tr from-sun-300 to-sun-500 text-white shadow-soft transition hover:-translate-y-0.5 hover:brightness-110"
           >
             <Star className="h-4 w-4 fill-current" />
           </Link>
@@ -107,20 +107,22 @@ export function Nav() {
           <Link
             href="/emplacement"
             aria-label="Nous trouver"
-            className="hidden h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-teal-600 lg:grid"
+            title="Nous trouver"
+            className="hidden h-9 w-9 place-items-center rounded-full bg-teal-500 text-white shadow-soft transition hover:-translate-y-0.5 hover:brightness-110 lg:grid"
           >
             <MapPin className="h-4 w-4" />
           </Link>
           <Link
             href="/#newsletter"
             aria-label="Newsletter"
-            className="hidden h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-teal-600 lg:grid"
+            title="Newsletter"
+            className="hidden h-9 w-9 place-items-center rounded-full bg-peach-500 text-white shadow-soft transition hover:-translate-y-0.5 hover:brightness-110 lg:grid"
           >
             <Bell className="h-4 w-4" />
           </Link>
           <Link
             href="/contact"
-            className="hidden items-center gap-2 rounded-full bg-cream/80 px-4 py-2 text-[13px] font-semibold text-ink shadow-soft transition hover:bg-cream lg:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-peach-100 px-4 py-2 text-[13px] font-semibold text-cherry shadow-soft transition hover:-translate-y-0.5 hover:bg-peach-300 lg:inline-flex"
           >
             Contact
           </Link>
@@ -141,7 +143,7 @@ export function Nav() {
             rel="noopener noreferrer"
             aria-label="Laisser un avis Google"
             title="Laisser un avis Google"
-            className="grid h-11 w-11 place-items-center rounded-full bg-cream/80 text-sun-300 shadow-soft backdrop-blur transition active:scale-95"
+            className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-tr from-sun-300 to-sun-500 text-white shadow-soft transition active:scale-95"
           >
             <Star className="h-4 w-4 fill-current" />
           </Link>

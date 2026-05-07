@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Instagram, Facebook, MapPin, Clock, Star } from "lucide-react";
+import { Instagram, Facebook, MapPin, Clock, Star, ArrowRight } from "lucide-react";
 import { SOCIAL } from "@/lib/social";
 
 const MAPS_URL =
@@ -56,15 +56,17 @@ export default function ContactPage() {
                     href={GOOGLE_REVIEW_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                    className="group relative flex items-center gap-4 overflow-hidden rounded-2xl bg-cream p-4 shadow-soft ring-1 ring-ink/5 transition hover:-translate-y-0.5 hover:shadow-ring hover:ring-sun-300"
                   >
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-sun-100 text-sun-300">
-                      <Star className="h-4 w-4 fill-current" />
+                    <span className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-sun-300 to-sun-500 opacity-0 transition group-hover:opacity-100" />
+                    <span className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-tr from-sun-300 to-sun-500 text-white shadow-soft">
+                      <Star className="h-5 w-5 fill-current" />
                     </span>
-                    <div>
-                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Avis Google</div>
+                    <div className="flex-1">
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/45">Avis Google</div>
                       <div className="font-semibold text-ink group-hover:text-cherry">Laisser un avis ⭐⭐⭐⭐⭐</div>
                     </div>
+                    <ArrowRight className="h-4 w-4 -translate-x-2 text-ink/35 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
                   </a>
                 </Reveal>
                 <Reveal delay={0.1}>
@@ -72,15 +74,17 @@ export default function ContactPage() {
                     href={SOCIAL.instagram.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                    className="group relative flex items-center gap-4 overflow-hidden rounded-2xl bg-cream p-4 shadow-soft ring-1 ring-ink/5 transition hover:-translate-y-0.5 hover:shadow-ring hover:ring-rose-300"
                   >
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-sun text-ink">
-                      <Instagram className="h-4 w-4" />
+                    <span className="absolute inset-y-0 left-0 w-1.5 bg-gradient-to-b from-[#F58529] via-[#DD2A7B] to-[#8134AF] opacity-0 transition group-hover:opacity-100" />
+                    <span className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white shadow-soft">
+                      <Instagram className="h-5 w-5" />
                     </span>
-                    <div>
-                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Instagram</div>
+                    <div className="flex-1">
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/45">Instagram</div>
                       <div className="font-semibold text-ink group-hover:text-cherry">{SOCIAL.instagram.handle}</div>
                     </div>
+                    <ArrowRight className="h-4 w-4 -translate-x-2 text-ink/35 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
                   </a>
                 </Reveal>
                 <Reveal delay={0.15}>
@@ -88,15 +92,17 @@ export default function ContactPage() {
                     href={SOCIAL.facebook.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                    className="group relative flex items-center gap-4 overflow-hidden rounded-2xl bg-cream p-4 shadow-soft ring-1 ring-ink/5 transition hover:-translate-y-0.5 hover:shadow-ring hover:ring-[#1877F2]/40"
                   >
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#1877F2] text-white">
-                      <Facebook className="h-4 w-4" />
+                    <span className="absolute inset-y-0 left-0 w-1.5 bg-[#1877F2] opacity-0 transition group-hover:opacity-100" />
+                    <span className="grid h-12 w-12 place-items-center rounded-xl bg-[#1877F2] text-white shadow-soft">
+                      <Facebook className="h-5 w-5 fill-current" />
                     </span>
-                    <div>
-                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Facebook</div>
+                    <div className="flex-1">
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/45">Facebook</div>
                       <div className="font-semibold text-ink group-hover:text-cherry">Glace en Seine</div>
                     </div>
+                    <ArrowRight className="h-4 w-4 -translate-x-2 text-ink/35 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
                   </a>
                 </Reveal>
                 <Reveal delay={0.15}>
@@ -104,24 +110,26 @@ export default function ContactPage() {
                     href={MAPS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                    className="group relative flex items-center gap-4 overflow-hidden rounded-2xl bg-cream p-4 shadow-soft ring-1 ring-ink/5 transition hover:-translate-y-0.5 hover:shadow-ring hover:ring-teal-300"
                   >
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-teal-100 text-teal-700">
-                      <MapPin className="h-4 w-4" />
+                    <span className="absolute inset-y-0 left-0 w-1.5 bg-teal-500 opacity-0 transition group-hover:opacity-100" />
+                    <span className="grid h-12 w-12 place-items-center rounded-xl bg-teal-500 text-white shadow-soft">
+                      <MapPin className="h-5 w-5" />
                     </span>
-                    <div>
-                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Sur place</div>
-                      <div className="font-semibold text-ink group-hover:text-cherry">Quai de Seine, La Frette-sur-Seine</div>
+                    <div className="flex-1">
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/45">Sur place</div>
+                      <div className="font-semibold text-ink group-hover:text-cherry">Face à la mairie · Quai de La Frette-sur-Seine</div>
                     </div>
+                    <ArrowRight className="h-4 w-4 -translate-x-2 text-ink/35 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
                   </Link>
                 </Reveal>
                 <Reveal delay={0.18}>
-                  <div className="flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft">
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-sun-100 text-ink">
-                      <Clock className="h-4 w-4" />
+                  <div className="relative flex items-center gap-4 overflow-hidden rounded-2xl bg-cream p-4 shadow-soft ring-1 ring-ink/5">
+                    <span className="grid h-12 w-12 place-items-center rounded-xl bg-cherry text-cream shadow-soft">
+                      <Clock className="h-5 w-5" />
                     </span>
-                    <div>
-                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Horaires</div>
+                    <div className="flex-1">
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/45">Horaires</div>
                       <div className="font-semibold text-ink">Sam · Dim · fériés · 14h–19h</div>
                     </div>
                   </div>
