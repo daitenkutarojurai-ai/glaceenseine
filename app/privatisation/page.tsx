@@ -121,7 +121,7 @@ export default function PrivatisationPage() {
   return (
     <div className="relative overflow-hidden">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PRIV_FAQ_LD) }} />
-      <SectionBanner src="/bannnersmall.png" alt="Glaces en Seine — privatisation pour mariage et événements">
+      <SectionBanner src="/bannersmalllast.png" alt="Glaces en Seine — privatisation pour mariage et événements">
         <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-cherry drop-shadow">
           Privatisation
         </p>

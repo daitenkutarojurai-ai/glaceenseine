@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="relative overflow-hidden">
-      <SectionBanner src="/bannnersmall.png" alt="Contactez Glaces en Seine — formulaire et coordonnées">
+      <SectionBanner src="/bannersmalllast.png" alt="Contactez Glaces en Seine — formulaire et coordonnées">
         <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-300 drop-shadow">
           Nous contacter
         </p>
