@@ -1,0 +1,144 @@
+{
+  "name": "Glace en Seine — Saturday post (FB + IG)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 6"
+            }
+          ]
+        }
+      },
+      "id": "9c1c0f6e-1111-4f01-9001-000000000001",
+      "name": "Saturday 09:00 UTC",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pick a caption variant deterministically by week.\n// Anchor: Sat 2026-05-02 00:00 Europe/Paris = week 0 (matches the website\n// newsletter rotation in newsletter/sendEmail.js).\nconst EPOCH = Date.UTC(2026, 4, 1, 22, 0, 0);\nconst week = Math.floor((Date.now() - EPOCH) / (7 * 24 * 60 * 60 * 1000));\n\nconst captions = [\n  // 0 — météo\n  `Si la météo tient ses promesses, c'est week-end glace les pieds dans l'herbe.\\n\\nOn vous attend face à la mairie de La Frette-sur-Seine, samedi & dimanche, 14h–19h.\\n\\nCrêpes · gaufres · glaces artisanales\\n#glaceenseine`,\n  // 1 — humour\n  `Y'a des jours où t'as juste pas envie de réfléchir. Bonne nouvelle, on a tout prévu.\\n\\nTu marches, tu pointes, tu manges.\\nQuai de La Frette-sur-Seine, sam & dim, 14h–19h.\\n#glaceenseine`,\n  // 2 — QR\n  `Hésiter entre douze parfums, ça fatigue. Sur place, scanne le QR du menu : un mini-jeu te tire un parfum au hasard.\\n\\nDécision : 0,3 seconde.\\n\\nCe week-end, sam & dim, 14h–19h, face à la mairie de La Frette-sur-Seine.\\n#glaceenseine`,\n  // 3 — crew\n  `Le gang Glace en Seine te garde une place ce week-end. Banc, herbe, marches du quai — choisis ton spot.\\n\\nSamedi & dimanche, 14h–19h, face à la mairie de La Frette-sur-Seine.\\nCrêpes · gaufres · glaces artisanales\\n#glaceenseine`\n];\n\nconst caption = captions[((week % captions.length) + captions.length) % captions.length];\nconst imageUrl = 'https://www.glaceenseine.fr/newsletter/affiche.jpeg';\n\nreturn [{ json: { week, caption, imageUrl } }];"
+      },
+      "id": "9c1c0f6e-1111-4f01-9001-000000000002",
+      "name": "Pick caption (week-based)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v22.0/17841426669574462/media",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "image_url", "value": "={{ $json.imageUrl }}" },
+            { "name": "caption", "value": "={{ $json.caption }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9c1c0f6e-1111-4f01-9001-000000000003",
+      "name": "IG · create container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 200],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "FB Graph — Glace en Seine"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 8,
+        "unit": "seconds"
+      },
+      "id": "9c1c0f6e-1111-4f01-9001-000000000004",
+      "name": "Wait 8s (container ready)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [900, 200],
+      "webhookId": "9c1c0f6e-1111-4f01-9001-000000000004"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v22.0/17841426669574462/media_publish",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "creation_id", "value": "={{ $('IG · create container').item.json.id }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9c1c0f6e-1111-4f01-9001-000000000005",
+      "name": "IG · publish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1120, 200],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "FB Graph — Glace en Seine"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v22.0/1147900985068771/photos",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "url", "value": "={{ $('Pick caption (week-based)').item.json.imageUrl }}" },
+            { "name": "message", "value": "={{ $('Pick caption (week-based)').item.json.caption }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9c1c0f6e-1111-4f01-9001-000000000006",
+      "name": "FB Page · post photo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 420],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "FB Graph — Glace en Seine"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Saturday 09:00 UTC": {
+      "main": [[{ "node": "Pick caption (week-based)", "type": "main", "index": 0 }]]
+    },
+    "Pick caption (week-based)": {
+      "main": [[
+        { "node": "IG · create container", "type": "main", "index": 0 },
+        { "node": "FB Page · post photo", "type": "main", "index": 0 }
+      ]]
+    },
+    "IG · create container": {
+      "main": [[{ "node": "Wait 8s (container ready)", "type": "main", "index": 0 }]]
+    },
+    "Wait 8s (container ready)": {
+      "main": [[{ "node": "IG · publish", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "version": 1
+}
