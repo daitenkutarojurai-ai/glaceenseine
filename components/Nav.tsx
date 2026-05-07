@@ -89,7 +89,8 @@ export function Nav() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Instagram ${SOCIAL.instagram.handle}`}
-            className="hidden h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-cherry lg:grid"
+            title={`Instagram ${SOCIAL.instagram.handle}`}
+            className="hidden h-9 w-9 place-items-center rounded-full bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white shadow-soft transition hover:-translate-y-0.5 hover:brightness-110 lg:grid"
           >
             <Instagram className="h-4 w-4" />
           </Link>
@@ -98,7 +99,8 @@ export function Nav() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook Glace en Seine"
-            className="hidden h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-cherry lg:grid"
+            title="Facebook Glace en Seine"
+            className="hidden h-9 w-9 place-items-center rounded-full bg-[#1877F2] text-white shadow-soft transition hover:-translate-y-0.5 hover:brightness-110 lg:grid"
           >
             <Facebook className="h-4 w-4" />
           </Link>
@@ -235,6 +237,28 @@ export function Nav() {
                 >
                   <Star className="h-4 w-4 fill-sun-300 text-sun-300" />
                   Laisser un avis Google
+                </Link>
+                <Link
+                  href={SOCIAL.instagram.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpen(false)}
+                  aria-label={`Instagram ${SOCIAL.instagram.handle}`}
+                  className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] py-3 text-sm font-semibold text-white"
+                >
+                  <Instagram className="h-4 w-4" />
+                  Instagram
+                </Link>
+                <Link
+                  href={SOCIAL.facebook.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpen(false)}
+                  aria-label="Facebook Glace en Seine"
+                  className="flex items-center justify-center gap-2 rounded-full bg-[#1877F2] py-3 text-sm font-semibold text-white"
+                >
+                  <Facebook className="h-4 w-4" />
+                  Facebook
                 </Link>
               </div>
             </div>

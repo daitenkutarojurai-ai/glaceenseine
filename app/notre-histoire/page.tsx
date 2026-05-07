@@ -8,6 +8,7 @@ import { Reveal } from "@/components/Reveal";
 import { ArrowRight, Heart, Quote } from "lucide-react";
 import { SectionBanner } from "@/components/SectionBanner";
 import { Newsletter } from "@/components/Newsletter";
+import { SocialStrip } from "@/components/SocialStrip";
 
 export const metadata: Metadata = {
   title: "Notre histoire — la caravane Glaces en Seine",
@@ -130,6 +131,11 @@ export default function HistoirePage() {
           </Reveal>
         </div>
       </section>
+
+      <SocialStrip
+        title="Suivez l'aventure"
+        subtitle="On poste les photos du week-end, le parfum maison, les bons moments du quai."
+      />
 
       {/* Newsletter */}
       <Newsletter />

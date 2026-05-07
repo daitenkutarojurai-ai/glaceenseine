@@ -5,6 +5,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { PrivatisationTeaser } from "@/components/PrivatisationTeaser";
 import { Location } from "@/components/Location";
 import { Newsletter } from "@/components/Newsletter";
+import { SocialStrip } from "@/components/SocialStrip";
 
 const faqLd = {
   "@context": "https://schema.org",
@@ -66,6 +67,7 @@ export default function Home() {
       <Testimonials />
       <PrivatisationTeaser />
       <Location />
+      <SocialStrip />
 
       <Newsletter />
     </>
