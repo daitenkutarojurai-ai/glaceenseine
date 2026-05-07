@@ -21,7 +21,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Instagram ${SOCIAL.instagram.handle}`}
-              className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 transition hover:bg-cream/20"
+              className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white shadow-soft transition hover:-translate-y-0.5 hover:brightness-110"
             >
               <Instagram className="h-4 w-4" />
             </Link>
@@ -30,7 +30,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook Glace en Seine"
-              className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 transition hover:bg-cream/20"
+              className="grid h-10 w-10 place-items-center rounded-full bg-[#1877F2] text-white shadow-soft transition hover:-translate-y-0.5 hover:brightness-110"
             >
               <Facebook className="h-4 w-4" />
             </Link>
@@ -40,7 +40,7 @@ export function Footer() {
               rel="noopener noreferrer"
               aria-label="Laisser un avis Google"
               title="Laisser un avis Google"
-              className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 text-sun-300 transition hover:bg-cream/20"
+              className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-tr from-sun-300 to-sun-500 text-white shadow-soft transition hover:-translate-y-0.5 hover:brightness-110"
             >
               <Star className="h-4 w-4 fill-current" />
             </Link>
@@ -48,7 +48,7 @@ export function Footer() {
               href="https://www.google.com/maps/search/?api=1&query=mairie+La+Frette-sur-Seine"
               target="_blank"
               rel="noopener noreferrer"
-              className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 transition hover:bg-cream/20"
+              className="grid h-10 w-10 place-items-center rounded-full bg-teal-500 text-white shadow-soft transition hover:-translate-y-0.5 hover:brightness-110"
               aria-label="Google Maps"
             >
               <MapPin className="h-4 w-4" />

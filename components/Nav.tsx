@@ -122,7 +122,7 @@ export function Nav() {
           </Link>
           <Link
             href="/contact"
-            className="hidden items-center gap-2 rounded-full bg-peach-100 px-4 py-2 text-[13px] font-semibold text-cherry shadow-soft transition hover:-translate-y-0.5 hover:bg-peach-300 lg:inline-flex"
+            className="hidden items-center gap-2 rounded-full bg-teal-100 px-4 py-2 text-[13px] font-semibold text-teal-700 shadow-soft transition hover:-translate-y-0.5 hover:bg-teal-300 lg:inline-flex"
           >
             Contact
           </Link>
@@ -135,17 +135,17 @@ export function Nav() {
           </Link>
         </div>
 
-        {/* Mobile-only Google review icon (visible alongside hamburger) */}
+        {/* Mobile-only Instagram icon (visible alongside hamburger) */}
         <div className="flex items-center gap-2 md:hidden">
           <Link
-            href={GOOGLE_REVIEW_URL}
+            href={SOCIAL.instagram.url}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Laisser un avis Google"
-            title="Laisser un avis Google"
-            className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-tr from-sun-300 to-sun-500 text-white shadow-soft transition active:scale-95"
+            aria-label={`Instagram ${SOCIAL.instagram.handle}`}
+            title={`Instagram ${SOCIAL.instagram.handle}`}
+            className="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white shadow-soft transition active:scale-95"
           >
-            <Star className="h-4 w-4 fill-current" />
+            <Instagram className="h-4 w-4" />
           </Link>
         {/* Hamburger */}
         <button
@@ -217,7 +217,7 @@ export function Nav() {
                 <Link
                   href="/emplacement"
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-full bg-ink/8 py-3 text-sm font-semibold text-ink"
+                  className="flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-white py-3 text-sm font-semibold text-ink"
                 >
                   <MapPin className="h-4 w-4" />
                   Nous trouver
@@ -225,7 +225,7 @@ export function Nav() {
                 <Link
                   href="/#newsletter"
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-full bg-ink/8 py-3 text-sm font-semibold text-ink"
+                  className="flex items-center justify-center gap-2 rounded-full border border-ink/15 bg-white py-3 text-sm font-semibold text-ink"
                 >
                   <Bell className="h-4 w-4" />
                   Newsletter
