@@ -56,7 +56,7 @@ export async function POST(req: Request) {
         ${emoji ? `<p><strong>Ressenti :</strong> ${escapeHtml(emoji)}</p>` : ""}
         ${comment ? `<p><strong>Commentaire :</strong><br>${escapeHtml(comment).replace(/\n/g, "<br>")}</p>` : "<p><em>Pas de commentaire.</em></p>"}
         <hr style="margin:16px 0;border-color:#eee">
-        <p style="color:#999;font-size:12px">Reçu via glacesenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
+        <p style="color:#999;font-size:12px">Reçu via glaceenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
       </div>`,
   });
 

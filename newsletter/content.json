@@ -1,0 +1,197 @@
+{
+  "_README": "Source of truth for all variable copy in the 4 newsletter templates. The CLI (newsletter/sendEmail.js) and the Vercel cron (app/api/newsletter/weekly/route.ts) both read this file. Edit pools freely — week-of-year picks the variant deterministically, so a longer pool just means more weeks before the same combo repeats.",
+
+  "templates": [
+    {
+      "id": 1,
+      "key": "meteo",
+      "file": "templates/template1-meteo.html",
+      "subject": "Ce week-end, on prend le quai (et un cornet)",
+      "menuButton": "VOIR LE MENU",
+      "hooks": [
+        {
+          "kicker": "Briefing du week-end",
+          "title": "Le soleil flotte au-dessus de la Seine.",
+          "body": "Et nous, on flotte au-dessus du quai. Si la météo tient ses promesses, c'est week-end glace les pieds dans l'herbe."
+        },
+        {
+          "kicker": "Bulletin météo maison",
+          "title": "Ciel dégagé, moral en hausse.",
+          "body": "On a regardé deux fois la météo, juste pour être sûrs. C'est validé : t'as zéro excuse pour rester chez toi."
+        },
+        {
+          "kicker": "Le ciel est avec nous",
+          "title": "On a sorti les parasols (au cas où).",
+          "body": "S'il fait beau, on est là. S'il fait gris, on est là aussi. Glace par 22°, c'est même la formule officielle."
+        },
+        {
+          "kicker": "Coup d'œil sur le quai",
+          "title": "La Seine clignote, l'herbe sèche, ça sent le bon week-end.",
+          "body": "Petits parfums fruités au programme et café glacé en backup. On vous attend dès 14h."
+        }
+      ],
+      "shoutouts": [
+        ["Camille", "Théo", "Inès"],
+        ["Anna", "Karim", "Léo"],
+        ["Manon", "Tom", "Salima"],
+        ["Élise", "Marc", "Yasmine"]
+      ],
+      "polls": [
+        "Soleil ou ombre, tu préfères ta glace où ?",
+        "Pieds dans l'herbe ou banc en bois, ton spot préféré ?",
+        "Sorbet ou crème, par quoi tu commences ?",
+        "Glace en marchant ou assis, team patience ou team grignotage ?"
+      ],
+      "funfacts": [
+        "Une glace artisanale au bord de la Seine, c'est statistiquement 10° de plus dans le moral.",
+        "Le sorbet citron baisse la température perçue de 2,3° (étude maison, échantillon : nous).",
+        "Trois minutes au soleil avec un cornet, ça équivaut à une mini-séance de luminothérapie.",
+        "Selon nos calculs, la Frette compte plus de glaces vendues que de chats. (Pour l'instant.)"
+      ]
+    },
+
+    {
+      "id": 2,
+      "key": "humour",
+      "file": "templates/template2-humour.html",
+      "subject": "On t'a pas oublié — y'a une glace qui t'attend",
+      "menuButton": "LE MENU",
+      "hooks": [
+        {
+          "kicker": "Petit message tranquille",
+          "title": "Y'a des jours où t'as juste pas envie de réfléchir.",
+          "body": "Bonne nouvelle, on a tout prévu. Toi tu marches, tu pointes, tu manges. C'est quasi un sport doux."
+        },
+        {
+          "kicker": "Niveau d'effort requis : zéro",
+          "title": "On a inventé le menu à zéro décision.",
+          "body": "Tu pointes, tu prends, tu fonds. Le seul effort autorisé, c'est de tendre le bras au moment de la dégustation."
+        },
+        {
+          "kicker": "Lettre depuis la caravane",
+          "title": "Si t'as pas faim, on t'oblige pas.",
+          "body": "Mais on a mis le moelleux à 6/10 cette semaine, ce qui, scientifiquement, est le moelleux parfait. À toi de voir."
+        },
+        {
+          "kicker": "On vous parle franchement",
+          "title": "Une glace, c'est jamais une mauvaise idée.",
+          "body": "On a vérifié. C'est comme un câlin, mais en plus rafraîchissant et avec un cornet."
+        }
+      ],
+      "shoutouts": [
+        ["Lucas", "Margaux", "Yanis"],
+        ["Alex", "Inès", "Mehdi"],
+        ["Pauline", "Adam", "Clara"],
+        ["Nathan", "Salomé", "Ilan"]
+      ],
+      "polls": [
+        "Team crêpe ou team gaufre ? (pas de mauvaise réponse)",
+        "Glace : avec ou sans Chantilly, tu fais partie de quelle école ?",
+        "Une boule ou deux ? (réponds vite, sans réfléchir)",
+        "Sucre ou Nutella sur ta crêpe quand tu hésites ?"
+      ],
+      "funfacts": [
+        "Une crêpe partagée, c'est deux fois plus drôle. Une gaufre partagée, c'est de la diplomatie.",
+        "Manger une glace les yeux fermés double la concentration sur le goût (testé en cuisine).",
+        "Le mot 'gourmandise' contient 'rire'. On dit ça, on dit rien.",
+        "Statistiquement, les gens qui mangent une glace en souriant sont 100 % plus contagieux."
+      ]
+    },
+
+    {
+      "id": 3,
+      "key": "qr",
+      "file": "templates/template3-qr.html",
+      "subject": "Scanne, joue, choisis ta glace les yeux fermés",
+      "menuButton": "TESTER LE MENU",
+      "hooks": [
+        {
+          "kicker": "Un nouveau jeu",
+          "title": "Hésiter entre douze parfums, ça fatigue.",
+          "body": "On a une solution un peu débile et géniale : tu sors ton téléphone, tu scannes le QR, et le menu te tire un parfum au hasard. Décision : 0,3 seconde."
+        },
+        {
+          "kicker": "Le hasard a bon goût",
+          "title": "Laisse le QR choisir à ta place.",
+          "body": "Trop de parfums, pas assez de cerveau ? Le mini-jeu décide pour toi. Tu peux râler après, mais tu vas adorer."
+        },
+        {
+          "kicker": "Indécis bienvenus",
+          "title": "Ton téléphone choisit mieux que toi.",
+          "body": "On a observé : 9 indécis sur 10 finissent contents quand le QR a tranché. C'est devenu notre stat préférée."
+        },
+        {
+          "kicker": "Le QR fait son show",
+          "title": "Une glace, un scan, une surprise.",
+          "body": "Pas besoin de débattre avec ta sœur, ton pote, ta belle-mère. Le QR a déjà voté à la majorité absolue."
+        }
+      ],
+      "shoutouts": [
+        ["Léa", "Hugo", "Amélie"],
+        ["Élias", "Romane", "Alex"],
+        ["Maya", "Antoine", "Lou"],
+        ["Sami", "Camélia", "Joachim"]
+      ],
+      "polls": [
+        "Et si on faisait gagner une glace par tirage QR la prochaine fois ?",
+        "Tu fais confiance au hasard du QR ou tu triches en relançant ?",
+        "Top 3 parfums fétiches, on note ?",
+        "Le QR te dit 'pistache' : tu prends ou tu négocies ?"
+      ],
+      "funfacts": [
+        "Le QR du menu te répond plus vite qu'un ado un dimanche matin.",
+        "On a 12 parfums actifs en moyenne. Le hasard pur, c'est 8,3 % par scan.",
+        "Le tout premier scan QR a duré 0,17 seconde. Record encore imbattu.",
+        "Plus tu scannes, plus tu deviens fan de pistache. (Théorie non vérifiée.)"
+      ]
+    },
+
+    {
+      "id": 4,
+      "key": "crew",
+      "file": "templates/template4-crew.html",
+      "subject": "Le gang Glace en Seine te cherche ce week-end",
+      "menuButton": "VOIR LE MENU",
+      "hooks": [
+        {
+          "kicker": "Lettre du crew",
+          "title": "On compte les visages chaque week-end. Et le tien commence à nous manquer.",
+          "body": "Le gang Glace en Seine, c'est pas juste nous derrière la caravane — c'est aussi vous, sur les bancs, les marches, l'herbe, les vélos posés à plat. On vous garde une place."
+        },
+        {
+          "kicker": "Mot de la patronne",
+          "title": "On a une caravane. Vous avez le quai. On essaie d'en faire un truc.",
+          "body": "C'est un peu ça, le crew : un mélange de habitués, de promeneurs, de cousins de passage. Tu fais déjà partie du décor, qu'on te connaisse ou pas."
+        },
+        {
+          "kicker": "Petit recensement",
+          "title": "On a compté : il manque toujours quelqu'un.",
+          "body": "À chaque week-end, on remarque le bonnet jaune, la poussette à roulettes vintage, le couple qui partage tout. La place est ouverte, viens la prendre."
+        },
+        {
+          "kicker": "Lettre aux voisins",
+          "title": "Le quai est notre QG, mais c'est aussi le vôtre.",
+          "body": "On essaie juste de rendre les week-ends un peu plus doux. Si t'es du coin, t'es du gang. C'est aussi simple que ça."
+        }
+      ],
+      "shoutouts": [
+        ["Sarah", "Romain", "Chloé"],
+        ["David", "Rim", "Octave"],
+        ["Fanny", "Mathis", "Yasmine"],
+        ["Bastien", "Léa", "Kenza"]
+      ],
+      "polls": [
+        "Tu viens à pied, à vélo, ou en poussette ?",
+        "C'est ta première fois ou tu nous comptes parmi tes habitudes ?",
+        "Tu viens en solo, en famille, ou en bande de potes ?",
+        "Qui amène qui : c'est toi qui ramènes du monde ou l'inverse ?"
+      ],
+      "funfacts": [
+        "On a déjà servi plus de cent voisins sans en perdre un seul (record en cours).",
+        "Le crew compte officiellement 4 chiens fidèles, 2 chats du quartier et 1 mouette régulière.",
+        "Le record de poussettes simultanées sur le quai : sept. Le dimanche du 21 mai 2026.",
+        "On reconnaît plus de monde qu'on ne sait de noms. Mais on retient les commandes."
+      ]
+    }
+  ]
+}

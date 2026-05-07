@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Instagram, MapPin, Heart, Star } from "lucide-react";
+import { Instagram, Facebook, MapPin, Heart, Star } from "lucide-react";
+import { SOCIAL } from "@/lib/social";
 
-const GOOGLE_REVIEW_URL = "https://g.page/r/CcKQvU-g5mpzEBM/review";
+const GOOGLE_REVIEW_URL = SOCIAL.google.review;
 
 export function Footer() {
   return (
@@ -16,13 +17,22 @@ export function Footer() {
           </p>
           <div className="mt-5 flex items-center gap-2">
             <Link
-              href="https://www.instagram.com/glacesenseine/"
+              href={SOCIAL.instagram.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram @glacesenseine"
+              aria-label={`Instagram ${SOCIAL.instagram.handle}`}
               className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 transition hover:bg-cream/20"
             >
               <Instagram className="h-4 w-4" />
+            </Link>
+            <Link
+              href={SOCIAL.facebook.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook Glace en Seine"
+              className="grid h-10 w-10 place-items-center rounded-full bg-cream/10 transition hover:bg-cream/20"
+            >
+              <Facebook className="h-4 w-4" />
             </Link>
             <Link
               href={GOOGLE_REVIEW_URL}

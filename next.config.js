@@ -16,6 +16,17 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 7,
   },
+  // The weekly cron reads newsletter/templates/*.html via fs.readFileSync —
+  // Next's output file tracing doesn't pick those up automatically, so we
+  // include them explicitly in the serverless function bundle.
+  experimental: {
+    outputFileTracingIncludes: {
+      "/api/newsletter/weekly": [
+        "./newsletter/templates/*.html",
+        "./newsletter/content.json",
+      ],
+    },
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },

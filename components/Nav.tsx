@@ -3,9 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { Menu as MenuIcon, X, Instagram, Sparkles, MapPin, Bell, Star } from "lucide-react";
+import { Menu as MenuIcon, X, Instagram, Facebook, Sparkles, MapPin, Bell, Star } from "lucide-react";
+import { SOCIAL } from "@/lib/social";
 
-const GOOGLE_REVIEW_URL = "https://g.page/r/CcKQvU-g5mpzEBM/review";
+const GOOGLE_REVIEW_URL = SOCIAL.google.review;
 
 const links = [
   { href: "/menu",            label: "Menu" },
@@ -84,13 +85,22 @@ export function Nav() {
             <Star className="h-4 w-4 fill-current" />
           </Link>
           <Link
-            href="https://www.instagram.com/glacesenseine/"
+            href={SOCIAL.instagram.url}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Instagram @glacesenseine"
+            aria-label={`Instagram ${SOCIAL.instagram.handle}`}
             className="hidden h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-cherry lg:grid"
           >
             <Instagram className="h-4 w-4" />
+          </Link>
+          <Link
+            href={SOCIAL.facebook.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook Glace en Seine"
+            className="hidden h-9 w-9 place-items-center rounded-full bg-cream/80 text-ink/70 shadow-soft backdrop-blur transition hover:-translate-y-0.5 hover:text-cherry lg:grid"
+          >
+            <Facebook className="h-4 w-4" />
           </Link>
           <Link
             href="/emplacement"

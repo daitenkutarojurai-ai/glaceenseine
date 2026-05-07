@@ -6,7 +6,7 @@
   "crons": [
     {
       "path": "/api/newsletter/weekly",
-      "schedule": "0 9 * * 4"
+      "schedule": "0 9 * * 6"
     }
   ]
 }

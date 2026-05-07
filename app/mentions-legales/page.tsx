@@ -50,8 +50,12 @@ export default function MentionsLegalesPage() {
                     formulaire de contact
                   </Link>
                   {" "}ou Instagram{" "}
-                  <a href="https://instagram.com/glacesenseine" target="_blank" rel="noopener noreferrer" className="text-teal-700 underline underline-offset-2 hover:text-cherry transition-colors">
-                    @glacesenseine
+                  <a href="https://www.instagram.com/glaceenseine" target="_blank" rel="noopener noreferrer" className="text-teal-700 underline underline-offset-2 hover:text-cherry transition-colors">
+                    @glaceenseine
+                  </a>
+                  {" "}ou Facebook{" "}
+                  <a href="https://www.facebook.com/profile.php?id=61589342042525" target="_blank" rel="noopener noreferrer" className="text-teal-700 underline underline-offset-2 hover:text-cherry transition-colors">
+                    Glace en Seine
                   </a>
                 </p>
                 <p><strong className="text-ink">SIRET :</strong> [Numéro à compléter]</p>

@@ -504,7 +504,7 @@ section + section{padding-top:24px}
   <div class="comp-banner">
     <div class="trophy">🏆</div>
     <h4>La plus belle photo du mois gagne une crêpe offerte</h4>
-    <p>Envoie ta glace en DM à <strong>@glacesenseine</strong> et on annonce le gagnant en fin de mois.</p>
+    <p>Envoie ta glace en DM à <strong>@glaceenseine</strong> et on annonce le gagnant en fin de mois.</p>
     <div class="comp-actions">
       <button class="comp-action-btn" id="compCameraBtn">📷 Prendre une photo</button>
     </div>
@@ -552,7 +552,7 @@ const WHEEL=[
   {name:"Boule citron",     em:"🍋",col:"#FFF1C4",price:3.50,desc:"Acide, frais, anti-conformiste. On t'aime bien quand même.",pair:"🍓 Avec une fraise, l'équilibre parfait."},
   {name:"Crêpe pâte à tartiner",em:"🥞",col:"#E26B5C",price:3.50,desc:"Le réconfort universel. Aucune honte. Que de l'amour.",pair:"☕ Un café à côté, c'est la pause qu'il te faut."},
   {name:"Crêpe sucre cristal",  em:"🥞",col:"#FFF1C4",price:2.50,desc:"Le minimalisme assumé. Un peu de beurre, du sucre, la paix.",pair:"☕ Un café — la pause goûter complète."},
-  {name:"La Foli's",            em:"🧇",col:"#5DBAA8",price:7.50,desc:"Tu viens de gagner. On est fiers de toi.",pair:"🥤 Un soft frais pour calmer le sucre."},
+  {name:"La Foli's",            em:"🧇",col:"#5DBAA8",price:7.50,desc:"La pièce maîtresse. Gaufre, glace, sauce — la totale assumée.",pair:"🥤 Un soft frais pour calmer le sucre."},
   {name:"Gaufre caramel",   em:"🧇",col:"#F4C95D",price:4.50,desc:"Doré, fondant, dramatique. Ta journée prend du sens.",pair:"🍦 Une boule vanille pour finir en beauté."},
   {name:"Café",             em:"☕",col:"#A0826D",price:2.00,desc:"Le destin a décidé que tu es un adulte sérieux. C'est faux, mais on joue le jeu.",pair:"🥞 Avec une crêpe sucre cristal, le combo classique."},
   {name:"Tropico tropical", em:"🥤",col:"#FFCAB1",price:2.50,desc:"Tu as 10 ans dans la tête. Tu as totalement raison.",pair:"🥭 Une boule mangue par-dessus, c'est l'été."},
@@ -1268,7 +1268,7 @@ async function shareImage(platform){
         const file=new File([blob],"glaces-en-seine.png",{type:"image/png"});
         if(navigator.canShare({files:[file]})){
           await navigator.share({files:[file],title:"Glaces en Seine",
-            text:"Mon parfum : "+r.name+" · #GlacesEnSeine @glacesenseine"});
+            text:"Mon parfum : "+r.name+" · #GlacesEnSeine @glaceenseine"});
           return;
         }
       }
@@ -1311,7 +1311,7 @@ function openIgCamera(){
   const t0=Date.now();
   setTimeout(()=>{
     if(document.visibilityState==="visible" && Date.now()-t0<1800)
-      window.open("https://instagram.com/glacesenseine","_blank","noopener");
+      window.open("https://www.instagram.com/glaceenseine","_blank","noopener");
   },1300);
   try{ window.location.href="instagram://camera"; }catch(e){}
 }

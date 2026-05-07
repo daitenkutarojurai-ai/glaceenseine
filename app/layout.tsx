@@ -123,8 +123,8 @@ const jsonLd = {
         },
       ],
       sameAs: [
-        "https://instagram.com/glacesenseine",
-        "https://www.facebook.com/glacesenseine",
+        "https://www.instagram.com/glaceenseine",
+        "https://www.facebook.com/profile.php?id=61589342042525",
       ],
     },
     {

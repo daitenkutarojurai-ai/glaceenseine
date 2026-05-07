@@ -51,7 +51,7 @@ export async function POST(req: Request) {
         <p>L'adresse <strong>${escapeHtml(email)}</strong> souhaite être prévenue à l'ouverture de la saison.</p>
         <p>Ajoutée à la liste Brevo #${listId || "(non configurée)"}.</p>
         <hr style="margin:16px 0;border-color:#eee">
-        <p style="color:#999;font-size:12px">Reçu via glacesenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
+        <p style="color:#999;font-size:12px">Reçu via glaceenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
       </div>`,
   });
 

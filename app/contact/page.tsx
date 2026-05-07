@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Instagram, MapPin, Clock, Star } from "lucide-react";
+import { Instagram, Facebook, MapPin, Clock, Star } from "lucide-react";
+import { SOCIAL } from "@/lib/social";
 
 const MAPS_URL =
   "https://www.google.com/maps/search/?api=1&query=Mairie+de+La+Frette-sur-Seine+95530";
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact & Avis — Glaces en Seine",
-    description: "Écrivez-nous, déposez un avis ou suivez-nous sur Instagram @glacesenseine.",
+    description: "Écrivez-nous, déposez un avis ou suivez-nous sur Instagram @glaceenseine.",
     url: "https://glaceenseine.fr/contact",
   },
 };
@@ -68,7 +69,7 @@ export default function ContactPage() {
                 </Reveal>
                 <Reveal delay={0.1}>
                   <a
-                    href="https://www.instagram.com/glacesenseine/"
+                    href={SOCIAL.instagram.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
@@ -78,7 +79,23 @@ export default function ContactPage() {
                     </span>
                     <div>
                       <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Instagram</div>
-                      <div className="font-semibold text-ink group-hover:text-cherry">@glacesenseine</div>
+                      <div className="font-semibold text-ink group-hover:text-cherry">{SOCIAL.instagram.handle}</div>
+                    </div>
+                  </a>
+                </Reveal>
+                <Reveal delay={0.15}>
+                  <a
+                    href={SOCIAL.facebook.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-4 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                  >
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#1877F2] text-white">
+                      <Facebook className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <div className="text-[12px] font-semibold uppercase tracking-wider text-ink/50">Facebook</div>
+                      <div className="font-semibold text-ink group-hover:text-cherry">Glace en Seine</div>
                     </div>
                   </a>
                 </Reveal>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MapPin, Navigation, Train, Bike, Clock, Calendar, ArrowRight, Instagram, Facebook, Music2, Twitter } from "lucide-react";
+import { SOCIAL } from "@/lib/social";
 import { Reveal } from "@/components/Reveal";
 import { CopyAddressButton } from "@/components/CopyAddressButton";
 import { Newsletter } from "@/components/Newsletter";
@@ -232,10 +233,10 @@ export default function EmplacementPage() {
               <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 <li>
                   <a
-                    href="https://instagram.com/glacesenseine"
+                    href={SOCIAL.instagram.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Instagram @glacesenseine"
+                    aria-label={`Instagram ${SOCIAL.instagram.handle}`}
                     className="group flex h-full flex-col gap-2 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
                   >
                     <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-sun text-ink">
@@ -243,12 +244,28 @@ export default function EmplacementPage() {
                     </span>
                     <div>
                       <div className="text-[11px] font-semibold uppercase tracking-wider text-ink/45">Instagram</div>
-                      <div className="text-[14px] font-semibold text-ink group-hover:text-cherry">@glacesenseine</div>
+                      <div className="text-[14px] font-semibold text-ink group-hover:text-cherry">{SOCIAL.instagram.handle}</div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={SOCIAL.facebook.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook Glace en Seine"
+                    className="group flex h-full flex-col gap-2 rounded-2xl bg-cream p-4 shadow-soft transition hover:-translate-y-0.5 hover:shadow-ring"
+                  >
+                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#1877F2] text-white">
+                      <Facebook className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <div className="text-[11px] font-semibold uppercase tracking-wider text-ink/45">Facebook</div>
+                      <div className="text-[14px] font-semibold text-ink group-hover:text-cherry">Glace en Seine</div>
                     </div>
                   </a>
                 </li>
 
-                <SocialPlaceholder icon={<Facebook className="h-4 w-4" />} label="Facebook" />
                 <SocialPlaceholder icon={<Music2 className="h-4 w-4" />} label="TikTok" />
                 <SocialPlaceholder icon={<Twitter className="h-4 w-4" />} label="X / Twitter" />
               </ul>

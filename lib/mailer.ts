@@ -46,7 +46,7 @@ export async function sendMail(opts: {
   html: string;
   replyTo?: string;
 }): Promise<SendMailResult> {
-  const from = process.env.SMTP_FROM ?? "Glaces en Seine <noreply@glacesenseine.fr>";
+  const from = process.env.SMTP_FROM ?? "Glaces en Seine <noreply@glaceenseine.fr>";
   const to   = process.env.SMTP_TO   ?? "glacesenseine@gmail.com";
 
   const transport = getTransport();

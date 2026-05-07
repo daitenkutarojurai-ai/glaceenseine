@@ -79,13 +79,13 @@ export async function POST(req: Request) {
         <hr style="margin:16px 0;border-color:#eee">
         <p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>
         <hr style="margin:16px 0;border-color:#eee">
-        <p style="color:#999;font-size:12px">Reçu via glacesenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
+        <p style="color:#999;font-size:12px">Reçu via glaceenseine.fr · ${new Date().toLocaleString("fr-FR", { timeZone: "Europe/Paris" })}</p>
       </div>`,
   });
 
   if (!result.ok) {
     return NextResponse.json(
-      { ok: false, message: "L'envoi a échoué. Réessayez dans un instant ou écrivez-nous sur Instagram @glacesenseine." },
+      { ok: false, message: "L'envoi a échoué. Réessayez dans un instant ou écrivez-nous sur Instagram @glaceenseine." },
       { status: 502 },
     );
   }
