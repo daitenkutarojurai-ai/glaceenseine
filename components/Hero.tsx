@@ -73,9 +73,8 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.25 }}
             className="mt-5 max-w-md text-[16px] leading-relaxed text-ink/65 sm:text-[17px]"
           >
-            Glaces artisanales, crêpes minute et gaufres dorées à deux pas de
-            l'eau. Une caravane vert tendre. Et le quai de La Frette pour
-            décor
+            Glaces, crêpes et gaufres à deux pas de l'eau. Une caravane vert
+            tendre. Et le quai de La Frette pour décor
           </motion.p>
 
           {/* ── SCHEDULE CARD — prominent ── */}
@@ -205,7 +204,7 @@ export function Hero() {
               color="bg-rose-100"
             >
               <IceCream className="h-4 w-4 text-cherry" />
-              <span className="text-[13px] font-semibold text-ink">Glaces artisanales</span>
+              <span className="text-[13px] font-semibold text-ink">Glaces, crêpes & gaufres</span>
             </FloatingBadge>
 
             <FloatingBadge

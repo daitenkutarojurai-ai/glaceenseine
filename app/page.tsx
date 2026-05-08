@@ -32,7 +32,7 @@ const faqLd = {
       name: "Que sert Glaces en Seine ?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Glaces artisanales (boules au choix, saveur spéciale chaque semaine), crêpes sucrées, gaufres artisanales et boissons fraîches ou chaudes. Notre signature est La Foli's : gaufre, chantilly et cubes croustillants.",
+        text: "Glaces (boules au choix, saveur spéciale chaque semaine), crêpes sucrées, gaufres et boissons fraîches ou chaudes. Notre signature est La Foli's : gaufre, chantilly et cubes croustillants.",
       },
     },
     {

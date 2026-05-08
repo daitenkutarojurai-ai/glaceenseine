@@ -26,10 +26,10 @@ interface Slide {
 const slides: Slide[] = [
   {
     src: "/carousel1-2026.png",
-    alt: "Glaces en Seine — la caravane artisanale sur les quais de Seine à La Frette",
+    alt: "Glaces en Seine — la caravane gourmande sur les quais de Seine à La Frette",
     headline: "La gourmandise",
     script: "débarque",
-    sub: "Glaces, crêpes & gaufres artisanales sur les quais de Seine",
+    sub: "Glaces, crêpes & gaufres sur les quais de Seine",
   },
   {
     src: "/bannerforsection.png",
@@ -50,7 +50,7 @@ const mobileSlides: { src: string; alt: string }[] = [
   },
   {
     src: "/test3.png",
-    alt: "Glaces en Seine — gourmandises artisanales",
+    alt: "Glaces en Seine — gourmandises sur le quai",
   },
 ];
 

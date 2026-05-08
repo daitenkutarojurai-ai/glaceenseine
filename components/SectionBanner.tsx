@@ -15,7 +15,7 @@ interface SectionBannerProps {
  */
 export function SectionBanner({
   src = "/bannnersmall.png",
-  alt = "Glaces en Seine — glaces, crêpes & gaufres artisanales sur les quais de Seine",
+  alt = "Glaces en Seine — glaces, crêpes & gaufres sur les quais de Seine",
   children,
 }: SectionBannerProps) {
   return (

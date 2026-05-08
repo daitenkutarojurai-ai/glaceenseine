@@ -94,7 +94,7 @@ export function Feedback() {
               </div>
 
               <p className="mt-4 text-[14px] leading-relaxed text-ink/65">
-                Pour une petite caravane artisanale, un avis Google c&apos;est{" "}
+                Pour une petite caravane familiale, un avis Google c&apos;est{" "}
                 <strong className="text-ink">concret</strong> : il aide les familles du quartier à nous trouver,
                 il convainc les nouveaux visiteurs, et il compense les grandes enseignes qui ont des budgets pub que nous n&apos;avons pas.{" "}
                 <strong className="text-ink">30 secondes de votre temps, c&apos;est notre meilleure publicité.</strong> 🙏

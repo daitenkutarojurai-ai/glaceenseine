@@ -8,7 +8,7 @@ const messages = [
   { icon: Sun,      text: "Ouvert de mai à septembre · saison estivale",          href: "/emplacement" },
   { icon: Clock,    text: "Weekends & jours fériés · 14h – 19h",                  href: "/emplacement" },
   { icon: MapPin,   text: "Face à la mairie · Quai de Seine, La Frette-sur-Seine",href: "/emplacement" },
-  { icon: Sparkles, text: "Glaces artisanales · crêpes & gaufres artisanales",    href: "/menu" },
+  { icon: Sparkles, text: "Glaces · crêpes · gaufres sur les quais de Seine",    href: "/menu" },
 ];
 
 export function AnnouncementBar() {

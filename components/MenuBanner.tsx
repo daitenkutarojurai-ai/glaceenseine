@@ -3,7 +3,7 @@ import { WeeklyPollCard } from "./WeeklyPoll";
 import { MenuLightbox } from "./MenuLightbox";
 
 const PILLS = [
-  { icon: IceCream, label: "Glaces artisanales", color: "bg-rose-100 text-cherry" },
+  { icon: IceCream, label: "Glaces", color: "bg-rose-100 text-cherry" },
   { icon: Cookie,   label: "Crêpes",               color: "bg-sun-100 text-ink" },
   { icon: CakeSlice,label: "Gaufres",               color: "bg-teal-100 text-teal-700" },
 ];
@@ -47,7 +47,7 @@ export function MenuBanner() {
         <MenuLightbox
           previewSrc={MENU_SRC}
           zoomSrc={MENU_ZOOM_SRC}
-          alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales sur les quais de Seine"
+          alt="Carte Glaces en Seine — glaces, crêpes et gaufres sur les quais de Seine"
         />
 
         {/* Poll — contextuellement lié au menu */}

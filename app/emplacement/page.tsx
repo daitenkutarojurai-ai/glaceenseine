@@ -52,7 +52,7 @@ const FAQ_LD = {
       name: "Que propose Glaces en Seine ?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Glaces artisanales, crêpes et gaufres préparées devant vous, ainsi que boissons fraîches. Toute la carte est servie en saison sur les quais de Seine.",
+        text: "Glaces, crêpes et gaufres, ainsi que boissons fraîches et chaudes. Toute la carte est servie en saison sur les quais de Seine.",
       },
     },
   ],

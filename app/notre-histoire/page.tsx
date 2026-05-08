@@ -13,7 +13,7 @@ import { SocialStrip } from "@/components/SocialStrip";
 export const metadata: Metadata = {
   title: "Notre histoire — la caravane Glaces en Seine",
   description:
-    "L'histoire de Glaces en Seine : trois amis voisins et parents, un food truck né au bord des quais de La Frette-sur-Seine (95). Glaces artisanales, crêpes et gaufres, dans un esprit familial et convivial.",
+    "L'histoire de Glaces en Seine : trois amis voisins et parents, un food truck né au bord des quais de La Frette-sur-Seine (95). Glaces, crêpes et gaufres, dans un esprit familial et convivial.",
   alternates: { canonical: "/notre-histoire" },
   openGraph: {
     title: "Notre histoire — Glaces en Seine",
@@ -77,9 +77,9 @@ export default function HistoirePage() {
             <h2 className="h-display text-3xl">Un projet de cœur</h2>
             <p className="mt-3 text-[16.5px] leading-relaxed text-ink/70">
               C&apos;est ainsi qu&apos;est né notre food truck. Inspiré par ces instants
-              du quotidien, avec l&apos;envie de proposer des glaces artisanales
-              de qualité, des crêpes gourmandes et des gaufres généreuses —
-              le tout dans un esprit familial et convivial. Aujourd&apos;hui, on
+              du quotidien, avec l&apos;envie de proposer des glaces, des crêpes
+              gourmandes et des gaufres généreuses — le tout dans un esprit
+              familial et convivial. Aujourd&apos;hui, on
               est heureux de vous accueillir au bord de la Seine, pour
               partager bien plus qu&apos;une pause sucrée&nbsp;: un vrai moment de
               plaisir.
@@ -111,7 +111,7 @@ export default function HistoirePage() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-soft">
               <Image
                 src="/inprod.jpg"
-                alt="En cuisine, préparation des crêpes"
+                alt="En coulisses, à la caravane Glaces en Seine"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
@@ -134,7 +134,7 @@ export default function HistoirePage() {
 
       <SocialStrip
         title="Suivez l'aventure"
-        subtitle="On poste les photos du week-end, le parfum maison, les bons moments du quai."
+        subtitle="On poste les photos du week-end, le parfum de la semaine, les bons moments du quai."
       />
 
       {/* Newsletter */}

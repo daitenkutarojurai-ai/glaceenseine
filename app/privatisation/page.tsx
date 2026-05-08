@@ -20,7 +20,7 @@ import { SectionBanner } from "@/components/SectionBanner";
 export const metadata: Metadata = {
   title: "Privatisation caravane glaces, crêpes & gaufres — mariage, séminaire, événement",
   description:
-    "Privatisez la caravane Glaces en Seine pour mariage, anniversaire, séminaire ou fête de quartier en Île-de-France. Glaces artisanales, crêpes et gaufres préparées sur place. Devis gratuit sous 24 h.",
+    "Privatisez la caravane Glaces en Seine pour mariage, anniversaire, séminaire ou fête de quartier en Île-de-France. Glaces, crêpes et gaufres servies sur place. Devis gratuit sous 24 h.",
   alternates: { canonical: "/privatisation" },
   openGraph: {
     title: "Privatisez la caravane — Glaces en Seine",
@@ -83,7 +83,7 @@ const EVENTS = [
     color: "bg-rose-100 text-cherry",
     title: "Mariage & PACS",
     desc: "Offrez à vos invités un espace gourmand et inattendu. La caravane devient votre « stand glaces » le temps d'un jour magique.",
-    details: ["Personnalisation aux couleurs de l'événement", "Parfums sur-mesure", "Animation crêpes en direct"],
+    details: ["Personnalisation aux couleurs de l'événement", "Sélection de parfums au choix", "Service en direct depuis la caravane"],
   },
   {
     icon: Briefcase,
@@ -109,8 +109,8 @@ const EVENTS = [
 ];
 
 const PERKS = [
-  { icon: IceCream, text: "Glaces artisanales préparées à la ferme" },
-  { icon: Star,     text: "Crêpes et gaufres minute, sous vos yeux" },
+  { icon: IceCream, text: "Glaces, crêpes et gaufres servies depuis la caravane" },
+  { icon: Star,     text: "Service rapide, garnitures au choix" },
   { icon: MapPin,   text: "Déplacement en Île-de-France (rayon ~40 km)" },
   { icon: Clock,    text: "Service de 2 h à la journée selon vos besoins" },
   { icon: CheckCircle2, text: "Devis personnalisé sous 24 h" },
@@ -131,7 +131,7 @@ export default function PrivatisationPage() {
         </h1>
         <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Mariage, séminaire, anniversaire ou fête de quartier. On amène la
-          caravane, la plaque chaude et les glaces artisanales.
+          caravane, les glaces, crêpes et gaufres — vous apportez les invités.
         </p>
       </SectionBanner>
 

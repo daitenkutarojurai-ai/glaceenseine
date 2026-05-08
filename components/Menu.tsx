@@ -48,7 +48,7 @@ const categories: Cat[] = [
     key: "glaces",
     label: "Glaces",
     emoji: "🍦",
-    tagline: "Glaces artisanales · parfums au choix, saveur spéciale chaque semaine",
+    tagline: "Glaces · parfums au choix, saveur spéciale chaque semaine",
     icon: IceCream,
     bg: "bg-rose-100",
     accent: "bg-rose-300/30",
@@ -60,7 +60,7 @@ const categories: Cat[] = [
         desc: "Un parfum au choix",
         price: "3,50 €",
         emoji: "🍧",
-        ingredients: "Glace artisanale — parfums du jour",
+        ingredients: "Glace — parfums du jour",
         allergens: ["lait"],
         kcal: 120,
         tip: "Plusieurs parfums au choix selon arrivages, avec une saveur spéciale différente chaque semaine.",
@@ -71,7 +71,7 @@ const categories: Cat[] = [
         price: "6 €",
         star: true,
         emoji: "🍧🍧",
-        ingredients: "Glace artisanale — parfums du jour",
+        ingredients: "Glace — parfums du jour",
         allergens: ["lait"],
         kcal: 240,
         tip: "Demandez la saveur de la semaine — elle change toutes les semaines.",
@@ -81,7 +81,7 @@ const categories: Cat[] = [
         desc: "Trois parfums au choix",
         price: "7,50 €",
         emoji: "🍨",
-        ingredients: "Glace artisanale — parfums du jour",
+        ingredients: "Glace — parfums du jour",
         allergens: ["lait"],
         kcal: 360,
         tip: "Le format à partager — ou pour les gourmands.",
@@ -92,7 +92,7 @@ const categories: Cat[] = [
     key: "crepes",
     label: "Crêpes",
     emoji: "🥞",
-    tagline: "Crêpes sucrées · pâte du matin, dorée à la plaque",
+    tagline: "Crêpes sucrées · garnitures au choix",
     icon: Cookie,
     bg: "bg-sun-100",
     accent: "bg-sun-300/30",
@@ -118,7 +118,7 @@ const categories: Cat[] = [
         ingredients: "Farine de blé, œufs, lait, beurre, pâte à tartiner aux noisettes",
         allergens: ["gluten", "oeufs", "lait", "noisettes", "soja"],
         kcal: 350,
-        tip: "Étalée après cuisson pour garder sa texture coulante.",
+        tip: "Étalée sur la crêpe chaude pour garder sa texture coulante.",
       },
       {
         name: "Caramel",
@@ -745,8 +745,7 @@ export function Menu() {
         <Reveal delay={0.12}>
           <p className="mt-6 text-center text-[12.5px] text-ink/45">
             Carte indicative · prix susceptibles de varier · contamination croisée
-            possible en cuisine — signalez vos allergies sévères · nos produits
-            sont artisanaux, préparés sur place.
+            possible — signalez vos allergies sévères avant de commander.
           </p>
         </Reveal>
       </div>

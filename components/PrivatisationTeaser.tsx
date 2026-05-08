@@ -91,8 +91,8 @@ export function PrivatisationTeaser() {
               <Reveal delay={0.1}>
                 <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-ink/70">
                   Mariage au bord de l&apos;eau, séminaire d&apos;entreprise,
-                  anniversaire mémorable — on amène la caravane, la plaque
-                  chaude et les glaces artisanales. Vous apportez les invités.
+                  anniversaire mémorable — on amène la caravane, les glaces,
+                  crêpes et gaufres. Vous apportez les invités.
                 </p>
               </Reveal>
 

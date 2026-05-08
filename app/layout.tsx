@@ -21,18 +21,18 @@ export const metadata: Metadata = {
     template: "%s · Glaces en Seine",
   },
   description:
-    "Glacier artisanal sur les quais de Seine à La Frette-sur-Seine (95). Glaces, crêpes & gaufres préparées devant vous. Ouvert sam·dim·fériés 14h–19h, de mai à septembre.",
+    "Caravane gourmande sur les quais de Seine à La Frette-sur-Seine (95). Glaces, crêpes & gaufres à emporter. Ouvert sam·dim·fériés 14h–19h, de mai à septembre.",
   metadataBase: new URL("https://glaceenseine.fr"),
   alternates: { canonical: "/" },
   keywords: [
-    "glacier artisanal",
+    "caravane gourmande",
     "La Frette-sur-Seine",
     "Cormeilles-en-Parisis",
     "Val-d'Oise",
     "95530",
     "crêpes",
     "gaufres",
-    "glaces artisanales",
+    "glaces",
     "quai de Seine",
     "food truck",
     "caravane gourmande",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   category: "food",
   openGraph: {
     title: "Glaces en Seine — Glaces, crêpes & gaufres sur les quais",
-    description: "Glacier artisanal sur les quais de Seine, entre La Frette-sur-Seine et Cormeilles-en-Parisis.",
+    description: "Caravane gourmande sur les quais de Seine, entre La Frette-sur-Seine et Cormeilles-en-Parisis.",
     url: "https://glaceenseine.fr",
     siteName: "Glaces en Seine",
     locale: "fr_FR",
@@ -80,7 +80,7 @@ const jsonLd = {
       name: "Glaces en Seine",
       alternateName: "Glaces en Seine — La Frette-sur-Seine",
       description:
-        "Glacier artisanal de quai à La Frette-sur-Seine (95530). Glaces, crêpes et gaufres préparées devant vous, sur les quais de Seine, sam·dim·fériés de 14h à 19h, mai → septembre.",
+        "Caravane gourmande à La Frette-sur-Seine (95530). Glaces, crêpes et gaufres servies sur les quais de Seine, sam·dim·fériés de 14h à 19h, mai → septembre.",
       url: "https://glaceenseine.fr",
       image: [
         "https://glaceenseine.fr/glaceensein1.png",
@@ -89,7 +89,7 @@ const jsonLd = {
         "https://glaceenseine.fr/carrouselfinal.png",
       ],
       logo: "https://glaceenseine.fr/logo.jpg",
-      servesCuisine: ["Desserts", "Glaces artisanales", "Crêpes", "Gaufres"],
+      servesCuisine: ["Desserts", "Glaces", "Crêpes", "Gaufres"],
       priceRange: "€",
       currenciesAccepted: "EUR",
       paymentAccepted: ["Cash", "Credit Card"],

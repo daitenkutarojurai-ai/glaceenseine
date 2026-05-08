@@ -6,13 +6,13 @@ import { SectionBanner } from "@/components/SectionBanner";
 import { MenuLightbox } from "@/components/MenuLightbox";
 
 export const metadata: Metadata = {
-  title: "Menu — glaces, crêpes & gaufres artisanales",
+  title: "Menu — glaces, crêpes & gaufres",
   description:
-    "Découvrez la carte Glaces en Seine : glaces artisanales, crêpes et gaufres préparées chaque matin à La Frette-sur-Seine. Ouvert sam·dim·fériés de 14h à 19h, mai → septembre.",
+    "La carte Glaces en Seine : glaces, crêpes et gaufres servies sur les quais de Seine à La Frette-sur-Seine. Ouvert sam·dim·fériés de 14h à 19h, mai → septembre.",
   alternates: { canonical: "/menu" },
   openGraph: {
     title: "Menu — Glaces en Seine",
-    description: "Glaces artisanales, crêpes et gaufres préparées sur les quais de Seine, à La Frette-sur-Seine (95).",
+    description: "Glaces, crêpes et gaufres servies sur les quais de Seine, à La Frette-sur-Seine (95).",
     url: "https://glaceenseine.fr/menu",
     images: [{ url: "/newmenu.png", width: 1200, height: 630, alt: "Carte Glaces en Seine" }],
   },
@@ -26,12 +26,12 @@ export default function MenuPage() {
           Menu
         </p>
         <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
-          Trois douceurs,{" "}
-          <span className="font-script text-sun-300">artisanales</span>
+          Glaces, crêpes &{" "}
+          <span className="font-script text-sun-300">gaufres</span>
         </h1>
         <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
-          Pâte à crêpe du matin, glaces turbinées sur place, gaufres sorties
-          du fer. Tout est préparé devant vous.
+          Une carte simple à déguster sur les quais de Seine : glaces parfums
+          au choix, crêpes sucrées et gaufres garnies au choix.
         </p>
       </SectionBanner>
 
@@ -44,7 +44,7 @@ export default function MenuPage() {
         <MenuLightbox
           previewSrc="/newmenu.png"
           zoomSrc="/careupdate.png"
-          alt="Carte Glaces en Seine — glaces, crêpes et gaufres artisanales"
+          alt="Carte Glaces en Seine — glaces, crêpes et gaufres"
         />
       </section>
 
