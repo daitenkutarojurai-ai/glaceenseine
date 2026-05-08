@@ -11,9 +11,9 @@ import { Newsletter } from "@/components/Newsletter";
 import { SocialStrip } from "@/components/SocialStrip";
 
 export const metadata: Metadata = {
-  title: "Notre histoire — la caravane Glaces en Seine",
+  title: "Notre histoire",
   description:
-    "L'histoire de Glaces en Seine : trois amis voisins et parents, un food truck né au bord des quais de La Frette-sur-Seine (95). Glaces, crêpes et gaufres, dans un esprit familial et convivial.",
+    "Trois amis, voisins et parents, une caravane née au bord des quais de La Frette-sur-Seine (95). Glaces, crêpes et gaufres dans un esprit familial et convivial.",
   alternates: { canonical: "/notre-histoire" },
   openGraph: {
     title: "Notre histoire — Glaces en Seine",

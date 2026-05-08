@@ -10,6 +10,10 @@ export function GET() {
       "content-type": "text/html; charset=utf-8",
       "cache-control": "public, max-age=3600, stale-while-revalidate=86400",
       "x-robots-tag": "noindex, nofollow",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "SAMEORIGIN",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "strict-transport-security": "max-age=63072000; includeSubDomains; preload",
     },
   });
 }

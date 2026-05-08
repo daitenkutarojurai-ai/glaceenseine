@@ -7,7 +7,9 @@ const buckets = new Map<string, Bucket>();
 
 export function getClientIp(req: Request): string {
   const xff = req.headers.get("x-forwarded-for");
-  if (xff) return xff.split(",")[0]!.trim();
+  // On Vercel the real client IP is appended last by the edge proxy — read
+  // the last entry so a spoofed X-Forwarded-For header can't bypass limits.
+  if (xff) return xff.split(",").at(-1)!.trim();
   const real = req.headers.get("x-real-ip");
   if (real) return real.trim();
   return "anon";

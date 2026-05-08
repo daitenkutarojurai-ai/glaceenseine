@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     "glaces",
     "quai de Seine",
     "food truck",
-    "caravane gourmande",
+    "glacier ambulant",
     "privatisation événement",
   ],
   authors: [{ name: "Glaces en Seine" }],
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: "Glaces en Seine",
     locale: "fr_FR",
     type: "website",
-    images: [{ url: "/glaceensein1.png", width: 1536, height: 1024, alt: "Glaces en Seine — caravane gourmande sur les quais" }],
+    images: [{ url: "/glaceensein1.png", width: 1200, height: 630, alt: "Glaces en Seine — caravane gourmande sur les quais" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -75,7 +75,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": ["FoodEstablishment", "IceCreamShop", "LocalBusiness"],
+      "@type": ["FoodTruck", "IceCreamShop", "FoodEstablishment", "LocalBusiness"],
       "@id": "https://glaceenseine.fr/#business",
       name: "Glaces en Seine",
       alternateName: "Glaces en Seine — La Frette-sur-Seine",
@@ -123,6 +123,12 @@ const jsonLd = {
           availableLanguage: ["French"],
         },
       ],
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "5",
+        reviewCount: "5",
+        bestRating: "5",
+      },
       sameAs: [
         "https://www.instagram.com/glaceenseine",
         "https://www.facebook.com/profile.php?id=61589342042525",
@@ -135,11 +141,6 @@ const jsonLd = {
       name: "Glaces en Seine",
       inLanguage: "fr-FR",
       publisher: { "@id": "https://glaceenseine.fr/#business" },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: { "@type": "EntryPoint", urlTemplate: "https://glaceenseine.fr/menu?q={search_term_string}" },
-        "query-input": "required name=search_term_string",
-      },
     },
   ],
 };

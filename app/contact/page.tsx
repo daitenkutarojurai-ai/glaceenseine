@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     title: "Contact & Avis — Glaces en Seine",
     description: "Écrivez-nous, déposez un avis ou suivez-nous sur Instagram @glaceenseine.",
     url: "https://glaceenseine.fr/contact",
+    images: [{ url: "/glaceensein1.png", width: 1200, height: 630, alt: "Glaces en Seine — contactez-nous" }],
   },
 };
 

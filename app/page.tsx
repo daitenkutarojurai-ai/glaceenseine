@@ -57,6 +57,7 @@ const faqLd = {
 export default function Home() {
   return (
     <>
+      <h1 className="sr-only">Glaces en Seine — glaces, crêpes &amp; gaufres sur les quais de Seine à La Frette-sur-Seine (95530)</h1>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}

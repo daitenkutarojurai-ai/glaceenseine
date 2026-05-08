@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sendMail, escapeHtml } from "@/lib/mailer";
+import { gcBuckets, getClientIp, rateLimit } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 
@@ -29,6 +30,16 @@ type Payload = {
 };
 
 export async function POST(req: Request) {
+  gcBuckets();
+  const ip = getClientIp(req);
+  const rl = rateLimit(`privatisation:${ip}`, { windowMs: 60_000, max: 3 });
+  if (!rl.ok) {
+    return NextResponse.json(
+      { ok: false, message: "Trop de demandes. Réessayez dans un instant." },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    );
+  }
+
   let body: Payload;
   try {
     body = (await req.json()) as Payload;

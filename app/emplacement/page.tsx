@@ -8,14 +8,21 @@ import { Newsletter } from "@/components/Newsletter";
 import { SectionBanner } from "@/components/SectionBanner";
 
 export const metadata: Metadata = {
-  title: "Nous trouver — Quai de Seine, La Frette-sur-Seine (95530)",
+  title: "Nous trouver — La Frette-sur-Seine (95530)",
   description:
-    "Glaces en Seine est installée Quai de Seine, juste en face de la mairie de La Frette-sur-Seine (95530). Ouverte sam·dim·fériés de 14h à 19h, de mai à septembre. Accès SNCF Ligne J et véloroute des bords de Seine.",
+    "Caravane Quai de Seine, face à la mairie de La Frette-sur-Seine (95530). Sam·dim·fériés 14h–19h, mai–sept. Accès SNCF Ligne J ou véloroute des bords de Seine.",
   alternates: { canonical: "/emplacement" },
   openGraph: {
     title: "Nous trouver — Glaces en Seine",
     description: "Quai de Seine, face à la mairie de La Frette-sur-Seine (95530). Sam·dim·fériés 14h–19h, mai → septembre.",
     url: "https://glaceenseine.fr/emplacement",
+    images: [{ url: "/bannersmalllast.png", width: 1200, height: 630, alt: "Quai de Seine — La Frette-sur-Seine, emplacement Glaces en Seine" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Où trouver Glaces en Seine — La Frette-sur-Seine (95530)",
+    description: "Quai de Seine, face à la mairie. Sam·dim·fériés 14h–19h, mai–sept.",
+    images: ["/bannersmalllast.png"],
   },
 };
 
@@ -75,8 +82,8 @@ export default function EmplacementPage() {
           Où nous trouver
         </p>
         <h1 className="h-display text-3xl text-cream drop-shadow-md sm:text-4xl lg:text-5xl">
-          Face à la{" "}
-          <span className="font-script text-cherry">mairie</span>, au bord de l&apos;eau
+          Quai de Seine,{" "}
+          <span className="font-script text-cherry">La Frette</span> (95530)
         </h1>
         <p className="mt-3 max-w-lg text-[14px] leading-relaxed text-cream/95 drop-shadow sm:text-[15px]">
           Quai de Seine, juste en face de la mairie de La Frette-sur-Seine —

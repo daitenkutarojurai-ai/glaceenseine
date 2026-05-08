@@ -12,7 +12,12 @@ async function handle(req: Request) {
   const provided = url.searchParams.get("secret") ?? auth.replace(/^Bearer\s+/i, "");
   const expected = process.env.CRON_SECRET;
 
-  if (!expected || provided !== expected) {
+  const { timingSafeEqual } = await import("crypto");
+  const valid =
+    !!expected &&
+    provided.length === expected.length &&
+    timingSafeEqual(Buffer.from(provided), Buffer.from(expected));
+  if (!valid) {
     return NextResponse.json({ ok: false, message: "Unauthorized" }, { status: 401 });
   }
 

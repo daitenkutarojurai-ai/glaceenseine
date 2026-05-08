@@ -18,15 +18,21 @@ import { PrivatisationForm } from "@/components/PrivatisationForm";
 import { SectionBanner } from "@/components/SectionBanner";
 
 export const metadata: Metadata = {
-  title: "Privatisation caravane glaces, crêpes & gaufres — mariage, séminaire, événement",
+  title: { absolute: "Privatiser la caravane · Glaces en Seine (95530)" },
   description:
-    "Privatisez la caravane Glaces en Seine pour mariage, anniversaire, séminaire ou fête de quartier en Île-de-France. Glaces, crêpes et gaufres servies sur place. Devis gratuit sous 24 h.",
+    "Privatisez la caravane Glaces en Seine pour mariage, anniversaire ou séminaire en Île-de-France. Glaces, crêpes et gaufres servies sur place. Devis gratuit sous 24 h.",
   alternates: { canonical: "/privatisation" },
   openGraph: {
     title: "Privatisez la caravane — Glaces en Seine",
     description: "Mariages, anniversaires, séminaires : la caravane Glaces en Seine se déplace en Île-de-France. Devis gratuit 24 h.",
     url: "https://glaceenseine.fr/privatisation",
     images: [{ url: "/camion.jpg", width: 1200, height: 630, alt: "Caravane Glaces en Seine prête pour privatisation" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privatisez la caravane Glaces en Seine",
+    description: "Mariages, anniversaires, séminaires en Île-de-France. Devis gratuit sous 24 h.",
+    images: ["/camion.jpg"],
   },
 };
 

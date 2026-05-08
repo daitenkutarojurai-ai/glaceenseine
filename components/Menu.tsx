@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "./Reveal";
@@ -477,12 +478,12 @@ function FoliCard({
         className="relative flex w-full cursor-pointer items-center gap-4 px-4 py-4 text-left sm:px-5 sm:py-5"
         aria-expanded={isOpen}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/lafolisup.png?v=6"
+        <Image
+          src="/lafolisup.png"
           alt="La Foli's — coupelle gaufre, chantilly, cubes croustillants"
-          className="h-[108px] w-[90px] shrink-0 object-contain drop-shadow-[0_6px_14px_rgba(184,107,38,0.28)]"
-          loading="lazy"
+          width={90}
+          height={108}
+          className="shrink-0 object-contain drop-shadow-[0_6px_14px_rgba(184,107,38,0.28)]"
         />
         <div className="min-w-0 flex-1">
           <div className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-cherry-deep">
