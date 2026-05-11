@@ -81,7 +81,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-1 px-6 pb-3 text-center text-[11px] text-cream/40 md:flex-row md:justify-between">
+      <div className="mx-auto flex max-w-7xl items-center justify-center px-6 pb-3 text-center text-[11px] text-cream/40">
         <span>
           Site réalisé par{" "}
           <Link
@@ -93,7 +93,6 @@ export function Footer() {
             diyfunproject.com
           </Link>
         </span>
-        <span className="italic">Merci à Anaït pour la revue</span>
       </div>
 
       <div className="border-t border-cream/10">
