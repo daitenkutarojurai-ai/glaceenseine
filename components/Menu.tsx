@@ -597,21 +597,11 @@ export function Menu() {
                   aria-selected={isActive}
                   onClick={() => {
                     if (c.key === active) return;
+                    // Don't reset openKey: detail keys are namespaced by
+                    // category (e.g. "crepes:Nutella") so they can't
+                    // collide across tabs, and clearing them collapses
+                    // content above and clamps scroll to the top.
                     setActive(c.key);
-                    setOpenKey(null);
-                    // Anchor scroll to the tab bar so the user keeps their
-                    // place — without this, collapsing the open detail
-                    // card above shrinks the document and the browser
-                    // clamps scroll to the new (shorter) max, which feels
-                    // like the page reloaded back to the top.
-                    requestAnimationFrame(() => {
-                      const el = tabsRef.current;
-                      if (!el) return;
-                      const rect = el.getBoundingClientRect();
-                      // 80px ≈ header height + a touch of breathing room.
-                      const y = rect.top + window.scrollY - 80;
-                      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
-                    });
                   }}
                   className={`relative flex min-h-[52px] cursor-pointer items-center justify-center gap-2 rounded-2xl px-3 py-3 text-[15px] font-semibold transition active:scale-[0.98] sm:min-h-0 sm:px-5 ${
                     isActive ? `${c.bg} ${c.text} shadow-soft` : "bg-white/60 text-ink/55 hover:text-ink sm:bg-cream/60"

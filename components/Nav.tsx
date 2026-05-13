@@ -22,20 +22,13 @@ export function Nav() {
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 32));
 
+  // Background scroll stays unlocked while the drawer is open — and
+  // any scroll gesture closes the drawer so the page feels responsive.
   useEffect(() => {
     if (!open) return;
-    // Compensate for the disappearing scrollbar (desktop) so the page
-    // doesn't shift sideways when scroll gets locked.
-    const sbw = window.innerWidth - document.documentElement.clientWidth;
-    const html = document.documentElement;
-    const prevOverflow = html.style.overflow;
-    const prevPadding  = html.style.paddingRight;
-    html.style.overflow = "hidden";
-    if (sbw > 0) html.style.paddingRight = `${sbw}px`;
-    return () => {
-      html.style.overflow = prevOverflow;
-      html.style.paddingRight = prevPadding;
-    };
+    const onScroll = () => setOpen(false);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, [open]);
 
   return (
