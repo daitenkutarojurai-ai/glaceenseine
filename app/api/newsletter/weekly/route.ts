@@ -72,14 +72,24 @@ async function handle(req: Request) {
   const failures: { email: string; error: string }[] = [];
 
   for (const c of recipients) {
-    const r = await sendTransactional({
-      to: [{ email: c.email }],
-      subject,
-      htmlContent: pick.html,
-      replyTo: { email: "contact@glaceenseine.fr", name: "Glaces en Seine" },
-    });
-    if (r.ok) sent++;
-    else failures.push({ email: c.email, error: r.error });
+    try {
+      const r = await sendTransactional({
+        to: [{ email: c.email }],
+        subject,
+        htmlContent: pick.html,
+        replyTo: { email: "contact@glaceenseine.fr", name: "Glaces en Seine" },
+      });
+      if (r.ok) sent++;
+      else failures.push({ email: c.email, error: r.error });
+    } catch (err) {
+      // Defense-in-depth: never let a single recipient's exception kill
+      // the broadcast — we want every other subscriber to still get the
+      // email, and a complete failure log to come back in the response.
+      failures.push({
+        email: c.email,
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
   }
 
   return NextResponse.json({

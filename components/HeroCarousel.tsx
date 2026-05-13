@@ -127,7 +127,13 @@ function AmbientOrbs({ animated }: { animated: boolean }) {
 export function HeroCarousel() {
   const [current, setCurrent] = useState(0);
   const [paused,  setPaused]  = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // Read the MQ synchronously on the client so the first paint matches the
+  // viewport. SSR still gets `false`, but the first client render reconciles
+  // immediately rather than flashing desktop slides before swapping to mobile.
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 639px)").matches;
+  });
   const sectionRef = useRef<HTMLDivElement>(null);
 
   /* Detect mobile viewport — used to disable carousel chrome and lock to a static image. */
@@ -162,19 +168,23 @@ export function HeroCarousel() {
     return () => clearInterval(id);
   }, [next, paused]);
 
-  /* Swipe support */
-  const [touchX, setTouchX] = useState<number | null>(null);
+  /* Swipe support — track both axes so we don't hijack vertical scroll. */
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchX(e.touches[0].clientX);
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
   };
   const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchX === null) return;
-    const dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 44) {
+    const start = touchStart.current;
+    if (!start) return;
+    const dx = e.changedTouches[0].clientX - start.x;
+    const dy = e.changedTouches[0].clientY - start.y;
+    // Only treat as a swipe if horizontal motion dominates — otherwise it's
+    // a vertical scroll and we must leave it alone (iOS especially).
+    if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.4) {
       const delta = dx < 0 ? 1 : -1;
       go((safeCurrent + delta + len) % len);
     }
-    setTouchX(null);
+    touchStart.current = null;
   };
 
   const slide = activeSlides[safeCurrent];

@@ -123,12 +123,6 @@ const jsonLd = {
           availableLanguage: ["French"],
         },
       ],
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "5",
-        reviewCount: "5",
-        bestRating: "5",
-      },
       sameAs: [
         "https://www.instagram.com/glaceenseine",
         "https://www.facebook.com/profile.php?id=61589342042525",

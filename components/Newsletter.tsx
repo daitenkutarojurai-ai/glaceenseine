@@ -22,7 +22,16 @@ export function Newsletter() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email: trimmed }),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        let msg = "Une erreur est survenue.";
+        try {
+          const j = await res.json();
+          if (j?.message && typeof j.message === "string") msg = j.message;
+        } catch { /* ignore */ }
+        setStatus("error");
+        setError(msg);
+        return;
+      }
       setStatus("ok");
     } catch {
       setStatus("error");

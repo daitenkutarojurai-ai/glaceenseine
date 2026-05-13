@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Check, Heart, ExternalLink, X } from "lucide-react";
 import { Reveal } from "./Reveal";
@@ -28,6 +28,12 @@ export function Feedback() {
   const [errorMsg,        setError]           = useState("");
   const [submittedRating, setSubmittedRating] = useState(0);
   const [googlePopup,     setGooglePopup]     = useState(false);
+  const [website,         setWebsite]         = useState("");
+  const popupTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (popupTimer.current) clearTimeout(popupTimer.current);
+  }, []);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -41,13 +47,22 @@ export function Feedback() {
       const res = await fetch("/api/feedback", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ rating: captured, emoji, comment }),
+        body: JSON.stringify({ rating: captured, emoji, comment, website }),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        let msg = "Une erreur est survenue. Réessayez !";
+        try {
+          const j = await res.json();
+          if (j?.message && typeof j.message === "string") msg = j.message;
+        } catch { /* ignore parse errors */ }
+        setStatus("error");
+        setError(msg);
+        return;
+      }
       setSubmittedRating(captured);
       setStatus("ok");
       if (captured >= 4) {
-        setTimeout(() => setGooglePopup(true), 1600);
+        popupTimer.current = setTimeout(() => setGooglePopup(true), 1600);
       }
     } catch {
       setStatus("error");
@@ -277,7 +292,16 @@ export function Feedback() {
                   />
                 </div>
 
-                <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
+                <input
+                  type="text"
+                  name="website"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="hidden"
+                  aria-hidden
+                />
 
                 {errorMsg && (
                   <p className="text-center text-[13px] text-cherry font-medium">{errorMsg}</p>

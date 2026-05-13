@@ -120,8 +120,11 @@ const STORAGE_PREFIX = "ges_poll_w";
 
 /* ── Shared poll logic ── */
 function usePoll() {
-  const weekIdx    = getWeekNumber() % QUESTIONS.length;
-  const storageKey = `${STORAGE_PREFIX}${getWeekNumber()}`;
+  // Compute week index on the client only — using new Date() at render
+  // time causes hydration mismatches around day/week boundaries.
+  const [weekNumber, setWeekNumber] = useState<number | null>(null);
+  const weekIdx    = ((weekNumber ?? 0) % QUESTIONS.length + QUESTIONS.length) % QUESTIONS.length;
+  const storageKey = `${STORAGE_PREFIX}${weekNumber ?? 0}`;
   const question   = QUESTIONS[weekIdx];
 
   type Tallies = Record<string, number>;
@@ -132,13 +135,15 @@ function usePoll() {
   const [ready,   setReady]   = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    const wn = getWeekNumber();
+    setWeekNumber(wn);
+    const key = `${STORAGE_PREFIX}${wn}`;
     try {
-      const saved = JSON.parse(localStorage.getItem(storageKey) ?? "null");
+      const saved = JSON.parse(localStorage.getItem(key) ?? "null");
       if (saved) { setVote(saved.vote); setTallies(saved.tallies); }
     } catch { /* ignore */ }
     setReady(true);
-  }, [storageKey]);
+  }, []);
 
   function pick(key: string) {
     if (vote) return;
@@ -151,7 +156,7 @@ function usePoll() {
   const total = Object.values(tallies).reduce((a, b) => a + b, 0);
   const pct   = (k: string) => Math.round(((tallies[k] ?? 0) / total) * 100);
 
-  return { question, weekNumber: getWeekNumber(), vote, tallies, ready, pick, total, pct };
+  return { question, weekNumber: weekNumber ?? 0, vote, tallies, ready, pick, total, pct };
 }
 
 /* ── Compact strip — discreet horizontal band below gallery ── */

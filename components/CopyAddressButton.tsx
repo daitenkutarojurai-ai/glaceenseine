@@ -1,16 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Copy, Check } from "lucide-react";
 
 export function CopyAddressButton({ address }: { address: string }) {
   const [copied, setCopied] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
 
   async function copy() {
     try {
       await navigator.clipboard.writeText(address);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2200);
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(() => setCopied(false), 2200);
     } catch {
       /* fallback for older browsers */
     }

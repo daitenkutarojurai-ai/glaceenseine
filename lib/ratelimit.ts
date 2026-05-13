@@ -6,10 +6,14 @@ type Bucket = { hits: number; resetAt: number };
 const buckets = new Map<string, Bucket>();
 
 export function getClientIp(req: Request): string {
+  // Vercel sets x-vercel-forwarded-for to the real client IP (single value,
+  // unspoofable from the outside). Prefer it when present.
+  const vercel = req.headers.get("x-vercel-forwarded-for");
+  if (vercel) return vercel.trim();
+  // Standard XFF: client IP is the first entry. (The last entry is the
+  // nearest proxy — using it collapses all real users into one bucket.)
   const xff = req.headers.get("x-forwarded-for");
-  // On Vercel the real client IP is appended last by the edge proxy — read
-  // the last entry so a spoofed X-Forwarded-For header can't bypass limits.
-  if (xff) return xff.split(",").at(-1)!.trim();
+  if (xff) return xff.split(",")[0]!.trim();
   const real = req.headers.get("x-real-ip");
   if (real) return real.trim();
   return "anon";
