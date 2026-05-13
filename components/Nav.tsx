@@ -24,27 +24,17 @@ export function Nav() {
 
   useEffect(() => {
     if (!open) return;
-    const scrollY = window.scrollY;
-    const { body } = document;
-    const prev = {
-      position: body.style.position,
-      top: body.style.top,
-      left: body.style.left,
-      right: body.style.right,
-      width: body.style.width,
-    };
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.left = "0";
-    body.style.right = "0";
-    body.style.width = "100%";
+    // Compensate for the disappearing scrollbar (desktop) so the page
+    // doesn't shift sideways when scroll gets locked.
+    const sbw = window.innerWidth - document.documentElement.clientWidth;
+    const html = document.documentElement;
+    const prevOverflow = html.style.overflow;
+    const prevPadding  = html.style.paddingRight;
+    html.style.overflow = "hidden";
+    if (sbw > 0) html.style.paddingRight = `${sbw}px`;
     return () => {
-      body.style.position = prev.position;
-      body.style.top = prev.top;
-      body.style.left = prev.left;
-      body.style.right = prev.right;
-      body.style.width = prev.width;
-      window.scrollTo(0, scrollY);
+      html.style.overflow = prevOverflow;
+      html.style.paddingRight = prevPadding;
     };
   }, [open]);
 

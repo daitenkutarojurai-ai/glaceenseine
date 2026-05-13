@@ -596,8 +596,22 @@ export function Menu() {
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => {
+                    if (c.key === active) return;
                     setActive(c.key);
                     setOpenKey(null);
+                    // Anchor scroll to the tab bar so the user keeps their
+                    // place — without this, collapsing the open detail
+                    // card above shrinks the document and the browser
+                    // clamps scroll to the new (shorter) max, which feels
+                    // like the page reloaded back to the top.
+                    requestAnimationFrame(() => {
+                      const el = tabsRef.current;
+                      if (!el) return;
+                      const rect = el.getBoundingClientRect();
+                      // 80px ≈ header height + a touch of breathing room.
+                      const y = rect.top + window.scrollY - 80;
+                      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+                    });
                   }}
                   className={`relative flex min-h-[52px] cursor-pointer items-center justify-center gap-2 rounded-2xl px-3 py-3 text-[15px] font-semibold transition active:scale-[0.98] sm:min-h-0 sm:px-5 ${
                     isActive ? `${c.bg} ${c.text} shadow-soft` : "bg-white/60 text-ink/55 hover:text-ink sm:bg-cream/60"
@@ -618,17 +632,17 @@ export function Menu() {
           </div>
         </Reveal>
 
-        {/* Category panel */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={cat.key}
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
-            className="mt-6"
-            role="tabpanel"
-          >
+        {/* Category panel — no AnimatePresence mode="wait" so the panel
+            cross-fades in place; emptying it mid-transition causes the
+            document to collapse and the browser to clamp scroll to top. */}
+        <motion.div
+          key={cat.key}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
+          className="mt-6"
+          role="tabpanel"
+        >
             <p className={`font-script text-2xl ${cat.text} text-center sm:text-left`}>
               {cat.tagline}
             </p>
@@ -723,8 +737,7 @@ export function Menu() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
-        </AnimatePresence>
+        </motion.div>
 
         {/* Suppléments block (attente.html style) */}
         <Reveal delay={0.1}>
