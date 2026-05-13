@@ -630,7 +630,11 @@ export function Menu() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
-          className="mt-6"
+          // min-h prevents the document from shrinking when switching
+          // from a long tab (glaces) to a short one (boissons) — without
+          // it the browser clamps scrollY to the new max and the user
+          // gets snapped back toward the top.
+          className="mt-6 min-h-[140vh]"
           role="tabpanel"
         >
             <p className={`font-script text-2xl ${cat.text} text-center sm:text-left`}>
