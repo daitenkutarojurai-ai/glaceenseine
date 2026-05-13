@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { IceCream, Cookie, CakeSlice, Coffee, ChevronDown, Flame, Leaf, Info } from "lucide-react";
@@ -522,6 +522,28 @@ export function Menu() {
   const cat = categories.find((c) => c.key === active)!;
   const tabsRef = useRef<HTMLDivElement>(null);
 
+  // Lock the panel to the tallest height we've ever rendered. Without
+  // this, switching from a long category (glaces) to a short one
+  // (boissons) shrinks the document. If the user was scrolled deep, the
+  // browser clamps scrollY to the new max → feels like "back to top".
+  // By only growing, the document height becomes monotonic and scroll
+  // is always preserved.
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [minPanelH, setMinPanelH] = useState(0);
+  useLayoutEffect(() => {
+    const el = panelRef.current;
+    if (!el) return;
+    const measure = () => {
+      const h = el.scrollHeight;
+      setMinPanelH((prev) => (h > prev ? h : prev));
+    };
+    measure();
+    // Re-measure when items inside expand/collapse.
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [active, openKey]);
+
   // La Foli's is the team-pick hero on the GLACES tab (the user's headline product),
   // and is hidden from the gaufres grid so it never appears twice.
   const isGaufres = cat.key === "gaufres";
@@ -625,16 +647,16 @@ export function Menu() {
         {/* Category panel — no AnimatePresence mode="wait" so the panel
             cross-fades in place; emptying it mid-transition causes the
             document to collapse and the browser to clamp scroll to top. */}
+        <div
+          ref={panelRef}
+          className="mt-6"
+          style={minPanelH > 0 ? { minHeight: minPanelH } : undefined}
+        >
         <motion.div
           key={cat.key}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
-          // min-h prevents the document from shrinking when switching
-          // from a long tab (glaces) to a short one (boissons) — without
-          // it the browser clamps scrollY to the new max and the user
-          // gets snapped back toward the top.
-          className="mt-6 min-h-[140vh]"
           role="tabpanel"
         >
             <p className={`font-script text-2xl ${cat.text} text-center sm:text-left`}>
@@ -732,6 +754,7 @@ export function Menu() {
               )}
             </AnimatePresence>
         </motion.div>
+        </div>
 
         {/* Suppléments block (attente.html style) */}
         <Reveal delay={0.1}>
