@@ -16,49 +16,54 @@
       "name": "Saturday 09:00 UTC",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
-      "position": [240, 300]
+      "position": [
+        240,
+        220
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "9c1c0f6e-1111-4f01-9001-000000000020",
+      "name": "Manual trigger (test)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        380
+      ]
     },
     {
       "parameters": {
-        "method": "GET",
-        "url": "https://www.googleapis.com/drive/v3/files",
-        "authentication": "predefinedCredentialType",
-        "nodeCredentialType": "googleDriveOAuth2Api",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "q",
-              "value": "'1kIj62TL-IkmLSt_3qVvkkyiYSWi8B-VV' in parents and mimeType contains 'image/' and trashed=false"
-            },
-            { "name": "fields", "value": "files(id,name,mimeType)" },
-            { "name": "pageSize", "value": "200" },
-            { "name": "orderBy", "value": "name" }
-          ]
-        },
-        "options": {}
+        "url": "https://drive.google.com/embeddedfolderview?id=1kIj62TL-IkmLSt_3qVvkkyiYSWi8B-VV#list",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
       },
       "id": "9c1c0f6e-1111-4f01-9001-000000000010",
-      "name": "Drive · list n8n folder",
+      "name": "List Drive folder (public)",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [460, 300],
-      "credentials": {
-        "googleDriveOAuth2Api": {
-          "id": "REPLACE_WITH_DRIVE_CREDENTIAL_ID",
-          "name": "Google Drive — Glace en Seine"
-        }
-      }
+      "position": [
+        460,
+        300
+      ]
     },
     {
       "parameters": {
-        "jsCode": "// Pick a Drive image that has not been posted yet, plus a rotating caption.\n//\n// Dedup: workflow staticData persists postedIds across runs. When all files\n// have been posted, the list resets so the rotation continues (warned via\n// cycleReset = true so the run can be inspected in the n8n executions log).\n//\n// Caption rotation: 4-week cycle [météo → humour → QR → crew], anchored on\n// Sat 2026-05-02 22:00 UTC = Sat 00:00 Europe/Paris (matches\n// newsletter/sendEmail.js).\n\nconst response = $input.first().json;\nconst files = (response && response.files) || [];\nif (files.length === 0) {\n  throw new Error('Drive folder returned no images. Check folder ID and OAuth scope.');\n}\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.postedIds = Array.isArray(staticData.postedIds) ? staticData.postedIds : [];\n\nlet pool = files.filter((f) => !staticData.postedIds.includes(f.id));\nlet cycleReset = false;\nif (pool.length === 0) {\n  staticData.postedIds = [];\n  pool = files.slice();\n  cycleReset = true;\n}\n\n// Deterministic pick: alphabetical name order on the unposted pool.\npool.sort((a, b) => String(a.name).localeCompare(String(b.name)));\nconst pick = pool[0];\nstaticData.postedIds.push(pick.id);\n\n// Public Drive CDN URL — requires the n8n folder to be shared\n// \"Anyone with the link → Viewer\" (one-time Drive setting).\nconst imageUrl = `https://lh3.googleusercontent.com/d/${pick.id}=w2000`;\n\n// Week-based caption rotation\nconst EPOCH = Date.UTC(2026, 4, 1, 22, 0, 0);\nconst week = Math.floor((Date.now() - EPOCH) / (7 * 24 * 60 * 60 * 1000));\nconst captions = [\n  // 0 — météo\n  `Si la météo tient ses promesses, c'est week-end glace les pieds dans l'herbe.\\n\\nOn vous attend face à la mairie de La Frette-sur-Seine, samedi & dimanche, 14h–19h.\\n\\nCrêpes · gaufres · glaces artisanales\\n#glaceenseine`,\n  // 1 — humour\n  `Y'a des jours où t'as juste pas envie de réfléchir. Bonne nouvelle, on a tout prévu.\\n\\nTu marches, tu pointes, tu manges.\\nQuai de La Frette-sur-Seine, sam & dim, 14h–19h.\\n#glaceenseine`,\n  // 2 — QR\n  `Hésiter entre douze parfums, ça fatigue. Sur place, scanne le QR du menu : un mini-jeu te tire un parfum au hasard.\\n\\nDécision : 0,3 seconde.\\n\\nCe week-end, sam & dim, 14h–19h, face à la mairie de La Frette-sur-Seine.\\n#glaceenseine`,\n  // 3 — crew\n  `Le gang Glace en Seine te garde une place ce week-end. Banc, herbe, marches du quai — choisis ton spot.\\n\\nSamedi & dimanche, 14h–19h, face à la mairie de La Frette-sur-Seine.\\nCrêpes · gaufres · glaces artisanales\\n#glaceenseine`\n];\nconst caption = captions[((week % captions.length) + captions.length) % captions.length];\n\nreturn [\n  {\n    json: {\n      week,\n      pickedId: pick.id,\n      pickedName: pick.name,\n      imageUrl,\n      caption,\n      cycleReset,\n      postedCount: staticData.postedIds.length,\n      poolSize: files.length\n    }\n  }\n];"
+        "jsCode": "// Pick an image from the public Drive folder (no auth, no rclone, no cron).\n//\n// Source: HTML returned by https://drive.google.com/embeddedfolderview?id=<FOLDER_ID>\n// which contains (file_id, filename) pairs for every file in the folder.\n// Folder must be shared \"Anyone with the link → Viewer\".\n//\n// Dedup: staticData.postedNames persists across runs (filename-based,\n// stable across Drive ID changes if user re-uploads). When the pool\n// exhausts, the list resets so rotation continues (cycleReset=true).\n//\n// Caption rotation: 4-week cycle [météo → humour → QR → crew], anchored\n// on Fri 2026-05-01 22:00 UTC = Sat 2026-05-02 00:00 Europe/Paris.\n\nconst httpOut = $input.first().json;\nconst html = (httpOut && (httpOut.data || httpOut.body || '')) + '';\nif (!html || html.length < 500) {\n  throw new Error('Drive folder HTML response too short. Is the folder still publicly shared?');\n}\n\n// Parse file IDs (from /file/d/<ID>/ links) and filenames (from flip-entry-title divs).\nconst ids = [...html.matchAll(/\\/file\\/d\\/([a-zA-Z0-9_-]{20,})\\//g)].map(m => m[1]);\nconst names = [...html.matchAll(/<div class=\"flip-entry-title\">([^<]+)<\\/div>/g)].map(m => m[1]);\nif (ids.length === 0 || names.length === 0 || ids.length !== names.length) {\n  throw new Error(`Drive HTML parse mismatch (ids=${ids.length} names=${names.length}). Folder may have changed share status, or Drive HTML format may have shifted.`);\n}\n\nconst pool = [];\nconst seenIds = new Set();\nfor (let i = 0; i < ids.length; i++) {\n  if (seenIds.has(ids[i])) continue;\n  seenIds.add(ids[i]);\n  if (/\\.(jpe?g|png|webp|heic|gif)$/i.test(names[i])) {\n    pool.push({ id: ids[i], name: names[i] });\n  }\n}\nif (pool.length === 0) {\n  throw new Error('No image files found in Drive folder (only non-image files present?).');\n}\npool.sort((a, b) => String(a.name).localeCompare(String(b.name)));\n\nconst staticData = $getWorkflowStaticData('global');\nstaticData.postedNames = Array.isArray(staticData.postedNames) ? staticData.postedNames : [];\n\nlet available = pool.filter((f) => !staticData.postedNames.includes(f.name));\nlet cycleReset = false;\nif (available.length === 0) {\n  staticData.postedNames = [];\n  available = pool.slice();\n  cycleReset = true;\n}\n\nconst pick = available[0];\nstaticData.postedNames.push(pick.name);\n\nconst imageUrl = `https://lh3.googleusercontent.com/d/${pick.id}=w2000`;\n\nconst EPOCH = Date.UTC(2026, 4, 1, 22, 0, 0); // Fri 2026-05-01 22:00 UTC = Sat 2026-05-02 00:00 Paris\nconst week = Math.floor((Date.now() - EPOCH) / (7 * 24 * 60 * 60 * 1000));\nconst captions = [\n  // 0 — météo\n  `Si la météo tient ses promesses, c'est week-end glace les pieds dans l'herbe.\\n\\nOn vous attend face à la mairie de La Frette-sur-Seine, samedi & dimanche, 14h–19h.\\n\\nCrêpes · gaufres · glaces artisanales\\n#glaceenseine`,\n  // 1 — humour\n  `Y'a des jours où t'as juste pas envie de réfléchir. Bonne nouvelle, on a tout prévu.\\n\\nTu marches, tu pointes, tu manges.\\nQuai de La Frette-sur-Seine, sam & dim, 14h–19h.\\n#glaceenseine`,\n  // 2 — QR\n  `Hésiter entre douze parfums, ça fatigue. Sur place, scanne le QR du menu : un mini-jeu te tire un parfum au hasard.\\n\\nDécision : 0,3 seconde.\\n\\nCe week-end, sam & dim, 14h–19h, face à la mairie de La Frette-sur-Seine.\\n#glaceenseine`,\n  // 3 — crew\n  `Le gang Glace en Seine te garde une place ce week-end. Banc, herbe, marches du quai — choisis ton spot.\\n\\nSamedi & dimanche, 14h–19h, face à la mairie de La Frette-sur-Seine.\\nCrêpes · gaufres · glaces artisanales\\n#glaceenseine`\n];\nconst caption = captions[((week % captions.length) + captions.length) % captions.length];\n\nreturn [{\n  json: {\n    week,\n    pickedId: pick.id,\n    pickedName: pick.name,\n    imageUrl,\n    caption,\n    cycleReset,\n    postedCount: staticData.postedNames.length,\n    poolSize: pool.length\n  }\n}];"
       },
       "id": "9c1c0f6e-1111-4f01-9001-000000000002",
       "name": "Pick image + caption",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [680, 300]
+      "position": [
+        680,
+        300
+      ]
     },
     {
       "parameters": {
@@ -69,8 +74,14 @@
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
-            { "name": "image_url", "value": "={{ $json.imageUrl }}" },
-            { "name": "caption", "value": "={{ $json.caption }}" }
+            {
+              "name": "image_url",
+              "value": "={{ $json.imageUrl }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $json.caption }}"
+            }
           ]
         },
         "options": {}
@@ -79,7 +90,10 @@
       "name": "IG · create container",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [900, 200],
+      "position": [
+        900,
+        200
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "REPLACE_WITH_CREDENTIAL_ID",
@@ -89,15 +103,82 @@
     },
     {
       "parameters": {
-        "amount": 8,
+        "amount": 20,
         "unit": "seconds"
       },
       "id": "9c1c0f6e-1111-4f01-9001-000000000004",
-      "name": "Wait 8s (container ready)",
+      "name": "Wait 20s (container ready)",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
-      "position": [1120, 200],
+      "position": [
+        1120,
+        200
+      ],
       "webhookId": "9c1c0f6e-1111-4f01-9001-000000000004"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://graph.facebook.com/v22.0/{{ $('IG · create container').item.json.id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "fields",
+              "value": "status_code"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9c1c0f6e-1111-4f01-9001-000000000021",
+      "name": "IG · check container status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1340,
+        200
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "FB Graph — Glace en Seine"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "9c1c0f6e-1111-4f01-9001-000000000030",
+              "leftValue": "={{ $json.status_code }}",
+              "rightValue": "FINISHED",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "9c1c0f6e-1111-4f01-9001-000000000022",
+      "name": "IF container FINISHED",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        200
+      ]
     },
     {
       "parameters": {
@@ -108,7 +189,10 @@
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
-            { "name": "creation_id", "value": "={{ $('IG · create container').item.json.id }}" }
+            {
+              "name": "creation_id",
+              "value": "={{ $('IG · create container').item.json.id }}"
+            }
           ]
         },
         "options": {}
@@ -117,13 +201,29 @@
       "name": "IG · publish",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1340, 200],
+      "position": [
+        1780,
+        120
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "REPLACE_WITH_CREDENTIAL_ID",
           "name": "FB Graph — Glace en Seine"
         }
       }
+    },
+    {
+      "parameters": {
+        "errorMessage": "=IG container not ready: status_code={{ $json.status_code }} (expected FINISHED). Container id={{ $('IG · create container').item.json.id }}. Image url was {{ $('Pick image + caption').item.json.imageUrl }}. Likely causes: Drive folder no longer publicly shared (403 on image_url), or container processing >20s — bump the Wait node."
+      },
+      "id": "9c1c0f6e-1111-4f01-9001-000000000023",
+      "name": "Fail — container not FINISHED",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        1780,
+        280
+      ]
     },
     {
       "parameters": {
@@ -134,8 +234,14 @@
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
-            { "name": "url", "value": "={{ $('Pick image + caption').item.json.imageUrl }}" },
-            { "name": "message", "value": "={{ $('Pick image + caption').item.json.caption }}" }
+            {
+              "name": "url",
+              "value": "={{ $('Pick image + caption').item.json.imageUrl }}"
+            },
+            {
+              "name": "message",
+              "value": "={{ $('Pick image + caption').item.json.caption }}"
+            }
           ]
         },
         "options": {}
@@ -144,7 +250,10 @@
       "name": "FB Page · post photo",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [900, 420],
+      "position": [
+        900,
+        420
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "REPLACE_WITH_CREDENTIAL_ID",
@@ -155,27 +264,109 @@
   ],
   "connections": {
     "Saturday 09:00 UTC": {
-      "main": [[{ "node": "Drive · list n8n folder", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "List Drive folder (public)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
-    "Drive · list n8n folder": {
-      "main": [[{ "node": "Pick image + caption", "type": "main", "index": 0 }]]
+    "Manual trigger (test)": {
+      "main": [
+        [
+          {
+            "node": "List Drive folder (public)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Drive folder (public)": {
+      "main": [
+        [
+          {
+            "node": "Pick image + caption",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Pick image + caption": {
       "main": [
         [
-          { "node": "IG · create container", "type": "main", "index": 0 },
-          { "node": "FB Page · post photo", "type": "main", "index": 0 }
+          {
+            "node": "IG · create container",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "FB Page · post photo",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
     "IG · create container": {
-      "main": [[{ "node": "Wait 8s (container ready)", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Wait 20s (container ready)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
-    "Wait 8s (container ready)": {
-      "main": [[{ "node": "IG · publish", "type": "main", "index": 0 }]]
+    "Wait 20s (container ready)": {
+      "main": [
+        [
+          {
+            "node": "IG · check container status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IG · check container status": {
+      "main": [
+        [
+          {
+            "node": "IF container FINISHED",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF container FINISHED": {
+      "main": [
+        [
+          {
+            "node": "IG · publish",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fail — container not FINISHED",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
-  "settings": { "executionOrder": "v1" },
-  "version": 2
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "version": 3
 }

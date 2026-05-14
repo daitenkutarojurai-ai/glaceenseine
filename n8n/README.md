@@ -10,8 +10,9 @@ cycled through.
 
 Pipeline:
 ```
-[Saturday 09:00 UTC]
-        ↓
+[Saturday 09:00 UTC]   [Manual trigger (test)]
+            \              /
+             ↓            ↓
 [Drive · list n8n folder]      ─── Drive API v3, OAuth2 auth
         ↓
 [Pick image + caption]         ─── dedup via workflow staticData (no repeats)
@@ -20,33 +21,57 @@ Pipeline:
    ↓         ↓
 [IG container]  [FB Page photo]   (run in parallel)
    ↓
-[Wait 8s]                          ─── container processing buffer
+[Wait 20s]                         ─── container processing buffer
    ↓
-[IG publish]
+[IG · check container status]      ─── GET /{container-id}?fields=status_code
+   ↓
+[IF status_code == FINISHED]
+   ├── true → [IG · publish]
+   └── false → [Stop & Error] (logs status_code + container id)
 ```
 
-### Image source — Google Drive folder
+### How to fire it on demand
+
+The **Manual trigger (test)** node lets you bypass the Saturday cron: open
+the workflow in n8n and click **Execute Workflow** (top right). It runs
+the exact same pipeline as the scheduled fire — picks the next Drive
+image, posts to FB + IG, and consumes one slot in the dedup pool. Use it
+to verify credentials, image URL reachability, and FB/IG token validity
+without waiting a week.
+
+### Image source — public Drive folder, read directly via HTTP
+
+**Source: shared Drive folder `glaceenseine/n8n/`** (`1kIj62TL-IkmLSt_3qVvkkyiYSWi8B-VV`).
+
+The workflow's first non-trigger node, `List Drive folder (public)`, hits
+`https://drive.google.com/embeddedfolderview?id=<FOLDER_ID>#list` and
+parses the returned HTML for `(file_id, filename)` pairs. The picker then
+applies filename-based dedup, picks the next image alphabetically, and
+builds the IG-fetchable URL as
+`https://lh3.googleusercontent.com/d/<FILE_ID>=w2000`.
 
 | What | Value |
 |---|---|
-| Drive folder | `glaceenseine / n8n` |
-| Folder ID    | `1kIj62TL-IkmLSt_3qVvkkyiYSWi8B-VV` |
-| Public CDN URL pattern | `https://lh3.googleusercontent.com/d/<FILE_ID>=w2000` |
+| Drop images in | Drive folder `glaceenseine / n8n` (drag-and-drop in Drive UI) |
+| Listed via | `drive.google.com/embeddedfolderview?id=...` (public, no auth) |
+| Public CDN URL n8n uses | `https://lh3.googleusercontent.com/d/<FILE_ID>=w2000` |
 
-The workflow lists every image (`mimeType contains 'image/'`) directly
-under the `n8n/` folder. New files dropped in the folder are picked up
-automatically on the next run.
+**The Drive folder MUST be shared "Anyone with the link → Viewer"** —
+otherwise both the folder listing AND the image URLs return Google's
+sign-in HTML page (~900KB) instead of the actual content. To verify:
+`curl -sI 'https://lh3.googleusercontent.com/d/<any-file-id>=w2000'`
+should report `content-type: image/jpeg` (or similar), not `text/html`.
 
-**Folder must be shared "Anyone with the link → Viewer"**, otherwise
-Instagram's `image_url` fetcher will get 403'd. Done once, in Drive UI.
+No rclone, no API key, no cron, no local sync. Always live.
 
 ### Dedup — no repeat until the pool exhausts
 
 The `Pick image + caption` Code node uses
-`$getWorkflowStaticData('global').postedIds` to remember which Drive file
-IDs have already been published. Each Saturday it filters them out, sorts
-the remaining pool by name (deterministic), picks the first, and pushes
-its ID into `postedIds`.
+`$getWorkflowStaticData('global').postedNames` to remember which filenames
+have already been published. Each Saturday it filters them out, sorts the
+remaining pool by name (deterministic), picks the first, and pushes its
+name into `postedNames`. Filenames are stable across Drive ID changes
+(re-uploads), so this survives the occasional Drive churn.
 
 When the pool is empty (every image has been posted once), the list resets
 to the full folder and the rotation starts over. The output flag
@@ -78,45 +103,46 @@ curl -s "https://graph.facebook.com/v22.0/1147900985068771?fields=access_token&a
 # → {"access_token":"EAA...","id":"1147900985068771"}
 ```
 
-### 2. Create the Google Drive credential in n8n
+### 2. Share the Drive folder publicly
 
-**Credentials → New → Google Drive OAuth2 API**. Name it
-**`Google Drive — Glace en Seine`**. Authorise with the Google account
-that owns the `glaceenseine/n8n/` folder (`diyfunproject@gmail.com`).
-Required scope: `https://www.googleapis.com/auth/drive.readonly` (the
-default Drive OAuth2 scope is fine).
+Open the `n8n/` folder in Drive → **Share** → bottom "General access"
+dropdown → set to **"Anyone with the link"** with role **Viewer**.
+Required so Instagram's image fetcher can download via
+`lh3.googleusercontent.com`, and so the workflow can list the folder
+via the public embedded view.
 
-### 3. Share the Drive folder publicly
+Sanity check:
+```
+curl -sI 'https://lh3.googleusercontent.com/d/<any-file-id>=w2000' \
+  | head -2
+# Expect: HTTP/2 200 / content-type: image/jpeg (or similar)
+# If you see content-type: text/html — sharing is still restricted.
+```
 
-Open the `n8n/` folder in Drive → **Share** → "General access" → set to
-**"Anyone with the link"** with role **Viewer**. This is required so that
-Instagram's image fetcher can download the file from the
-`lh3.googleusercontent.com` CDN.
-
-### 4. Import the workflow
+### 3. Import the workflow
 
 n8n: **Workflows → Import from File →** pick
 `glace-saturday-fb-ig.json`.
 
-### 5. Re-attach credentials
+### 4. Re-attach credentials
 
-The JSON has placeholder credential IDs. After import:
+The JSON has placeholder credential IDs. After import, the four FB/IG
+HTTP nodes (`IG · create container`, `IG · check container status`,
+`IG · publish`, `FB Page · post photo`) need Authentication = Header Auth
+→ pick `FB Graph — Glace en Seine`.
 
-- **`Drive · list n8n folder`** → Authentication = Predefined Credential
-  Type → Google Drive OAuth2 API → pick `Google Drive — Glace en Seine`.
-- **`IG · create container`**, **`IG · publish`**,
-  **`FB Page · post photo`** → Authentication = Header Auth → pick
-  `FB Graph — Glace en Seine`.
+The `List Drive folder (public)` node is a plain HTTP Request to the
+public embedded folder view — no credentials needed.
 
 Save.
 
 ### 6. Test before activating
 
 - **Dry-run the picker only**: right-click `Pick image + caption` →
-  "Execute Node" (after firing `Drive · list n8n folder` first). The
-  output should show `{ pickedId, pickedName, imageUrl, caption,
-  poolSize, postedCount, cycleReset }`. Open `imageUrl` in a private tab
-  to confirm the image is reachable without authentication.
+  "Execute Node" (after firing `Load local pool` first). The output
+  should show `{ pickedId, pickedName, imageUrl, caption, poolSize,
+  postedCount, cycleReset }`. Open `imageUrl` in a private tab to confirm
+  the image is reachable without authentication.
 
 - **Full pipeline test** (publishes immediately): click
   "Execute Workflow". Verify both posts appear, then delete the test
@@ -146,13 +172,13 @@ firing will be the upcoming Saturday at 09:00 UTC.
 ## Maintenance
 
 - **Add new images**: drop them into the `glaceenseine/n8n/` Drive
-  folder. Picked up on the next run, automatically.
+  folder. Picked up live on the next workflow run — no sync delay.
 - **Reset rotation**: open the workflow, click the three-dot menu on the
   `Pick image + caption` node → "Clear static data". The next run will
   treat all files as unposted.
 - **Inspect what's been posted**: each run logs `postedCount` /
   `poolSize` in the execution panel. For a full audit, n8n's database
-  stores it under `workflow_static_data.global.postedIds`.
+  stores it under `workflow_static_data.global.postedNames`.
 
 ## Editing captions
 
