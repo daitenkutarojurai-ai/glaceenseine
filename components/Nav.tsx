@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Menu as MenuIcon, X, Instagram, Facebook, Sparkles, MapPin, Bell, Star } from "lucide-react";
 import { SOCIAL } from "@/lib/social";
@@ -17,19 +17,61 @@ const links = [
 ];
 
 export function Nav() {
-  const [open, setOpen]       = useState(false);
+  const [open, setOpen]         = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
-  useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 32));
+  const lockedScrollY = useRef(0);
 
-  // Background scroll stays unlocked while the drawer is open — and
-  // any scroll gesture closes the drawer so the page feels responsive.
+  // While the drawer is open, freeze the header's visual state so a tap on
+  // the hamburger doesn't shift the button under the user's finger.
+  useMotionValueEvent(scrollY, "change", (v) => {
+    if (open) return;
+    setScrolled(v > 32);
+  });
+
+  // Body-scroll lock — iOS-safe (position: fixed with restored scroll).
   useEffect(() => {
     if (!open) return;
-    const onScroll = () => setOpen(false);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    lockedScrollY.current = window.scrollY;
+    const body = document.body;
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+    body.style.position = "fixed";
+    body.style.top = `-${lockedScrollY.current}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      body.style.position = prev.position;
+      body.style.top = prev.top;
+      body.style.left = prev.left;
+      body.style.right = prev.right;
+      body.style.width = prev.width;
+      body.style.overflow = prev.overflow;
+      window.scrollTo(0, lockedScrollY.current);
+      window.removeEventListener("keydown", onKey);
+    };
   }, [open]);
+
+  // Close drawer on route change (Next.js client navigation fires popstate).
+  useEffect(() => {
+    const close = () => setOpen(false);
+    window.addEventListener("popstate", close);
+    return () => window.removeEventListener("popstate", close);
+  }, []);
 
   return (
     <header className={`sticky top-0 z-40 transition-[padding] duration-300 ease-out ${scrolled ? "py-1.5" : "py-3"}`}>
@@ -139,7 +181,7 @@ export function Nav() {
           </Link>
         </div>
 
-        {/* Mobile-only Instagram icon (visible alongside hamburger) */}
+        {/* Mobile actions (Instagram + hamburger) */}
         <div className="flex items-center gap-2 md:hidden">
           <Link
             href={SOCIAL.instagram.url}
@@ -151,37 +193,46 @@ export function Nav() {
           >
             <Instagram className="h-4 w-4" />
           </Link>
-        {/* Hamburger */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Fermer" : "Menu"}
-          aria-expanded={open}
-          className="grid h-11 w-11 place-items-center rounded-full bg-cream/80 text-ink shadow-soft backdrop-blur"
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={open ? "x" : "menu"}
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {open ? <X className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
-            </motion.div>
-          </AnimatePresence>
-        </button>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={open}
+            aria-controls="mobile-drawer"
+            style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
+            className="relative grid h-11 w-11 place-items-center rounded-full bg-cream/90 text-ink shadow-soft backdrop-blur active:scale-95"
+          >
+            {open ? <X className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
+          </button>
         </div>
       </div>
+
+      {/* Backdrop — tap-outside-to-close */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setOpen(false)}
+            aria-hidden
+            className="fixed inset-0 top-[64px] z-30 bg-ink/30 backdrop-blur-sm md:hidden"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Mobile drawer */}
       <AnimatePresence>
         {open && (
           <motion.div
+            id="mobile-drawer"
             initial={{ opacity: 0, y: -12, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: 0.25, ease: [0.2, 0.8, 0.2, 1] }}
-            className="md:hidden"
+            className="relative z-40 md:hidden"
           >
             <div className="mx-3 mt-2 overflow-hidden rounded-3xl bg-cream/95 shadow-ring backdrop-blur">
               <nav className="flex flex-col p-3" aria-label="Navigation mobile">
