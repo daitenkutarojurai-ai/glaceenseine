@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Menu as MenuIcon, X, Instagram, Facebook, Sparkles, MapPin, Bell, Star } from "lucide-react";
 import { SOCIAL } from "@/lib/social";
@@ -20,33 +20,28 @@ export function Nav() {
   const [open, setOpen]         = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
-  const lockedScrollY = useRef(0);
 
-  // While the drawer is open, freeze the header's visual state so a tap on
-  // the hamburger doesn't shift the button under the user's finger.
+  // Freeze the header's visual state while the drawer is open so the
+  // hamburger doesn't shift mid-tap.
   useMotionValueEvent(scrollY, "change", (v) => {
     if (open) return;
     setScrolled(v > 32);
   });
 
-  // Body-scroll lock — iOS-safe (position: fixed with restored scroll).
+  // Scroll lock — overflow: hidden on <html>/<body>. We deliberately avoid
+  // the position:fixed-on-body trick because it breaks `position: sticky`
+  // on this same header (header would be shifted off-screen by -scrollY).
   useEffect(() => {
     if (!open) return;
-    lockedScrollY.current = window.scrollY;
+    const html = document.documentElement;
     const body = document.body;
     const prev = {
-      position: body.style.position,
-      top: body.style.top,
-      left: body.style.left,
-      right: body.style.right,
-      width: body.style.width,
-      overflow: body.style.overflow,
+      htmlOverflow: html.style.overflow,
+      htmlOverscroll: html.style.overscrollBehavior,
+      bodyOverflow: body.style.overflow,
     };
-    body.style.position = "fixed";
-    body.style.top = `-${lockedScrollY.current}px`;
-    body.style.left = "0";
-    body.style.right = "0";
-    body.style.width = "100%";
+    html.style.overflow = "hidden";
+    html.style.overscrollBehavior = "contain";
     body.style.overflow = "hidden";
 
     const onKey = (e: KeyboardEvent) => {
@@ -55,13 +50,9 @@ export function Nav() {
     window.addEventListener("keydown", onKey);
 
     return () => {
-      body.style.position = prev.position;
-      body.style.top = prev.top;
-      body.style.left = prev.left;
-      body.style.right = prev.right;
-      body.style.width = prev.width;
-      body.style.overflow = prev.overflow;
-      window.scrollTo(0, lockedScrollY.current);
+      html.style.overflow = prev.htmlOverflow;
+      html.style.overscrollBehavior = prev.htmlOverscroll;
+      body.style.overflow = prev.bodyOverflow;
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
@@ -218,7 +209,7 @@ export function Nav() {
             transition={{ duration: 0.2 }}
             onClick={() => setOpen(false)}
             aria-hidden
-            className="fixed inset-0 top-[64px] z-30 bg-ink/30 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-30 bg-ink/30 backdrop-blur-sm md:hidden"
           />
         )}
       </AnimatePresence>
