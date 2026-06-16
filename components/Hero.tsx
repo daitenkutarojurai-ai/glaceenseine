@@ -113,7 +113,7 @@ export function Hero() {
                   Heures
                 </span>
                 <span className="font-display text-[22px] font-medium leading-none text-cherry">
-                  14h–19h
+                  15h–18h
                 </span>
               </div>
               <div className="col-span-1 flex flex-col items-start gap-1">
@@ -213,7 +213,7 @@ export function Hero() {
               color="bg-sun-100"
             >
               <Clock className="h-4 w-4 text-ink/60" />
-              <span className="text-[13px] font-semibold text-ink">14h – 19h</span>
+              <span className="text-[13px] font-semibold text-ink">15h – 18h</span>
             </FloatingBadge>
 
             <FloatingBadge

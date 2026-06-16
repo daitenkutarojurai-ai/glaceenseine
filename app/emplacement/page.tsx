@@ -10,18 +10,18 @@ import { SectionBanner } from "@/components/SectionBanner";
 export const metadata: Metadata = {
   title: "Nous trouver — La Frette-sur-Seine (95530)",
   description:
-    "Caravane Quai de Seine, face à la mairie de La Frette-sur-Seine (95530). Sam·dim·fériés 14h–19h, mai–sept. Accès SNCF Ligne J ou véloroute des bords de Seine.",
+    "Caravane Quai de Seine, face à la mairie de La Frette-sur-Seine (95530). Sam·dim·fériés 15h–18h, mai–sept. Accès SNCF Ligne J ou véloroute des bords de Seine.",
   alternates: { canonical: "/emplacement" },
   openGraph: {
     title: "Nous trouver — Glaces en Seine",
-    description: "Quai de Seine, face à la mairie de La Frette-sur-Seine (95530). Sam·dim·fériés 14h–19h, mai → septembre.",
+    description: "Quai de Seine, face à la mairie de La Frette-sur-Seine (95530). Sam·dim·fériés 15h–18h, mai → septembre.",
     url: "https://glaceenseine.fr/emplacement",
     images: [{ url: "/bannersmalllast.png", width: 1200, height: 630, alt: "Quai de Seine — La Frette-sur-Seine, emplacement Glaces en Seine" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Où trouver Glaces en Seine — La Frette-sur-Seine (95530)",
-    description: "Quai de Seine, face à la mairie. Sam·dim·fériés 14h–19h, mai–sept.",
+    description: "Quai de Seine, face à la mairie. Sam·dim·fériés 15h–18h, mai–sept.",
     images: ["/bannersmalllast.png"],
   },
 };
@@ -43,7 +43,7 @@ const FAQ_LD = {
       name: "Quels sont les horaires d'ouverture ?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Glaces en Seine est ouverte les samedis, dimanches et jours fériés, de 14h à 19h, de mai à septembre.",
+        text: "Glaces en Seine est ouverte les samedis, dimanches et jours fériés, de 15h à 18h, de mai à septembre.",
       },
     },
     {
@@ -127,7 +127,7 @@ export default function EmplacementPage() {
                     </div>
                     <div className="flex items-center gap-2 rounded-2xl bg-cherry/8 px-4 py-3">
                       <Clock className="h-4 w-4 shrink-0 text-cherry" />
-                      <span className="text-[13px] font-medium text-cherry">14h – 19h</span>
+                      <span className="text-[13px] font-medium text-cherry">15h – 18h</span>
                     </div>
                   </div>
 

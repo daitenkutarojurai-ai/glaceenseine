@@ -131,7 +131,7 @@ export default function ContactPage() {
                     </span>
                     <div className="flex-1">
                       <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/45">Horaires</div>
-                      <div className="font-semibold text-ink">Sam · Dim · fériés · 14h–19h</div>
+                      <div className="font-semibold text-ink">Sam · Dim · fériés · 15h–18h</div>
                     </div>
                   </div>
                 </Reveal>

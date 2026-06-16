@@ -51,9 +51,9 @@ const QUESTIONS: Question[] = [
   },
   {
     text: "Le meilleur moment pour passer au food truck ?",
-    sub: "On est là sam · dim · fériés, 14h–19h",
+    sub: "On est là sam · dim · fériés, 15h–18h",
     choices: [
-      { key: "debut",   emoji: "☀️", label: "14h · début de l'après-midi", bar: "bg-sun-400" },
+      { key: "debut",   emoji: "☀️", label: "15h · début de l'après-midi", bar: "bg-sun-400" },
       { key: "gouter",  emoji: "🕓", label: "16h · l'heure du goûter",     bar: "bg-cherry" },
       { key: "fin",     emoji: "🌅", label: "18h · coucher de soleil",     bar: "bg-teal-400" },
     ],

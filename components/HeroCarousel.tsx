@@ -388,7 +388,7 @@ export function HeroCarousel() {
             </div>
             <div className="flex items-center gap-1.5 text-[12.5px] font-semibold text-cherry">
               <Clock className="h-3.5 w-3.5" />
-              14h – 19h
+              15h – 18h
             </div>
           </motion.div>
 

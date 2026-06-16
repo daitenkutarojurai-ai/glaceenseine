@@ -43,7 +43,7 @@ export default function MentionsLegalesPage() {
 
               <Section title="1. Éditeur du site">
                 <p><strong className="text-ink">Dénomination sociale :</strong> Glaces en Seine</p>
-                <p><strong className="text-ink">Forme juridique :</strong> Entreprise individuelle</p>
+                <p><strong className="text-ink">Forme juridique :</strong> SAS</p>
                 <p><strong className="text-ink">Adresse :</strong> Quai de Seine, face à la mairie — 95530 La Frette-sur-Seine</p>
                 <p><strong className="text-ink">Contact :</strong>{" "}
                   <Link href="/contact" className="text-teal-700 underline underline-offset-2 hover:text-cherry transition-colors">
@@ -58,7 +58,7 @@ export default function MentionsLegalesPage() {
                     Glace en Seine
                   </a>
                 </p>
-                <p><strong className="text-ink">SIRET :</strong> [Numéro à compléter]</p>
+                <p><strong className="text-ink">SIRET :</strong> 10456262400015</p>
                 <p><strong className="text-ink">N° TVA intracommunautaire :</strong> Non assujettie (franchise en base de TVA)</p>
                 <p><strong className="text-ink">Directrice de la publication :</strong> Les fondatrices de Glaces en Seine</p>
               </Section>

@@ -93,7 +93,7 @@ const categories: Cat[] = [
     key: "crepes",
     label: "Crêpes",
     emoji: "🥞",
-    tagline: "Crêpes sucrées · garnitures au choix",
+    tagline: "Fait maison · crêpes sucrées · garnitures au choix",
     icon: Cookie,
     bg: "bg-sun-100",
     accent: "bg-sun-300/30",
@@ -137,7 +137,7 @@ const categories: Cat[] = [
     key: "gaufres",
     label: "Gaufres",
     emoji: "🧇",
-    tagline: "Gaufres sucrées · croustillantes dehors, moelleuses dedans",
+    tagline: "Fait maison · gaufres sucrées · croustillantes dehors, moelleuses dedans",
     icon: CakeSlice,
     bg: "bg-teal-100",
     accent: "bg-teal-300/30",
@@ -760,13 +760,11 @@ export function Menu() {
         <Reveal delay={0.1}>
           <div className="mt-10 overflow-hidden rounded-2xl border border-dashed border-cherry/35 bg-white shadow-soft">
             <div className="flex items-center gap-3 bg-gradient-to-br from-peach-100 to-sun-100 px-4 py-3 text-[13.5px] font-semibold text-ink sm:px-5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/chantilly.png" alt="" className="h-6 w-6 shrink-0 object-contain" aria-hidden />
+              <Image src="/chantilly.png" alt="" width={24} height={24} className="h-6 w-6 shrink-0 object-contain" aria-hidden />
               <span>Chantilly <strong>+1&nbsp;€</strong></span>
             </div>
             <div className="flex items-center gap-3 bg-gradient-to-br from-cream-deep to-white px-4 py-3 text-[13.5px] font-semibold text-ink sm:px-5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brochettes.png" alt="" className="h-6 w-9 shrink-0 object-contain" aria-hidden />
+              <Image src="/brochettes.png" alt="" width={36} height={24} className="h-6 w-9 shrink-0 object-contain" aria-hidden />
               <span>Brochette de bonbons <strong>2&nbsp;€</strong></span>
             </div>
           </div>

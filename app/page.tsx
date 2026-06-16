@@ -16,7 +16,7 @@ const faqLd = {
       name: "Quels jours est ouvert Glaces en Seine ?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Glaces en Seine est ouvert le samedi, le dimanche et les jours fériés, de 14h à 19h, de mai à septembre. La caravane est fermée du lundi au vendredi.",
+        text: "Glaces en Seine est ouvert le samedi, le dimanche et les jours fériés, de 15h à 18h, de mai à septembre. La caravane est fermée du lundi au vendredi.",
       },
     },
     {

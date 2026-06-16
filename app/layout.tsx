@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s · Glaces en Seine",
   },
   description:
-    "Caravane gourmande sur les quais de Seine à La Frette-sur-Seine (95). Glaces, crêpes & gaufres à emporter. Ouvert sam·dim·fériés 14h–19h, de mai à septembre.",
+    "Caravane gourmande sur les quais de Seine à La Frette-sur-Seine (95). Glaces, crêpes & gaufres à emporter. Ouvert sam·dim·fériés 15h–18h, de mai à septembre.",
   metadataBase: new URL("https://glaceenseine.fr"),
   alternates: { canonical: "/" },
   keywords: [
@@ -80,7 +80,7 @@ const jsonLd = {
       name: "Glaces en Seine",
       alternateName: "Glaces en Seine — La Frette-sur-Seine",
       description:
-        "Caravane gourmande à La Frette-sur-Seine (95530). Glaces, crêpes et gaufres servies sur les quais de Seine, sam·dim·fériés de 14h à 19h, mai → septembre.",
+        "Caravane gourmande à La Frette-sur-Seine (95530). Glaces, crêpes et gaufres servies sur les quais de Seine, sam·dim·fériés de 15h à 18h, mai → septembre.",
       url: "https://glaceenseine.fr",
       image: [
         "https://glaceenseine.fr/glaceensein1.png",

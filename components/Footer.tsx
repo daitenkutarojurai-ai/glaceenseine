@@ -76,7 +76,7 @@ export function Footer() {
             <li className="text-cream/55 text-xs italic">Place de la Mairie · 95530 La Frette-sur-Seine</li>
             <li className="text-cream/45 text-[11px]">Vous pouvez pas nous louper 😉</li>
             <li className="pt-1">Sam · Dim · fériés</li>
-            <li>14h – 19h, mai → septembre</li>
+            <li>15h – 18h, mai → septembre</li>
           </ul>
         </div>
       </div>

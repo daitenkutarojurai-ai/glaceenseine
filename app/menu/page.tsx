@@ -8,7 +8,7 @@ import { MenuLightbox } from "@/components/MenuLightbox";
 export const metadata: Metadata = {
   title: "Menu — glaces, crêpes & gaufres",
   description:
-    "La carte Glaces en Seine : glaces, crêpes et gaufres servies sur les quais de Seine à La Frette-sur-Seine. Ouvert sam·dim·fériés de 14h à 19h, mai → septembre.",
+    "La carte Glaces en Seine : glaces, crêpes et gaufres servies sur les quais de Seine à La Frette-sur-Seine. Ouvert sam·dim·fériés de 15h à 18h, mai → septembre.",
   alternates: { canonical: "/menu" },
   openGraph: {
     title: "Menu — Glaces en Seine",
