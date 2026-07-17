@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useSyncExternalStore } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Sparkles, Clock, Calendar, ChevronLeft, ChevronRight, Navigation } from "lucide-react";
 
@@ -10,6 +10,19 @@ const MAPS_DIR_URL =
   "https://www.google.com/maps/dir/?api=1&destination=Mairie+de+La+Frette-sur-Seine+95530";
 
 const AUTO_DELAY = 7000;
+
+const MOBILE_MQ = "(max-width: 639px)";
+
+// The server has no viewport, so the hydration pass must render the desktop
+// tree the server sent — reading matchMedia during that first client render
+// swaps the slides mid-hydration and forces React to throw away the whole
+// server tree (#418/#423). useSyncExternalStore hydrates with the server
+// snapshot, then re-renders with the real viewport before paint.
+function subscribeMobile(onChange: () => void) {
+  const mq = window.matchMedia(MOBILE_MQ);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
 
 interface Slide {
   src: string;
@@ -127,23 +140,13 @@ function AmbientOrbs({ animated }: { animated: boolean }) {
 export function HeroCarousel() {
   const [current, setCurrent] = useState(0);
   const [paused,  setPaused]  = useState(false);
-  // Read the MQ synchronously on the client so the first paint matches the
-  // viewport. SSR still gets `false`, but the first client render reconciles
-  // immediately rather than flashing desktop slides before swapping to mobile.
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(max-width: 639px)").matches;
-  });
-  const sectionRef = useRef<HTMLDivElement>(null);
-
   /* Detect mobile viewport — used to disable carousel chrome and lock to a static image. */
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 639px)");
-    const update = () => setIsMobile(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
+  const isMobile = useSyncExternalStore(
+    subscribeMobile,
+    () => window.matchMedia(MOBILE_MQ).matches,
+    () => false,
+  );
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   /* Scroll-driven parallax — image moves at 60% of scroll speed.
      Désactivé sur mobile : `useScroll` provoque un layout/paint à
