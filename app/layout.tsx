@@ -113,7 +113,7 @@ const jsonLd = {
       },
       geo: { "@type": "GeoCoordinates", latitude: 48.9843, longitude: 2.1836 },
       openingHoursSpecification: [
-        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday", "Sunday", "PublicHolidays"], opens: "14:00", closes: "19:00" },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Saturday", "Sunday", "PublicHolidays"], opens: "15:00", closes: "18:00" },
       ],
       contactPoint: [
         {
