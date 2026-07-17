@@ -7,20 +7,20 @@ const variants: Variants = {
   show: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
+// Must stay `motion.div` rather than a `motion(tag)` call: the factory form
+// mints a fresh component type per render, so React remounts the subtree and
+// framer crashes mixing keyframes off the detached node.
 export function Reveal({
   children,
   delay = 0,
   className,
-  as: As = "div",
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
 }) {
-  const MotionTag = motion(As as any);
   return (
-    <MotionTag
+    <motion.div
       className={className}
       variants={variants}
       initial="hidden"
@@ -32,6 +32,6 @@ export function Reveal({
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay }}
     >
       {children}
-    </MotionTag>
+    </motion.div>
   );
 }
